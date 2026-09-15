@@ -44,7 +44,7 @@ app.use(
       "https://flower-fronted.vercel.app",
     ],
     credentials: true,
-  }),
+  })
 );
 
 app.use(cookieParser());
