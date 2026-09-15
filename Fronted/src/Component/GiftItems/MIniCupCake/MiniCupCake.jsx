@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Plus } from "lucide-react";
 
-import { openCreateMiniCupcakePopup } from "../../../Store/MIniCupCake/MIniCupCakeSlice";
+import { openCreateMiniCupcakePopup } from "../../../Store/MiniCupCake/MiniCupCakeSlice";
 import { MiniCupcakeItem } from "./MiniCupcakeItem";
 import { CreateMiniCupcakePopUp } from "./CreateMiniCupcakePopUp";
-import { GetAllMiniCupcakeThunk } from "../../../Store/MIniCupCake/MIniCupCakeApi";
+import { GetAllMiniCupcakeThunk } from "../../../Store/MiniCupCake/MIniCupCakeApi";
 
 export const MiniCupCake = () => {
   const dispatch = useDispatch();

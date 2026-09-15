@@ -260,6 +260,6 @@ const userSlice = createSlice({
 });
 
 export const { closePopup } = userSlice.actions;
-
-export default userSlice.reducer;
+const userReducer =userSlice.reducer;
+export default userReducer ;
 
