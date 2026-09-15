@@ -3,13 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { X } from "lucide-react";
 import toast from "react-hot-toast";
 
-import {
-  closeCreateMiniCupcakePopup,
-} from "../../../Store/MIniCupCake/MIniCupCakeSlice";
+import { closeCreateMiniCupcakePopup } from "../../../Store/MiniCupCake/MiniCupCakeSlice";
 
-import {
-  CreateMiniCupcakeThunk,
-} from "../../../Store/MIniCupCake/MIniCupCakeApi";
+import { CreateMiniCupcakeThunk } from "../../../Store/MiniCupCake/MIniCupCakeApi";
 
 export const CreateMiniCupcakePopUp = () => {
   const dispatch = useDispatch();

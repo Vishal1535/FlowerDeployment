@@ -1,11 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Pencil, Trash2 } from "lucide-react";
-
-import {
-  openEditMiniCupcakePopup,
-  openDeleteMiniCupcakePopup,
-} from "../../../Store/MIniCupCake/MIniCupCakeSlice";
+// openDeleteMiniCupcakePopup
+import { openEditMiniCupcakePopup,openDeleteMiniCupcakePopup } from "../../../Store/MiniCupCake/MiniCupCakeSlice";
 import { EditMiniCupcakePopUp } from "./EditMiniCupcakePopUp";
 import { DeleteMiniCupcakePopUp } from "./DeleteMiniCupcakePopUp";
 

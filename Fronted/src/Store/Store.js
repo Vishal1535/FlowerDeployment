@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./AuthSlice/AuthSlice";
+import userReducer from './AuthSlice/authSlice'
 import flowerReducer from "./flowerSlice/FlowerSlice";
 import BouquetReducer from "./Bouquest/BouquestSlice";
 import ChocolateReducer from "./Chocolate/ChocolateSlice";
