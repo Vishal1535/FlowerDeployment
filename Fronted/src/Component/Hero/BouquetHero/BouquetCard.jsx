@@ -33,6 +33,9 @@ export const BouquetCard = ({ bouquet }) => {
   const { isAuthorized } = useSelector(
     (state) => state.user
   );
+  
+  
+  
 
   const isAvailable = bouquet?.isAvailable;
 

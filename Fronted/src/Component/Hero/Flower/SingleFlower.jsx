@@ -56,6 +56,7 @@ export const SingleFlower = () => {
   } = useSelector(
     (state) => state.user
   );
+console.log(isAuthorized);
 
   // ============================
   // FLOWER STATE
