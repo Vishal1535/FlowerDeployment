@@ -1,0 +1,233 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+          @keyframes overlayIn {
+            from {
+              opacity: 0;
+              backdrop-filter: blur(0px);
+            }
+
+            to {
+              opacity: 1;
+              backdrop-filter: blur(10px);
+            }
+          }
+
+          @keyframes popupIn {
+            0% {
+              opacity: 0;
+              transform:
+                translateY(35px)
+                scale(0.88)
+                rotateX(8deg);
+            }
+
+            55% {
+              opacity: 1;
+              transform:
+                translateY(-6px)
+                scale(1.02)
+                rotateX(0deg);
+            }
+
+            75% {
+              transform:
+                translateY(2px)
+                scale(0.995);
+            }
+
+            100% {
+              opacity: 1;
+              transform:
+                translateY(0)
+                scale(1);
+            }
+          }
+
+          @keyframes iconIn {
+            0% {
+              opacity: 0;
+              transform: scale(0.5) rotate(-20deg);
+            }
+
+            70% {
+              transform: scale(1.1) rotate(5deg);
+            }
+
+            100% {
+              opacity: 1;
+              transform: scale(1) rotate(0deg);
+            }
+          }
+
+          .animate-overlay {
+            animation:
+              overlayIn
+              0.35s
+              ease-out
+              forwards;
+          }
+
+          .animate-popup {
+            animation:
+              popupIn
+              0.55s
+              cubic-bezier(0.22, 1, 0.36, 1)
+              forwards;
+            transform-origin: center;
+          }
+
+          .animate-icon {
+            animation:
+              iconIn
+              0.65s
+              cubic-bezier(0.22, 1, 0.36, 1)
+              0.15s
+              both;
+          }
+        
+           
+            @keyframes deleteOverlay {
+              from {
+                opacity: 0;
+              }
+
+              to {
+                opacity: 1;
+              }
+            }
+
+            @keyframes deleteModal {
+              0% {
+                opacity: 0;
+                transform:
+                  translateY(30px)
+                  scale(0.88);
+              }
+
+              60% {
+                opacity: 1;
+                transform:
+                  translateY(-5px)
+                  scale(1.02);
+              }
+
+              100% {
+                opacity: 1;
+                transform:
+                  translateY(0)
+                  scale(1);
+              }
+            }
+
+            @keyframes deleteIcon {
+              0% {
+                opacity: 0;
+                transform:
+                  scale(0.5)
+                  rotate(-15deg);
+              }
+
+              60% {
+                transform:
+                  scale(1.12)
+                  rotate(5deg);
+              }
+
+              100% {
+                opacity: 1;
+                transform:
+                  scale(1)
+                  rotate(0deg);
+              }
+            }
+
+            .animate-delete-overlay {
+              animation:
+                deleteOverlay
+                0.25s
+                ease-out
+                forwards;
+            }
+
+            .animate-delete-modal {
+              animation:
+                deleteModal
+                0.45s
+                cubic-bezier(0.22, 1, 0.36, 1)
+                forwards;
+            }
+
+            .animate-delete-icon {
+              animation:
+                deleteIcon
+                0.55s
+                cubic-bezier(0.22, 1, 0.36, 1)
+                0.08s
+                both;
+            }
+          
