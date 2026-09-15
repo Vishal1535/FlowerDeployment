@@ -13,10 +13,13 @@ export const FlowerInSleeveItem = ({ flower }) => {
   return (
     <div
       className="
+        w-full
+        min-w-0
         bg-white
         border
         border-gray-100
-        rounded-2xl
+        rounded-xl
+        min-[380px]:rounded-2xl
         shadow-sm
         overflow-hidden
         hover:shadow-md
@@ -25,7 +28,7 @@ export const FlowerInSleeveItem = ({ flower }) => {
     >
       {/* ================= IMAGE ================= */}
 
-      <div className="w-full h-44 bg-gray-100 overflow-hidden">
+      <div className="w-full h-40 min-[380px]:h-44 sm:h-48 bg-gray-100 overflow-hidden">
         <img
           src={flower?.image}
           alt={flower?.name || "Flower in sleeve"}
@@ -42,19 +45,19 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
       {/* ================= CONTENT ================= */}
 
-      <div className="p-4">
+      <div className="p-3 min-[380px]:p-4">
 
         {/* ================= NAME + PRICE ================= */}
 
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start justify-between gap-2 min-[380px]:gap-3">
 
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
 
-            <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">
+            <h3 className="text-base min-[380px]:text-lg font-semibold text-gray-800 line-clamp-1">
               {flower?.name}
             </h3>
 
-            <p className="text-sm text-gray-500 mt-1.5 line-clamp-2 leading-5">
+            <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1.5 line-clamp-2 leading-5">
               {flower?.description}
             </p>
 
@@ -62,20 +65,20 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
           {/* PRICE */}
 
-          <div className="text-right whitespace-nowrap">
+          <div className="text-right whitespace-nowrap shrink-0">
 
             {flower?.discountPrice > 0 ? (
               <>
-                <p className="text-lg font-semibold text-pink-600">
+                <p className="text-base min-[380px]:text-lg font-semibold text-pink-600">
                   ₹{flower.discountPrice}
                 </p>
 
-                <p className="text-xs text-gray-400 line-through">
+                <p className="text-[10px] min-[380px]:text-xs text-gray-400 line-through">
                   ₹{flower.price}
                 </p>
               </>
             ) : (
-              <p className="text-lg font-semibold text-pink-600">
+              <p className="text-base min-[380px]:text-lg font-semibold text-pink-600">
                 ₹{flower?.price}
               </p>
             )}
@@ -86,20 +89,25 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
         {/* ================= DETAILS ================= */}
 
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="flex flex-wrap gap-1.5 min-[380px]:gap-2 mt-3 min-[380px]:mt-4">
 
           {/* Flower Type */}
 
           {flower?.flowerType && (
             <span
               className="
-                px-3
-                py-1.5
+                max-w-full
+                px-2.5
+                min-[380px]:px-3
+                py-1
+                min-[380px]:py-1.5
                 rounded-full
                 bg-pink-50
                 text-pink-600
-                text-xs
+                text-[11px]
+                min-[380px]:text-xs
                 font-medium
+                truncate
               "
             >
               {flower.flowerType}
@@ -111,13 +119,18 @@ export const FlowerInSleeveItem = ({ flower }) => {
           {flower?.sleeveType && (
             <span
               className="
-                px-3
-                py-1.5
+                max-w-full
+                px-2.5
+                min-[380px]:px-3
+                py-1
+                min-[380px]:py-1.5
                 rounded-full
                 bg-gray-100
                 text-gray-600
-                text-xs
+                text-[11px]
+                min-[380px]:text-xs
                 font-medium
+                truncate
               "
             >
               {flower.sleeveType}
@@ -129,13 +142,18 @@ export const FlowerInSleeveItem = ({ flower }) => {
           {flower?.color && (
             <span
               className="
-                px-3
-                py-1.5
+                max-w-full
+                px-2.5
+                min-[380px]:px-3
+                py-1
+                min-[380px]:py-1.5
                 rounded-full
                 bg-gray-100
                 text-gray-600
-                text-xs
+                text-[11px]
+                min-[380px]:text-xs
                 font-medium
+                truncate
               "
             >
               {flower.color}
@@ -147,13 +165,17 @@ export const FlowerInSleeveItem = ({ flower }) => {
           {flower?.size && (
             <span
               className="
-                px-3
-                py-1.5
+                px-2.5
+                min-[380px]:px-3
+                py-1
+                min-[380px]:py-1.5
                 rounded-full
                 bg-gray-100
                 text-gray-600
-                text-xs
+                text-[11px]
+                min-[380px]:text-xs
                 font-medium
+                whitespace-nowrap
               "
             >
               {flower.size}
@@ -165,13 +187,17 @@ export const FlowerInSleeveItem = ({ flower }) => {
           {flower?.stock !== undefined && (
             <span
               className="
-                px-3
-                py-1.5
+                px-2.5
+                min-[380px]:px-3
+                py-1
+                min-[380px]:py-1.5
                 rounded-full
                 bg-gray-100
                 text-gray-600
-                text-xs
+                text-[11px]
+                min-[380px]:text-xs
                 font-medium
+                whitespace-nowrap
               "
             >
               Stock: {flower.stock}
@@ -182,11 +208,15 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
           <span
             className={`
-              px-3
-              py-1.5
+              px-2.5
+              min-[380px]:px-3
+              py-1
+              min-[380px]:py-1.5
               rounded-full
-              text-xs
+              text-[11px]
+              min-[380px]:text-xs
               font-medium
+              whitespace-nowrap
               ${
                 flower?.isAvailable
                   ? "bg-green-50 text-green-600"
@@ -204,18 +234,22 @@ export const FlowerInSleeveItem = ({ flower }) => {
         {/* ================= OCCASION ================= */}
 
         {flower?.occasion?.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="flex flex-wrap gap-1.5 min-[380px]:gap-2 mt-2.5 min-[380px]:mt-3">
 
             {flower.occasion.map((occasion, index) => (
               <span
                 key={index}
                 className="
-                  px-3
+                  max-w-full
+                  px-2.5
+                  min-[380px]:px-3
                   py-1
                   rounded-full
                   bg-rose-50
                   text-rose-500
-                  text-xs
+                  text-[11px]
+                  min-[380px]:text-xs
+                  truncate
                 "
               >
                 {occasion}
@@ -227,7 +261,7 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
         {/* ================= BUTTONS ================= */}
 
-        <div className="flex gap-2.5 mt-5">
+        <div className="flex flex-col min-[380px]:flex-row gap-2 min-[380px]:gap-2.5 mt-4 min-[380px]:mt-5">
 
           {/* EDIT */}
 
@@ -239,7 +273,8 @@ export const FlowerInSleeveItem = ({ flower }) => {
               )
             }
             className="
-              flex-1
+              w-full
+              min-[380px]:flex-1
               flex
               items-center
               justify-center
@@ -270,7 +305,8 @@ export const FlowerInSleeveItem = ({ flower }) => {
               )
             }
             className="
-              flex-1
+              w-full
+              min-[380px]:flex-1
               flex
               items-center
               justify-center

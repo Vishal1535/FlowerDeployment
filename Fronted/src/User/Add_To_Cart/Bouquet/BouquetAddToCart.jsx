@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -31,11 +32,13 @@ export const BouquetAddToCart = ({
     : bouquetFromCart.slice(0, 2);
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
 
       {bouquetFromCart.length > 0 ? (
         <div
           className="
+            w-full
+            min-w-0
             bg-white
             border
             border-gray-200
@@ -52,20 +55,24 @@ export const BouquetAddToCart = ({
 
           <div
             className="
-              px-4
+              px-3
               sm:px-5
               py-3
               border-b
               border-gray-100
               flex
-              items-center
+              flex-col
+              xs:flex-row
+              sm:flex-row
+              sm:items-center
               justify-between
+              gap-2
             "
           >
 
             {/* LEFT */}
 
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5 min-w-0">
 
               <div
                 className="
@@ -82,13 +89,13 @@ export const BouquetAddToCart = ({
                 💐
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <h2 className="text-base font-extrabold text-gray-900">
+                <h2 className="text-sm sm:text-base font-extrabold text-gray-900 truncate">
                   Bouquets
                 </h2>
 
-                <p className="text-xs text-gray-400">
+                <p className="text-[11px] sm:text-xs text-gray-400">
                   {bouquetFromCart.length}{" "}
                   {bouquetFromCart.length === 1
                     ? "product"
@@ -101,13 +108,13 @@ export const BouquetAddToCart = ({
 
             {/* TOTAL */}
 
-            <div className="text-right">
+            <div className="text-left xs:text-right sm:text-right shrink-0">
 
-              <p className="text-[11px] text-gray-400">
+              <p className="text-[10px] sm:text-[11px] text-gray-400">
                 Subtotal
               </p>
 
-              <p className="text-base font-extrabold text-pink-600">
+              <p className="text-sm sm:text-base font-extrabold text-pink-600">
                 ₹{totalAmount}
               </p>
 
@@ -126,6 +133,8 @@ export const BouquetAddToCart = ({
               <div
                 key={item?._id}
                 className="
+                  w-full
+                  min-w-0
                   hover:bg-gray-50
                   transition
                 "
@@ -154,18 +163,21 @@ export const BouquetAddToCart = ({
               }
               className="
                 w-full
-                h-10
+                min-h-10
+                px-3
                 border-t
                 border-gray-100
                 bg-white
                 hover:bg-pink-50
-                text-sm
+                text-xs
+                sm:text-sm
                 font-semibold
                 text-pink-600
                 flex
                 items-center
                 justify-center
-                gap-1.5
+                gap-1
+                sm:gap-1.5
                 transition
                 cursor-pointer
               "
@@ -173,18 +185,18 @@ export const BouquetAddToCart = ({
 
               {showAll ? (
                 <>
-                  Show less
-                  <ChevronUp size={16} />
+                  <span>Show less</span>
+                  <ChevronUp size={15} className="sm:w-4 sm:h-4 shrink-0" />
                 </>
               ) : (
                 <>
-                  View all bouquets
+                  <span>View all bouquets</span>
 
-                  <span className="text-gray-400 font-normal">
+                  <span className="text-gray-400 font-normal shrink-0">
                     ({bouquetFromCart.length})
                   </span>
 
-                  <ChevronDown size={16} />
+                  <ChevronDown size={15} className="sm:w-4 sm:h-4 shrink-0" />
                 </>
               )}
 
@@ -201,20 +213,21 @@ export const BouquetAddToCart = ({
               border-t
               border-gray-200
               bg-gray-50
-              px-4
+              px-3
               sm:px-5
               py-3
               flex
               items-center
               justify-between
+              gap-3
             "
           >
 
-            <span className="text-sm font-semibold text-gray-600">
+            <span className="text-xs sm:text-sm font-semibold text-gray-600">
               Bouquet Total
             </span>
 
-            <span className="text-lg font-extrabold text-gray-900">
+            <span className="text-base sm:text-lg font-extrabold text-gray-900 shrink-0">
               ₹{totalAmount}
             </span>
 
@@ -230,6 +243,7 @@ export const BouquetAddToCart = ({
 
         <div
           className="
+            w-full
             bg-white
             border
             border-gray-200
@@ -238,9 +252,11 @@ export const BouquetAddToCart = ({
             flex-col
             items-center
             justify-center
-            py-12
+            py-10
+            sm:py-12
             text-center
-            px-5
+            px-4
+            sm:px-5
           "
         >
 
@@ -253,16 +269,17 @@ export const BouquetAddToCart = ({
               flex
               items-center
               justify-center
+              shrink-0
             "
           >
             💐
           </div>
 
-          <h3 className="mt-3 text-base font-bold text-gray-800">
+          <h3 className="mt-3 text-sm sm:text-base font-bold text-gray-800 break-words">
             Your bouquet cart is empty
           </h3>
 
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-[11px] sm:text-xs text-gray-400 break-words">
             Add some beautiful bouquets to your cart.
           </p>
 
@@ -273,3 +290,4 @@ export const BouquetAddToCart = ({
     </div>
   );
 };
+

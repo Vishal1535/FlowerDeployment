@@ -69,6 +69,8 @@ export const ChocolateItem = ({ chocolate }) => {
     <div
       className="
         group
+        w-full
+        min-w-0
         bg-white
         rounded-xl
         border
@@ -89,7 +91,9 @@ export const ChocolateItem = ({ chocolate }) => {
       <div
         className="
           w-full
-          h-32
+          h-28
+          min-[380px]:h-32
+          sm:h-36
           bg-amber-50
           overflow-hidden
         "
@@ -119,7 +123,8 @@ export const ChocolateItem = ({ chocolate }) => {
               flex
               items-center
               justify-center
-              text-4xl
+              text-3xl
+              min-[380px]:text-4xl
             "
           >
             🍫
@@ -132,13 +137,20 @@ export const ChocolateItem = ({ chocolate }) => {
           CONTENT
       ============================== */}
 
-      <div className="p-3">
+      <div
+        className="
+          p-2.5
+          min-[380px]:p-3
+          min-w-0
+        "
+      >
 
         {/* NAME */}
 
         <h3
           className="
-            text-sm
+            text-xs
+            min-[380px]:text-sm
             font-bold
             text-gray-800
             truncate
@@ -152,7 +164,8 @@ export const ChocolateItem = ({ chocolate }) => {
 
         <p
           className="
-            text-base
+            text-sm
+            min-[380px]:text-base
             font-extrabold
             text-gray-900
             mt-1
@@ -176,16 +189,20 @@ export const ChocolateItem = ({ chocolate }) => {
           }
           className="
             w-full
-            h-9
-            mt-2.5
+            h-8
+            min-[380px]:h-9
+            mt-2
+            min-[380px]:mt-2.5
             rounded-lg
             bg-gray-900
             text-white
             flex
             items-center
             justify-center
-            gap-1.5
-            text-xs
+            gap-1
+            min-[380px]:gap-1.5
+            text-[10px]
+            min-[380px]:text-xs
             font-semibold
             hover:bg-pink-500
             active:scale-[0.98]
@@ -194,16 +211,22 @@ export const ChocolateItem = ({ chocolate }) => {
             disabled:cursor-not-allowed
             transition-all
             cursor-pointer
+            px-1.5
           "
         >
 
-          <ShoppingBag size={14} />
+          <ShoppingBag
+            size={13}
+            className="shrink-0 min-[380px]:w-[14px] min-[380px]:h-[14px]"
+          />
 
-          {isInCart
-            ? "Added to Cart"
-            : chocolate?.isAvailable
-              ? "Add to Cart"
-              : "Unavailable"}
+          <span className="truncate">
+            {isInCart
+              ? "Added to Cart"
+              : chocolate?.isAvailable
+                ? "Add to Cart"
+                : "Unavailable"}
+          </span>
 
         </button>
 

@@ -8,15 +8,15 @@ export const CancelledOrder = ({ orders = [] }) => {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4 sm:space-y-5">
 
       {/* HEADING */}
-      <div>
-        <h2 className="text-xl font-bold text-gray-800">
+      <div className="space-y-1">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-800">
           Cancelled Orders
         </h2>
 
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500">
           {cancelledOrders.length} cancelled order
           {cancelledOrders.length !== 1 ? "s" : ""}
         </p>
@@ -24,30 +24,25 @@ export const CancelledOrder = ({ orders = [] }) => {
 
       {/* ORDERS */}
       {cancelledOrders.length > 0 ? (
-        <div className="space-y-3">
-
+        <div className="w-full space-y-3">
           {cancelledOrders.map((order) => (
             <CancelledOrderItem
               key={order._id}
               order={order}
             />
           ))}
-
         </div>
       ) : (
-        <div className="bg-white border border-red-100 rounded-2xl p-10 text-center">
-
-          <p className="text-gray-500 font-medium">
+        <div className="w-full bg-white border border-red-100 rounded-xl sm:rounded-2xl p-6 sm:p-10 text-center">
+          <p className="text-sm sm:text-base text-gray-500 font-medium">
             No cancelled orders
           </p>
 
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-xs sm:text-sm text-gray-400 mt-1">
             Cancelled orders will appear here.
           </p>
-
         </div>
       )}
-
     </div>
   );
 };

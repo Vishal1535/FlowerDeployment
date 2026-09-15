@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -231,23 +232,23 @@ export const MyOrder = () => {
   // =====================================================
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50/70 via-white to-rose-50/40 px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50/70 via-white to-rose-50/40 px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
 
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6">
 
         {/* =================================================
             HEADER
         ================================================= */}
 
-        <div className="bg-white border border-pink-100 rounded-3xl shadow-sm overflow-hidden">
+        <div className="bg-white border border-pink-100 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden">
 
-          <div className="p-5 sm:p-6">
+          <div className="p-4 sm:p-6">
 
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
 
               {/* LEFT */}
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
 
                 <button
                   type="button"
@@ -257,8 +258,10 @@ export const MyOrder = () => {
                     )
                   }
                   className="
-                    w-11
-                    h-11
+                    w-10
+                    h-10
+                    sm:w-11
+                    sm:h-11
                     rounded-xl
                     flex
                     items-center
@@ -273,17 +276,17 @@ export const MyOrder = () => {
                   <ArrowLeft size={20} />
                 </button>
 
-                <div>
+                <div className="min-w-0">
 
-                  <p className="text-sm font-medium text-pink-500">
+                  <p className="text-xs sm:text-sm font-medium text-pink-500">
                     Delivery Panel
                   </p>
 
-                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                  <h1 className="text-xl sm:text-3xl font-bold text-gray-800">
                     My Orders
                   </h1>
 
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1 leading-5">
                     Orders currently out for delivery.
                   </p>
 
@@ -298,12 +301,16 @@ export const MyOrder = () => {
                 onClick={handleUpdateLocation}
                 disabled={updatingLocation}
                 className="
+                  w-full
+                  sm:w-auto
                   inline-flex
                   items-center
                   justify-center
                   gap-2
-                  px-5
-                  py-3
+                  px-4
+                  sm:px-5
+                  py-2.5
+                  sm:py-3
                   rounded-xl
                   bg-blue-500
                   text-white
@@ -346,7 +353,7 @@ export const MyOrder = () => {
             LOCATION INFO
         ================================================= */}
 
-        <div className="bg-blue-50 border border-blue-100 rounded-2xl px-5 py-4">
+        <div className="bg-blue-50 border border-blue-100 rounded-2xl px-4 sm:px-5 py-4">
 
           <div className="flex items-start gap-3">
 
@@ -354,13 +361,13 @@ export const MyOrder = () => {
               <Navigation size={20} />
             </div>
 
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
 
               <p className="text-sm font-semibold text-gray-800">
                 Keep your location updated
               </p>
 
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 mt-1 leading-5">
                 Tap "Update My Location" to send your
                 current GPS location to the server.
               </p>
@@ -375,9 +382,9 @@ export const MyOrder = () => {
             ORDER COUNT
         ================================================= */}
 
-        <div className="bg-white border border-gray-100 rounded-2xl px-5 py-4 shadow-sm flex items-center gap-3">
+        <div className="bg-white border border-gray-100 rounded-2xl px-4 sm:px-5 py-4 shadow-sm flex items-center gap-3">
 
-          <div className="w-11 h-11 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center shrink-0">
             <Package size={21} />
           </div>
 
@@ -401,7 +408,7 @@ export const MyOrder = () => {
 
         {myOrders.length === 0 ? (
 
-          <div className="bg-white border border-gray-100 rounded-3xl shadow-sm px-6 py-16 text-center">
+          <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm px-4 sm:px-6 py-12 sm:py-16 text-center">
 
             <div className="w-16 h-16 mx-auto rounded-2xl bg-gray-50 flex items-center justify-center">
 
@@ -416,7 +423,7 @@ export const MyOrder = () => {
               No Orders For Delivery
             </h2>
 
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-gray-400 mt-1 max-w-md mx-auto leading-5">
               You currently don't have any order out
               for delivery.
             </p>
@@ -430,8 +437,11 @@ export const MyOrder = () => {
               }
               className="
                 mt-5
+                w-full
+                sm:w-auto
                 inline-flex
                 items-center
+                justify-center
                 gap-2
                 px-5
                 py-2.5
@@ -457,7 +467,7 @@ export const MyOrder = () => {
              ORDERS
           ================================================= */
 
-          <div className="space-y-5">
+          <div className="space-y-4 sm:space-y-5">
 
             {myOrders.map((order) => {
 
@@ -477,7 +487,8 @@ export const MyOrder = () => {
                     bg-white
                     border
                     border-gray-100
-                    rounded-3xl
+                    rounded-2xl
+                    sm:rounded-3xl
                     shadow-sm
                     hover:shadow-md
                     transition
@@ -489,23 +500,23 @@ export const MyOrder = () => {
                       ORDER HEADER
                   ================================================= */}
 
-                  <div className="px-5 sm:px-6 py-5 border-b border-gray-100">
+                  <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
 
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
 
-                        <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center">
-                          <Bike size={23} />
+                        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
+                          <Bike size={22} />
                         </div>
 
-                        <div>
+                        <div className="min-w-0">
 
                           <p className="text-xs text-gray-400">
                             Order ID
                           </p>
 
-                          <h2 className="text-lg font-bold text-gray-800">
+                          <h2 className="text-base sm:text-lg font-bold text-gray-800 break-all">
                             {formatOrderId(
                               order._id
                             )}
@@ -517,7 +528,7 @@ export const MyOrder = () => {
 
                       {/* STATUS */}
 
-                      <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-bold">
+                      <div className="self-start sm:self-auto inline-flex items-center gap-2 px-3 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-bold">
 
                         <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
 
@@ -533,13 +544,13 @@ export const MyOrder = () => {
                       ORDER BODY
                   ================================================= */}
 
-                  <div className="p-5 sm:p-6">
+                  <div className="p-4 sm:p-6">
 
                     {/* =================================================
                         BASIC INFO
                     ================================================= */}
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
 
                       {/* CUSTOMER */}
 
@@ -555,7 +566,7 @@ export const MyOrder = () => {
 
                         </div>
 
-                        <p className="mt-2 font-semibold text-gray-800">
+                        <p className="mt-2 font-semibold text-gray-800 break-words">
                           {order.user?.name ||
                             address?.fullName ||
                             "Customer"}
@@ -566,10 +577,10 @@ export const MyOrder = () => {
 
                             <Phone
                               size={14}
-                              className="text-gray-400"
+                              className="text-gray-400 shrink-0"
                             />
 
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-gray-500 break-all">
                               {address.phone}
                             </p>
 
@@ -615,7 +626,7 @@ export const MyOrder = () => {
 
                         </div>
 
-                        <p className="mt-2 font-semibold text-gray-800 capitalize">
+                        <p className="mt-2 font-semibold text-gray-800 capitalize break-words">
                           {order.deliveryType ||
                             "Standard"}
                         </p>
@@ -630,7 +641,7 @@ export const MyOrder = () => {
 
                     {address && (
 
-                      <div className="mt-5 rounded-2xl bg-blue-50 border border-blue-100 p-5">
+                      <div className="mt-4 sm:mt-5 rounded-2xl bg-blue-50 border border-blue-100 p-4 sm:p-5">
 
                         <div className="flex items-start gap-3">
 
@@ -646,7 +657,7 @@ export const MyOrder = () => {
                               Delivery Address
                             </p>
 
-                            <p className="text-sm font-semibold text-gray-800 mt-1 leading-6">
+                            <p className="text-sm font-semibold text-gray-800 mt-1 leading-6 break-words">
 
                               {address.fullAddress ||
                                 address.address ||
@@ -665,7 +676,7 @@ export const MyOrder = () => {
                             </p>
 
                             {address.landmark && (
-                              <p className="text-xs text-gray-500 mt-2">
+                              <p className="text-xs text-gray-500 mt-2 break-words">
 
                                 Landmark:{" "}
                                 {address.landmark}
@@ -692,8 +703,11 @@ export const MyOrder = () => {
                               }
                               className="
                                 mt-4
+                                w-full
+                                sm:w-auto
                                 inline-flex
                                 items-center
+                                justify-center
                                 gap-2
                                 px-4
                                 py-2.5
@@ -725,7 +739,7 @@ export const MyOrder = () => {
                         ACTIONS
                     ================================================= */}
 
-                    <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="mt-4 sm:mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
 
                       {/* VIEW ORDER */}
 
@@ -737,7 +751,9 @@ export const MyOrder = () => {
                           )
                         }
                         className="
-                          px-5
+                          w-full
+                          px-4
+                          sm:px-5
                           py-3
                           rounded-xl
                           border
@@ -771,7 +787,9 @@ export const MyOrder = () => {
                           updatingLocation
                         }
                         className="
-                          px-5
+                          w-full
+                          px-4
+                          sm:px-5
                           py-3
                           rounded-xl
                           bg-blue-500
@@ -820,7 +838,9 @@ export const MyOrder = () => {
                           )
                         }
                         className="
-                          px-5
+                          w-full
+                          px-4
+                          sm:px-5
                           py-3
                           rounded-xl
                           bg-green-500
@@ -861,3 +881,4 @@ export const MyOrder = () => {
     </div>
   );
 };
+

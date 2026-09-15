@@ -98,7 +98,7 @@ export const FlowerSleeve = () => {
   };
 
   return (
-    <div>
+    <div className="w-full min-w-0 overflow-hidden">
 
       {/* ================= POPUPS ================= */}
 
@@ -110,14 +110,14 @@ export const FlowerSleeve = () => {
 
       {/* ================= HEADER ================= */}
 
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
 
-        <div>
-          <h2 className="text-xl font-semibold text-gray-800">
+        <div className="min-w-0">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
             Flower In Sleeve
           </h2>
 
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">
             Manage your flower sleeve collection
           </p>
         </div>
@@ -128,8 +128,11 @@ export const FlowerSleeve = () => {
           type="button"
           onClick={handleCreate}
           className="
+            w-full
+            sm:w-auto
             flex
             items-center
+            justify-center
             gap-2
             px-4
             py-2.5
@@ -153,7 +156,7 @@ export const FlowerSleeve = () => {
 
       {loading &&
         flowersInSleeve.length === 0 && (
-          <div className="py-10 text-center text-gray-500">
+          <div className="py-8 sm:py-10 text-center text-sm text-gray-500">
             Loading flower sleeves...
           </div>
         )}
@@ -162,9 +165,9 @@ export const FlowerSleeve = () => {
 
       {!loading &&
         flowersInSleeve.length === 0 && (
-          <div className="py-12 text-center">
+          <div className="py-10 sm:py-12 text-center px-3">
 
-            <p className="text-gray-500">
+            <p className="text-sm text-gray-500">
               No flower sleeves found.
             </p>
 
@@ -189,12 +192,15 @@ export const FlowerSleeve = () => {
       {currentFlowersInSleeve.length > 0 && (
         <div
           className="
+            w-full
+            min-w-0
             grid
             grid-cols-1
             sm:grid-cols-2
             lg:grid-cols-3
             xl:grid-cols-4
-            gap-4
+            gap-3
+            min-[380px]:gap-4
           "
         >
           {currentFlowersInSleeve.map(
@@ -211,7 +217,7 @@ export const FlowerSleeve = () => {
       {/* ================= PAGINATION ================= */}
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-6">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-5 sm:mt-6 px-2">
 
           {/* PREVIOUS */}
 
@@ -220,8 +226,11 @@ export const FlowerSleeve = () => {
             onClick={handlePrevious}
             disabled={currentPage === 0}
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
               rounded-lg
               flex
               items-center
@@ -237,12 +246,12 @@ export const FlowerSleeve = () => {
               transition
             "
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={17} />
           </button>
 
           {/* PAGE NUMBERS */}
 
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center justify-center gap-1">
 
             {Array.from({
               length: totalPages,
@@ -254,10 +263,14 @@ export const FlowerSleeve = () => {
                   handlePageChange(index)
                 }
                 className={`
-                  w-9
-                  h-9
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
+                  shrink-0
                   rounded-lg
-                  text-sm
+                  text-xs
+                  sm:text-sm
                   font-medium
                   transition
 
@@ -283,8 +296,11 @@ export const FlowerSleeve = () => {
               currentPage === totalPages - 1
             }
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
               rounded-lg
               flex
               items-center
@@ -300,7 +316,7 @@ export const FlowerSleeve = () => {
               transition
             "
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={17} />
           </button>
 
         </div>

@@ -160,8 +160,10 @@ export const FlowerInSleeveItem = ({ flower }) => {
       className="
         group
         w-full
+        min-w-0
         overflow-hidden
         rounded-2xl
+        sm:rounded-3xl
         bg-white
         border border-gray-100
         shadow-sm
@@ -177,7 +179,11 @@ export const FlowerInSleeveItem = ({ flower }) => {
       <div
         className="
           relative
-          h-52
+          h-48
+          min-[380px]:h-52
+          sm:h-60
+          lg:h-64
+          xl:h-72
           overflow-hidden
           bg-gradient-to-br
           from-pink-50
@@ -196,7 +202,9 @@ export const FlowerInSleeveItem = ({ flower }) => {
               w-full
               h-full
               object-contain
-              p-4
+              p-3
+              min-[380px]:p-4
+              sm:p-5
               transition-transform
               duration-500
               group-hover:scale-105
@@ -214,11 +222,18 @@ export const FlowerInSleeveItem = ({ flower }) => {
             "
           >
             <Flower2
-              size={48}
+              size={40}
+              className="sm:hidden"
               strokeWidth={1.2}
             />
 
-            <span className="text-xs mt-2">
+            <Flower2
+              size={48}
+              className="hidden sm:block"
+              strokeWidth={1.2}
+            />
+
+            <span className="text-[11px] sm:text-xs mt-2">
               No image
             </span>
           </div>
@@ -229,13 +244,18 @@ export const FlowerInSleeveItem = ({ flower }) => {
         <span
           className={`
             absolute
-            top-3
-            left-3
-            px-2.5
+            top-2.5
+            left-2.5
+            sm:top-3
+            sm:left-3
+            px-2
+            sm:px-2.5
             py-1
             rounded-full
-            text-[10px]
+            text-[9px]
+            sm:text-[10px]
             font-semibold
+            whitespace-nowrap
 
             ${
               isAvailable
@@ -265,10 +285,14 @@ export const FlowerInSleeveItem = ({ flower }) => {
           }
           className={`
             absolute
-            top-3
-            right-3
+            top-2.5
+            right-2.5
+            sm:top-3
+            sm:right-3
             w-8
             h-8
+            sm:w-9
+            sm:h-9
             rounded-full
             bg-white
             shadow-sm
@@ -289,7 +313,18 @@ export const FlowerInSleeveItem = ({ flower }) => {
           `}
         >
           <Heart
-            size={15}
+            size={14}
+            className="sm:hidden"
+            fill={
+              isWishlisted
+                ? "currentColor"
+                : "none"
+            }
+          />
+
+          <Heart
+            size={16}
+            className="hidden sm:block"
             fill={
               isWishlisted
                 ? "currentColor"
@@ -303,13 +338,19 @@ export const FlowerInSleeveItem = ({ flower }) => {
         <span
           className="
             absolute
-            bottom-3
-            left-3
-            px-2.5
+            bottom-2.5
+            left-2.5
+            sm:bottom-3
+            sm:left-3
+            max-w-[65%]
+            truncate
+            px-2
+            sm:px-2.5
             py-1
             rounded-md
             bg-white/90
-            text-[10px]
+            text-[9px]
+            sm:text-[10px]
             font-medium
             text-gray-600
           "
@@ -322,15 +363,18 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
       {/* ================= CONTENT ================= */}
 
-      <div className="p-4">
+      <div className="p-3.5 min-[380px]:p-4 sm:p-5">
 
         {/* ================= NAME + PRICE ================= */}
 
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start justify-between gap-2 sm:gap-3">
 
           <h3
             className="
-              text-base
+              min-w-0
+              flex-1
+              text-sm
+              min-[380px]:text-base
               font-semibold
               text-gray-900
               capitalize
@@ -343,12 +387,12 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
           <div className="shrink-0 text-right">
 
-            <p className="text-base font-bold text-gray-900">
+            <p className="text-sm min-[380px]:text-base font-bold text-gray-900">
               ₹{finalPrice}
             </p>
 
             {hasDiscount && (
-              <p className="text-[10px] text-gray-400 line-through">
+              <p className="text-[9px] min-[380px]:text-[10px] text-gray-400 line-through">
                 ₹{flower.price}
               </p>
             )}
@@ -359,22 +403,24 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
         {/* ================= DETAILS ================= */}
 
-        <div className="flex items-center gap-2 mt-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 mt-2 min-w-0">
 
-          <span className="text-xs text-gray-400">
+          <span className="text-[11px] sm:text-xs text-gray-400 shrink-0">
             Sleeve
           </span>
 
-          <span className="text-gray-200">
+          <span className="text-gray-200 shrink-0">
             •
           </span>
 
           <span
             className="
-              text-xs
+              text-[11px]
+              sm:text-xs
               font-semibold
               text-gray-700
               truncate
+              min-w-0
             "
           >
             {flower?.sleeveType ||
@@ -388,11 +434,13 @@ export const FlowerInSleeveItem = ({ flower }) => {
         <p
           className="
             mt-2
-            text-xs
+            text-[11px]
+            sm:text-xs
             text-gray-500
             leading-relaxed
             line-clamp-2
-            min-h-[32px]
+            min-h-[30px]
+            sm:min-h-[32px]
           "
         >
           {flower?.description ||
@@ -401,17 +449,21 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
         {/* ================= EXTRA DETAILS ================= */}
 
-        <div className="flex flex-wrap gap-2 mt-3">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3">
 
           {flower?.color && (
             <span
               className="
-                px-2.5
+                max-w-[45%]
+                truncate
+                px-2
+                sm:px-2.5
                 py-1
                 rounded-md
                 bg-pink-50
                 text-pink-600
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
                 font-medium
               "
             >
@@ -422,12 +474,16 @@ export const FlowerInSleeveItem = ({ flower }) => {
           {flower?.size && (
             <span
               className="
-                px-2.5
+                max-w-[45%]
+                truncate
+                px-2
+                sm:px-2.5
                 py-1
                 rounded-md
                 bg-gray-100
                 text-gray-600
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
                 font-medium
               "
             >
@@ -440,12 +496,16 @@ export const FlowerInSleeveItem = ({ flower }) => {
               <span
                 key={index}
                 className="
-                  px-2.5
+                  max-w-[45%]
+                  truncate
+                  px-2
+                  sm:px-2.5
                   py-1
                   rounded-md
                   bg-rose-50
                   text-rose-500
-                  text-[10px]
+                  text-[9px]
+                  sm:text-[10px]
                   font-medium
                 "
               >
@@ -463,16 +523,19 @@ export const FlowerInSleeveItem = ({ flower }) => {
             flex
             items-center
             justify-between
-            mt-4
-            text-xs
+            gap-2
+            mt-3
+            sm:mt-4
+            text-[11px]
+            sm:text-xs
           "
         >
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 min-w-0">
 
             <Flower2
-              size={14}
-              className="text-pink-500"
+              size={13}
+              className="text-pink-500 shrink-0"
             />
 
             <span className="text-gray-400">
@@ -484,8 +547,8 @@ export const FlowerInSleeveItem = ({ flower }) => {
           <span
             className={
               isAvailable
-                ? "font-semibold text-gray-700"
-                : "font-semibold text-red-500"
+                ? "font-semibold text-gray-700 text-right shrink-0"
+                : "font-semibold text-red-500 text-right shrink-0"
             }
           >
             {isAvailable
@@ -501,7 +564,7 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
         {/* ================= BUTTONS ================= */}
 
-        <div className="flex gap-2">
+        <div className="flex flex-col min-[380px]:flex-row gap-2">
 
           {/* ================= VIEW ================= */}
 
@@ -513,14 +576,17 @@ export const FlowerInSleeveItem = ({ flower }) => {
               )
             }
             className="
-              flex-1
-              h-10
+              w-full
+              min-[380px]:flex-1
+              h-9
+              sm:h-10
               rounded-lg
               border
               border-gray-200
               bg-white
               text-gray-600
-              text-xs
+              text-[11px]
+              sm:text-xs
               font-semibold
               flex
               items-center
@@ -533,7 +599,8 @@ export const FlowerInSleeveItem = ({ flower }) => {
               cursor-pointer
             "
           >
-            <Eye size={15} />
+            <Eye size={14} className="sm:hidden" />
+            <Eye size={15} className="hidden sm:block" />
             View
           </button>
 
@@ -551,12 +618,15 @@ export const FlowerInSleeveItem = ({ flower }) => {
               )
             }
             className="
-              flex-1
-              h-10
+              w-full
+              min-[380px]:flex-1
+              h-9
+              sm:h-10
               rounded-lg
               bg-gray-900
               text-white
-              text-xs
+              text-[11px]
+              sm:text-xs
               font-semibold
               flex
               items-center
@@ -570,7 +640,15 @@ export const FlowerInSleeveItem = ({ flower }) => {
               disabled:cursor-not-allowed
             "
           >
-            <ShoppingCart size={15} />
+            <ShoppingCart
+              size={14}
+              className="sm:hidden"
+            />
+
+            <ShoppingCart
+              size={15}
+              className="hidden sm:block"
+            />
 
             {isInCart
               ? "Added to Cart"

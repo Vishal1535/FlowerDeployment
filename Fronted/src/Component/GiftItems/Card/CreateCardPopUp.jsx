@@ -107,20 +107,20 @@ export const CreateCardPopUp = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 min-[380px]:px-4 py-3 sm:py-6 overflow-y-auto">
 
-      <div className="w-full max-w-2xl rounded-2xl bg-white shadow-xl">
+      <div className="w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-xl">
 
         {/* ================= HEADER ================= */}
 
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-start justify-between gap-3 px-4 min-[380px]:px-5 sm:px-6 py-3.5 min-[380px]:py-4 border-b border-gray-100">
 
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+          <div className="min-w-0">
+            <h2 className="text-lg min-[380px]:text-xl font-semibold text-gray-800 truncate">
               Add Card
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1">
               Create a new greeting card
             </p>
           </div>
@@ -132,8 +132,11 @@ export const CreateCardPopUp = () => {
             }
             disabled={loading}
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              min-[380px]:w-9
+              min-[380px]:h-9
+              shrink-0
               rounded-full
               flex
               items-center
@@ -146,7 +149,7 @@ export const CreateCardPopUp = () => {
               disabled:cursor-not-allowed
             "
           >
-            <X size={20} />
+            <X size={18} className="min-[380px]:w-5 min-[380px]:h-5" />
           </button>
 
         </div>
@@ -155,15 +158,15 @@ export const CreateCardPopUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-6"
+          className="p-4 min-[380px]:p-5 sm:p-6"
         >
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 min-[380px]:gap-4">
 
             {/* NAME */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Card Name
               </label>
 
@@ -178,11 +181,14 @@ export const CreateCardPopUp = () => {
                 className="
                   mt-1.5
                   w-full
+                  min-w-0
                   rounded-xl
                   border
                   border-gray-200
-                  px-4
+                  px-3
+                  min-[380px]:px-4
                   py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -195,7 +201,7 @@ export const CreateCardPopUp = () => {
             {/* PRICE */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Price
               </label>
 
@@ -211,11 +217,14 @@ export const CreateCardPopUp = () => {
                 className="
                   mt-1.5
                   w-full
+                  min-w-0
                   rounded-xl
                   border
                   border-gray-200
-                  px-4
+                  px-3
+                  min-[380px]:px-4
                   py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -228,7 +237,7 @@ export const CreateCardPopUp = () => {
             {/* OCCASION */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Occasion
               </label>
 
@@ -243,11 +252,14 @@ export const CreateCardPopUp = () => {
                 className="
                   mt-1.5
                   w-full
+                  min-w-0
                   rounded-xl
                   border
                   border-gray-200
-                  px-4
+                  px-3
+                  min-[380px]:px-4
                   py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -260,7 +272,7 @@ export const CreateCardPopUp = () => {
             {/* CATEGORY */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Category
               </label>
 
@@ -275,11 +287,14 @@ export const CreateCardPopUp = () => {
                 className="
                   mt-1.5
                   w-full
+                  min-w-0
                   rounded-xl
                   border
                   border-gray-200
-                  px-4
+                  px-3
+                  min-[380px]:px-4
                   py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -292,7 +307,7 @@ export const CreateCardPopUp = () => {
             {/* STOCK */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Stock
               </label>
 
@@ -308,11 +323,14 @@ export const CreateCardPopUp = () => {
                 className="
                   mt-1.5
                   w-full
+                  min-w-0
                   rounded-xl
                   border
                   border-gray-200
-                  px-4
+                  px-3
+                  min-[380px]:px-4
                   py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -325,7 +343,7 @@ export const CreateCardPopUp = () => {
             {/* IMAGE */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Image URL
               </label>
 
@@ -340,11 +358,14 @@ export const CreateCardPopUp = () => {
                 className="
                   mt-1.5
                   w-full
+                  min-w-0
                   rounded-xl
                   border
                   border-gray-200
-                  px-4
+                  px-3
+                  min-[380px]:px-4
                   py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -358,9 +379,9 @@ export const CreateCardPopUp = () => {
 
           {/* ================= DESCRIPTION ================= */}
 
-          <div className="mt-4">
+          <div className="mt-3 min-[380px]:mt-4">
 
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
               Description
             </label>
 
@@ -375,12 +396,15 @@ export const CreateCardPopUp = () => {
               className="
                 mt-1.5
                 w-full
+                min-w-0
                 resize-none
                 rounded-xl
                 border
                 border-gray-200
-                px-4
+                px-3
+                min-[380px]:px-4
                 py-2.5
+                text-sm
                 outline-none
                 focus:border-pink-400
                 focus:ring-2
@@ -393,7 +417,7 @@ export const CreateCardPopUp = () => {
 
           {/* ================= AVAILABILITY ================= */}
 
-          <label className="flex items-center gap-2 mt-4 cursor-pointer">
+          <label className="flex items-center gap-2 mt-3 min-[380px]:mt-4 cursor-pointer">
 
             <input
               type="checkbox"
@@ -401,10 +425,10 @@ export const CreateCardPopUp = () => {
               checked={data.isAvailable}
               onChange={handleChange}
               disabled={loading}
-              className="h-4 w-4 accent-pink-500"
+              className="h-4 w-4 accent-pink-500 shrink-0"
             />
 
-            <span className="text-sm text-gray-700">
+            <span className="text-xs min-[380px]:text-sm text-gray-700">
               Card is available
             </span>
 
@@ -412,7 +436,7 @@ export const CreateCardPopUp = () => {
 
           {/* ================= BUTTONS ================= */}
 
-          <div className="flex justify-end gap-3 mt-5 pt-4 border-t border-gray-100">
+          <div className="flex flex-col min-[380px]:flex-row min-[380px]:justify-end gap-2 min-[380px]:gap-3 mt-4 min-[380px]:mt-5 pt-3 min-[380px]:pt-4 border-t border-gray-100">
 
             <button
               type="button"
@@ -421,6 +445,8 @@ export const CreateCardPopUp = () => {
               }
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-5
                 py-2.5
                 rounded-xl
@@ -442,6 +468,8 @@ export const CreateCardPopUp = () => {
               type="submit"
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-6
                 py-2.5
                 rounded-xl
@@ -471,6 +499,7 @@ export const CreateCardPopUp = () => {
                     border-white
                     border-t-transparent
                     animate-spin
+                    shrink-0
                   "
                 />
               )}

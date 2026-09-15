@@ -163,7 +163,7 @@ export const CreateFlowerInSleevePopUp = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 min-[380px]:p-3 sm:p-4">
 
       {/* ================= OVERLAY ================= */}
 
@@ -179,10 +179,12 @@ export const CreateFlowerInSleevePopUp = () => {
           relative
           w-full
           max-w-3xl
-          max-h-[90vh]
+          max-h-[95vh]
+          sm:max-h-[90vh]
           overflow-y-auto
           bg-white
-          rounded-2xl
+          rounded-xl
+          min-[380px]:rounded-2xl
           shadow-xl
         "
       >
@@ -192,22 +194,30 @@ export const CreateFlowerInSleevePopUp = () => {
         <div
           className="
             flex
-            items-center
+            items-start
             justify-between
-            p-5
+            gap-3
+            p-4
+            min-[380px]:p-5
             border-b
             border-gray-100
+            sticky
+            top-0
+            bg-white
+            z-10
           "
         >
 
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+          <div className="min-w-0">
+
+            <h2 className="text-lg min-[380px]:text-xl font-semibold text-gray-800 leading-tight">
               Create Flower In Sleeve
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1">
               Add a new flower sleeve product
             </p>
+
           </div>
 
           <button
@@ -215,8 +225,11 @@ export const CreateFlowerInSleevePopUp = () => {
             onClick={handleClose}
             disabled={loading}
             className="
-              w-10
-              h-10
+              shrink-0
+              w-9
+              h-9
+              min-[380px]:w-10
+              min-[380px]:h-10
               rounded-xl
               flex
               items-center
@@ -226,7 +239,7 @@ export const CreateFlowerInSleevePopUp = () => {
               disabled:opacity-50
             "
           >
-            <X size={20} />
+            <X size={19} />
           </button>
 
         </div>
@@ -235,16 +248,16 @@ export const CreateFlowerInSleevePopUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-5 sm:p-6"
+          className="p-4 min-[380px]:p-5 sm:p-6"
         >
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-[380px]:gap-5">
 
             {/* ================= NAME ================= */}
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Flower Name <span className="text-red-500">*</span>
               </label>
 
@@ -257,8 +270,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -275,7 +291,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Price <span className="text-red-500">*</span>
               </label>
 
@@ -289,8 +305,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 placeholder="Enter price"
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -307,7 +326,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Discount Price
               </label>
 
@@ -320,8 +339,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 placeholder="Optional"
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -338,7 +360,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Flower Type <span className="text-red-500">*</span>
               </label>
 
@@ -351,8 +373,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -369,7 +394,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Sleeve Type <span className="text-red-500">*</span>
               </label>
 
@@ -382,8 +407,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -400,7 +428,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Color <span className="text-red-500">*</span>
               </label>
 
@@ -413,8 +441,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -431,7 +462,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Size
               </label>
 
@@ -441,8 +472,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 onChange={handleChange}
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -472,7 +506,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Stock
               </label>
 
@@ -485,8 +519,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 placeholder="Enter stock"
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -503,17 +540,18 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Image URL <span className="text-red-500">*</span>
               </label>
 
               <div className="relative">
 
                 <Upload
-                  size={18}
+                  size={17}
                   className="
                     absolute
-                    left-4
+                    left-3
+                    min-[380px]:left-4
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
@@ -529,9 +567,13 @@ export const CreateFlowerInSleevePopUp = () => {
                   required
                   className="
                     w-full
-                    pl-11
-                    pr-4
-                    py-3
+                    pl-10
+                    min-[380px]:pl-11
+                    pr-3
+                    min-[380px]:pr-4
+                    py-2.5
+                    min-[380px]:py-3
+                    text-sm
                     rounded-xl
                     border
                     border-gray-200
@@ -551,11 +593,11 @@ export const CreateFlowerInSleevePopUp = () => {
             {formData.image && (
               <div className="sm:col-span-2">
 
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                   Image Preview
                 </label>
 
-                <div className="h-48 rounded-xl overflow-hidden bg-gray-100">
+                <div className="h-40 min-[380px]:h-48 rounded-xl overflow-hidden bg-gray-100">
 
                   <img
                     src={formData.image}
@@ -572,7 +614,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Occasion
               </label>
 
@@ -584,8 +626,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 placeholder="Birthday, Anniversary, Valentine's Day"
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -596,7 +641,7 @@ export const CreateFlowerInSleevePopUp = () => {
                 "
               />
 
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-[11px] min-[380px]:text-xs text-gray-400 mt-1">
                 Separate multiple occasions with commas.
               </p>
 
@@ -606,7 +651,7 @@ export const CreateFlowerInSleevePopUp = () => {
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Description <span className="text-red-500">*</span>
               </label>
 
@@ -619,8 +664,11 @@ export const CreateFlowerInSleevePopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -643,8 +691,9 @@ export const CreateFlowerInSleevePopUp = () => {
                   flex
                   items-center
                   justify-between
-                  gap-4
-                  p-4
+                  gap-3
+                  p-3
+                  min-[380px]:p-4
                   rounded-xl
                   border
                   border-gray-100
@@ -652,13 +701,13 @@ export const CreateFlowerInSleevePopUp = () => {
                 "
               >
 
-                <div>
+                <div className="min-w-0">
 
                   <p className="text-sm font-medium text-gray-700">
                     Available for customers
                   </p>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[11px] min-[380px]:text-xs text-gray-500 mt-1">
                     Enable or disable this flower sleeve.
                   </p>
 
@@ -669,7 +718,7 @@ export const CreateFlowerInSleevePopUp = () => {
                   name="isAvailable"
                   checked={formData.isAvailable}
                   onChange={handleChange}
-                  className="w-5 h-5 accent-pink-500"
+                  className="w-5 h-5 accent-pink-500 shrink-0"
                 />
 
               </label>
@@ -685,8 +734,9 @@ export const CreateFlowerInSleevePopUp = () => {
                   flex
                   items-center
                   justify-between
-                  gap-4
-                  p-4
+                  gap-3
+                  p-3
+                  min-[380px]:p-4
                   rounded-xl
                   border
                   border-gray-100
@@ -694,13 +744,13 @@ export const CreateFlowerInSleevePopUp = () => {
                 "
               >
 
-                <div>
+                <div className="min-w-0">
 
                   <p className="text-sm font-medium text-gray-700">
                     Featured Flower
                   </p>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[11px] min-[380px]:text-xs text-gray-500 mt-1">
                     Show this flower in featured sections.
                   </p>
 
@@ -711,7 +761,7 @@ export const CreateFlowerInSleevePopUp = () => {
                   name="isFeatured"
                   checked={formData.isFeatured}
                   onChange={handleChange}
-                  className="w-5 h-5 accent-pink-500"
+                  className="w-5 h-5 accent-pink-500 shrink-0"
                 />
 
               </label>
@@ -725,10 +775,15 @@ export const CreateFlowerInSleevePopUp = () => {
           <div
             className="
               flex
+              flex-col
+              min-[380px]:flex-row
               justify-end
-              gap-3
-              mt-7
-              pt-5
+              gap-2.5
+              min-[380px]:gap-3
+              mt-6
+              min-[380px]:mt-7
+              pt-4
+              min-[380px]:pt-5
               border-t
               border-gray-100
             "
@@ -739,6 +794,8 @@ export const CreateFlowerInSleevePopUp = () => {
               onClick={handleClose}
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-5
                 py-2.5
                 rounded-xl
@@ -756,8 +813,11 @@ export const CreateFlowerInSleevePopUp = () => {
               type="submit"
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 flex
                 items-center
+                justify-center
                 gap-2
                 px-5
                 py-2.5

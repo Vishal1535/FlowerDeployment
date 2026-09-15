@@ -88,7 +88,7 @@ export const FlowerInBox = () => {
   };
 
   return (
-    <div>
+    <div className="w-full min-w-0 overflow-hidden">
 
       {/* =========================
           POPUPS
@@ -102,14 +102,14 @@ export const FlowerInBox = () => {
           HEADER
       ========================= */}
 
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
 
-        <div>
-          <h2 className="text-xl font-semibold text-gray-800">
+        <div className="min-w-0">
+          <h2 className="text-lg min-[380px]:text-xl font-semibold text-gray-800">
             Flowers In Box
           </h2>
 
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1">
             Manage your flower in box collection
           </p>
         </div>
@@ -122,8 +122,11 @@ export const FlowerInBox = () => {
             )
           }
           className="
+            w-full
+            sm:w-auto
             flex
             items-center
+            justify-center
             gap-2
             px-4
             py-2.5
@@ -148,7 +151,7 @@ export const FlowerInBox = () => {
 
       {loading &&
         flowersInBox.length === 0 && (
-          <div className="py-10 text-center text-gray-500">
+          <div className="py-8 sm:py-10 text-center text-sm text-gray-500">
             Loading flowers in box...
           </div>
         )}
@@ -159,9 +162,9 @@ export const FlowerInBox = () => {
 
       {!loading &&
         flowersInBox.length === 0 && (
-          <div className="py-12 text-center">
+          <div className="py-9 sm:py-12 text-center px-3">
 
-            <p className="text-gray-500">
+            <p className="text-sm text-gray-500">
               No flowers in box found.
             </p>
 
@@ -192,12 +195,15 @@ export const FlowerInBox = () => {
       {currentFlowersInBox.length > 0 && (
         <div
           className="
+            w-full
+            min-w-0
             grid
             grid-cols-1
             sm:grid-cols-2
             lg:grid-cols-3
             xl:grid-cols-4
-            gap-4
+            gap-3
+            min-[380px]:gap-4
           "
         >
           {currentFlowersInBox.map(
@@ -216,7 +222,7 @@ export const FlowerInBox = () => {
       ========================= */}
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-6">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 min-[380px]:gap-2 mt-5 min-[380px]:mt-6 px-2">
 
           {/* PREVIOUS */}
 
@@ -225,8 +231,11 @@ export const FlowerInBox = () => {
             onClick={handlePrevious}
             disabled={currentPage === 0}
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              min-[380px]:w-9
+              min-[380px]:h-9
+              shrink-0
               rounded-lg
               flex
               items-center
@@ -242,12 +251,12 @@ export const FlowerInBox = () => {
               transition
             "
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={17} />
           </button>
 
           {/* PAGE NUMBERS */}
 
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center justify-center gap-1">
 
             {Array.from({
               length: totalPages,
@@ -259,10 +268,14 @@ export const FlowerInBox = () => {
                   handlePageChange(index)
                 }
                 className={`
-                  w-9
-                  h-9
+                  w-8
+                  h-8
+                  min-[380px]:w-9
+                  min-[380px]:h-9
+                  shrink-0
                   rounded-lg
-                  text-sm
+                  text-xs
+                  min-[380px]:text-sm
                   font-medium
                   transition
 
@@ -288,8 +301,11 @@ export const FlowerInBox = () => {
               currentPage === totalPages - 1
             }
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              min-[380px]:w-9
+              min-[380px]:h-9
+              shrink-0
               rounded-lg
               flex
               items-center
@@ -305,7 +321,7 @@ export const FlowerInBox = () => {
               transition
             "
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={17} />
           </button>
 
         </div>

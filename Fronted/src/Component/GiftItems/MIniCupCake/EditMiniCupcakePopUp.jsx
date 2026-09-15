@@ -113,20 +113,20 @@ export const EditMiniCupcakePopUp = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 sm:px-4 py-3 sm:py-4">
 
-      <div className="w-full max-w-2xl rounded-2xl bg-white shadow-xl">
+      <div className="w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto rounded-xl sm:rounded-2xl bg-white shadow-xl">
 
         {/* ================= HEADER ================= */}
 
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100 bg-white">
 
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+          <div className="min-w-0">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-800 truncate">
               Edit Mini Cupcake
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
               Update mini cupcake details
             </p>
           </div>
@@ -138,8 +138,11 @@ export const EditMiniCupcakePopUp = () => {
             }
             disabled={loading}
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
               rounded-full
               flex
               items-center
@@ -150,7 +153,7 @@ export const EditMiniCupcakePopUp = () => {
               transition
             "
           >
-            <X size={20} />
+            <X size={18} className="sm:w-5 sm:h-5" />
           </button>
 
         </div>
@@ -159,15 +162,15 @@ export const EditMiniCupcakePopUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-6"
+          className="p-4 sm:p-6"
         >
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
 
             {/* NAME */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs sm:text-sm font-medium text-gray-700">
                 Cupcake Name
               </label>
 
@@ -179,13 +182,18 @@ export const EditMiniCupcakePopUp = () => {
                 required
                 disabled={loading}
                 className="
-                  mt-1.5
+                  mt-1
+                  sm:mt-1.5
                   w-full
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   border
                   border-gray-200
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -198,7 +206,7 @@ export const EditMiniCupcakePopUp = () => {
             {/* PRICE */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs sm:text-sm font-medium text-gray-700">
                 Price
               </label>
 
@@ -211,13 +219,18 @@ export const EditMiniCupcakePopUp = () => {
                 min="0"
                 disabled={loading}
                 className="
-                  mt-1.5
+                  mt-1
+                  sm:mt-1.5
                   w-full
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   border
                   border-gray-200
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -230,7 +243,7 @@ export const EditMiniCupcakePopUp = () => {
             {/* OCCASION */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs sm:text-sm font-medium text-gray-700">
                 Occasion
               </label>
 
@@ -242,13 +255,18 @@ export const EditMiniCupcakePopUp = () => {
                 required
                 disabled={loading}
                 className="
-                  mt-1.5
+                  mt-1
+                  sm:mt-1.5
                   w-full
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   border
                   border-gray-200
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -261,7 +279,7 @@ export const EditMiniCupcakePopUp = () => {
             {/* FLAVOR */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs sm:text-sm font-medium text-gray-700">
                 Flavor
               </label>
 
@@ -273,13 +291,18 @@ export const EditMiniCupcakePopUp = () => {
                 required
                 disabled={loading}
                 className="
-                  mt-1.5
+                  mt-1
+                  sm:mt-1.5
                   w-full
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   border
                   border-gray-200
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -292,7 +315,7 @@ export const EditMiniCupcakePopUp = () => {
             {/* QUANTITY */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs sm:text-sm font-medium text-gray-700">
                 Quantity
               </label>
 
@@ -305,13 +328,18 @@ export const EditMiniCupcakePopUp = () => {
                 min="0"
                 disabled={loading}
                 className="
-                  mt-1.5
+                  mt-1
+                  sm:mt-1.5
                   w-full
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   border
                   border-gray-200
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -324,7 +352,7 @@ export const EditMiniCupcakePopUp = () => {
             {/* STOCK */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs sm:text-sm font-medium text-gray-700">
                 Stock
               </label>
 
@@ -337,13 +365,18 @@ export const EditMiniCupcakePopUp = () => {
                 min="0"
                 disabled={loading}
                 className="
-                  mt-1.5
+                  mt-1
+                  sm:mt-1.5
                   w-full
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   border
                   border-gray-200
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -356,7 +389,7 @@ export const EditMiniCupcakePopUp = () => {
             {/* CATEGORY */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs sm:text-sm font-medium text-gray-700">
                 Category
               </label>
 
@@ -368,13 +401,18 @@ export const EditMiniCupcakePopUp = () => {
                 required
                 disabled={loading}
                 className="
-                  mt-1.5
+                  mt-1
+                  sm:mt-1.5
                   w-full
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   border
                   border-gray-200
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -387,7 +425,7 @@ export const EditMiniCupcakePopUp = () => {
             {/* IMAGE */}
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs sm:text-sm font-medium text-gray-700">
                 Image URL
               </label>
 
@@ -399,13 +437,18 @@ export const EditMiniCupcakePopUp = () => {
                 required
                 disabled={loading}
                 className="
-                  mt-1.5
+                  mt-1
+                  sm:mt-1.5
                   w-full
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   border
                   border-gray-200
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
+                  text-sm
                   outline-none
                   focus:border-pink-400
                   focus:ring-2
@@ -419,9 +462,9 @@ export const EditMiniCupcakePopUp = () => {
 
           {/* ================= DESCRIPTION ================= */}
 
-          <div className="mt-4">
+          <div className="mt-3 sm:mt-4">
 
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-xs sm:text-sm font-medium text-gray-700">
               Description
             </label>
 
@@ -433,14 +476,19 @@ export const EditMiniCupcakePopUp = () => {
               required
               disabled={loading}
               className="
-                mt-1.5
+                mt-1
+                sm:mt-1.5
                 w-full
                 resize-none
-                rounded-xl
+                rounded-lg
+                sm:rounded-xl
                 border
                 border-gray-200
-                px-4
-                py-2.5
+                px-3
+                sm:px-4
+                py-2
+                sm:py-2.5
+                text-sm
                 outline-none
                 focus:border-pink-400
                 focus:ring-2
@@ -453,7 +501,7 @@ export const EditMiniCupcakePopUp = () => {
 
           {/* ================= AVAILABILITY ================= */}
 
-          <label className="flex items-center gap-2 mt-4 cursor-pointer">
+          <label className="flex items-center gap-2 mt-3 sm:mt-4 cursor-pointer">
 
             <input
               type="checkbox"
@@ -461,10 +509,10 @@ export const EditMiniCupcakePopUp = () => {
               checked={data.isAvailable}
               onChange={handleChange}
               disabled={loading}
-              className="h-4 w-4 accent-pink-500"
+              className="h-4 w-4 accent-pink-500 shrink-0"
             />
 
-            <span className="text-sm text-gray-700">
+            <span className="text-xs sm:text-sm text-gray-700">
               Product is available
             </span>
 
@@ -472,7 +520,7 @@ export const EditMiniCupcakePopUp = () => {
 
           {/* ================= BUTTONS ================= */}
 
-          <div className="flex justify-end gap-3 mt-5 pt-4 border-t border-gray-100">
+          <div className="flex flex-col min-[380px]:flex-row justify-end gap-2 min-[380px]:gap-3 mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-gray-100">
 
             <button
               type="button"
@@ -481,9 +529,13 @@ export const EditMiniCupcakePopUp = () => {
               }
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-5
-                py-2.5
-                rounded-xl
+                py-2
+                sm:py-2.5
+                rounded-lg
+                sm:rounded-xl
                 border
                 border-gray-200
                 text-sm
@@ -501,9 +553,14 @@ export const EditMiniCupcakePopUp = () => {
               type="submit"
               disabled={loading}
               className="
-                px-6
-                py-2.5
-                rounded-xl
+                w-full
+                min-[380px]:w-auto
+                px-5
+                sm:px-6
+                py-2
+                sm:py-2.5
+                rounded-lg
+                sm:rounded-xl
                 bg-pink-500
                 text-white
                 text-sm
@@ -513,6 +570,7 @@ export const EditMiniCupcakePopUp = () => {
                 transition
                 flex
                 items-center
+                justify-center
                 gap-2
               "
             >

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -136,7 +137,7 @@ export const Profile = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-pink-50/70 via-white to-rose-50/40 flex items-center justify-center px-4">
 
-        <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-8 max-w-md w-full text-center">
+        <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 sm:p-8 max-w-md w-full text-center">
 
           <div className="w-16 h-16 mx-auto rounded-2xl bg-red-50 flex items-center justify-center">
 
@@ -216,9 +217,9 @@ export const Profile = () => {
   // =====================================================
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50/70 via-white to-rose-50/40 px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50/70 via-white to-rose-50/40 px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
 
-      <div className="max-w-5xl mx-auto space-y-6">
+      <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6">
 
         {/* =================================================
             BACK BUTTON
@@ -233,7 +234,7 @@ export const Profile = () => {
             inline-flex
             items-center
             gap-2
-            px-4
+            px-3.5 sm:px-4
             py-2.5
             bg-white
             border
@@ -258,37 +259,37 @@ export const Profile = () => {
             PROFILE HEADER
         ================================================= */}
 
-        <div className="relative overflow-hidden bg-white border border-pink-100 rounded-3xl shadow-sm">
+        <div className="relative overflow-hidden bg-white border border-pink-100 rounded-2xl sm:rounded-3xl shadow-sm">
 
           <div className="absolute -right-10 -top-10 w-44 h-44 bg-pink-100/60 rounded-full blur-2xl" />
 
           <div className="absolute right-28 bottom-0 w-32 h-32 bg-rose-100/50 rounded-full blur-2xl" />
 
-          <div className="relative p-6 sm:p-8">
+          <div className="relative p-4 sm:p-6 lg:p-8">
 
-            <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
 
               {/* PROFILE ICON */}
 
-              <div className="w-20 h-20 rounded-3xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
 
-                <User size={38} />
+                <User size={32} className="sm:w-[38px] sm:h-[38px]" />
 
               </div>
 
               {/* NAME */}
 
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
 
-                <p className="text-sm font-medium text-pink-500">
+                <p className="text-xs sm:text-sm font-medium text-pink-500">
                   Delivery Boy Profile
                 </p>
 
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 break-words">
                   {name}
                 </h1>
 
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">
                   Manage and view your delivery information.
                 </p>
 
@@ -296,9 +297,9 @@ export const Profile = () => {
 
               {/* STATUS */}
 
-              <div className="flex items-center gap-3 bg-green-50 border border-green-100 rounded-2xl px-4 py-3">
+              <div className="w-full sm:w-auto flex items-center gap-3 bg-green-50 border border-green-100 rounded-2xl px-4 py-3">
 
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shrink-0">
 
                   <CircleCheck
                     size={22}
@@ -331,41 +332,41 @@ export const Profile = () => {
             PERSONAL INFORMATION
         ================================================= */}
 
-        <div className="bg-white border border-gray-100 rounded-3xl shadow-sm overflow-hidden">
+        <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden">
 
-          <div className="px-6 py-5 border-b border-gray-100">
+          <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
 
-            <h2 className="text-lg font-bold text-gray-800">
+            <h2 className="text-base sm:text-lg font-bold text-gray-800">
               Personal Information
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
               Your basic account information
             </p>
 
           </div>
 
-          <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
 
             {/* NAME */}
 
-            <div className="p-4 rounded-2xl bg-pink-50 border border-pink-100">
+            <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-pink-50 border border-pink-100">
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
 
-                <div className="w-11 h-11 rounded-xl bg-white text-pink-500 flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-pink-500 flex items-center justify-center shrink-0">
 
                   <User size={20} />
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
                   <p className="text-xs text-gray-400">
                     Full Name
                   </p>
 
-                  <p className="text-sm font-semibold text-gray-800 mt-1">
+                  <p className="text-sm font-semibold text-gray-800 mt-1 break-words">
                     {name}
                   </p>
 
@@ -377,23 +378,23 @@ export const Profile = () => {
 
             {/* PHONE */}
 
-            <div className="p-4 rounded-2xl bg-green-50 border border-green-100">
+            <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-green-50 border border-green-100">
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
 
-                <div className="w-11 h-11 rounded-xl bg-white text-green-500 flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-green-500 flex items-center justify-center shrink-0">
 
                   <Phone size={20} />
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
                   <p className="text-xs text-gray-400">
                     Phone Number
                   </p>
 
-                  <p className="text-sm font-semibold text-gray-800 mt-1">
+                  <p className="text-sm font-semibold text-gray-800 mt-1 break-all">
                     {phone}
                   </p>
 
@@ -405,17 +406,17 @@ export const Profile = () => {
 
             {/* EMAIL */}
 
-            <div className="p-4 rounded-2xl bg-blue-50 border border-blue-100">
+            <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 border border-blue-100">
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
 
-                <div className="w-11 h-11 rounded-xl bg-white text-blue-500 flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-blue-500 flex items-center justify-center shrink-0">
 
                   <Mail size={20} />
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
                   <p className="text-xs text-gray-400">
                     Email Address
@@ -433,23 +434,23 @@ export const Profile = () => {
 
             {/* ROLE */}
 
-            <div className="p-4 rounded-2xl bg-purple-50 border border-purple-100">
+            <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-purple-50 border border-purple-100">
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
 
-                <div className="w-11 h-11 rounded-xl bg-white text-purple-500 flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-purple-500 flex items-center justify-center shrink-0">
 
                   <ShieldCheck size={20} />
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
                   <p className="text-xs text-gray-400">
                     Account Role
                   </p>
 
-                  <p className="text-sm font-semibold text-gray-800 mt-1 capitalize">
+                  <p className="text-sm font-semibold text-gray-800 mt-1 capitalize break-words">
                     {profile.user?.role ||
                       profile.role ||
                       "Delivery Boy"}
@@ -469,41 +470,41 @@ export const Profile = () => {
             VEHICLE INFORMATION
         ================================================= */}
 
-        <div className="bg-white border border-gray-100 rounded-3xl shadow-sm overflow-hidden">
+        <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden">
 
-          <div className="px-6 py-5 border-b border-gray-100">
+          <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
 
-            <h2 className="text-lg font-bold text-gray-800">
+            <h2 className="text-base sm:text-lg font-bold text-gray-800">
               Vehicle Information
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
               Your registered delivery vehicle
             </p>
 
           </div>
 
-          <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
 
             {/* VEHICLE TYPE */}
 
-            <div className="p-5 rounded-2xl bg-orange-50 border border-orange-100">
+            <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-orange-50 border border-orange-100">
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
 
-                <div className="w-12 h-12 rounded-xl bg-white text-orange-500 flex items-center justify-center">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white text-orange-500 flex items-center justify-center shrink-0">
 
-                  <Bike size={23} />
+                  <Bike size={22} />
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
                   <p className="text-xs text-gray-400">
                     Vehicle Type
                   </p>
 
-                  <p className="text-base font-bold text-gray-800 mt-1 capitalize">
+                  <p className="text-sm sm:text-base font-bold text-gray-800 mt-1 capitalize break-words">
                     {vehicleType}
                   </p>
 
@@ -515,23 +516,23 @@ export const Profile = () => {
 
             {/* VEHICLE NUMBER */}
 
-            <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100">
+            <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-gray-50 border border-gray-100">
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
 
-                <div className="w-12 h-12 rounded-xl bg-white text-gray-500 flex items-center justify-center">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white text-gray-500 flex items-center justify-center shrink-0">
 
-                  <Car size={23} />
+                  <Car size={22} />
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
                   <p className="text-xs text-gray-400">
                     Vehicle Number
                   </p>
 
-                  <p className="text-base font-bold text-gray-800 mt-1 uppercase">
+                  <p className="text-sm sm:text-base font-bold text-gray-800 mt-1 uppercase break-words">
                     {vehicleNumber}
                   </p>
 
@@ -549,27 +550,27 @@ export const Profile = () => {
             CURRENT LOCATION
         ================================================= */}
 
-        <div className="bg-white border border-gray-100 rounded-3xl shadow-sm overflow-hidden">
+        <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden">
 
-          <div className="px-6 py-5 border-b border-gray-100">
+          <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
 
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-              <div>
+              <div className="min-w-0">
 
-                <h2 className="text-lg font-bold text-gray-800">
+                <h2 className="text-base sm:text-lg font-bold text-gray-800">
                   Current Location
                 </h2>
 
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">
                   Your latest delivery location
                 </p>
 
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-green-600 font-semibold">
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-green-600 font-semibold">
 
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-500 shrink-0" />
 
                 Location Active
 
@@ -579,15 +580,15 @@ export const Profile = () => {
 
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
 
-            <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100">
+            <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-blue-50 border border-blue-100">
 
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-3 sm:gap-4">
 
-                <div className="w-12 h-12 rounded-xl bg-white text-blue-500 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white text-blue-500 flex items-center justify-center shrink-0">
 
-                  <MapPin size={23} />
+                  <MapPin size={22} />
 
                 </div>
 
@@ -599,7 +600,7 @@ export const Profile = () => {
 
                   {/* ADDRESS */}
 
-                  <div className="mt-3 bg-white rounded-xl p-4">
+                  <div className="mt-3 bg-white rounded-xl p-3 sm:p-4">
 
                     {addressLoading ? (
 
@@ -609,7 +610,7 @@ export const Profile = () => {
 
                     ) : address ? (
 
-                      <p className="text-sm font-semibold text-gray-800 leading-6">
+                      <p className="text-sm font-semibold text-gray-800 leading-6 break-words">
                         {address}
                       </p>
 
@@ -630,7 +631,7 @@ export const Profile = () => {
                     <button
                       type="button"
                       onClick={openGoogleMaps}
-                      className="mt-4 inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition"
+                      className="mt-4 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition"
                     >
 
                       <Navigation size={17} />
@@ -655,17 +656,17 @@ export const Profile = () => {
             BOTTOM
         ================================================= */}
 
-        <div className="bg-white border border-pink-100 rounded-2xl px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="bg-white border border-pink-100 rounded-2xl px-4 sm:px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-start sm:items-center gap-3 min-w-0">
 
-            <div className="w-9 h-9 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center shrink-0">
 
               <Bike size={18} />
 
             </div>
 
-            <div>
+            <div className="min-w-0">
 
               <p className="text-sm font-semibold text-gray-800">
                 Ready for your next delivery?
@@ -684,7 +685,7 @@ export const Profile = () => {
             onClick={() =>
               navigate("/delivery-boy/dashboard")
             }
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-pink-600 text-white text-sm font-semibold hover:bg-pink-700 transition"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-pink-600 text-white text-sm font-semibold hover:bg-pink-700 transition"
           >
 
             <ArrowLeft size={17} />
@@ -700,3 +701,4 @@ export const Profile = () => {
     </div>
   );
 };
+

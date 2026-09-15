@@ -44,7 +44,10 @@ export const DeleteBouquet = () => {
           justify-center
           bg-black/60
           backdrop-blur-md
-          px-4
+          px-3
+          sm:px-4
+          py-4
+          overflow-y-auto
           animate-delete-overlay
         "
       >
@@ -55,7 +58,10 @@ export const DeleteBouquet = () => {
             relative
             w-full
             max-w-md
-            rounded-[28px]
+            max-h-[95vh]
+            overflow-y-auto
+            rounded-[22px]
+            sm:rounded-[28px]
             bg-white
             shadow-[0_30px_100px_rgba(0,0,0,0.30)]
             overflow-hidden
@@ -67,10 +73,14 @@ export const DeleteBouquet = () => {
           <div
             className="
               absolute
-              -top-20
-              -right-20
-              w-44
-              h-44
+              -top-16
+              -right-16
+              sm:-top-20
+              sm:-right-20
+              w-32
+              h-32
+              sm:w-44
+              sm:h-44
               rounded-full
               bg-red-50
             "
@@ -79,10 +89,14 @@ export const DeleteBouquet = () => {
           <div
             className="
               absolute
-              -bottom-20
-              -left-20
-              w-40
-              h-40
+              -bottom-16
+              -left-16
+              sm:-bottom-20
+              sm:-left-20
+              w-32
+              h-32
+              sm:w-40
+              sm:h-40
               rounded-full
               bg-pink-50
             "
@@ -94,11 +108,15 @@ export const DeleteBouquet = () => {
             type="button"
             className="
               absolute
-              top-5
-              right-5
+              top-3
+              right-3
+              sm:top-5
+              sm:right-5
               z-20
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
               rounded-full
               bg-gray-100
               text-gray-500
@@ -116,19 +134,22 @@ export const DeleteBouquet = () => {
               dispatch(closeDeleteBouquetPopup())
             }}
           >
-            <X size={17} />
+            <X size={16} className="sm:w-[17px] sm:h-[17px]" />
           </button>
 
           {/* ================= CONTENT ================= */}
 
-          <div className="relative p-7 sm:p-8 text-center">
+          <div className="relative p-5 min-[380px]:p-6 sm:p-8 text-center">
+
             {/* Delete Icon */}
 
             <div
               className="
                 mx-auto
-                w-20
-                h-20
+                w-16
+                h-16
+                sm:w-20
+                sm:h-20
                 rounded-full
                 bg-red-50
                 border
@@ -141,8 +162,10 @@ export const DeleteBouquet = () => {
             >
               <div
                 className="
-                  w-14
-                  h-14
+                  w-11
+                  h-11
+                  sm:w-14
+                  sm:h-14
                   rounded-full
                   bg-red-100
                   flex
@@ -150,7 +173,10 @@ export const DeleteBouquet = () => {
                   justify-center
                 "
               >
-                <Trash2 size={27} className="text-red-500" />
+                <Trash2
+                  size={23}
+                  className="sm:w-[27px] sm:h-[27px] text-red-500"
+                />
               </div>
             </div>
 
@@ -160,20 +186,27 @@ export const DeleteBouquet = () => {
               className="
                 inline-flex
                 items-center
-                gap-1.5
-                mt-5
-                px-3
+                gap-1
+                sm:gap-1.5
+                mt-4
+                sm:mt-5
+                px-2.5
+                sm:px-3
                 py-1.5
                 rounded-full
                 bg-red-50
                 text-red-500
-                text-[11px]
+                text-[10px]
+                sm:text-[11px]
                 font-bold
                 uppercase
                 tracking-wider
               "
             >
-              <AlertTriangle size={13} />
+              <AlertTriangle
+                size={12}
+                className="sm:w-[13px] sm:h-[13px]"
+              />
               Warning
             </div>
 
@@ -181,8 +214,10 @@ export const DeleteBouquet = () => {
 
             <h2
               className="
-                mt-4
-                text-2xl
+                mt-3
+                sm:mt-4
+                text-xl
+                sm:text-2xl
                 font-extrabold
                 text-gray-900
               "
@@ -194,9 +229,12 @@ export const DeleteBouquet = () => {
 
             <p
               className="
-                mt-3
-                text-sm
-                leading-6
+                mt-2
+                sm:mt-3
+                text-xs
+                sm:text-sm
+                leading-5
+                sm:leading-6
                 text-gray-500
                 max-w-sm
                 mx-auto
@@ -211,15 +249,20 @@ export const DeleteBouquet = () => {
             {id && (
               <div
                 className="
-                  mt-4
-                  px-4
-                  py-3
+                  mt-3
+                  sm:mt-4
+                  px-3
+                  sm:px-4
+                  py-2.5
+                  sm:py-3
                   rounded-xl
                   bg-gray-50
                   border
                   border-gray-100
-                  text-xs
+                  text-[10px]
+                  sm:text-xs
                   text-gray-500
+                  break-all
                 "
               >
                 Bouquet ID:{" "}
@@ -232,8 +275,12 @@ export const DeleteBouquet = () => {
             <div
               className="
                 flex
-                gap-3
-                mt-7
+                flex-col
+                min-[380px]:flex-row
+                gap-2.5
+                sm:gap-3
+                mt-5
+                sm:mt-7
               "
             >
               {/* Cancel */}
@@ -242,7 +289,8 @@ export const DeleteBouquet = () => {
                 type="button"
                 className="
                   flex-1
-                  h-12
+                  h-11
+                  sm:h-12
                   rounded-xl
                   border
                   border-gray-200
@@ -271,7 +319,8 @@ export const DeleteBouquet = () => {
                 onClick={handleDelete}
                 className="
                   flex-1
-                  h-12
+                  h-11
+                  sm:h-12
                   rounded-xl
                   bg-red-500
                   text-white
@@ -291,6 +340,7 @@ export const DeleteBouquet = () => {
                   items-center
                   justify-center
                   gap-2
+                  whitespace-nowrap
                 "
               >
                 <Trash2 size={17} />

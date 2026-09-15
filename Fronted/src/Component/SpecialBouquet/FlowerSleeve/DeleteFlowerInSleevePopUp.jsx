@@ -76,7 +76,7 @@ export const DeleteFlowerInSleevePopUp = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[110] flex items-center justify-center p-2 min-[380px]:p-3 sm:p-4">
 
       {/* ================= OVERLAY ================= */}
 
@@ -92,10 +92,15 @@ export const DeleteFlowerInSleevePopUp = () => {
           relative
           w-full
           max-w-md
+          max-h-[95vh]
+          overflow-y-auto
           bg-white
-          rounded-2xl
+          rounded-xl
+          min-[380px]:rounded-2xl
           shadow-xl
-          p-6
+          p-4
+          min-[380px]:p-5
+          sm:p-6
         "
       >
 
@@ -107,10 +112,14 @@ export const DeleteFlowerInSleevePopUp = () => {
           disabled={loading}
           className="
             absolute
-            top-4
-            right-4
-            w-9
-            h-9
+            top-3
+            right-3
+            min-[380px]:top-4
+            min-[380px]:right-4
+            w-8
+            h-8
+            min-[380px]:w-9
+            min-[380px]:h-9
             rounded-xl
             flex
             items-center
@@ -120,39 +129,42 @@ export const DeleteFlowerInSleevePopUp = () => {
             disabled:opacity-50
           "
         >
-          <X size={19} />
+          <X size={18} />
         </button>
 
         {/* ================= ICON ================= */}
 
         <div
           className="
-            w-14
-            h-14
+            w-12
+            h-12
+            min-[380px]:w-14
+            min-[380px]:h-14
             rounded-full
             bg-red-50
             flex
             items-center
             justify-center
-            mb-5
+            mb-4
+            min-[380px]:mb-5
           "
         >
           <Trash2
-            size={25}
+            size={23}
             className="text-red-500"
           />
         </div>
 
         {/* ================= TITLE ================= */}
 
-        <h2 className="text-xl font-semibold text-gray-800">
+        <h2 className="text-lg min-[380px]:text-xl font-semibold text-gray-800 pr-8">
           Delete Flower In Sleeve?
         </h2>
 
-        <p className="text-sm text-gray-500 mt-2 leading-6">
+        <p className="text-xs min-[380px]:text-sm text-gray-500 mt-2 leading-5 min-[380px]:leading-6 break-words">
           Are you sure you want to delete
           {" "}
-          <span className="font-medium text-gray-700">
+          <span className="font-medium text-gray-700 break-words">
             {selectedFlowerInSleeve?.name ||
               "this flower sleeve"}
           </span>
@@ -162,7 +174,7 @@ export const DeleteFlowerInSleevePopUp = () => {
 
         {/* ================= BUTTONS ================= */}
 
-        <div className="flex justify-end gap-3 mt-6">
+        <div className="flex flex-col min-[380px]:flex-row justify-end gap-2.5 min-[380px]:gap-3 mt-5 min-[380px]:mt-6">
 
           {/* CANCEL */}
 
@@ -171,6 +183,8 @@ export const DeleteFlowerInSleevePopUp = () => {
             onClick={handleClose}
             disabled={loading}
             className="
+              w-full
+              min-[380px]:w-auto
               px-5
               py-2.5
               rounded-xl
@@ -194,6 +208,8 @@ export const DeleteFlowerInSleevePopUp = () => {
             onClick={handleDelete}
             disabled={loading}
             className="
+              w-full
+              min-[380px]:w-auto
               flex
               items-center
               justify-center

@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -59,15 +58,15 @@ export const GiftItem = () => {
   // =====================================================
 
   return (
-    <div className="min-h-screen bg-[#fffafa] px-4 py-6 sm:px-6 sm:py-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#fffafa] px-3 py-4 sm:px-6 sm:py-8">
+      <div className="w-full max-w-6xl mx-auto min-w-0">
 
         {/* ================================================= */}
         {/* HEADER */}
         {/* ================================================= */}
 
-        <div className="mb-7">
-          <div className="flex items-center gap-3">
+        <div className="mb-5 sm:mb-7">
+          <div className="flex items-center gap-2.5 sm:gap-3">
 
             {/* Back Button */}
 
@@ -75,8 +74,13 @@ export const GiftItem = () => {
               type="button"
               onClick={() => navigate("/")}
               className="
-                w-11 h-11
-                rounded-xl
+                w-9
+                h-9
+                sm:w-11
+                sm:h-11
+                shrink-0
+                rounded-lg
+                sm:rounded-xl
                 bg-white
                 border border-gray-100
                 shadow-sm
@@ -90,34 +94,41 @@ export const GiftItem = () => {
               "
               title="Go to Home"
             >
-              <ArrowLeft size={20} />
+              <ArrowLeft
+                size={18}
+                className="sm:w-5 sm:h-5"
+              />
             </button>
 
             {/* Gift Icon */}
 
             <div
               className="
-                w-11 h-11
-                rounded-xl
+                w-9
+                h-9
+                sm:w-11
+                sm:h-11
+                rounded-lg
+                sm:rounded-xl
                 bg-pink-100
                 flex items-center justify-center
                 shrink-0
               "
             >
               <Gift
-                size={22}
-                className="text-pink-500"
+                size={19}
+                className="sm:w-[22px] sm:h-[22px] text-pink-500"
               />
             </div>
 
             {/* Heading */}
 
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+            <div className="min-w-0">
+              <h1 className="text-xl sm:text-3xl font-bold text-gray-800 truncate">
                 Gift Collection
               </h1>
 
-              <p className="text-sm text-gray-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5 truncate">
                 Manage your gift products
               </p>
             </div>
@@ -132,13 +143,15 @@ export const GiftItem = () => {
         <div
           className="
             bg-white
-            rounded-2xl
+            rounded-xl
+            sm:rounded-2xl
             border border-gray-100
             shadow-sm
-            p-2
+            p-1.5
+            sm:p-2
           "
         >
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2">
 
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -155,10 +168,15 @@ export const GiftItem = () => {
                       className={`
                         w-full
                         flex items-center justify-center
-                        gap-2.5
-                        px-5 py-3
-                        rounded-xl
-                        text-sm
+                        gap-2
+                        px-3
+                        sm:px-5
+                        py-2.5
+                        sm:py-3
+                        rounded-lg
+                        sm:rounded-xl
+                        text-xs
+                        sm:text-sm
                         font-semibold
                         transition-all duration-200
                         ${
@@ -176,7 +194,10 @@ export const GiftItem = () => {
                         }
                       `}
                     >
-                      <Icon size={18} />
+                      <Icon
+                        size={16}
+                        className="sm:w-[18px] sm:h-[18px]"
+                      />
 
                       <span>
                         {item.label}
@@ -194,15 +215,19 @@ export const GiftItem = () => {
         {/* CHILD CONTENT */}
         {/* ================================================= */}
 
-        <div className="mt-6">
+        <div className="mt-4 sm:mt-6 min-w-0">
 
           <div
             className="
               bg-white
-              rounded-2xl
+              rounded-xl
+              sm:rounded-2xl
               border border-gray-100
               shadow-sm
-              p-5 sm:p-6
+              p-3
+              sm:p-6
+              min-w-0
+              overflow-hidden
             "
           >
             <Outlet />

@@ -69,24 +69,24 @@ export const WoolenBouquet = () => {
   };
 
   return (
-    <div>
+    <div className="w-full min-w-0 overflow-hidden">
 
       {/* ================= CREATE POPUP ================= */}
 
-      <CreateWoolenBouquetPopUp/>
-          <EditWoolenBouquetPopUp />
+      <CreateWoolenBouquetPopUp />
+      <EditWoolenBouquetPopUp />
       <DeleteWoolenBouquetPopUp />
 
       {/* ================= HEADER ================= */}
 
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
 
-        <div>
-          <h2 className="text-xl font-semibold text-gray-800">
+        <div className="min-w-0">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
             Woolen Bouquets
           </h2>
 
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">
             Manage your woolen bouquet collection
           </p>
         </div>
@@ -97,8 +97,11 @@ export const WoolenBouquet = () => {
             dispatch(openCreateWoolenPopup())
           }
           className="
+            w-full
+            sm:w-auto
             flex
             items-center
+            justify-center
             gap-2
             px-4
             py-2.5
@@ -120,7 +123,7 @@ export const WoolenBouquet = () => {
       {/* ================= LOADING ================= */}
 
       {loading && woolens.length === 0 && (
-        <div className="py-10 text-center text-gray-500">
+        <div className="py-8 sm:py-10 text-center text-sm text-gray-500">
           Loading woolen bouquets...
         </div>
       )}
@@ -128,9 +131,9 @@ export const WoolenBouquet = () => {
       {/* ================= EMPTY ================= */}
 
       {!loading && woolens.length === 0 && (
-        <div className="py-12 text-center">
+        <div className="py-10 sm:py-12 text-center px-3">
 
-          <p className="text-gray-500">
+          <p className="text-sm text-gray-500">
             No woolen bouquets found.
           </p>
 
@@ -157,12 +160,15 @@ export const WoolenBouquet = () => {
       {currentWoolens.length > 0 && (
         <div
           className="
+            w-full
+            min-w-0
             grid
             grid-cols-1
             sm:grid-cols-2
             lg:grid-cols-3
             xl:grid-cols-4
-            gap-4
+            gap-3
+            min-[380px]:gap-4
           "
         >
           {currentWoolens.map((woolen) => (
@@ -177,7 +183,7 @@ export const WoolenBouquet = () => {
       {/* ================= PAGINATION ================= */}
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-6">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-5 sm:mt-6 px-2">
 
           {/* PREVIOUS */}
 
@@ -186,8 +192,11 @@ export const WoolenBouquet = () => {
             onClick={handlePrevious}
             disabled={currentPage === 0}
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
               rounded-lg
               flex
               items-center
@@ -203,12 +212,12 @@ export const WoolenBouquet = () => {
               transition
             "
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={17} />
           </button>
 
           {/* PAGE NUMBERS */}
 
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center justify-center gap-1">
 
             {Array.from({ length: totalPages }).map(
               (_, index) => (
@@ -217,10 +226,14 @@ export const WoolenBouquet = () => {
                   type="button"
                   onClick={() => handlePageChange(index)}
                   className={`
-                    w-9
-                    h-9
+                    w-8
+                    h-8
+                    sm:w-9
+                    sm:h-9
+                    shrink-0
                     rounded-lg
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-medium
                     transition
 
@@ -245,8 +258,11 @@ export const WoolenBouquet = () => {
             onClick={handleNext}
             disabled={currentPage === totalPages - 1}
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
               rounded-lg
               flex
               items-center
@@ -262,7 +278,7 @@ export const WoolenBouquet = () => {
               transition
             "
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={17} />
           </button>
 
         </div>

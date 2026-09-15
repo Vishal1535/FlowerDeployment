@@ -156,7 +156,7 @@ export const EditFlowerInBoxPopUp = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 min-[380px]:p-3 sm:p-4">
 
       {/* ================= OVERLAY ================= */}
 
@@ -172,10 +172,12 @@ export const EditFlowerInBoxPopUp = () => {
           relative
           w-full
           max-w-3xl
-          max-h-[90vh]
+          max-h-[95vh]
+          sm:max-h-[90vh]
           overflow-y-auto
           bg-white
-          rounded-2xl
+          rounded-xl
+          min-[380px]:rounded-2xl
           shadow-xl
         "
       >
@@ -189,20 +191,23 @@ export const EditFlowerInBoxPopUp = () => {
             z-10
             bg-white
             flex
-            items-center
+            items-start
             justify-between
-            p-5
+            gap-3
+            p-4
+            min-[380px]:p-5
+            sm:p-6
             border-b
             border-gray-100
           "
         >
 
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+          <div className="min-w-0">
+            <h2 className="text-lg min-[380px]:text-xl font-semibold text-gray-800">
               Edit Flower In Box
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1 leading-5">
               Update your flower in box details
             </p>
           </div>
@@ -212,9 +217,13 @@ export const EditFlowerInBoxPopUp = () => {
             onClick={handleClose}
             disabled={loading}
             className="
-              w-10
-              h-10
-              rounded-xl
+              w-8
+              h-8
+              min-[380px]:w-10
+              min-[380px]:h-10
+              shrink-0
+              rounded-lg
+              min-[380px]:rounded-xl
               flex
               items-center
               justify-center
@@ -224,7 +233,7 @@ export const EditFlowerInBoxPopUp = () => {
               transition
             "
           >
-            <X size={20} />
+            <X size={19} />
           </button>
 
         </div>
@@ -233,16 +242,16 @@ export const EditFlowerInBoxPopUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-5 sm:p-6"
+          className="p-4 min-[380px]:p-5 sm:p-6"
         >
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-[380px]:gap-5">
 
             {/* ================= NAME ================= */}
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Flower Name{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -256,8 +265,11 @@ export const EditFlowerInBoxPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -274,7 +286,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Price{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -288,8 +300,11 @@ export const EditFlowerInBoxPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -306,7 +321,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Discount Price
               </label>
 
@@ -319,8 +334,11 @@ export const EditFlowerInBoxPopUp = () => {
                 placeholder="Optional"
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -337,7 +355,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Flower Type{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -351,8 +369,11 @@ export const EditFlowerInBoxPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -369,7 +390,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Box Type{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -383,8 +404,11 @@ export const EditFlowerInBoxPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -401,7 +425,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Color{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -415,8 +439,11 @@ export const EditFlowerInBoxPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -433,7 +460,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Occasion
               </label>
 
@@ -445,8 +472,11 @@ export const EditFlowerInBoxPopUp = () => {
                 placeholder="Birthday, Anniversary..."
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -457,7 +487,7 @@ export const EditFlowerInBoxPopUp = () => {
                 "
               />
 
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-[11px] min-[380px]:text-xs text-gray-400 mt-1">
                 Use comma to add multiple occasions
               </p>
 
@@ -467,7 +497,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Size
               </label>
 
@@ -477,8 +507,11 @@ export const EditFlowerInBoxPopUp = () => {
                 onChange={handleChange}
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -514,7 +547,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Stock{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -528,8 +561,11 @@ export const EditFlowerInBoxPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -546,7 +582,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Image URL{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -554,10 +590,11 @@ export const EditFlowerInBoxPopUp = () => {
               <div className="relative">
 
                 <Upload
-                  size={18}
+                  size={17}
                   className="
                     absolute
-                    left-4
+                    left-3
+                    min-[380px]:left-4
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
@@ -573,9 +610,13 @@ export const EditFlowerInBoxPopUp = () => {
                   required
                   className="
                     w-full
-                    pl-11
-                    pr-4
-                    py-3
+                    pl-10
+                    min-[380px]:pl-11
+                    pr-3
+                    min-[380px]:pr-4
+                    py-2.5
+                    min-[380px]:py-3
+                    text-sm
                     rounded-xl
                     border
                     border-gray-200
@@ -595,11 +636,11 @@ export const EditFlowerInBoxPopUp = () => {
             {formData.image && (
               <div className="sm:col-span-2">
 
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                   Image Preview
                 </label>
 
-                <div className="h-48 rounded-xl overflow-hidden bg-gray-100">
+                <div className="h-36 min-[380px]:h-44 sm:h-48 rounded-xl overflow-hidden bg-gray-100">
 
                   <img
                     src={formData.image}
@@ -616,7 +657,7 @@ export const EditFlowerInBoxPopUp = () => {
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Description{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -630,8 +671,11 @@ export const EditFlowerInBoxPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -654,8 +698,9 @@ export const EditFlowerInBoxPopUp = () => {
                   flex
                   items-center
                   justify-between
-                  gap-4
-                  p-4
+                  gap-3
+                  p-3
+                  min-[380px]:p-4
                   rounded-xl
                   border
                   border-gray-100
@@ -663,12 +708,12 @@ export const EditFlowerInBoxPopUp = () => {
                 "
               >
 
-                <div>
+                <div className="min-w-0">
                   <p className="text-sm font-medium text-gray-700">
                     Available for customers
                   </p>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[11px] min-[380px]:text-xs text-gray-500 mt-1 leading-4">
                     Enable or disable this flower in box.
                   </p>
                 </div>
@@ -678,7 +723,7 @@ export const EditFlowerInBoxPopUp = () => {
                   name="isAvailable"
                   checked={formData.isAvailable}
                   onChange={handleChange}
-                  className="w-5 h-5 accent-pink-500"
+                  className="w-5 h-5 shrink-0 accent-pink-500"
                 />
 
               </label>
@@ -694,8 +739,9 @@ export const EditFlowerInBoxPopUp = () => {
                   flex
                   items-center
                   justify-between
-                  gap-4
-                  p-4
+                  gap-3
+                  p-3
+                  min-[380px]:p-4
                   rounded-xl
                   border
                   border-gray-100
@@ -703,12 +749,12 @@ export const EditFlowerInBoxPopUp = () => {
                 "
               >
 
-                <div>
+                <div className="min-w-0">
                   <p className="text-sm font-medium text-gray-700">
                     Featured Flower
                   </p>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[11px] min-[380px]:text-xs text-gray-500 mt-1 leading-4">
                     Show this flower in featured sections.
                   </p>
                 </div>
@@ -718,7 +764,7 @@ export const EditFlowerInBoxPopUp = () => {
                   name="isFeatured"
                   checked={formData.isFeatured}
                   onChange={handleChange}
-                  className="w-5 h-5 accent-pink-500"
+                  className="w-5 h-5 shrink-0 accent-pink-500"
                 />
 
               </label>
@@ -732,10 +778,15 @@ export const EditFlowerInBoxPopUp = () => {
           <div
             className="
               flex
+              flex-col
+              min-[380px]:flex-row
               justify-end
-              gap-3
-              mt-7
-              pt-5
+              gap-2.5
+              min-[380px]:gap-3
+              mt-6
+              min-[380px]:mt-7
+              pt-4
+              min-[380px]:pt-5
               border-t
               border-gray-100
             "
@@ -746,12 +797,15 @@ export const EditFlowerInBoxPopUp = () => {
               onClick={handleClose}
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-5
                 py-2.5
                 rounded-xl
                 border
                 border-gray-200
                 text-gray-600
+                text-sm
                 hover:bg-gray-50
                 transition
                 disabled:opacity-60
@@ -764,14 +818,18 @@ export const EditFlowerInBoxPopUp = () => {
               type="submit"
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 flex
                 items-center
+                justify-center
                 gap-2
                 px-5
                 py-2.5
                 rounded-xl
                 bg-pink-500
                 text-white
+                text-sm
                 hover:bg-pink-600
                 disabled:opacity-60
                 disabled:cursor-not-allowed

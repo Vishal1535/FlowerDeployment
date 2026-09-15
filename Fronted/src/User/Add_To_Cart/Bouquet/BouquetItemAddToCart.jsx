@@ -120,15 +120,15 @@ export const BouquetItemAddToCart = ({ item }) => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="w-full min-w-0 bg-white">
 
       {/* ==============================
           MAIN PRODUCT
       ============================== */}
 
-      <div className="p-4 sm:p-5">
+      <div className="p-3 sm:p-4 md:p-5">
 
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
 
           {/* ==============================
               PRODUCT IMAGE
@@ -137,12 +137,12 @@ export const BouquetItemAddToCart = ({ item }) => {
           <div
             onClick={HandleViewDetails}
             className="
-              w-24
-              h-24
-              sm:w-28
-              sm:h-28
-              md:w-32
-              md:h-32
+              w-20
+              h-20
+              sm:w-24
+              sm:h-24
+              md:w-28
+              md:h-28
               shrink-0
               bg-gray-50
               rounded-md
@@ -175,20 +175,22 @@ export const BouquetItemAddToCart = ({ item }) => {
               PRODUCT DETAILS
           ============================== */}
 
-          <div className="flex-1 min-w-0">
+          <div className="w-full min-w-0 flex-1">
 
             {/* PRODUCT NAME */}
 
             <h2
               onClick={HandleViewDetails}
               className="
-                text-base
-                sm:text-lg
+                text-sm
+                sm:text-base
+                md:text-lg
                 font-medium
                 text-gray-800
                 hover:text-pink-600
                 cursor-pointer
                 line-clamp-2
+                break-words
               "
             >
               {bouquet?.name ||
@@ -197,17 +199,17 @@ export const BouquetItemAddToCart = ({ item }) => {
 
             {/* PRICE */}
 
-            <div className="mt-1">
+            <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
 
-              <span className="text-lg sm:text-xl font-semibold text-gray-900">
+              <span className="text-base sm:text-lg md:text-xl font-semibold text-gray-900">
                 ₹{finalPrice}
               </span>
 
               {hasDiscount && (
                 <span
                   className="
-                    ml-2
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     text-gray-400
                     line-through
                   "
@@ -221,7 +223,7 @@ export const BouquetItemAddToCart = ({ item }) => {
             {/* STOCK */}
 
             {stock > 0 && (
-              <p className="text-xs text-green-600 mt-1">
+              <p className="text-[11px] sm:text-xs text-green-600 mt-1">
                 In Stock
               </p>
             )}
@@ -230,7 +232,7 @@ export const BouquetItemAddToCart = ({ item }) => {
                 QUANTITY + ACTIONS
             ============================== */}
 
-            <div className="flex flex-wrap items-center gap-3 mt-4">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-3 sm:mt-4">
 
               {/* QUANTITY */}
 
@@ -242,6 +244,7 @@ export const BouquetItemAddToCart = ({ item }) => {
                   border-gray-400
                   rounded-sm
                   overflow-hidden
+                  shrink-0
                 "
               >
 
@@ -252,8 +255,9 @@ export const BouquetItemAddToCart = ({ item }) => {
                   }
                   disabled={quantity <= 1}
                   className="
-                    w-8
+                    w-7
                     h-8
+                    sm:w-8
                     flex
                     items-center
                     justify-center
@@ -263,19 +267,21 @@ export const BouquetItemAddToCart = ({ item }) => {
                     disabled:cursor-not-allowed
                   "
                 >
-                  <Minus size={14} />
+                  <Minus size={13} className="sm:w-[14px] sm:h-[14px]" />
                 </button>
 
                 <span
                   className="
-                    w-9
+                    w-8
                     h-8
+                    sm:w-9
                     flex
                     items-center
                     justify-center
                     border-x
                     border-gray-400
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-semibold
                   "
                 >
@@ -291,8 +297,9 @@ export const BouquetItemAddToCart = ({ item }) => {
                     quantity >= stock
                   }
                   className="
-                    w-8
+                    w-7
                     h-8
+                    sm:w-8
                     flex
                     items-center
                     justify-center
@@ -302,7 +309,7 @@ export const BouquetItemAddToCart = ({ item }) => {
                     disabled:cursor-not-allowed
                   "
                 >
-                  <Plus size={14} />
+                  <Plus size={13} className="sm:w-[14px] sm:h-[14px]" />
                 </button>
 
               </div>
@@ -315,17 +322,21 @@ export const BouquetItemAddToCart = ({ item }) => {
                   HandleDelete
                 }
                 className="
+                  min-h-8
                   flex
                   items-center
-                  gap-1.5
-                  text-sm
+                  gap-1
+                  sm:gap-1.5
+                  text-xs
+                  sm:text-sm
                   text-gray-600
                   hover:text-red-600
                   font-medium
                   cursor-pointer
+                  shrink-0
                 "
               >
-                <Trash2 size={15} />
+                <Trash2 size={14} className="sm:w-[15px] sm:h-[15px]" />
                 Remove
               </button>
 
@@ -341,11 +352,13 @@ export const BouquetItemAddToCart = ({ item }) => {
                   sm:flex
                   items-center
                   gap-1
-                  text-sm
+                  text-xs
+                  md:text-sm
                   text-pink-600
                   hover:text-pink-700
                   font-medium
                   cursor-pointer
+                  shrink-0
                 "
               >
                 View Details
@@ -362,13 +375,13 @@ export const BouquetItemAddToCart = ({ item }) => {
               TOTAL PRICE
           ============================== */}
 
-          <div className="text-right shrink-0">
+          <div className="w-full sm:w-auto text-left sm:text-right shrink-0 pt-1 sm:pt-0">
 
-            <p className="text-xs text-gray-400">
+            <p className="text-[11px] sm:text-xs text-gray-400">
               Total
             </p>
 
-            <p className="text-base sm:text-lg font-semibold text-gray-900">
+            <p className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">
               ₹{totalPrice}
             </p>
 

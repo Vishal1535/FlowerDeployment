@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import {
@@ -74,10 +73,14 @@ export const Auth = () => {
 
   const navClass = ({ isActive }) =>
     `
-      px-3
-      py-2
+      px-1.5
+      xs:px-2
+      sm:px-3
+      py-1.5
+      sm:py-2
       rounded-full
-      text-sm
+      text-[11px]
+      sm:text-sm
       font-medium
       whitespace-nowrap
       transition-all
@@ -181,17 +184,25 @@ export const Auth = () => {
           className="
             max-w-7xl
             mx-auto
-            px-4
-            sm:px-6
-            py-3
+            px-2
+            sm:px-4
+            md:px-6
+            py-2
+            sm:py-3
           "
         >
+
+          {/* =================================================
+              TOP ROW
+          ================================================= */}
 
           <div
             className="
               flex
               items-center
-              gap-3
+              gap-1.5
+              sm:gap-3
+              min-w-0
             "
           >
 
@@ -207,9 +218,12 @@ export const Auth = () => {
                   setShowSidebar(true)
                 }
                 className="
-                  w-10
-                  h-10
-                  rounded-xl
+                  w-8
+                  h-8
+                  sm:w-10
+                  sm:h-10
+                  rounded-lg
+                  sm:rounded-xl
                   bg-pink-50
                   text-pink-600
                   flex
@@ -224,7 +238,10 @@ export const Auth = () => {
                 aria-label="Open sidebar"
               >
 
-                <Menu size={21} />
+                <Menu
+                  size={18}
+                  className="sm:w-[21px] sm:h-[21px]"
+                />
 
               </button>
 
@@ -248,21 +265,24 @@ export const Auth = () => {
               className="
                 flex
                 items-center
-                gap-2
+                gap-1
+                sm:gap-2
                 shrink-0
                 cursor-pointer
+                min-w-0
               "
             >
 
-              <span className="text-3xl">
+              <span className="text-xl sm:text-3xl">
                 🌸
               </span>
 
-              <div className="text-left">
+              <div className="text-left min-w-0">
 
                 <span
                   className="
-                    text-2xl
+                    text-lg
+                    sm:text-2xl
                     font-bold
                     text-gray-800
                   "
@@ -274,9 +294,11 @@ export const Auth = () => {
 
                   <p
                     className="
-                      text-[10px]
+                      text-[7px]
+                      sm:text-[10px]
                       text-pink-500
                       font-semibold
+                      leading-tight
                     "
                   >
                     Admin Panel
@@ -288,9 +310,11 @@ export const Auth = () => {
 
                   <p
                     className="
-                      text-[10px]
+                      text-[7px]
+                      sm:text-[10px]
                       text-green-500
                       font-semibold
+                      leading-tight
                     "
                   >
                     Delivery Panel
@@ -303,7 +327,7 @@ export const Auth = () => {
             </button>
 
             {/* =================================================
-                SEARCH
+                DESKTOP SEARCH
             ================================================= */}
 
             <div
@@ -313,6 +337,7 @@ export const Auth = () => {
                 flex-1
                 min-w-0
                 justify-center
+                px-2
               "
             >
 
@@ -322,7 +347,8 @@ export const Auth = () => {
                   items-center
                   w-full
                   max-w-xl
-                  h-11
+                  h-10
+                  lg:h-11
                   border
                   border-gray-200
                   rounded-full
@@ -388,8 +414,10 @@ export const Auth = () => {
                     type="button"
                     onClick={handleSearch}
                     className="
-                      w-11
-                      h-11
+                      w-10
+                      h-10
+                      lg:w-11
+                      lg:h-11
                       shrink-0
                       flex
                       items-center
@@ -421,9 +449,11 @@ export const Auth = () => {
               className="
                 flex
                 items-center
-                gap-1
+                gap-0
+                sm:gap-1
                 ml-auto
                 shrink-0
+                min-w-0
               "
             >
 
@@ -437,8 +467,10 @@ export const Auth = () => {
                   type="button"
                   className="
                     relative
-                    w-10
-                    h-10
+                    w-8
+                    h-8
+                    sm:w-10
+                    sm:h-10
                     rounded-full
                     hover:bg-gray-100
                     flex
@@ -447,18 +479,24 @@ export const Auth = () => {
                     text-gray-600
                     transition
                     cursor-pointer
+                    shrink-0
                   "
                 >
 
-                  <Bell size={19} />
+                  <Bell
+                    size={17}
+                    className="sm:w-[19px] sm:h-[19px]"
+                  />
 
                   <span
                     className="
                       absolute
                       top-1
                       right-1
-                      w-2
-                      h-2
+                      w-1.5
+                      h-1.5
+                      sm:w-2
+                      sm:h-2
                       bg-red-500
                       rounded-full
                     "
@@ -470,19 +508,11 @@ export const Auth = () => {
 
               {/* =================================================
                   NOT AUTHORIZED
-
-                  HOME
-                  ABOUT US
-                  CONTACT US
-                  LOGIN
-                  REGISTER
               ================================================= */}
 
               {!isAuthorized && (
 
                 <>
-
-                  {/* HOME */}
 
                   <NavLink
                     to="/"
@@ -491,25 +521,19 @@ export const Auth = () => {
                     Home
                   </NavLink>
 
-                  {/* ABOUT US */}
-
                   <NavLink
                     to="/about"
                     className={navClass}
                   >
-                    About 
+                    About
                   </NavLink>
-
-                  {/* CONTACT US */}
 
                   <NavLink
                     to="/contact"
                     className={navClass}
                   >
-                    Contact 
+                    Contact
                   </NavLink>
-
-                  {/* LOGIN */}
 
                   <NavLink
                     to="/login"
@@ -518,15 +542,16 @@ export const Auth = () => {
                     Login
                   </NavLink>
 
-                  {/* REGISTER */}
-
                   <NavLink
                     to="/register"
                     className="
-                      px-4
-                      py-2
+                      px-2
+                      sm:px-4
+                      py-1.5
+                      sm:py-2
                       rounded-full
-                      text-sm
+                      text-[11px]
+                      sm:text-sm
                       font-semibold
                       bg-pink-500
                       text-white
@@ -546,19 +571,11 @@ export const Auth = () => {
 
               {/* =================================================
                   NORMAL USER
-
-                  HOME
-                  ABOUT US
-                  CONTACT US
-                  WISHLIST
-                  PROFILE
               ================================================= */}
 
               {isAuthorized && !isStaff && (
 
                 <>
-
-                  {/* HOME */}
 
                   <NavLink
                     to="/"
@@ -567,25 +584,19 @@ export const Auth = () => {
                     Home
                   </NavLink>
 
-                  {/* ABOUT US */}
-
                   <NavLink
                     to="/about"
                     className={navClass}
                   >
-                    About 
+                    About
                   </NavLink>
-
-                  {/* CONTACT US */}
 
                   <NavLink
                     to="/contact"
                     className={navClass}
                   >
-                    Contact 
+                    Contact
                   </NavLink>
-
-                  {/* WISHLIST */}
 
                   <NavLink
                     to="/wishlist"
@@ -593,8 +604,6 @@ export const Auth = () => {
                   >
                     ❤️ Wishlist
                   </NavLink>
-
-                  {/* PROFILE */}
 
                   <ProfileDropdown
                     userInfo={userInfo}
@@ -613,6 +622,122 @@ export const Auth = () => {
                 <ProfileDropdown
                   userInfo={userInfo}
                 />
+
+              )}
+
+            </div>
+
+          </div>
+
+          {/* =================================================
+              MOBILE SEARCH
+          ================================================= */}
+
+          <div
+            className="
+              flex
+              md:hidden
+              w-full
+              mt-2
+            "
+          >
+
+            <div
+              className="
+                flex
+                items-center
+                w-full
+                h-10
+                sm:h-11
+                border
+                border-gray-200
+                rounded-full
+                bg-gray-50
+                overflow-hidden
+
+                focus-within:bg-white
+                focus-within:border-pink-300
+                focus-within:ring-4
+                focus-within:ring-pink-50
+
+                transition-all
+              "
+            >
+
+              <Search
+                size={17}
+                className="
+                  ml-3
+                  sm:ml-4
+                  text-gray-400
+                  shrink-0
+                "
+              />
+
+              <input
+                type="text"
+                value={query}
+                onChange={(e) =>
+                  setQuery(e.target.value)
+                }
+                onKeyDown={handleKeyDown}
+                placeholder={
+                  isStaff
+                    ? "Search anything..."
+                    : "Search flowers, bouquets or occasions..."
+                }
+                className="
+                  flex-1
+                  min-w-0
+                  h-full
+                  px-2.5
+                  sm:px-3
+                  bg-transparent
+                  outline-none
+                  text-xs
+                  sm:text-sm
+                  text-gray-700
+                "
+              />
+
+              {searching ? (
+
+                <span
+                  className="
+                    loading
+                    loading-spinner
+                    loading-sm
+                    mr-3
+                    shrink-0
+                  "
+                />
+
+              ) : (
+
+                <button
+                  type="button"
+                  onClick={handleSearch}
+                  className="
+                    w-10
+                    h-10
+                    sm:w-11
+                    sm:h-11
+                    shrink-0
+                    flex
+                    items-center
+                    justify-center
+                    bg-pink-500
+                    text-white
+                    hover:bg-pink-600
+                    transition
+                    cursor-pointer
+                  "
+                  aria-label="Search"
+                >
+
+                  <Search size={17} />
+
+                </button>
 
               )}
 

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { X, Upload, Loader2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -91,7 +90,7 @@ export const EditWoolenBouquetPopUp = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 min-[380px]:p-3 sm:p-4">
 
       {/* OVERLAY */}
 
@@ -102,18 +101,46 @@ export const EditWoolenBouquetPopUp = () => {
 
       {/* POPUP */}
 
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-xl">
+      <div
+        className="
+          relative
+          w-full
+          max-w-2xl
+          max-h-[95vh]
+          sm:max-h-[90vh]
+          overflow-y-auto
+          bg-white
+          rounded-xl
+          min-[380px]:rounded-2xl
+          shadow-xl
+        "
+      >
 
         {/* HEADER */}
 
-        <div className="flex items-center justify-between p-5 border-b border-gray-100">
+        <div
+          className="
+            sticky
+            top-0
+            z-10
+            flex
+            items-start
+            justify-between
+            gap-3
+            p-4
+            min-[380px]:p-5
+            bg-white
+            border-b
+            border-gray-100
+          "
+        >
 
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+          <div className="min-w-0">
+            <h2 className="text-lg min-[380px]:text-xl font-semibold text-gray-800">
               Edit Woolen Bouquet
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1 leading-5">
               Update your woolen bouquet details
             </p>
           </div>
@@ -123,8 +150,11 @@ export const EditWoolenBouquetPopUp = () => {
             onClick={handleClose}
             disabled={loading}
             className="
-              w-10
-              h-10
+              w-9
+              h-9
+              min-[380px]:w-10
+              min-[380px]:h-10
+              shrink-0
               rounded-xl
               flex
               items-center
@@ -134,22 +164,25 @@ export const EditWoolenBouquetPopUp = () => {
               transition
             "
           >
-            <X size={20} />
+            <X size={19} />
           </button>
 
         </div>
 
         {/* FORM */}
 
-        <form onSubmit={handleSubmit} className="p-5 sm:p-6">
+        <form
+          onSubmit={handleSubmit}
+          className="p-4 min-[380px]:p-5 sm:p-6"
+        >
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-[380px]:gap-5">
 
             {/* NAME */}
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Bouquet Name
               </label>
 
@@ -162,8 +195,11 @@ export const EditWoolenBouquetPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -180,7 +216,7 @@ export const EditWoolenBouquetPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Price
               </label>
 
@@ -194,8 +230,11 @@ export const EditWoolenBouquetPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -212,7 +251,7 @@ export const EditWoolenBouquetPopUp = () => {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Stock
               </label>
 
@@ -226,8 +265,11 @@ export const EditWoolenBouquetPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -244,7 +286,7 @@ export const EditWoolenBouquetPopUp = () => {
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Occasion
               </label>
 
@@ -257,8 +299,11 @@ export const EditWoolenBouquetPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -275,17 +320,18 @@ export const EditWoolenBouquetPopUp = () => {
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Image URL
               </label>
 
               <div className="relative">
 
                 <Upload
-                  size={18}
+                  size={17}
                   className="
                     absolute
-                    left-4
+                    left-3
+                    min-[380px]:left-4
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
@@ -301,9 +347,13 @@ export const EditWoolenBouquetPopUp = () => {
                   required
                   className="
                     w-full
-                    pl-11
-                    pr-4
-                    py-3
+                    pl-10
+                    min-[380px]:pl-11
+                    pr-3
+                    min-[380px]:pr-4
+                    py-2.5
+                    min-[380px]:py-3
+                    text-sm
                     rounded-xl
                     border
                     border-gray-200
@@ -323,11 +373,11 @@ export const EditWoolenBouquetPopUp = () => {
             {formData.image && (
               <div className="sm:col-span-2">
 
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                   Image Preview
                 </label>
 
-                <div className="h-48 rounded-xl overflow-hidden bg-gray-100">
+                <div className="h-40 min-[380px]:h-48 rounded-xl overflow-hidden bg-gray-100">
 
                   <img
                     src={formData.image}
@@ -344,7 +394,7 @@ export const EditWoolenBouquetPopUp = () => {
 
             <div className="sm:col-span-2">
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Description
               </label>
 
@@ -357,8 +407,11 @@ export const EditWoolenBouquetPopUp = () => {
                 required
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -381,8 +434,9 @@ export const EditWoolenBouquetPopUp = () => {
                   flex
                   items-center
                   justify-between
-                  gap-4
-                  p-4
+                  gap-3
+                  p-3
+                  min-[380px]:p-4
                   rounded-xl
                   border
                   border-gray-100
@@ -390,12 +444,12 @@ export const EditWoolenBouquetPopUp = () => {
                 "
               >
 
-                <div>
-                  <p className="text-sm font-medium text-gray-700">
+                <div className="min-w-0">
+                  <p className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                     Available for customers
                   </p>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[11px] min-[380px]:text-xs text-gray-500 mt-1 leading-4">
                     Enable or disable this woolen bouquet.
                   </p>
                 </div>
@@ -405,7 +459,7 @@ export const EditWoolenBouquetPopUp = () => {
                   name="isAvailable"
                   checked={formData.isAvailable}
                   onChange={handleChange}
-                  className="w-5 h-5 accent-pink-500"
+                  className="w-5 h-5 shrink-0 accent-pink-500"
                 />
 
               </label>
@@ -416,19 +470,22 @@ export const EditWoolenBouquetPopUp = () => {
 
           {/* BUTTONS */}
 
-          <div className="flex justify-end gap-3 mt-7 pt-5 border-t border-gray-100">
+          <div className="flex flex-col min-[380px]:flex-row justify-end gap-2.5 min-[380px]:gap-3 mt-6 min-[380px]:mt-7 pt-4 min-[380px]:pt-5 border-t border-gray-100">
 
             <button
               type="button"
               onClick={handleClose}
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-5
                 py-2.5
                 rounded-xl
                 border
                 border-gray-200
                 text-gray-600
+                text-sm
                 hover:bg-gray-50
                 transition
               "
@@ -440,18 +497,23 @@ export const EditWoolenBouquetPopUp = () => {
               type="submit"
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 flex
                 items-center
+                justify-center
                 gap-2
                 px-5
                 py-2.5
                 rounded-xl
                 bg-pink-500
                 text-white
+                text-sm
                 hover:bg-pink-600
                 disabled:opacity-60
                 disabled:cursor-not-allowed
                 transition
+                min-[380px]:min-w-[170px]
               "
             >
               {loading && (
@@ -475,4 +537,3 @@ export const EditWoolenBouquetPopUp = () => {
     </div>
   );
 };
-

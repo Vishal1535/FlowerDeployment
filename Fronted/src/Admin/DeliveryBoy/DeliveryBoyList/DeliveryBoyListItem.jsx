@@ -28,7 +28,6 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const [showOptions, setShowOptions] = useState(false);
 
   // =====================================================
@@ -45,10 +44,7 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
     document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleOutsideClick
-      );
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
 
@@ -139,18 +135,16 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
           MAIN DELIVERY BOY ROW
       ===================================================== */}
 
-      <div className="p-4 sm:p-5">
-
-        <div className="flex items-center gap-4">
-
+      <div className="p-3.5 sm:p-5">
+        <div className="flex items-start sm:items-center gap-3 sm:gap-4">
           {/* =================================================
               PROFILE
           ================================================= */}
 
           <div
             className="
-              w-12
-              h-12
+              w-11
+              h-11
               sm:w-14
               sm:h-14
               shrink-0
@@ -164,17 +158,15 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               justify-center
             "
           >
-            <User size={25} />
+            <User size={23} className="sm:w-[25px] sm:h-[25px]" />
           </div>
 
           {/* =================================================
               NAME + EMAIL
           ================================================= */}
 
-          <div className="flex-1 min-w-0">
-
-            <div className="flex items-center gap-2 flex-wrap">
-
+          <div className="flex-1 min-w-0 pr-1">
+            <div className="flex items-start sm:items-center gap-1.5 sm:gap-2 flex-wrap">
               <h3
                 className="
                   text-base
@@ -182,6 +174,8 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
                   font-semibold
                   text-gray-800
                   capitalize
+                  max-w-full
+                  sm:max-w-none
                   truncate
                 "
               >
@@ -195,11 +189,14 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
                   inline-flex
                   items-center
                   gap-1
-                  px-2.5
+                  px-2
+                  sm:px-2.5
                   py-1
                   rounded-full
-                  text-[11px]
+                  text-[10px]
+                  sm:text-[11px]
                   font-semibold
+                  whitespace-nowrap
                   ${
                     isAvailable
                       ? "bg-green-50 text-green-600 border border-green-100"
@@ -208,16 +205,13 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
                 `}
               >
                 {isAvailable ? (
-                  <CheckCircle size={12} />
+                  <CheckCircle size={11} className="sm:w-3 sm:h-3" />
                 ) : (
-                  <XCircle size={12} />
+                  <XCircle size={11} className="sm:w-3 sm:h-3" />
                 )}
 
-                {isAvailable
-                  ? "Available"
-                  : "Unavailable"}
+                {isAvailable ? "Available" : "Unavailable"}
               </span>
-
             </div>
 
             {/* EMAIL */}
@@ -228,21 +222,16 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
                 items-center
                 gap-1.5
                 mt-1
-                text-sm
+                text-xs
+                sm:text-sm
                 text-gray-500
-                truncate
+                min-w-0
               "
             >
-              <Mail
-                size={14}
-                className="shrink-0"
-              />
+              <Mail size={14} className="shrink-0" />
 
-              <span className="truncate">
-                {email}
-              </span>
+              <span className="truncate">{email}</span>
             </div>
-
           </div>
 
           {/* =================================================
@@ -250,24 +239,15 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
           ================================================= */}
 
           <div className="hidden lg:block min-w-[145px]">
-
             <p className="text-[10px] uppercase tracking-wide text-gray-400 mb-1">
               Phone
             </p>
 
             <div className="flex items-center gap-2 text-sm text-gray-700">
+              <Phone size={15} className="text-gray-400" />
 
-              <Phone
-                size={15}
-                className="text-gray-400"
-              />
-
-              <span>
-                {phone || "-"}
-              </span>
-
+              <span>{phone || "-"}</span>
             </div>
-
           </div>
 
           {/* =================================================
@@ -275,22 +255,14 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
           ================================================= */}
 
           <div className="hidden lg:block min-w-[125px]">
-
             <p className="text-[10px] uppercase tracking-wide text-gray-400 mb-1">
               Vehicle
             </p>
 
             <div className="flex items-center gap-2 text-sm text-gray-700">
+              <Bike size={15} className="text-gray-400" />
 
-              <Bike
-                size={15}
-                className="text-gray-400"
-              />
-
-              <span className="capitalize">
-                {vehicleType || "-"}
-              </span>
-
+              <span className="capitalize">{vehicleType || "-"}</span>
             </div>
 
             {vehicleNumber && (
@@ -298,7 +270,6 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
                 {vehicleNumber}
               </p>
             )}
-
           </div>
 
           {/* =================================================
@@ -306,21 +277,15 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
           ================================================= */}
 
           <div className="hidden lg:block min-w-[110px]">
-
             <p className="text-[10px] uppercase tracking-wide text-gray-400 mb-1">
               Deliveries
             </p>
 
             <p className="text-sm font-semibold text-gray-800">
-
               {completedDeliveries}
 
-              <span className="font-normal text-gray-400 ml-1">
-                completed
-              </span>
-
+              <span className="font-normal text-gray-400 ml-1">completed</span>
             </p>
-
           </div>
 
           {/* =================================================
@@ -329,12 +294,12 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
 
           <button
             type="button"
-            onClick={() =>
-              setShowOptions((prev) => !prev)
-            }
+            onClick={() => setShowOptions((prev) => !prev)}
             className={`
-              w-10
-              h-10
+              w-9
+              h-9
+              sm:w-10
+              sm:h-10
               shrink-0
               rounded-xl
               border
@@ -351,12 +316,11 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
             aria-label="Delivery boy options"
           >
             {showOptions ? (
-              <ChevronUp size={20} />
+              <ChevronUp size={19} className="sm:w-5 sm:h-5" />
             ) : (
-              <MoreVertical size={20} />
+              <MoreVertical size={19} className="sm:w-5 sm:h-5" />
             )}
           </button>
-
         </div>
 
         {/* =====================================================
@@ -366,17 +330,20 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
         <div
           className="
             lg:hidden
-            mt-4
-            pt-4
+            mt-3.5
+            sm:mt-4
+            pt-3.5
+            sm:pt-4
             border-t
             border-gray-100
             grid
-            grid-cols-2
+            grid-cols-1
+            min-[400px]:grid-cols-2
             sm:grid-cols-3
-            gap-3
+            gap-2.5
+            sm:gap-3
           "
         >
-
           {/* PHONE */}
 
           <div
@@ -385,27 +352,18 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               border
               border-gray-100
               rounded-xl
-              p-3
+              p-2.5
+              sm:p-3
+              min-w-0
             "
           >
+            <p className="text-[10px] uppercase text-gray-400 mb-1">Phone</p>
 
-            <p className="text-[10px] uppercase text-gray-400 mb-1">
-              Phone
-            </p>
+            <div className="flex items-center gap-1.5 text-sm text-gray-700 min-w-0">
+              <Phone size={14} className="text-gray-400 shrink-0" />
 
-            <div className="flex items-center gap-1.5 text-sm text-gray-700">
-
-              <Phone
-                size={14}
-                className="text-gray-400"
-              />
-
-              <span className="truncate">
-                {phone || "-"}
-              </span>
-
+              <span className="truncate">{phone || "-"}</span>
             </div>
-
           </div>
 
           {/* VEHICLE */}
@@ -416,27 +374,18 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               border
               border-gray-100
               rounded-xl
-              p-3
+              p-2.5
+              sm:p-3
+              min-w-0
             "
           >
+            <p className="text-[10px] uppercase text-gray-400 mb-1">Vehicle</p>
 
-            <p className="text-[10px] uppercase text-gray-400 mb-1">
-              Vehicle
-            </p>
+            <div className="flex items-center gap-1.5 text-sm text-gray-700 min-w-0">
+              <Bike size={14} className="text-gray-400 shrink-0" />
 
-            <div className="flex items-center gap-1.5 text-sm text-gray-700">
-
-              <Bike
-                size={14}
-                className="text-gray-400"
-              />
-
-              <span className="capitalize">
-                {vehicleType || "-"}
-              </span>
-
+              <span className="capitalize truncate">{vehicleType || "-"}</span>
             </div>
-
           </div>
 
           {/* COMPLETED */}
@@ -447,10 +396,13 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               border
               border-gray-100
               rounded-xl
-              p-3
+              p-2.5
+              sm:p-3
+              min-w-0
+              min-[400px]:col-span-2
+              sm:col-span-1
             "
           >
-
             <p className="text-[10px] uppercase text-gray-400 mb-1">
               Completed
             </p>
@@ -458,11 +410,8 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
             <p className="text-sm font-semibold text-gray-800">
               {completedDeliveries}
             </p>
-
           </div>
-
         </div>
-
       </div>
 
       {/* =====================================================
@@ -475,15 +424,13 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
             border-t
             border-gray-100
             bg-gray-50/80
-            px-4
+            px-3.5
             sm:px-5
             py-3
             rounded-b-2xl
           "
         >
-
-          <div className="flex flex-wrap gap-2">
-
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
             {/* =================================================
                 VIEW
             ================================================= */}
@@ -492,6 +439,8 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               type="button"
               onClick={handleView}
               className="
+                w-full
+                sm:w-auto
                 flex
                 items-center
                 justify-center
@@ -510,11 +459,7 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
                 transition
               "
             >
-              <Eye
-                size={16}
-                className="text-gray-500"
-              />
-
+              <Eye size={16} className="text-gray-500" />
               View
             </button>
 
@@ -526,6 +471,8 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               type="button"
               onClick={handleEdit}
               className="
+                w-full
+                sm:w-auto
                 flex
                 items-center
                 justify-center
@@ -544,7 +491,6 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               "
             >
               <Pencil size={16} />
-
               Edit
             </button>
 
@@ -556,6 +502,8 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               type="button"
               onClick={handleAssignOrder}
               className="
+                w-full
+                sm:w-auto
                 flex
                 items-center
                 justify-center
@@ -574,7 +522,6 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               "
             >
               <ClipboardList size={16} />
-
               Assign Order
             </button>
 
@@ -586,6 +533,8 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               type="button"
               onClick={handleDelete}
               className="
+                w-full
+                sm:w-auto
                 flex
                 items-center
                 justify-center
@@ -604,12 +553,9 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
               "
             >
               <Trash2 size={16} />
-
               Delete
             </button>
-
           </div>
-
         </div>
       )}
 
@@ -619,7 +565,7 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
 
       <div
         className="
-          px-4
+          px-3.5
           sm:px-5
           py-2.5
           bg-gray-50
@@ -628,26 +574,25 @@ export const DeliveryBoyListItem = ({ deliveryBoy }) => {
           rounded-b-2xl
           text-xs
           text-gray-500
+          flex
+          flex-wrap
+          items-center
+          gap-x-2
+          gap-y-1
         "
       >
-        Total deliveries:
+        <span>Total deliveries:</span>
 
-        <span className="font-semibold text-gray-700 ml-1">
-          {totalDeliveries}
-        </span>
+        <span className="font-semibold text-gray-700">{totalDeliveries}</span>
 
-        <span className="mx-2 text-gray-300">
-          •
-        </span>
+        <span className="text-gray-300">•</span>
 
-        Cancelled:
+        <span>Cancelled:</span>
 
-        <span className="font-semibold text-gray-700 ml-1">
+        <span className="font-semibold text-gray-700">
           {cancelledDeliveries}
         </span>
-
       </div>
-
     </div>
   );
 };

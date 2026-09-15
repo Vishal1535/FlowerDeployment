@@ -263,36 +263,61 @@ export const FlowerInSleeve = () => {
   }
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-10 py-10">
+    <section
+      className="
+        w-full
+        max-w-full
+        overflow-hidden
+        px-3
+        sm:px-6
+        lg:px-10
+        py-8
+        sm:py-10
+      "
+    >
 
       {/* ================= HEADER ================= */}
 
-      <div className="mb-8 sm:mb-10">
+      <div className="mb-6 sm:mb-10">
 
-        <div className="flex items-end justify-between gap-5">
+        <div
+          className="
+            flex
+            flex-col
+            sm:flex-row
+            sm:items-end
+            sm:justify-between
+            gap-4
+            sm:gap-5
+          "
+        >
 
           {/* LEFT */}
 
-          <div>
+          <div className="min-w-0">
 
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
 
               <span
                 className="
-                  w-8
+                  w-6
+                  sm:w-8
                   h-[2px]
                   bg-pink-500
                   rounded-full
+                  shrink-0
                 "
               />
 
               <span
                 className="
-                  text-[11px]
+                  text-[9px]
+                  min-[380px]:text-[10px]
                   sm:text-xs
                   font-bold
                   uppercase
-                  tracking-[0.22em]
+                  tracking-[0.18em]
+                  sm:tracking-[0.22em]
                   text-pink-500
                 "
               >
@@ -303,7 +328,8 @@ export const FlowerInSleeve = () => {
 
             <h2
               className="
-                text-3xl
+                text-2xl
+                min-[380px]:text-3xl
                 sm:text-4xl
                 lg:text-5xl
                 font-extrabold
@@ -322,8 +348,9 @@ export const FlowerInSleeve = () => {
               className="
                 mt-2
                 sm:mt-3
-                text-sm
-                sm:text-base
+                text-xs
+                sm:text-sm
+                lg:text-base
                 text-gray-500
                 max-w-lg
                 leading-relaxed
@@ -338,7 +365,17 @@ export const FlowerInSleeve = () => {
 
           {/* RIGHT SEARCH */}
 
-          <div className="hidden sm:flex items-center gap-3 pb-2">
+          <div
+            className="
+              w-full
+              sm:w-auto
+              flex
+              justify-end
+              items-center
+              gap-3
+              sm:pb-2
+            "
+          >
 
             <div
               className={`
@@ -349,7 +386,7 @@ export const FlowerInSleeve = () => {
                 overflow-hidden
                 ${
                   isSearchOpen
-                    ? "w-[220px]"
+                    ? "w-full sm:w-[220px]"
                     : "w-10"
                 }
               `}
@@ -364,8 +401,10 @@ export const FlowerInSleeve = () => {
                   }
                   aria-label="Open flower sleeve search"
                   className="
-                    w-10
-                    h-10
+                    w-9
+                    h-9
+                    sm:w-10
+                    sm:h-10
                     shrink-0
                     rounded-full
                     border
@@ -383,7 +422,15 @@ export const FlowerInSleeve = () => {
                     duration-300
                   "
                 >
-                  <Search size={18} />
+                  <Search
+                    size={16}
+                    className="sm:hidden"
+                  />
+
+                  <Search
+                    size={18}
+                    className="hidden sm:block"
+                  />
                 </button>
 
               ) : (
@@ -393,7 +440,8 @@ export const FlowerInSleeve = () => {
                     flex
                     items-center
                     w-full
-                    h-10
+                    h-9
+                    sm:h-10
                     rounded-full
                     border
                     border-pink-300
@@ -407,7 +455,7 @@ export const FlowerInSleeve = () => {
                 >
 
                   <Search
-                    size={17}
+                    size={16}
                     className="
                       text-pink-500
                       shrink-0
@@ -425,7 +473,8 @@ export const FlowerInSleeve = () => {
                       min-w-0
                       bg-transparent
                       outline-none
-                      text-sm
+                      text-xs
+                      sm:text-sm
                       text-gray-700
                       placeholder:text-gray-400
                     "
@@ -442,7 +491,11 @@ export const FlowerInSleeve = () => {
                       transition-colors
                     "
                   >
-                    <X size={16} />
+                    <X size={15} className="sm:hidden" />
+                    <X
+                      size={16}
+                      className="hidden sm:block"
+                    />
                   </button>
 
                 </div>
@@ -459,7 +512,8 @@ export const FlowerInSleeve = () => {
 
         <div
           className="
-            mt-6
+            mt-5
+            sm:mt-6
             h-px
             bg-gradient-to-r
             from-pink-200
@@ -476,7 +530,8 @@ export const FlowerInSleeve = () => {
         className="
           flex
           items-center
-          gap-2
+          gap-1.5
+          min-[380px]:gap-2
           sm:gap-4
           w-full
         "
@@ -495,8 +550,10 @@ export const FlowerInSleeve = () => {
           aria-label="Previous flower sleeves"
           className="
             shrink-0
-            w-10
-            h-10
+            w-8
+            h-8
+            min-[380px]:w-9
+            min-[380px]:h-9
             sm:w-12
             sm:h-12
             rounded-full
@@ -520,7 +577,14 @@ export const FlowerInSleeve = () => {
           "
         >
           <ChevronLeft
+            size={17}
+            className="sm:hidden"
+            strokeWidth={2}
+          />
+
+          <ChevronLeft
             size={22}
+            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>
@@ -559,7 +623,7 @@ export const FlowerInSleeve = () => {
                 sm:grid-cols-2
                 lg:grid-cols-3
                 xl:grid-cols-4
-                gap-4
+                gap-3
                 sm:gap-5
               "
             >
@@ -568,8 +632,11 @@ export const FlowerInSleeve = () => {
                   <div
                     key={item}
                     className="
-                      h-[470px]
-                      rounded-3xl
+                      h-[400px]
+                      min-[380px]:h-[430px]
+                      sm:h-[470px]
+                      rounded-2xl
+                      sm:rounded-3xl
                       bg-gray-100
                       animate-pulse
                     "
@@ -584,21 +651,26 @@ export const FlowerInSleeve = () => {
 
             <div
               className="
-                py-20
+                py-14
+                sm:py-20
+                px-4
                 text-center
-                rounded-3xl
+                rounded-2xl
+                sm:rounded-3xl
                 bg-pink-50/50
                 border
                 border-pink-100
               "
             >
 
-              <div className="text-4xl mb-3">
+              <div className="text-3xl sm:text-4xl mb-3">
                 🌸
               </div>
 
               <p
                 className="
+                  text-sm
+                  sm:text-base
                   text-gray-600
                   font-medium
                 "
@@ -608,7 +680,8 @@ export const FlowerInSleeve = () => {
 
               <p
                 className="
-                  text-sm
+                  text-xs
+                  sm:text-sm
                   text-gray-400
                   mt-1
                 "
@@ -631,7 +704,7 @@ export const FlowerInSleeve = () => {
                 sm:grid-cols-2
                 lg:grid-cols-3
                 xl:grid-cols-4
-                gap-4
+                gap-3
                 sm:gap-5
 
                 ${
@@ -672,8 +745,10 @@ export const FlowerInSleeve = () => {
           aria-label="Next flower sleeves"
           className="
             shrink-0
-            w-10
-            h-10
+            w-8
+            h-8
+            min-[380px]:w-9
+            min-[380px]:h-9
             sm:w-12
             sm:h-12
             rounded-full
@@ -697,7 +772,14 @@ export const FlowerInSleeve = () => {
           "
         >
           <ChevronRight
+            size={17}
+            className="sm:hidden"
+            strokeWidth={2}
+          />
+
+          <ChevronRight
             size={22}
+            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>

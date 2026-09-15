@@ -35,15 +35,16 @@ export const Card = () => {
   };
 
   return (
-    <div className="w-full mt-6">
+    <div className="w-full min-w-0 overflow-hidden mt-4 sm:mt-6">
 
       {/* HEADER */}
 
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between gap-3 mb-3">
 
-        <div>
+        <div className="min-w-0">
           <p className="
-            text-[10px]
+            text-[9px]
+            min-[380px]:text-[10px]
             font-semibold
             text-pink-500
             uppercase
@@ -53,9 +54,11 @@ export const Card = () => {
           </p>
 
           <h2 className="
-            text-lg
+            text-base
+            min-[380px]:text-lg
             font-bold
             text-gray-800
+            truncate
           ">
             Choose a Card 💌
           </h2>
@@ -63,15 +66,17 @@ export const Card = () => {
 
         {/* ARROWS */}
 
-        <div className="flex gap-1.5">
+        <div className="flex gap-1.5 shrink-0">
 
           <button
             type="button"
             onClick={prev}
             disabled={currentIndex === 0}
             className="
-              w-8
-              h-8
+              w-7
+              h-7
+              min-[380px]:w-8
+              min-[380px]:h-8
               rounded-full
               border
               border-gray-200
@@ -85,7 +90,10 @@ export const Card = () => {
               transition
             "
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft
+              size={14}
+              className="min-[380px]:w-4 min-[380px]:h-4"
+            />
           </button>
 
           <button
@@ -93,8 +101,10 @@ export const Card = () => {
             onClick={next}
             disabled={currentIndex + 3 >= cards.length}
             className="
-              w-8
-              h-8
+              w-7
+              h-7
+              min-[380px]:w-8
+              min-[380px]:h-8
               rounded-full
               border
               border-gray-200
@@ -108,7 +118,10 @@ export const Card = () => {
               transition
             "
           >
-            <ChevronRight size={16} />
+            <ChevronRight
+              size={14}
+              className="min-[380px]:w-4 min-[380px]:h-4"
+            />
           </button>
 
         </div>
@@ -121,8 +134,11 @@ export const Card = () => {
         grid
         grid-cols-1
         sm:grid-cols-3
-        gap-3
+        gap-2
+        min-[380px]:gap-3
         max-w-3xl
+        w-full
+        min-w-0
       ">
         {visibleCards.map((card) => (
           <CardItem

@@ -101,6 +101,7 @@ export const DashBoard = () => {
         return "bg-gray-50 text-gray-600";
     }
   };
+
   // updateLocation
   const handleUpdateLocation = () => {
     if (!navigator.geolocation) {
@@ -162,6 +163,7 @@ export const DashBoard = () => {
       },
     );
   };
+
   // =====================================================
   // STATUS TEXT
   // =====================================================
@@ -216,8 +218,8 @@ export const DashBoard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50/70 via-white to-rose-50/40 px-4 sm:px-6 lg:px-8 py-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50/70 via-white to-rose-50/40 px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
         {/* =====================================================
             BACK BUTTON
         ===================================================== */}
@@ -230,8 +232,8 @@ export const DashBoard = () => {
               inline-flex
               items-center
               gap-2
-              px-4
-              py-2.5
+              px-3 sm:px-4
+              py-2 sm:py-2.5
               bg-white
               border
               border-gray-200
@@ -256,30 +258,30 @@ export const DashBoard = () => {
             WELCOME HEADER
         ===================================================== */}
 
-        <div className="relative overflow-hidden bg-white border border-pink-100 rounded-3xl shadow-sm">
-          <div className="absolute -right-10 -top-10 w-40 h-40 bg-pink-100/60 rounded-full blur-2xl" />
+        <div className="relative overflow-hidden bg-white border border-pink-100 rounded-2xl sm:rounded-3xl shadow-sm">
+          <div className="absolute -right-10 -top-10 w-32 sm:w-40 h-32 sm:h-40 bg-pink-100/60 rounded-full blur-2xl" />
 
-          <div className="absolute right-24 bottom-0 w-28 h-28 bg-rose-100/50 rounded-full blur-2xl" />
+          <div className="absolute right-10 sm:right-24 bottom-0 w-24 sm:w-28 h-24 sm:h-28 bg-rose-100/50 rounded-full blur-2xl" />
 
-          <div className="relative p-6 sm:p-8">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="relative p-4 sm:p-8">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 sm:gap-6">
               {/* LEFT */}
 
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
-                  <Bike size={31} />
+              <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
+                  <Bike size={28} className="sm:w-[31px] sm:h-[31px]" />
                 </div>
 
-                <div>
-                  <p className="text-sm font-medium text-pink-500">
+                <div className="min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-pink-500">
                     Delivery Panel
                   </p>
 
-                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">
+                  <h1 className="text-xl sm:text-3xl font-bold text-gray-800 mt-1 break-words">
                     Welcome back! 👋
                   </h1>
 
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1 leading-5">
                     Manage your deliveries and keep track of your orders.
                   </p>
                 </div>
@@ -287,8 +289,8 @@ export const DashBoard = () => {
 
               {/* STATUS */}
 
-              <div className="flex items-center gap-3 bg-green-50 border border-green-100 rounded-2xl px-4 py-3">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
+              <div className="w-full md:w-auto flex items-center gap-3 bg-green-50 border border-green-100 rounded-2xl px-3 sm:px-4 py-3">
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shrink-0">
                   <CircleCheck size={22} className="text-green-500" />
                 </div>
 
@@ -306,15 +308,15 @@ export const DashBoard = () => {
             STATISTICS
         ===================================================== */}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
           {/* TOTAL */}
 
-          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <div>
+          <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
                 <p className="text-sm text-gray-500">Total Deliveries</p>
 
-                <h2 className="text-3xl font-bold text-gray-800 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mt-2">
                   {totalDeliveries}
                 </h2>
 
@@ -323,20 +325,20 @@ export const DashBoard = () => {
                 </p>
               </div>
 
-              <div className="w-12 h-12 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center">
-                <Package size={24} />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center shrink-0">
+                <Package size={23} />
               </div>
             </div>
           </div>
 
           {/* COMPLETED */}
 
-          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <div>
+          <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
                 <p className="text-sm text-gray-500">Completed</p>
 
-                <h2 className="text-3xl font-bold text-gray-800 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mt-2">
                   {completed}
                 </h2>
 
@@ -345,20 +347,20 @@ export const DashBoard = () => {
                 </p>
               </div>
 
-              <div className="w-12 h-12 rounded-xl bg-green-50 text-green-500 flex items-center justify-center">
-                <CheckCircle size={24} />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-green-50 text-green-500 flex items-center justify-center shrink-0">
+                <CheckCircle size={23} />
               </div>
             </div>
           </div>
 
           {/* ACTIVE */}
 
-          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <div>
+          <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
                 <p className="text-sm text-gray-500">Active Orders</p>
 
-                <h2 className="text-3xl font-bold text-gray-800 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mt-2">
                   {activeOrders}
                 </h2>
 
@@ -367,20 +369,20 @@ export const DashBoard = () => {
                 </p>
               </div>
 
-              <div className="w-12 h-12 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center">
-                <Clock3 size={24} />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
+                <Clock3 size={23} />
               </div>
             </div>
           </div>
 
           {/* CANCELLED */}
 
-          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <div>
+          <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md transition">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
                 <p className="text-sm text-gray-500">Cancelled</p>
 
-                <h2 className="text-3xl font-bold text-gray-800 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mt-2">
                   {cancelled}
                 </h2>
 
@@ -389,8 +391,8 @@ export const DashBoard = () => {
                 </p>
               </div>
 
-              <div className="w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center">
-                <XCircle size={24} />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center shrink-0">
+                <XCircle size={23} />
               </div>
             </div>
           </div>
@@ -400,19 +402,19 @@ export const DashBoard = () => {
             MAIN CONTENT
         ===================================================== */}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* =================================================
               CURRENT ORDERS
           ================================================= */}
 
-          <div className="lg:col-span-2 bg-white border border-gray-100 rounded-3xl shadow-sm overflow-hidden">
-            <div className="px-5 sm:px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-              <div>
+          <div className="lg:col-span-2 bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden">
+            <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100 flex items-start sm:items-center justify-between gap-3">
+              <div className="min-w-0">
                 <h2 className="text-lg font-bold text-gray-800">
                   Current Orders
                 </h2>
 
-                <p className="text-sm text-gray-500 mt-0.5">
+                <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                   Orders currently assigned to you
                 </p>
               </div>
@@ -420,7 +422,7 @@ export const DashBoard = () => {
               <button
                 type="button"
                 onClick={() => navigate("/delivery-boy/orders")}
-                className="flex items-center gap-1.5 text-sm font-semibold text-pink-600 hover:text-pink-700"
+                className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-pink-600 hover:text-pink-700 shrink-0"
               >
                 View All
                 <ArrowRight size={16} />
@@ -431,7 +433,7 @@ export const DashBoard = () => {
 
             <div className="divide-y divide-gray-100">
               {currentOrders.length === 0 ? (
-                <div className="px-6 py-12 text-center">
+                <div className="px-4 sm:px-6 py-10 sm:py-12 text-center">
                   <div className="w-14 h-14 mx-auto rounded-2xl bg-gray-50 flex items-center justify-center">
                     <Package size={27} className="text-gray-400" />
                   </div>
@@ -448,21 +450,21 @@ export const DashBoard = () => {
                 currentOrders.slice(0, 5).map((order) => (
                   <div
                     key={order._id}
-                    className="p-5 flex items-center gap-4 hover:bg-pink-50/30 transition"
+                    className="p-4 sm:p-5 flex items-center gap-3 sm:gap-4 hover:bg-pink-50/30 transition"
                   >
                     {/* ICON */}
 
                     <div
-                      className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${
+                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 ${
                         order.orderStatus === "out_for_delivery"
                           ? "bg-blue-50 text-blue-500"
                           : "bg-orange-50 text-orange-500"
                       }`}
                     >
                       {order.orderStatus === "out_for_delivery" ? (
-                        <Bike size={21} />
+                        <Bike size={20} />
                       ) : (
-                        <Package size={21} />
+                        <Package size={20} />
                       )}
                     </div>
 
@@ -470,12 +472,12 @@ export const DashBoard = () => {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="font-semibold text-gray-800">
+                        <h3 className="font-semibold text-sm sm:text-base text-gray-800 break-all">
                           {formatOrderId(order._id)}
                         </h3>
 
                         <span
-                          className={`px-2.5 py-1 rounded-full text-[11px] font-semibold ${getStatusStyle(
+                          className={`px-2 py-1 sm:px-2.5 rounded-full text-[10px] sm:text-[11px] font-semibold ${getStatusStyle(
                             order.orderStatus,
                           )}`}
                         >
@@ -483,7 +485,7 @@ export const DashBoard = () => {
                         </span>
                       </div>
 
-                      <p className="text-sm text-gray-500 mt-1 truncate">
+                      <p className="text-xs sm:text-sm text-gray-500 mt-1 truncate">
                         {order.user?.name ||
                           order.address?.fullName ||
                           "Customer"}
@@ -492,7 +494,7 @@ export const DashBoard = () => {
 
                     {/* AMOUNT */}
 
-                    <div className="hidden sm:block text-right">
+                    <div className="hidden sm:block text-right shrink-0">
                       <p className="font-semibold text-gray-800">
                         ₹{order.totalAmount ?? order.paidAmount ?? 0}
                       </p>
@@ -511,28 +513,28 @@ export const DashBoard = () => {
               QUICK ACTIONS
           ================================================= */}
 
-          <div className="bg-white border border-gray-100 rounded-3xl shadow-sm overflow-hidden">
-            <div className="px-5 py-5 border-b border-gray-100">
+          <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden">
+            <div className="px-4 sm:px-5 py-4 sm:py-5 border-b border-gray-100">
               <h2 className="text-lg font-bold text-gray-800">Quick Actions</h2>
 
-              <p className="text-sm text-gray-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                 Manage your delivery work
               </p>
             </div>
 
-            <div className="p-5 space-y-3">
+            <div className="p-4 sm:p-5 space-y-3">
               {/* MY ORDERS */}
 
               <button
                 type="button"
                 onClick={() => navigate("/delivery-boy/orders")}
-                className="w-full flex items-center gap-3 p-4 rounded-2xl bg-pink-50 border border-pink-100 text-left hover:bg-pink-100 transition"
+                className="w-full flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-pink-50 border border-pink-100 text-left hover:bg-pink-100 transition"
               >
-                <div className="w-10 h-10 rounded-xl bg-white text-pink-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-white text-pink-500 flex items-center justify-center shrink-0">
                   <Package size={20} />
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-gray-800">
                     My Orders
                   </p>
@@ -542,7 +544,7 @@ export const DashBoard = () => {
                   </p>
                 </div>
 
-                <ArrowRight size={17} className="text-pink-500" />
+                <ArrowRight size={17} className="text-pink-500 shrink-0" />
               </button>
 
               {/* PROFILE */}
@@ -550,13 +552,13 @@ export const DashBoard = () => {
               <button
                 type="button"
                 onClick={() => navigate("/delivery-boy/profile")}
-                className="w-full flex items-center gap-3 p-4 rounded-2xl bg-gray-50 border border-gray-100 text-left hover:bg-gray-100 transition"
+                className="w-full flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-gray-50 border border-gray-100 text-left hover:bg-gray-100 transition"
               >
-                <div className="w-10 h-10 rounded-xl bg-white text-gray-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-white text-gray-500 flex items-center justify-center shrink-0">
                   <User size={20} />
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-gray-800">
                     My Profile
                   </p>
@@ -566,23 +568,23 @@ export const DashBoard = () => {
                   </p>
                 </div>
 
-                <ArrowRight size={17} className="text-gray-400" />
+                <ArrowRight size={17} className="text-gray-400 shrink-0" />
               </button>
 
               {/* LOCATION */}
 
-              <div className="p-4 rounded-2xl bg-blue-50 border border-blue-100">
+              <div className="p-3 sm:p-4 rounded-2xl bg-blue-50 border border-blue-100">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-xl bg-white text-blue-500 flex items-center justify-center shrink-0">
                     <MapPin size={20} />
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-sm font-semibold text-gray-800">
                       Location
                     </p>
 
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <p className="text-xs text-gray-500 mt-0.5 leading-5">
                       Keep your delivery location updated.
                     </p>
 
@@ -606,13 +608,13 @@ export const DashBoard = () => {
         ===================================================== */}
 
         {recentOrders.length > 0 && (
-          <div className="bg-white border border-gray-100 rounded-3xl shadow-sm overflow-hidden">
-            <div className="px-5 sm:px-6 py-5 border-b border-gray-100">
+          <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden">
+            <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
               <h2 className="text-lg font-bold text-gray-800">
                 Recent Activity
               </h2>
 
-              <p className="text-sm text-gray-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                 Your latest delivery orders
               </p>
             </div>
@@ -621,7 +623,7 @@ export const DashBoard = () => {
               {recentOrders.map((order) => (
                 <div
                   key={order._id}
-                  className="p-5 flex items-center gap-4 hover:bg-gray-50 transition"
+                  className="p-4 sm:p-5 flex items-center gap-3 sm:gap-4 hover:bg-gray-50 transition"
                 >
                   <div className="w-10 h-10 rounded-xl bg-gray-50 text-gray-500 flex items-center justify-center shrink-0">
                     <Package size={19} />
@@ -629,12 +631,12 @@ export const DashBoard = () => {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <p className="text-sm font-semibold text-gray-800">
+                      <p className="text-sm font-semibold text-gray-800 break-all">
                         {formatOrderId(order._id)}
                       </p>
 
                       <span
-                        className={`px-2.5 py-1 rounded-full text-[11px] font-semibold ${getStatusStyle(
+                        className={`px-2 py-1 sm:px-2.5 rounded-full text-[10px] sm:text-[11px] font-semibold ${getStatusStyle(
                           order.orderStatus,
                         )}`}
                       >
@@ -642,14 +644,14 @@ export const DashBoard = () => {
                       </span>
                     </div>
 
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 mt-1 truncate">
                       {order.user?.name ||
                         order.address?.fullName ||
                         "Customer"}
                     </p>
                   </div>
 
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <p className="text-sm font-semibold text-gray-800">
                       ₹{order.totalAmount ?? order.paidAmount ?? 0}
                     </p>
@@ -664,13 +666,13 @@ export const DashBoard = () => {
             FOOTER INFO
         ===================================================== */}
 
-        <div className="bg-white border border-pink-100 rounded-2xl px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center">
+        <div className="bg-white border border-pink-100 rounded-2xl px-4 sm:px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-9 h-9 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center shrink-0">
               <Bike size={18} />
             </div>
 
-            <div>
+            <div className="min-w-0">
               <p className="text-sm font-semibold text-gray-800">
                 Ready for your next delivery?
               </p>
@@ -681,7 +683,7 @@ export const DashBoard = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-green-600 font-medium">
+          <div className="flex items-center gap-2 text-sm text-green-600 font-medium shrink-0">
             <span className="w-2 h-2 rounded-full bg-green-500" />
             You're available
           </div>

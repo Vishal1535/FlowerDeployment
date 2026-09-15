@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -57,13 +58,13 @@ export const DeliveryBoyList = () => {
   }, [deliveryBoys, search]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
 
       {/* =====================================================
           SEARCH + COUNT
       ===================================================== */}
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
 
         {/* SEARCH */}
 
@@ -73,7 +74,8 @@ export const DeliveryBoyList = () => {
             size={19}
             className="
               absolute
-              left-4
+              left-3.5
+              sm:left-4
               top-1/2
               -translate-y-1/2
               text-gray-400
@@ -88,7 +90,8 @@ export const DeliveryBoyList = () => {
             className="
               w-full
               h-11
-              pl-11
+              pl-10
+              sm:pl-11
               pr-10
               rounded-xl
               border
@@ -113,7 +116,8 @@ export const DeliveryBoyList = () => {
               onClick={() => setSearch("")}
               className="
                 absolute
-                right-3
+                right-2.5
+                sm:right-3
                 top-1/2
                 -translate-y-1/2
                 w-7
@@ -141,7 +145,8 @@ export const DeliveryBoyList = () => {
             flex
             items-center
             gap-2
-            px-4
+            px-3.5
+            sm:px-4
             py-2.5
             rounded-xl
             bg-pink-50
@@ -149,11 +154,12 @@ export const DeliveryBoyList = () => {
             text-sm
             font-medium
             w-fit
+            max-w-full
           "
         >
-          <Users size={17} />
+          <Users size={17} className="shrink-0" />
 
-          <span>
+          <span className="whitespace-nowrap">
             {filteredDeliveryBoys.length}{" "}
             {filteredDeliveryBoys.length === 1
               ? "Delivery Boy"
@@ -170,13 +176,15 @@ export const DeliveryBoyList = () => {
       {error && (
         <div
           className="
-            p-4
+            p-3.5
+            sm:p-4
             rounded-xl
             bg-red-50
             border
             border-red-100
             text-red-600
             text-sm
+            break-words
           "
         >
           {error}
@@ -188,7 +196,7 @@ export const DeliveryBoyList = () => {
       ===================================================== */}
 
       {loading && deliveryBoys.length === 0 && (
-        <div className="flex justify-center py-12">
+        <div className="flex justify-center py-10 sm:py-12">
           <span className="loading loading-spinner loading-md text-pink-500" />
         </div>
       )}
@@ -221,8 +229,10 @@ export const DeliveryBoyList = () => {
             flex-col
             items-center
             justify-center
-            py-14
-            px-5
+            py-10
+            sm:py-14
+            px-4
+            sm:px-5
             rounded-2xl
             border
             border-dashed
@@ -233,27 +243,31 @@ export const DeliveryBoyList = () => {
         >
           <div
             className="
-              w-14
-              h-14
+              w-12
+              h-12
+              sm:w-14
+              sm:h-14
               rounded-2xl
               bg-pink-100
               text-pink-500
               flex
               items-center
               justify-center
-              mb-4
+              mb-3
+              sm:mb-4
+              shrink-0
             "
           >
-            <Users size={25} />
+            <Users size={23} className="sm:w-[25px] sm:h-[25px]" />
           </div>
 
-          <h3 className="text-lg font-semibold text-gray-800">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-800">
             {search
               ? "No delivery boy found"
               : "No delivery boys yet"}
           </h3>
 
-          <p className="text-sm text-gray-500 mt-1 max-w-sm">
+          <p className="text-sm text-gray-500 mt-1 max-w-sm leading-5 break-words">
             {search
               ? `No delivery boy matches "${search}". Try another name, phone or email.`
               : "Add your first delivery boy to start managing your delivery team."}
@@ -265,6 +279,8 @@ export const DeliveryBoyList = () => {
               onClick={() => setSearch("")}
               className="
                 mt-4
+                w-full
+                sm:w-auto
                 px-4
                 py-2
                 rounded-xl
@@ -285,3 +301,4 @@ export const DeliveryBoyList = () => {
     </div>
   );
 };
+

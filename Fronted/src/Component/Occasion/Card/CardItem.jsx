@@ -62,29 +62,36 @@ export const CardItem = ({ card }) => {
   };
 
   return (
-    <div className="
-      group
-      bg-white
-      rounded-xl
-      border
-      border-gray-100
-      overflow-hidden
-      shadow-sm
-      hover:shadow-md
-      hover:-translate-y-0.5
-      transition-all
-      duration-200
-    ">
+    <div
+      className="
+        group
+        w-full
+        min-w-0
+        bg-white
+        rounded-xl
+        border
+        border-gray-100
+        overflow-hidden
+        shadow-sm
+        hover:shadow-md
+        hover:-translate-y-0.5
+        transition-all
+        duration-200
+      "
+    >
 
       {/* IMAGE */}
 
-      <div className="
-        relative
-        h-32
-        sm:h-36
-        bg-pink-50
-        overflow-hidden
-      ">
+      <div
+        className="
+          relative
+          h-28
+          min-[380px]:h-32
+          sm:h-36
+          bg-pink-50
+          overflow-hidden
+        "
+      >
         <img
           src={card?.image}
           alt={card?.name || "Greeting Card"}
@@ -101,27 +108,39 @@ export const CardItem = ({ card }) => {
 
       {/* CONTENT */}
 
-      <div className="p-3">
+      <div
+        className="
+          p-2.5
+          min-[380px]:p-3
+          min-w-0
+        "
+      >
 
         {/* NAME */}
 
-        <h3 className="
-          text-sm
-          font-bold
-          text-gray-800
-          truncate
-        ">
+        <h3
+          className="
+            text-xs
+            min-[380px]:text-sm
+            font-bold
+            text-gray-800
+            truncate
+          "
+        >
           {card?.name || "Beautiful Card"}
         </h3>
 
         {/* PRICE */}
 
-        <p className="
-          text-base
-          font-extrabold
-          text-gray-900
-          mt-1
-        ">
+        <p
+          className="
+            text-sm
+            min-[380px]:text-base
+            font-extrabold
+            text-gray-900
+            mt-1
+          "
+        >
           ₹{card?.price ?? 0}
         </p>
 
@@ -135,16 +154,20 @@ export const CardItem = ({ card }) => {
           }
           className="
             w-full
-            h-9
-            mt-2.5
+            h-8
+            min-[380px]:h-9
+            mt-2
+            min-[380px]:mt-2.5
             rounded-lg
             bg-gray-900
             text-white
             flex
             items-center
             justify-center
-            gap-1.5
-            text-xs
+            gap-1
+            min-[380px]:gap-1.5
+            text-[10px]
+            min-[380px]:text-xs
             font-semibold
             hover:bg-pink-500
             active:scale-[0.98]
@@ -153,15 +176,21 @@ export const CardItem = ({ card }) => {
             disabled:cursor-not-allowed
             transition-all
             cursor-pointer
+            px-1.5
           "
         >
-          <ShoppingBag size={14} />
+          <ShoppingBag
+            size={13}
+            className="shrink-0 min-[380px]:w-[14px] min-[380px]:h-[14px]"
+          />
 
-          {isInCart
-            ? "Added to Cart"
-            : card?.isAvailable
-              ? "Add to Cart"
-              : "Unavailable"}
+          <span className="truncate">
+            {isInCart
+              ? "Added to Cart"
+              : card?.isAvailable
+                ? "Add to Cart"
+                : "Unavailable"}
+          </span>
         </button>
 
       </div>

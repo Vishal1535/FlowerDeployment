@@ -14,7 +14,9 @@ export const FlowerCard = ({ flower }) => {
   const isAvailable = stock > 0;
   const { flowerWishlist } = useSelector((state) => state.wishlist);
   const { isAuthorized } = useSelector((state) => state.user);
-  const { flowerFromCart = [] } = useSelector((state) => state.FlowerAddToCart);
+  const { flowerFromCart = [] } = useSelector(
+    (state) => state.FlowerAddToCart
+  );
 
   const isInCart = flowerFromCart.some(
     (item) => item?.flower?._id?.toString() === flower?._id?.toString(),
@@ -23,13 +25,16 @@ export const FlowerCard = ({ flower }) => {
   const isWishlisted = flowerWishlist?.some(
     (flowerId) => flowerId?._id === flower?._id || flowerId === flower?._id,
   );
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const HandleWishList = () => {
     if (!isAuthorized) {
       toast.error("please Login First");
       return;
     }
+
     dispatch(FlowerWishlistThunk(flower?._id));
   };
 
@@ -68,8 +73,10 @@ export const FlowerCard = ({ flower }) => {
         group
         relative
         w-full
+        min-w-0
         overflow-hidden
-        rounded-3xl
+        rounded-2xl
+        sm:rounded-3xl
         bg-white
         border
         border-gray-100
@@ -86,7 +93,8 @@ export const FlowerCard = ({ flower }) => {
       <div
         className="
           relative
-          h-64
+          h-52
+          min-[380px]:h-56
           sm:h-60
           lg:h-64
           xl:h-72
@@ -102,10 +110,14 @@ export const FlowerCard = ({ flower }) => {
         <div
           className="
             absolute
-            -top-12
-            -right-12
-            w-36
-            h-36
+            -top-10
+            -right-10
+            sm:-top-12
+            sm:-right-12
+            w-28
+            h-28
+            sm:w-36
+            sm:h-36
             rounded-full
             bg-white/50
           "
@@ -123,7 +135,9 @@ export const FlowerCard = ({ flower }) => {
               w-full
               h-full
               object-contain
-              p-6
+              p-4
+              min-[380px]:p-5
+              sm:p-6
               transition-transform
               duration-700
               ease-out
@@ -142,9 +156,15 @@ export const FlowerCard = ({ flower }) => {
               text-gray-300
             "
           >
-            <Flower2 size={58} strokeWidth={1.2} />
+            <Flower2
+              size={48}
+              className="sm:w-[58px] sm:h-[58px]"
+              strokeWidth={1.2}
+            />
 
-            <span className="text-xs mt-2">No image available</span>
+            <span className="text-[11px] sm:text-xs mt-2">
+              No image available
+            </span>
           </div>
         )}
 
@@ -155,7 +175,8 @@ export const FlowerCard = ({ flower }) => {
             absolute
             inset-x-0
             bottom-0
-            h-24
+            h-20
+            sm:h-24
             bg-gradient-to-t
             from-black/10
             to-transparent
@@ -168,13 +189,18 @@ export const FlowerCard = ({ flower }) => {
         <div
           className={`
             absolute
-            top-4
-            left-4
+            top-3
+            left-3
+            sm:top-4
+            sm:left-4
             z-20
-            px-3
-            py-1.5
+            px-2.5
+            py-1
+            sm:px-3
+            sm:py-1.5
             rounded-full
-            text-[11px]
+            text-[10px]
+            sm:text-[11px]
             font-bold
             backdrop-blur-md
             ${
@@ -196,34 +222,44 @@ export const FlowerCard = ({ flower }) => {
         <button
           type="button"
           onClick={HandleWishList}
-          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+          aria-label={
+            isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+          }
           className={`
-    absolute
-    right-4
-    top-4
-    z-20
-    w-10
-    h-10
-    rounded-full
-    backdrop-blur-md
-    border
-    shadow-md
-    flex
-    items-center
-    justify-center
-    hover:scale-110
-    cursor-pointer
-    transition-all
-    duration-300
+            absolute
+            right-3
+            top-3
+            sm:right-4
+            sm:top-4
+            z-20
+            w-9
+            h-9
+            sm:w-10
+            sm:h-10
+            rounded-full
+            backdrop-blur-md
+            border
+            shadow-md
+            flex
+            items-center
+            justify-center
+            hover:scale-110
+            cursor-pointer
+            transition-all
+            duration-300
 
-    ${
-      isWishlisted
-        ? "bg-pink-500 text-white border-pink-500"
-        : "bg-white/90 border-white text-gray-500 hover:text-pink-500"
-    }
-  `}
+            ${
+              isWishlisted
+                ? "bg-pink-500 text-white border-pink-500"
+                : "bg-white/90 border-white text-gray-500 hover:text-pink-500"
+            }
+          `}
         >
-          <Heart size={18} fill={isWishlisted ? "currentColor" : "none"} />
+          <Heart
+            size={17}
+            className="sm:w-[18px] sm:h-[18px]"
+            fill={isWishlisted ? "currentColor" : "none"}
+          />
         </button>
 
         {/* ================= CATEGORY ================= */}
@@ -231,40 +267,53 @@ export const FlowerCard = ({ flower }) => {
         <div
           className="
             absolute
-            left-4
-            bottom-4
+            left-3
+            bottom-3
+            sm:left-4
+            sm:bottom-4
             z-20
+            max-w-[calc(100%-24px)]
             flex
             items-center
-            gap-1.5
-            px-3
-            py-1.5
+            gap-1
+            sm:gap-1.5
+            px-2.5
+            py-1
+            sm:px-3
+            sm:py-1.5
             rounded-full
             bg-white/90
             backdrop-blur-md
             border
             border-white
             shadow-sm
-            text-xs
+            text-[10px]
+            sm:text-xs
             font-semibold
             text-gray-700
           "
         >
-          <Flower2 size={13} className="text-pink-500" />
+          <Flower2
+            size={12}
+            className="sm:w-[13px] sm:h-[13px] text-pink-500 shrink-0"
+          />
 
-          {flower?.category || "Flower"}
+          <span className="truncate">
+            {flower?.category || "Flower"}
+          </span>
         </div>
       </div>
 
       {/* ================= CONTENT ================= */}
 
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         {/* ================= NAME ================= */}
 
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between gap-2">
           <h3
             className="
-              text-lg
+              text-base
+              min-[380px]:text-lg
               sm:text-xl
               font-bold
               text-gray-900
@@ -278,41 +327,45 @@ export const FlowerCard = ({ flower }) => {
 
         {/* ================= SMALL INFO ================= */}
 
-        <div className="flex items-center gap-3 mt-2">
+        <div className="flex items-center gap-2 sm:gap-3 mt-2 min-w-0">
           {/* Color */}
 
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs text-gray-400">Color</span>
+          <div className="flex items-center gap-1 min-w-0">
+            <span className="text-[11px] sm:text-xs text-gray-400">
+              Color
+            </span>
 
-            <span className="text-xs font-semibold text-gray-700">
+            <span className="text-[11px] sm:text-xs font-semibold text-gray-700 truncate">
               {flower?.color || "—"}
             </span>
           </div>
 
-          <span className="text-gray-200">•</span>
+          <span className="text-gray-200 shrink-0">•</span>
 
           {/* Category */}
 
-          <span className="text-xs text-gray-500 truncate">
+          <span className="text-[11px] sm:text-xs text-gray-500 truncate">
             {flower?.category || "Flower"}
           </span>
         </div>
 
         {/* ================= DIVIDER ================= */}
 
-        <div className="border-t border-gray-100 my-4" />
+        <div className="border-t border-gray-100 my-3 sm:my-4" />
 
         {/* ================= PRICE + STOCK ================= */}
 
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-3">
           {/* PRICE */}
 
-          <div>
+          <div className="min-w-0">
             <p
               className="
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
                 uppercase
-                tracking-[0.15em]
+                tracking-[0.12em]
+                sm:tracking-[0.15em]
                 font-bold
                 text-gray-400
               "
@@ -323,7 +376,8 @@ export const FlowerCard = ({ flower }) => {
             <div className="flex items-baseline mt-1">
               <span
                 className="
-                  text-sm
+                  text-xs
+                  sm:text-sm
                   font-semibold
                   text-gray-500
                   mr-0.5
@@ -334,7 +388,8 @@ export const FlowerCard = ({ flower }) => {
 
               <span
                 className="
-                  text-2xl
+                  text-xl
+                  min-[380px]:text-2xl
                   font-extrabold
                   text-gray-900
                 "
@@ -346,12 +401,14 @@ export const FlowerCard = ({ flower }) => {
 
           {/* STOCK */}
 
-          <div className="text-right">
+          <div className="text-right min-w-0">
             <p
               className="
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
                 uppercase
-                tracking-[0.15em]
+                tracking-[0.12em]
+                sm:tracking-[0.15em]
                 font-bold
                 text-gray-400
               "
@@ -362,8 +419,10 @@ export const FlowerCard = ({ flower }) => {
             <p
               className={`
                 mt-1
-                text-sm
+                text-xs
+                sm:text-sm
                 font-bold
+                truncate
                 ${isAvailable ? "text-gray-800" : "text-red-500"}
               `}
             >
@@ -374,7 +433,7 @@ export const FlowerCard = ({ flower }) => {
 
         {/* ================= ACTION BUTTONS ================= */}
 
-        <div className="flex gap-2 mt-5">
+        <div className="flex flex-col min-[380px]:flex-row gap-2 mt-4 sm:mt-5">
           {/* ================= VIEW DETAILS ================= */}
 
           <button
@@ -384,18 +443,22 @@ export const FlowerCard = ({ flower }) => {
             }}
             className="
               flex-1
-              h-11
+              min-w-0
+              h-10
+              sm:h-11
               rounded-xl
               border
               border-gray-200
               bg-white
               text-gray-700
-              text-sm
+              text-xs
+              sm:text-sm
               font-semibold
               flex
               items-center
               justify-center
-              gap-2
+              gap-1.5
+              sm:gap-2
               hover:bg-pink-50
               hover:border-pink-200
               hover:text-pink-600
@@ -405,8 +468,14 @@ export const FlowerCard = ({ flower }) => {
               duration-300
             "
           >
-            <Eye size={16} />
-            View Details
+            <Eye
+              size={15}
+              className="sm:w-4 sm:h-4 shrink-0"
+            />
+
+            <span className="truncate">
+              View Details
+            </span>
           </button>
 
           {/* ================= ADD TO CART ================= */}
@@ -415,40 +484,49 @@ export const FlowerCard = ({ flower }) => {
             type="button"
             disabled={!isAvailable || isInCart}
             className="
-    flex-1
-    h-11
-    rounded-xl
-    bg-gray-900
-    text-white
-    text-sm
-    font-bold
-    flex
-    items-center
-    justify-center
-    gap-2
-    hover:bg-pink-600
-    hover:shadow-lg
-    hover:shadow-pink-200
-    active:scale-[0.98]
-    cursor-pointer
-    disabled:bg-gray-100
-    disabled:text-gray-400
-    disabled:shadow-none
-    disabled:cursor-not-allowed
-    transition-all
-    duration-300
-  "
+              flex-1
+              min-w-0
+              h-10
+              sm:h-11
+              rounded-xl
+              bg-gray-900
+              text-white
+              text-xs
+              sm:text-sm
+              font-bold
+              flex
+              items-center
+              justify-center
+              gap-1.5
+              sm:gap-2
+              hover:bg-pink-600
+              hover:shadow-lg
+              hover:shadow-pink-200
+              active:scale-[0.98]
+              cursor-pointer
+              disabled:bg-gray-100
+              disabled:text-gray-400
+              disabled:shadow-none
+              disabled:cursor-not-allowed
+              transition-all
+              duration-300
+            "
             onClick={() => {
               HandleAddToCart(flower?._id);
             }}
           >
-            <ShoppingCart size={16} />
+            <ShoppingCart
+              size={15}
+              className="sm:w-4 sm:h-4 shrink-0"
+            />
 
-            {isInCart
-              ? "Added to Cart"
-              : isAvailable
-                ? "Add to Cart"
-                : "Unavailable"}
+            <span className="truncate">
+              {isInCart
+                ? "Added to Cart"
+                : isAvailable
+                  ? "Add to Cart"
+                  : "Unavailable"}
+            </span>
           </button>
         </div>
       </div>

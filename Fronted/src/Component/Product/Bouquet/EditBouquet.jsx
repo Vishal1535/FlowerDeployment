@@ -204,7 +204,9 @@ export const EditBouquet = () => {
         justify-center
         bg-black/60
         backdrop-blur-md
-        p-4
+        p-3
+        sm:p-4
+        overflow-y-auto
         animate-overlay
       "
     >
@@ -216,7 +218,8 @@ export const EditBouquet = () => {
           max-w-4xl
           max-h-[95vh]
           overflow-y-auto
-          rounded-[28px]
+          rounded-[22px]
+          sm:rounded-[28px]
           bg-white
           shadow-[0_30px_100px_rgba(0,0,0,0.28)]
           animate-popup
@@ -230,9 +233,12 @@ export const EditBouquet = () => {
             flex
             items-center
             justify-between
-            px-6
+            gap-3
+            px-4
+            min-[380px]:px-5
             sm:px-8
-            py-5
+            py-4
+            sm:py-5
             bg-gradient-to-r
             from-pink-50
             via-white
@@ -246,19 +252,26 @@ export const EditBouquet = () => {
               absolute
               -right-10
               -top-12
-              w-32
-              h-32
+              w-28
+              h-28
+              sm:w-32
+              sm:h-32
               rounded-full
               bg-pink-100/50
             "
           />
 
-          <div className="relative flex items-center gap-3">
+          <div className="relative flex items-center gap-2.5 sm:gap-3 min-w-0">
+
             <div
               className="
-                w-11
-                h-11
-                rounded-2xl
+                w-10
+                h-10
+                sm:w-11
+                sm:h-11
+                shrink-0
+                rounded-xl
+                sm:rounded-2xl
                 bg-white
                 border
                 border-pink-100
@@ -266,21 +279,26 @@ export const EditBouquet = () => {
                 flex
                 items-center
                 justify-center
-                text-xl
+                text-lg
+                sm:text-xl
                 animate-icon
               "
             >
               💐
             </div>
 
-            <div>
+            <div className="min-w-0">
               <p
                 className="
-                  text-[10px]
+                  text-[8px]
+                  min-[380px]:text-[9px]
+                  sm:text-[10px]
                   uppercase
-                  tracking-[0.2em]
+                  tracking-[0.12em]
+                  sm:tracking-[0.2em]
                   font-bold
                   text-pink-500
+                  truncate
                 "
               >
                 Bouquet Management
@@ -288,7 +306,8 @@ export const EditBouquet = () => {
 
               <h2
                 className="
-                  text-xl
+                  text-lg
+                  min-[380px]:text-xl
                   sm:text-2xl
                   font-extrabold
                   text-gray-900
@@ -309,14 +328,18 @@ export const EditBouquet = () => {
             className="
               relative
               z-10
-              w-10
-              h-10
+              w-9
+              h-9
+              sm:w-10
+              sm:h-10
+              shrink-0
               rounded-full
               bg-white
               border
               border-gray-200
               text-gray-500
-              text-xl
+              text-lg
+              sm:text-xl
               flex
               items-center
               justify-center
@@ -336,18 +359,18 @@ export const EditBouquet = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-5 sm:p-7"
+          className="p-4 min-[380px]:p-5 sm:p-7"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
 
             {/* ================= LEFT ================= */}
 
-            <div className="space-y-4">
+            <div className="space-y-3.5 sm:space-y-4">
 
               {/* Name */}
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Bouquet Name
                 </label>
 
@@ -359,8 +382,10 @@ export const EditBouquet = () => {
                   placeholder="e.g. Romantic Rose Bouquet"
                   className="
                     w-full
-                    h-11
-                    px-4
+                    h-10
+                    sm:h-11
+                    px-3
+                    sm:px-4
                     rounded-xl
                     border
                     border-gray-200
@@ -378,7 +403,7 @@ export const EditBouquet = () => {
               {/* Description */}
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Description
                 </label>
 
@@ -390,8 +415,10 @@ export const EditBouquet = () => {
                   placeholder="Describe this beautiful bouquet..."
                   className="
                     w-full
-                    px-4
-                    py-3
+                    px-3
+                    sm:px-4
+                    py-2.5
+                    sm:py-3
                     rounded-xl
                     border
                     border-gray-200
@@ -410,12 +437,12 @@ export const EditBouquet = () => {
 
               {/* Price + Stock */}
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
 
                 {/* Price */}
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                     Price
                   </label>
 
@@ -423,7 +450,8 @@ export const EditBouquet = () => {
                     <span
                       className="
                         absolute
-                        left-3
+                        left-2.5
+                        sm:left-3
                         top-1/2
                         -translate-y-1/2
                         text-gray-400
@@ -442,13 +470,18 @@ export const EditBouquet = () => {
                       placeholder="0"
                       className="
                         w-full
-                        h-11
-                        pl-8
-                        pr-3
+                        h-10
+                        sm:h-11
+                        pl-7
+                        sm:pl-8
+                        pr-2
+                        sm:pr-3
                         rounded-xl
                         border
                         border-gray-200
                         bg-gray-50/60
+                        text-sm
+                        sm:text-base
                         font-semibold
                         outline-none
                         focus:bg-white
@@ -463,7 +496,7 @@ export const EditBouquet = () => {
                 {/* Stock */}
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                     Stock
                   </label>
 
@@ -476,12 +509,16 @@ export const EditBouquet = () => {
                     placeholder="0"
                     className="
                       w-full
-                      h-11
-                      px-4
+                      h-10
+                      sm:h-11
+                      px-3
+                      sm:px-4
                       rounded-xl
                       border
                       border-gray-200
                       bg-gray-50/60
+                      text-sm
+                      sm:text-base
                       font-semibold
                       outline-none
                       focus:bg-white
@@ -496,7 +533,7 @@ export const EditBouquet = () => {
               {/* Image URL */}
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Image URL
                 </label>
 
@@ -508,8 +545,10 @@ export const EditBouquet = () => {
                   placeholder="https://example.com/bouquet.jpg"
                   className="
                     w-full
-                    h-11
-                    px-4
+                    h-10
+                    sm:h-11
+                    px-3
+                    sm:px-4
                     rounded-xl
                     border
                     border-gray-200
@@ -527,7 +566,7 @@ export const EditBouquet = () => {
               {/* Flower Count */}
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Number of Flowers
                 </label>
 
@@ -540,8 +579,10 @@ export const EditBouquet = () => {
                   placeholder="e.g. 12"
                   className="
                     w-full
-                    h-11
-                    px-4
+                    h-10
+                    sm:h-11
+                    px-3
+                    sm:px-4
                     rounded-xl
                     border
                     border-gray-200
@@ -560,7 +601,7 @@ export const EditBouquet = () => {
               {/* Flowers */}
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Flowers
                 </label>
 
@@ -572,8 +613,10 @@ export const EditBouquet = () => {
                   placeholder="Rose, Lily, Baby's Breath"
                   className="
                     w-full
-                    h-11
-                    px-4
+                    h-10
+                    sm:h-11
+                    px-3
+                    sm:px-4
                     rounded-xl
                     border
                     border-gray-200
@@ -587,7 +630,7 @@ export const EditBouquet = () => {
                   "
                 />
 
-                <p className="mt-1 text-[10px] text-gray-400">
+                <p className="mt-1 text-[9px] sm:text-[10px] text-gray-400">
                   Separate multiple flowers with commas
                 </p>
               </div>
@@ -595,15 +638,18 @@ export const EditBouquet = () => {
 
             {/* ================= RIGHT ================= */}
 
-            <div className="space-y-4">
+            <div className="space-y-3.5 sm:space-y-4">
 
               {/* Image Preview */}
 
               <div
                 className="
                   relative
-                  h-[180px]
-                  rounded-2xl
+                  h-[150px]
+                  min-[380px]:h-[170px]
+                  sm:h-[180px]
+                  rounded-xl
+                  sm:rounded-2xl
                   overflow-hidden
                   bg-gradient-to-br
                   from-pink-50
@@ -653,12 +699,12 @@ export const EditBouquet = () => {
 
               {/* Occasion + Category */}
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
 
                 {/* Occasion */}
 
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <div className="min-w-0">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                     Occasion
                   </label>
 
@@ -668,13 +714,17 @@ export const EditBouquet = () => {
                     onChange={handleChange}
                     className="
                       w-full
-                      h-11
-                      px-3
+                      min-w-0
+                      h-10
+                      sm:h-11
+                      px-2
+                      sm:px-3
                       rounded-xl
                       border
                       border-gray-200
                       bg-gray-50/60
-                      text-sm
+                      text-xs
+                      sm:text-sm
                       outline-none
                       focus:bg-white
                       focus:border-pink-400
@@ -703,8 +753,8 @@ export const EditBouquet = () => {
 
                 {/* Category */}
 
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <div className="min-w-0">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                     Category
                   </label>
 
@@ -716,13 +766,17 @@ export const EditBouquet = () => {
                     placeholder="Roses"
                     className="
                       w-full
-                      h-11
-                      px-3
+                      min-w-0
+                      h-10
+                      sm:h-11
+                      px-2
+                      sm:px-3
                       rounded-xl
                       border
                       border-gray-200
                       bg-gray-50/60
-                      text-sm
+                      text-xs
+                      sm:text-sm
                       outline-none
                       focus:bg-white
                       focus:border-pink-400
@@ -736,11 +790,11 @@ export const EditBouquet = () => {
               {/* Size */}
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Bouquet Size
                 </label>
 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                   {["Small", "Medium", "Large"].map((size) => (
                     <button
                       key={size}
@@ -752,10 +806,13 @@ export const EditBouquet = () => {
                         }))
                       }
                       className={`
-                        h-10
-                        rounded-xl
+                        h-9
+                        sm:h-10
+                        rounded-lg
+                        sm:rounded-xl
                         border
-                        text-sm
+                        text-xs
+                        sm:text-sm
                         font-semibold
                         transition-all
                         duration-300
@@ -776,8 +833,10 @@ export const EditBouquet = () => {
 
               <div
                 className="
-                  p-4
-                  rounded-2xl
+                  p-3
+                  sm:p-4
+                  rounded-xl
+                  sm:rounded-2xl
                   bg-pink-50
                   border
                   border-pink-100
@@ -801,14 +860,17 @@ export const EditBouquet = () => {
                         <span
                           key={`${flower}-${index}`}
                           className="
+                            max-w-full
                             px-2
                             py-1
                             rounded-full
                             bg-white
                             border
                             border-pink-100
-                            text-xs
+                            text-[10px]
+                            sm:text-xs
                             text-pink-600
+                            truncate
                           "
                         >
                           {flower}
@@ -825,8 +887,11 @@ export const EditBouquet = () => {
                   flex
                   items-center
                   justify-between
-                  p-4
-                  rounded-2xl
+                  gap-3
+                  p-3
+                  sm:p-4
+                  rounded-xl
+                  sm:rounded-2xl
                   bg-gradient-to-r
                   from-green-50
                   to-emerald-50
@@ -834,12 +899,12 @@ export const EditBouquet = () => {
                   border-green-100
                 "
               >
-                <div>
-                  <p className="text-sm font-bold text-gray-800">
+                <div className="min-w-0">
+                  <p className="text-xs sm:text-sm font-bold text-gray-800">
                     Bouquet Available
                   </p>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
                     Show this bouquet to customers
                   </p>
                 </div>
@@ -854,8 +919,11 @@ export const EditBouquet = () => {
                   }
                   className={`
                     relative
-                    w-12
-                    h-7
+                    w-11
+                    sm:w-12
+                    h-6
+                    sm:h-7
+                    shrink-0
                     rounded-full
                     transition-all
                     duration-300
@@ -869,7 +937,8 @@ export const EditBouquet = () => {
                   <span
                     className={`
                       absolute
-                      top-1
+                      top-0.5
+                      sm:top-1
                       w-5
                       h-5
                       rounded-full
@@ -879,8 +948,8 @@ export const EditBouquet = () => {
                       duration-300
                       ${
                         formData.isAvailable
-                          ? "left-6"
-                          : "left-1"
+                          ? "left-5 sm:left-6"
+                          : "left-0.5 sm:left-1"
                       }
                     `}
                   />
@@ -894,9 +963,14 @@ export const EditBouquet = () => {
           <div
             className="
               flex
-              gap-3
-              mt-6
-              pt-5
+              flex-col
+              min-[380px]:flex-row
+              gap-2.5
+              sm:gap-3
+              mt-5
+              sm:mt-6
+              pt-4
+              sm:pt-5
               border-t
               border-gray-100
             "
@@ -907,8 +981,10 @@ export const EditBouquet = () => {
                 dispatch(closeEditBouquetPopup());
               }}
               className="
-                flex-1
-                h-11
+                w-full
+                min-[380px]:flex-1
+                h-10
+                sm:h-11
                 rounded-xl
                 border
                 border-gray-200
@@ -927,8 +1003,10 @@ export const EditBouquet = () => {
               type="submit"
               disabled={loading}
               className="
-                flex-1
-                h-11
+                w-full
+                min-[380px]:flex-1
+                h-10
+                sm:h-11
                 rounded-xl
                 bg-gradient-to-r
                 from-pink-500

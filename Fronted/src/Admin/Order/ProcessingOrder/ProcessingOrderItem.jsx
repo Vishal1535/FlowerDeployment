@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +68,7 @@ export const ProcessingOrderItem = ({ order }) => {
         ChangeOrderStatusThunk({
           orderId: order._id,
           status,
-        })
+        }),
       ).unwrap();
     } catch (error) {
       console.error("Status update error:", error);
@@ -95,49 +94,43 @@ export const ProcessingOrderItem = ({ order }) => {
   // =====================================================
 
   return (
-    <div className="bg-white border border-purple-100 rounded-xl shadow-sm px-4 py-3">
-
+    <div className="w-full bg-white border border-purple-100 rounded-xl shadow-sm px-3 py-3 sm:px-4 sm:py-3">
       {/* ================================================= */}
       {/* HEADER */}
       {/* ================================================= */}
 
-      <div className="flex items-start justify-between gap-3">
-
-        <div className="min-w-0">
-
-          <div className="flex items-center gap-2">
-
-            <h3 className="text-sm font-bold text-gray-800">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 min-w-0">
+            <h3 className="text-sm font-bold text-gray-800 truncate">
               #{order._id?.slice(-8)}
             </h3>
 
-            <span className="text-[9px] text-gray-400">
+            <span className="shrink-0 text-[9px] text-gray-400">
               Processing
             </span>
-
           </div>
 
-          <p className="text-xs text-gray-600 font-medium mt-1">
+          <p className="text-xs text-gray-600 font-medium mt-1 truncate">
             {order.user?.name || "Customer"}
           </p>
 
           {/* PHONE */}
 
           {order.user?.phone && (
-            <p className="flex items-center gap-1 text-[10px] text-gray-400 mt-1">
-              <Phone size={11} />
-              {order.user.phone}
+            <p className="flex items-center gap-1 text-[10px] text-gray-400 mt-1 min-w-0">
+              <Phone size={11} className="shrink-0" />
+
+              <span className="truncate">{order.user.phone}</span>
             </p>
           )}
-
         </div>
 
         {/* STATUS */}
 
-        <span className="shrink-0 px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-50 text-purple-600 border border-purple-200">
+        <span className="self-start shrink-0 px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-50 text-purple-600 border border-purple-200">
           Processing
         </span>
-
       </div>
 
       {/* ================================================= */}
@@ -145,63 +138,45 @@ export const ProcessingOrderItem = ({ order }) => {
       {/* ================================================= */}
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
-
         {/* ITEMS */}
 
-        <div className="bg-gray-50 rounded-lg px-3 py-2">
-
-          <p className="text-[9px] text-gray-400 uppercase">
-            Items
-          </p>
+        <div className="bg-gray-50 rounded-lg px-2.5 py-2 sm:px-3">
+          <p className="text-[9px] text-gray-400 uppercase">Items</p>
 
           <p className="text-xs font-bold text-gray-800">
             {order.items?.length || 0}
           </p>
-
         </div>
 
         {/* SUBTOTAL */}
 
-        <div className="bg-gray-50 rounded-lg px-3 py-2">
+        <div className="bg-gray-50 rounded-lg px-2.5 py-2 sm:px-3">
+          <p className="text-[9px] text-gray-400 uppercase">Subtotal</p>
 
-          <p className="text-[9px] text-gray-400 uppercase">
-            Subtotal
-          </p>
-
-          <p className="text-xs font-bold text-gray-800">
+          <p className="text-xs font-bold text-gray-800 truncate">
             ₹{order.subtotal || 0}
           </p>
-
         </div>
 
         {/* DELIVERY */}
 
-        <div className="bg-gray-50 rounded-lg px-3 py-2">
+        <div className="bg-gray-50 rounded-lg px-2.5 py-2 sm:px-3">
+          <p className="text-[9px] text-gray-400 uppercase">Delivery</p>
 
-          <p className="text-[9px] text-gray-400 uppercase">
-            Delivery
-          </p>
-
-          <p className="text-xs font-bold text-gray-800">
+          <p className="text-xs font-bold text-gray-800 truncate">
             ₹{order.deliveryCharge || 0}
           </p>
-
         </div>
 
         {/* TOTAL */}
 
-        <div className="bg-gray-50 rounded-lg px-3 py-2">
+        <div className="bg-gray-50 rounded-lg px-2.5 py-2 sm:px-3">
+          <p className="text-[9px] text-gray-400 uppercase">Total</p>
 
-          <p className="text-[9px] text-gray-400 uppercase">
-            Total
-          </p>
-
-          <p className="text-xs font-black text-gray-800">
+          <p className="text-xs font-black text-gray-800 truncate">
             ₹{order.totalAmount || 0}
           </p>
-
         </div>
-
       </div>
 
       {/* ================================================= */}
@@ -209,24 +184,15 @@ export const ProcessingOrderItem = ({ order }) => {
       {/* ================================================= */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-
         {/* PAYMENT */}
 
-        <div className="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg px-3 py-2">
-
-          <CreditCard
-            size={14}
-            className="text-green-600 shrink-0"
-          />
+        <div className="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg px-2.5 py-2 sm:px-3 min-w-0">
+          <CreditCard size={14} className="text-green-600 shrink-0" />
 
           <div className="min-w-0">
+            <p className="text-[9px] text-gray-400 uppercase">Payment</p>
 
-            <p className="text-[9px] text-gray-400 uppercase">
-              Payment
-            </p>
-
-            <p className="text-[11px] font-semibold text-gray-700 capitalize">
-
+            <p className="text-[11px] font-semibold text-gray-700 capitalize truncate">
               {order.paymentMethod || "-"}
 
               {" • "}
@@ -234,36 +200,23 @@ export const ProcessingOrderItem = ({ order }) => {
               <span className="text-green-600">
                 {order.paymentStatus || "-"}
               </span>
-
             </p>
-
           </div>
-
         </div>
 
         {/* DELIVERY */}
 
-        <div className="flex items-center gap-2 bg-orange-50 border border-orange-100 rounded-lg px-3 py-2">
-
-          <Truck
-            size={14}
-            className="text-orange-500 shrink-0"
-          />
+        <div className="flex items-center gap-2 bg-orange-50 border border-orange-100 rounded-lg px-2.5 py-2 sm:px-3 min-w-0">
+          <Truck size={14} className="text-orange-500 shrink-0" />
 
           <div className="min-w-0">
+            <p className="text-[9px] text-gray-400 uppercase">Delivery</p>
 
-            <p className="text-[9px] text-gray-400 uppercase">
-              Delivery
-            </p>
-
-            <p className="text-[11px] font-semibold text-gray-700 capitalize">
+            <p className="text-[11px] font-semibold text-gray-700 capitalize truncate">
               {order.deliveryType || "-"}
             </p>
-
           </div>
-
         </div>
-
       </div>
 
       {/* ================================================= */}
@@ -271,49 +224,37 @@ export const ProcessingOrderItem = ({ order }) => {
       {/* ================================================= */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-
         {/* EXPECTED */}
 
-        <div className="flex items-center gap-2">
-
+        <div className="flex items-start sm:items-center gap-2 min-w-0">
           <CalendarDays
             size={13}
-            className="text-pink-500 shrink-0"
+            className="text-pink-500 shrink-0 mt-0.5 sm:mt-0"
           />
 
-          <p className="text-[10px] text-gray-500">
-
+          <p className="text-[10px] text-gray-500 min-w-0">
             Expected:
-
             <span className="font-semibold text-gray-700 ml-1">
               {formatDate(order.deliverDate)}
             </span>
-
           </p>
-
         </div>
 
         {/* ORDERED */}
 
-        <div className="flex items-center gap-2">
-
+        <div className="flex items-start sm:items-center gap-2 min-w-0">
           <CalendarDays
             size={13}
-            className="text-blue-500 shrink-0"
+            className="text-blue-500 shrink-0 mt-0.5 sm:mt-0"
           />
 
-          <p className="text-[10px] text-gray-500">
-
+          <p className="text-[10px] text-gray-500 min-w-0">
             Ordered:
-
             <span className="font-semibold text-gray-700 ml-1">
               {formatDateTime(order.orderedAt)}
             </span>
-
           </p>
-
         </div>
-
       </div>
 
       {/* ================================================= */}
@@ -321,39 +262,24 @@ export const ProcessingOrderItem = ({ order }) => {
       {/* ================================================= */}
 
       {address && (
-        <div className="flex items-start gap-1.5 mt-2 bg-gray-50 rounded-lg px-3 py-2">
+        <div className="flex items-start gap-1.5 mt-2 bg-gray-50 rounded-lg px-2.5 py-2 sm:px-3 min-w-0">
+          <MapPin size={13} className="text-pink-500 mt-0.5 shrink-0" />
 
-          <MapPin
-            size={13}
-            className="text-pink-500 mt-0.5 shrink-0"
-          />
-
-          <div className="min-w-0">
-
+          <div className="min-w-0 flex-1">
             <p className="text-[9px] text-gray-400 uppercase">
               Delivery Address
             </p>
 
             <p className="text-[10px] text-gray-600 truncate">
-
-              {address.houseNumber
-                ? `House No. ${address.houseNumber}, `
-                : ""}
+              {address.houseNumber ? `House No. ${address.houseNumber}, ` : ""}
 
               {address.area || ""}
 
-              {address.city
-                ? `, ${address.city}`
-                : ""}
+              {address.city ? `, ${address.city}` : ""}
 
-              {address.pincode
-                ? ` - ${address.pincode}`
-                : ""}
-
+              {address.pincode ? ` - ${address.pincode}` : ""}
             </p>
-
           </div>
-
         </div>
       )}
 
@@ -361,47 +287,38 @@ export const ProcessingOrderItem = ({ order }) => {
       {/* PAID / REMAINING */}
       {/* ================================================= */}
 
-      <div className="flex items-center justify-between mt-2 text-[10px]">
-
-        <p className="text-gray-500">
-
+      <div className="flex items-center justify-between gap-3 mt-2 text-[10px]">
+        <p className="text-gray-500 min-w-0 truncate">
           Paid:
-
           <span className="font-bold text-green-600 ml-1">
             ₹{order.paidAmount || 0}
           </span>
-
         </p>
 
-        <p className="text-gray-500">
-
+        <p className="text-gray-500 min-w-0 truncate text-right">
           Remaining:
-
           <span className="font-bold text-gray-700 ml-1">
             ₹{order.remainingAmount || 0}
           </span>
-
         </p>
-
       </div>
 
       {/* ================================================= */}
       {/* ACTIONS */}
       {/* ================================================= */}
 
-      <div className="flex items-center gap-2 mt-3">
-
+      <div className="grid grid-cols-[1fr_1fr_auto] gap-2 mt-3">
         {/* VIEW DETAILS */}
 
         <button
           type="button"
           onClick={handleViewDetails}
           disabled={changing}
-          className="flex-1 h-8 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 text-xs font-semibold flex items-center justify-center gap-1 disabled:opacity-60"
+          className="min-w-0 min-h-8 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 text-[10px] sm:text-xs font-semibold flex items-center justify-center gap-1 px-2 disabled:opacity-60"
         >
-          <Eye size={14} />
+          <Eye size={14} className="shrink-0" />
 
-          View Details
+          <span className="truncate">View Details</span>
         </button>
 
         {/* SHIPPED */}
@@ -409,20 +326,16 @@ export const ProcessingOrderItem = ({ order }) => {
         <button
           type="button"
           disabled={changing}
-          onClick={() =>
-            handleStatusChange("shipped")
-          }
-          className="flex-1 h-8 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-semibold flex items-center justify-center gap-1 disabled:opacity-60"
+          onClick={() => handleStatusChange("shipped")}
+          className="min-w-0 min-h-8 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white text-[10px] sm:text-xs font-semibold flex items-center justify-center gap-1 px-2 disabled:opacity-60"
         >
-
-          <Truck size={14} />
+          <Truck size={14} className="shrink-0" />
 
           {changing ? (
             <span className="loading loading-spinner loading-xs" />
           ) : (
-            "Shipped"
+            <span className="truncate">Shipped</span>
           )}
-
         </button>
 
         {/* CANCEL */}
@@ -430,20 +343,13 @@ export const ProcessingOrderItem = ({ order }) => {
         <button
           type="button"
           disabled={changing}
-          onClick={() =>
-            handleStatusChange("cancelled")
-          }
-          className="w-9 h-8 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 flex items-center justify-center disabled:opacity-60"
+          onClick={() => handleStatusChange("cancelled")}
+          className="w-9 min-h-8 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 flex items-center justify-center disabled:opacity-60"
           title="Cancel Order"
         >
-
           <X size={15} />
-
         </button>
-
       </div>
-
     </div>
   );
 };
-

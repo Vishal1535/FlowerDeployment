@@ -8,15 +8,15 @@ export const DeliveredOrder = ({ orders = [] }) => {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4 sm:space-y-5">
 
       {/* HEADING */}
-      <div>
-        <h2 className="text-xl font-bold text-gray-800">
+      <div className="space-y-1">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-800">
           Delivered Orders
         </h2>
 
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500">
           {deliveredOrders.length} delivered order
           {deliveredOrders.length !== 1 ? "s" : ""}
         </p>
@@ -24,7 +24,7 @@ export const DeliveredOrder = ({ orders = [] }) => {
 
       {/* ORDERS */}
       {deliveredOrders.length > 0 ? (
-        <div className="space-y-3">
+        <div className="w-full space-y-3">
 
           {deliveredOrders.map((order) => (
             <DeliveredOrderItem
@@ -35,13 +35,13 @@ export const DeliveredOrder = ({ orders = [] }) => {
 
         </div>
       ) : (
-        <div className="bg-white border border-green-100 rounded-2xl p-10 text-center">
+        <div className="w-full bg-white border border-green-100 rounded-xl sm:rounded-2xl p-6 sm:p-10 text-center">
 
-          <p className="text-gray-500 font-medium">
+          <p className="text-sm sm:text-base text-gray-500 font-medium">
             No delivered orders
           </p>
 
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-xs sm:text-sm text-gray-400 mt-1">
             Delivered orders will appear here.
           </p>
 

@@ -75,7 +75,8 @@ export const Login = () => {
   // =====================================================
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white px-4">
+    <div className="min-h-screen flex items-center justify-center bg-white px-3 sm:px-4 py-6 sm:py-8">
+
       <div
         className="
           w-full
@@ -97,11 +98,15 @@ export const Login = () => {
           onClick={() => navigate(-1)}
           className="
             absolute
-            top-5
-            left-5
+            top-3
+            left-3
+            sm:top-5
+            sm:left-5
             z-30
-            w-10
-            h-10
+            w-9
+            h-9
+            sm:w-10
+            sm:h-10
             rounded-full
             bg-white/90
             backdrop-blur-sm
@@ -122,7 +127,10 @@ export const Login = () => {
           "
           aria-label="Go back"
         >
-          <ArrowLeft size={19} />
+          <ArrowLeft
+            size={18}
+            className="sm:w-[19px] sm:h-[19px]"
+          />
         </button>
 
         {/* =================================================
@@ -169,12 +177,13 @@ export const Login = () => {
 
           {/* Left Content */}
 
-          <div className="relative z-10 text-center px-10">
+          <div className="relative z-10 text-center px-8 lg:px-10">
             {/* Flower */}
 
             <div
               className="
-                text-[115px]
+                text-[90px]
+                lg:text-[115px]
                 leading-none
                 animate-[float_3s_ease-in-out_infinite]
               "
@@ -184,7 +193,7 @@ export const Login = () => {
 
             {/* Heading */}
 
-            <h2 className="text-4xl font-bold text-gray-800 mt-5">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mt-5">
               Welcome Back
             </h2>
 
@@ -193,8 +202,9 @@ export const Login = () => {
             <p
               className="
                 text-gray-600
+                text-sm lg:text-base
                 mt-4
-                leading-7
+                leading-6 lg:leading-7
                 max-w-sm
                 mx-auto
               "
@@ -205,14 +215,16 @@ export const Login = () => {
 
             {/* Features */}
 
-            <div className="flex justify-center gap-3 mt-7">
+            <div className="flex flex-wrap justify-center gap-2 lg:gap-3 mt-7">
               <span
                 className="
-                  px-4
+                  px-3
+                  lg:px-4
                   py-2
                   rounded-full
                   bg-white/70
-                  text-sm
+                  text-xs
+                  lg:text-sm
                   text-gray-600
                 "
               >
@@ -221,11 +233,13 @@ export const Login = () => {
 
               <span
                 className="
-                  px-4
+                  px-3
+                  lg:px-4
                   py-2
                   rounded-full
                   bg-white/70
-                  text-sm
+                  text-xs
+                  lg:text-sm
                   text-gray-600
                 "
               >
@@ -239,7 +253,7 @@ export const Login = () => {
             RIGHT SIDE
         ================================================= */}
 
-        <div className="p-7 sm:p-9 md:p-12">
+        <div className="p-5 sm:p-7 md:p-9 lg:p-12">
           {/* ================= LOGO ================= */}
 
           <div
@@ -248,32 +262,42 @@ export const Login = () => {
               items-center
               gap-2
               text-gray-800
-              mb-8
+              mb-6
+              sm:mb-8
             "
           >
             <div
               className="
-                w-10
-                h-10
+                w-9
+                h-9
+                sm:w-10
+                sm:h-10
                 rounded-xl
                 bg-gray-100
                 flex
                 items-center
                 justify-center
+                shrink-0
               "
             >
-              <Flower2 size={21} />
+              <Flower2
+                size={20}
+                className="sm:w-[21px] sm:h-[21px]"
+              />
             </div>
 
-            <span className="font-semibold text-lg">Flower</span>
+            <span className="font-semibold text-base sm:text-lg">
+              Flower
+            </span>
           </div>
 
           {/* ================= HEADING ================= */}
 
-          <div className="mb-7">
+          <div className="mb-6 sm:mb-7">
             <h1
               className="
-                text-3xl
+                text-2xl
+                sm:text-3xl
                 font-bold
                 text-gray-900
               "
@@ -281,14 +305,14 @@ export const Login = () => {
               Welcome back
             </h1>
 
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mt-2 leading-5 sm:leading-normal">
               Login to continue to your account.
             </p>
           </div>
 
           {/* ================= FORM ================= */}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {/* ================= EMAIL ================= */}
 
             <div>
@@ -312,8 +336,12 @@ export const Login = () => {
                   input
                   input-bordered
                   w-full
+                  h-11
+                  sm:h-12
                   mt-2
                   rounded-xl
+                  text-sm
+                  sm:text-base
                   focus:outline-none
                   focus:border-gray-500
                   focus:ring-2
@@ -348,8 +376,12 @@ export const Login = () => {
                     input
                     input-bordered
                     w-full
+                    h-11
+                    sm:h-12
                     pr-12
                     rounded-xl
+                    text-sm
+                    sm:text-base
                     focus:outline-none
                     focus:border-gray-500
                     focus:ring-2
@@ -373,9 +405,14 @@ export const Login = () => {
                     hover:text-gray-700
                     transition
                     cursor-pointer
+                    p-1
                   "
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? (
+                    <EyeOff size={18} />
+                  ) : (
+                    <Eye size={18} />
+                  )}
                 </button>
               </div>
 
@@ -385,7 +422,8 @@ export const Login = () => {
                 <Link
                   to="/forgot-password"
                   className="
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-medium
                     text-gray-600
                     hover:text-gray-900
@@ -405,6 +443,7 @@ export const Login = () => {
                 className="
                   text-red-500
                   text-xs
+                  break-words
                   animate-[shake_0.3s_ease-in-out]
                 "
               >
@@ -419,11 +458,14 @@ export const Login = () => {
               disabled={loading}
               className="
                 w-full
-                h-12
+                h-11
+                sm:h-12
                 rounded-xl
                 bg-gray-900
                 hover:bg-gray-800
                 text-white
+                text-sm
+                sm:text-base
                 font-semibold
                 flex
                 items-center
@@ -445,7 +487,10 @@ export const Login = () => {
               ) : (
                 <>
                   Login
-                  <ArrowRight size={18} />
+                  <ArrowRight
+                    size={17}
+                    className="sm:w-[18px] sm:h-[18px]"
+                  />
                 </>
               )}
             </button>
@@ -453,8 +498,8 @@ export const Login = () => {
 
           {/* ================= REGISTER ================= */}
 
-          <div className="text-center mt-7">
-            <p className="text-sm text-gray-500">
+          <div className="text-center mt-6 sm:mt-7">
+            <p className="text-xs sm:text-sm text-gray-500 leading-5">
               Don't have an account?{" "}
               <Link
                 to="/register"

@@ -134,8 +134,10 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
         group
         relative
         w-full
+        min-w-0
         overflow-hidden
-        rounded-3xl
+        rounded-2xl
+        sm:rounded-3xl
         bg-white
         border
         border-gray-100
@@ -152,7 +154,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
       <div
         className="
           relative
-          h-64
+          h-52
+          min-[380px]:h-56
           sm:h-60
           lg:h-64
           xl:h-72
@@ -169,10 +172,14 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
         <div
           className="
             absolute
-            -top-12
-            -right-12
-            w-36
-            h-36
+            -top-10
+            -right-10
+            sm:-top-12
+            sm:-right-12
+            w-28
+            h-28
+            sm:w-36
+            sm:h-36
             rounded-full
             bg-white/50
           "
@@ -208,7 +215,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
               flex
               items-center
               justify-center
-              text-5xl
+              text-4xl
+              sm:text-5xl
             "
           >
             💐
@@ -222,7 +230,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
             absolute
             inset-x-0
             bottom-0
-            h-24
+            h-20
+            sm:h-24
             bg-gradient-to-t
             from-black/15
             to-transparent
@@ -235,20 +244,27 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
         <div
           className="
             absolute
-            top-4
-            left-4
+            top-3
+            left-3
+            sm:top-4
+            sm:left-4
             z-20
-            px-3
-            py-1.5
+            max-w-[65%]
+            px-2.5
+            py-1
+            sm:px-3
+            sm:py-1.5
             rounded-full
             bg-white/90
             backdrop-blur-md
             border
             border-white
             shadow-sm
-            text-[11px]
+            text-[10px]
+            sm:text-[11px]
             font-bold
             text-pink-600
+            truncate
           "
         >
           {comboBouquet?.occasion ||
@@ -267,11 +283,15 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
           }
           className={`
             absolute
-            right-4
-            top-4
+            right-3
+            top-3
+            sm:right-4
+            sm:top-4
             z-20
-            w-10
-            h-10
+            w-9
+            h-9
+            sm:w-10
+            sm:h-10
             rounded-full
             bg-white/90
             backdrop-blur-md
@@ -296,7 +316,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
           `}
         >
           <Heart
-            size={18}
+            size={17}
+            className="sm:w-[18px] sm:h-[18px]"
             fill={
               isWishlisted
                 ? "currentColor"
@@ -313,46 +334,58 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
         <div
           className="
             absolute
-            left-4
-            bottom-4
+            left-3
+            bottom-3
+            sm:left-4
+            sm:bottom-4
             z-20
+            max-w-[80%]
             flex
             items-center
-            gap-1.5
-            px-3
-            py-1.5
+            gap-1
+            sm:gap-1.5
+            px-2.5
+            py-1
+            sm:px-3
+            sm:py-1.5
             rounded-full
             bg-white/90
             backdrop-blur-md
             border
             border-white
             shadow-sm
-            text-xs
+            text-[10px]
+            sm:text-xs
             font-semibold
             text-gray-700
+            truncate
           "
         >
-          <span className="text-pink-500">
+          <span className="text-pink-500 shrink-0">
             🌸
           </span>
 
-          {comboBouquet?.category ||
-            "Combo Bouquet"}
+          <span className="truncate">
+            {comboBouquet?.category ||
+              "Combo Bouquet"}
+          </span>
         </div>
 
       </div>
 
       {/* ================= CONTENT ================= */}
 
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
 
         {/* NAME */}
 
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between gap-2">
 
           <h3
             className="
-              text-lg
+              min-w-0
+              text-base
+              min-[380px]:text-lg
               sm:text-xl
               font-bold
               text-gray-900
@@ -371,7 +404,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
         <p
           className="
             mt-2
-            text-xs
+            text-[11px]
+            min-[380px]:text-xs
             sm:text-sm
             text-gray-500
             leading-5
@@ -385,16 +419,25 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
         {/* DETAILS */}
 
-        <div className="flex items-center gap-3 mt-3">
+        <div
+          className="
+            flex
+            flex-wrap
+            items-center
+            gap-x-3
+            gap-y-1
+            mt-3
+          "
+        >
 
           {comboBouquet?.size && (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1">
 
-              <span className="text-xs text-gray-400">
+              <span className="text-[10px] sm:text-xs text-gray-400">
                 Size
               </span>
 
-              <span className="text-xs font-semibold text-gray-700">
+              <span className="text-[10px] sm:text-xs font-semibold text-gray-700">
                 {comboBouquet.size}
               </span>
 
@@ -409,13 +452,13 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
             )}
 
           {comboBouquet?.flowerCount && (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1">
 
-              <span className="text-xs text-gray-400">
+              <span className="text-[10px] sm:text-xs text-gray-400">
                 Flowers
               </span>
 
-              <span className="text-xs font-semibold text-gray-700">
+              <span className="text-[10px] sm:text-xs font-semibold text-gray-700">
                 {comboBouquet.flowerCount}
               </span>
 
@@ -426,21 +469,30 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
         {/* DIVIDER */}
 
-        <div className="border-t border-gray-100 my-4" />
+        <div className="border-t border-gray-100 my-3 sm:my-4" />
 
         {/* PRICE + AVAILABILITY */}
 
-        <div className="flex items-end justify-between">
+        <div
+          className="
+            flex
+            items-end
+            justify-between
+            gap-3
+          "
+        >
 
           {/* PRICE */}
 
-          <div>
+          <div className="min-w-0">
 
             <p
               className="
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
                 uppercase
-                tracking-[0.15em]
+                tracking-[0.12em]
+                sm:tracking-[0.15em]
                 font-bold
                 text-gray-400
               "
@@ -452,7 +504,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
               <span
                 className="
-                  text-sm
+                  text-xs
+                  sm:text-sm
                   font-semibold
                   text-gray-500
                   mr-0.5
@@ -463,7 +516,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
               <span
                 className="
-                  text-2xl
+                  text-xl
+                  min-[380px]:text-2xl
                   font-extrabold
                   text-gray-900
                 "
@@ -477,13 +531,15 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
           {/* AVAILABILITY */}
 
-          <div className="text-right">
+          <div className="text-right min-w-0">
 
             <p
               className="
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
                 uppercase
-                tracking-[0.15em]
+                tracking-[0.12em]
+                sm:tracking-[0.15em]
                 font-bold
                 text-gray-400
               "
@@ -494,7 +550,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
             <p
               className={`
                 mt-1
-                text-sm
+                text-xs
+                sm:text-sm
                 font-bold
                 ${
                   isAvailable
@@ -514,7 +571,16 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
         {/* ================= ACTION BUTTONS ================= */}
 
-        <div className="flex gap-2 mt-5">
+        <div
+          className="
+            flex
+            flex-col
+            min-[380px]:flex-row
+            gap-2
+            mt-4
+            sm:mt-5
+          "
+        >
 
           {/* VIEW DETAILS */}
 
@@ -527,18 +593,23 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
             }
             className="
               flex-1
-              h-11
+              min-w-0
+              h-10
+              sm:h-11
+              px-2
               rounded-xl
               border
               border-pink-200
               bg-pink-50
               text-pink-600
-              text-sm
+              text-xs
+              sm:text-sm
               font-semibold
               flex
               items-center
               justify-center
-              gap-2
+              gap-1.5
+              sm:gap-2
               hover:bg-pink-500
               hover:border-pink-500
               hover:text-white
@@ -548,9 +619,14 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
               duration-300
             "
           >
-            <ArrowRight size={16} />
+            <ArrowRight
+              size={15}
+              className="sm:w-4 sm:h-4 shrink-0"
+            />
 
-            View Details
+            <span className="truncate">
+              View Details
+            </span>
           </button>
 
           {/* ADD TO CART */}
@@ -565,16 +641,21 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
             }
             className="
               flex-1
-              h-11
+              min-w-0
+              h-10
+              sm:h-11
+              px-2
               rounded-xl
               bg-gray-900
               text-white
-              text-sm
+              text-xs
+              sm:text-sm
               font-bold
               flex
               items-center
               justify-center
-              gap-2
+              gap-1.5
+              sm:gap-2
               hover:bg-pink-600
               hover:shadow-lg
               hover:shadow-pink-200
@@ -588,13 +669,18 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
               duration-300
             "
           >
-            <ShoppingBag size={16} />
+            <ShoppingBag
+              size={15}
+              className="sm:w-4 sm:h-4 shrink-0"
+            />
 
-            {isInCart
-              ? "Added to Cart"
-              : isAvailable
-                ? "Add to Cart"
-                : "Unavailable"}
+            <span className="truncate">
+              {isInCart
+                ? "Added to Cart"
+                : isAvailable
+                  ? "Add to Cart"
+                  : "Unavailable"}
+            </span>
           </button>
 
         </div>

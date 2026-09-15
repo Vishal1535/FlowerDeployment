@@ -245,37 +245,63 @@ export const BouquetCarousel = () => {
   }
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-10 py-12">
+    <section
+      className="
+        w-full
+        max-w-full
+        overflow-hidden
+        px-3
+        sm:px-6
+        lg:px-10
+        py-8
+        sm:py-12
+      "
+    >
 
       {/* ================================================= */}
       {/* HEADER */}
       {/* ================================================= */}
 
-      <div className="flex items-end justify-between mb-8">
+      <div
+        className="
+          flex
+          flex-col
+          sm:flex-row
+          sm:items-end
+          sm:justify-between
+          gap-5
+          sm:gap-6
+          mb-6
+          sm:mb-8
+        "
+      >
 
         {/* ================= LEFT CONTENT ================= */}
 
-        <div>
+        <div className="min-w-0">
 
           {/* Small Heading */}
 
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2 mb-2 sm:mb-3">
 
             <span
               className="
-                w-8
+                w-6
+                sm:w-8
                 h-[2px]
                 rounded-full
                 bg-pink-500
+                shrink-0
               "
             />
 
             <span
               className="
-                text-[11px]
+                text-[9px]
                 sm:text-xs
                 uppercase
-                tracking-[0.22em]
+                tracking-[0.16em]
+                sm:tracking-[0.22em]
                 font-bold
                 text-pink-500
               "
@@ -289,12 +315,13 @@ export const BouquetCarousel = () => {
 
           <h2
             className="
-              text-3xl
+              text-2xl
               sm:text-4xl
               lg:text-5xl
               font-extrabold
               tracking-tight
               text-gray-900
+              leading-tight
             "
           >
             Beautiful{" "}
@@ -307,11 +334,13 @@ export const BouquetCarousel = () => {
 
           <p
             className="
-              mt-2
-              text-sm
+              mt-1.5
+              sm:mt-2
+              text-xs
               sm:text-base
               text-gray-500
               max-w-xl
+              leading-5
             "
           >
             Thoughtfully arranged bouquets for every
@@ -322,7 +351,16 @@ export const BouquetCarousel = () => {
 
         {/* ================= RIGHT SIDE ================= */}
 
-        <div className="flex items-center gap-4">
+        <div
+          className="
+            flex
+            items-center
+            justify-end
+            gap-3
+            w-full
+            sm:w-auto
+          "
+        >
 
           {/* ================= SEARCH ================= */}
 
@@ -333,7 +371,7 @@ export const BouquetCarousel = () => {
                 hidden
                 sm:flex
                 items-center
-                w-56
+                w-52
                 lg:w-72
                 h-11
                 rounded-full
@@ -360,6 +398,7 @@ export const BouquetCarousel = () => {
                 autoFocus
                 className="
                   w-full
+                  min-w-0
                   ml-2
                   outline-none
                   text-sm
@@ -378,6 +417,7 @@ export const BouquetCarousel = () => {
                   text-gray-400
                   hover:text-gray-700
                   transition
+                  shrink-0
                 "
               >
                 <X size={17} />
@@ -392,8 +432,10 @@ export const BouquetCarousel = () => {
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search bouquets"
               className="
-                w-11
-                h-11
+                w-10
+                h-10
+                sm:w-11
+                sm:h-11
                 rounded-full
                 border
                 border-gray-200
@@ -408,37 +450,16 @@ export const BouquetCarousel = () => {
                 hover:border-pink-500
                 transition-all
                 duration-300
+                shrink-0
               "
             >
-              <Search size={19} />
+              <Search
+                size={18}
+                className="sm:w-[19px] sm:h-[19px]"
+              />
             </button>
 
           )}
-
-          {/* ================= MADE WITH LOVE ================= */}
-
-          {/* <div className="hidden md:flex items-center gap-3">
-
-            <span className="text-xs text-gray-400">
-              Made with love
-            </span>
-
-            <div
-              className="
-                w-11
-                h-11
-                rounded-full
-                bg-pink-50
-                flex
-                items-center
-                justify-center
-                text-xl
-              "
-            >
-              💐
-            </div>
-
-          </div> */}
 
         </div>
 
@@ -455,20 +476,23 @@ export const BouquetCarousel = () => {
             sm:hidden
             items-center
             w-full
-            h-11
-            mb-6
+            h-10
+            mb-5
             rounded-full
             border
             border-gray-200
             bg-white
             shadow-sm
-            px-4
+            px-3
           "
         >
 
           <Search
-            size={18}
-            className="text-gray-400"
+            size={17}
+            className="
+              text-gray-400
+              shrink-0
+            "
           />
 
           <input
@@ -480,10 +504,13 @@ export const BouquetCarousel = () => {
             placeholder="Search bouquets..."
             autoFocus
             className="
-              w-full
+              flex-1
+              min-w-0
               ml-2
               outline-none
-              text-sm
+              text-xs
+              sm:text-sm
+              text-gray-700
             "
           />
 
@@ -493,7 +520,11 @@ export const BouquetCarousel = () => {
               setSearchText("");
               setIsSearchOpen(false);
             }}
-            className="text-gray-400"
+            className="
+              text-gray-400
+              shrink-0
+              ml-1
+            "
           >
             <X size={17} />
           </button>
@@ -507,7 +538,8 @@ export const BouquetCarousel = () => {
 
       <div
         className="
-          mb-7
+          mb-5
+          sm:mb-7
           h-px
           bg-gradient-to-r
           from-pink-200
@@ -520,7 +552,16 @@ export const BouquetCarousel = () => {
       {/* CAROUSEL */}
       {/* ================================================= */}
 
-      <div className="flex items-center gap-3 sm:gap-5">
+      <div
+        className="
+          flex
+          items-center
+          gap-1.5
+          sm:gap-5
+          w-full
+          min-w-0
+        "
+      >
 
         {/* ================= LEFT ARROW ================= */}
 
@@ -534,8 +575,8 @@ export const BouquetCarousel = () => {
           aria-label="Previous bouquets"
           className="
             shrink-0
-            w-10
-            h-10
+            w-8
+            h-8
             sm:w-12
             sm:h-12
             rounded-full
@@ -557,7 +598,10 @@ export const BouquetCarousel = () => {
             duration-300
           "
         >
-          <ChevronLeft size={21} />
+          <ChevronLeft
+            size={17}
+            className="sm:w-[21px] sm:h-[21px]"
+          />
         </button>
 
         {/* ================= DRAG AREA ================= */}
@@ -566,6 +610,7 @@ export const BouquetCarousel = () => {
           className={`
             flex-1
             min-w-0
+            max-w-full
             overflow-hidden
             select-none
             touch-pan-y
@@ -593,7 +638,7 @@ export const BouquetCarousel = () => {
                 sm:grid-cols-2
                 lg:grid-cols-3
                 xl:grid-cols-4
-                gap-4
+                gap-3
                 sm:gap-5
               "
             >
@@ -601,8 +646,10 @@ export const BouquetCarousel = () => {
                 <div
                   key={item}
                   className="
-                    h-[430px]
-                    rounded-3xl
+                    h-[400px]
+                    sm:h-[430px]
+                    rounded-2xl
+                    sm:rounded-3xl
                     bg-gray-100
                     animate-pulse
                   "
@@ -622,7 +669,7 @@ export const BouquetCarousel = () => {
                 sm:grid-cols-2
                 lg:grid-cols-3
                 xl:grid-cols-4
-                gap-4
+                gap-3
                 sm:gap-5
 
                 ${
@@ -649,7 +696,9 @@ export const BouquetCarousel = () => {
             <div
               className="
                 w-full
-                py-16
+                py-12
+                sm:py-16
+                px-3
                 flex
                 flex-col
                 items-center
@@ -660,23 +709,30 @@ export const BouquetCarousel = () => {
 
               <div
                 className="
-                  w-16
-                  h-16
+                  w-14
+                  h-14
+                  sm:w-16
+                  sm:h-16
                   rounded-full
                   bg-pink-50
                   flex
                   items-center
                   justify-center
                   text-pink-500
-                  mb-4
+                  mb-3
+                  sm:mb-4
                 "
               >
-                <Search size={26} />
+                <Search
+                  size={23}
+                  className="sm:w-[26px] sm:h-[26px]"
+                />
               </div>
 
               <h3
                 className="
-                  text-lg
+                  text-base
+                  sm:text-lg
                   font-bold
                   text-gray-800
                 "
@@ -684,7 +740,15 @@ export const BouquetCarousel = () => {
                 No bouquets found
               </h3>
 
-              <p className="text-sm text-gray-500 mt-1">
+              <p
+                className="
+                  text-xs
+                  sm:text-sm
+                  text-gray-500
+                  mt-1
+                  max-w-xs
+                "
+              >
                 Try searching with another name,
                 category or occasion.
               </p>
@@ -709,8 +773,8 @@ export const BouquetCarousel = () => {
           aria-label="Next bouquets"
           className="
             shrink-0
-            w-10
-            h-10
+            w-8
+            h-8
             sm:w-12
             sm:h-12
             rounded-full
@@ -732,7 +796,10 @@ export const BouquetCarousel = () => {
             duration-300
           "
         >
-          <ChevronRight size={21} />
+          <ChevronRight
+            size={17}
+            className="sm:w-[21px] sm:h-[21px]"
+          />
         </button>
 
       </div>
@@ -744,7 +811,16 @@ export const BouquetCarousel = () => {
       {!loading &&
         filteredBouquets.length > visibleCount && (
 
-          <div className="flex justify-center mt-7 gap-1.5">
+          <div
+            className="
+              flex
+              justify-center
+              mt-5
+              sm:mt-7
+              gap-1.5
+              overflow-hidden
+            "
+          >
 
             {Array.from({
               length:
@@ -773,7 +849,7 @@ export const BouquetCarousel = () => {
 
                   ${
                     startIndex === index
-                      ? "w-8 bg-pink-500"
+                      ? "w-7 sm:w-8 bg-pink-500"
                       : "w-2 bg-gray-200 hover:bg-pink-300"
                   }
                 `}

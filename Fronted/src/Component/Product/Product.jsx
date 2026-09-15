@@ -110,13 +110,13 @@ useEffect(() => {
       });
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen w-full min-w-0 overflow-x-hidden bg-gray-50 px-3 py-4 min-[380px]:px-4 sm:px-6 lg:px-8 sm:py-6">
       {/* ================= CREATE FLOWER POPUP ================= */}
 
       <CreateFlower />
       <CreateBouquet/>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto min-w-0">
         {/* ================= HEADER ================= */}
 
         <div
@@ -126,14 +126,17 @@ useEffect(() => {
           sm:flex-row
           sm:items-center
           sm:justify-between
-          gap-4
-          mb-6
+          gap-3
+          sm:gap-4
+          mb-4
+          sm:mb-6
         "
         >
-          <div>
+          <div className="min-w-0">
             <h1
               className="
-              text-2xl
+              text-xl
+              min-[380px]:text-2xl
               sm:text-3xl
               font-bold
               text-gray-900
@@ -144,7 +147,8 @@ useEffect(() => {
 
             <p
               className="
-              text-sm
+              text-xs
+              sm:text-sm
               text-gray-500
               mt-1
             "
@@ -159,22 +163,27 @@ useEffect(() => {
             type="button"
             onClick={handleAddProduct}
             className="
+              w-full
+              sm:w-auto
               flex
               items-center
               justify-center
               gap-2
-              px-5
-              py-3
+              px-4
+              sm:px-5
+              py-2.5
+              sm:py-3
               rounded-xl
               bg-gray-900
               text-white
+              text-sm
               font-semibold
               hover:bg-gray-800
               transition
               shadow-sm
             "
           >
-            <Plus size={18} />
+            <Plus size={17} className="sm:w-[18px] sm:h-[18px]" />
 
             {activeType === "flower" ? "Add Flower" : "Add Bouquet"}
           </button>
@@ -189,11 +198,13 @@ useEffect(() => {
           shadow-sm
           border
           border-gray-100
-          p-2
-          mb-6
+          p-1.5
+          sm:p-2
+          mb-4
+          sm:mb-6
         "
         >
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
             {/* ================= FLOWERS ================= */}
 
             <button
@@ -207,9 +218,13 @@ useEffect(() => {
                 flex
                 items-center
                 justify-center
-                gap-2
-                py-3
+                gap-1.5
+                sm:gap-2
+                py-2.5
+                sm:py-3
                 rounded-xl
+                text-sm
+                sm:text-base
                 font-semibold
                 transition-all
 
@@ -220,7 +235,7 @@ useEffect(() => {
                 }
               `}
             >
-              <Flower2 size={19} />
+              <Flower2 size={17} className="sm:w-[19px] sm:h-[19px]" />
               Flowers
             </button>
 
@@ -237,9 +252,13 @@ useEffect(() => {
                 flex
                 items-center
                 justify-center
-                gap-2
-                py-3
+                gap-1.5
+                sm:gap-2
+                py-2.5
+                sm:py-3
                 rounded-xl
+                text-sm
+                sm:text-base
                 font-semibold
                 transition-all
 
@@ -250,7 +269,7 @@ useEffect(() => {
                 }
               `}
             >
-              <Package size={19} />
+              <Package size={17} className="sm:w-[19px] sm:h-[19px]" />
               Bouquets
             </button>
           </div>
@@ -265,16 +284,19 @@ useEffect(() => {
           border
           border-gray-100
           shadow-sm
-          p-4
-          mb-6
+          p-3
+          sm:p-4
+          mb-4
+          sm:mb-6
         "
         >
           <div className="relative">
             <Search
-              size={19}
+              size={18}
               className="
                 absolute
-                left-4
+                left-3
+                sm:left-4
                 top-1/2
                 -translate-y-1/2
                 text-gray-400
@@ -294,13 +316,17 @@ useEffect(() => {
               }}
               className="
                 w-full
-                h-12
-                pl-11
-                pr-4
+                h-10
+                sm:h-12
+                pl-10
+                sm:pl-11
+                pr-3
+                sm:pr-4
                 rounded-xl
                 border
                 border-gray-200
                 outline-none
+                text-sm
                 focus:border-gray-400
                 focus:ring-2
                 focus:ring-gray-100
@@ -318,13 +344,16 @@ useEffect(() => {
           border
           border-gray-100
           shadow-sm
+          min-w-0
+          overflow-hidden
         "
         >
           {/* ================= SECTION HEADER ================= */}
 
           <div
             className="
-            p-5
+            p-4
+            sm:p-5
             border-b
             border-gray-100
           "
@@ -334,12 +363,14 @@ useEffect(() => {
               flex
               items-center
               justify-between
+              gap-3
             "
             >
-              <div>
+              <div className="min-w-0">
                 <h2
                   className="
-                  text-lg
+                  text-base
+                  sm:text-lg
                   font-bold
                   text-gray-900
                 "
@@ -349,9 +380,11 @@ useEffect(() => {
 
                 <p
                   className="
-                  text-sm
+                  text-xs
+                  sm:text-sm
                   text-gray-500
                   mt-1
+                  truncate
                 "
                 >
                   {activeType === "flower"
@@ -364,11 +397,14 @@ useEffect(() => {
 
               <span
                 className="
-                px-3
+                shrink-0
+                px-2.5
+                sm:px-3
                 py-1
                 rounded-full
                 bg-gray-100
-                text-xs
+                text-[10px]
+                sm:text-xs
                 font-semibold
                 text-gray-600
               "
@@ -385,7 +421,8 @@ useEffect(() => {
 
             <div
               className="
-              py-20
+              py-14
+              sm:py-20
               text-center
             "
             >
@@ -399,9 +436,11 @@ useEffect(() => {
 
               <p
                 className="
-                text-sm
+                text-xs
+                sm:text-sm
                 text-gray-500
-                mt-4
+                mt-3
+                sm:mt-4
               "
               >
                 Loading products...
@@ -410,7 +449,7 @@ useEffect(() => {
           ) : products.length > 0 ? (
             /* ================= PRODUCT GRID ================= */
 
-            <div className="p-5">
+            <div className="p-3 min-[380px]:p-4 sm:p-5">
               <div
                 className="
                 grid
@@ -418,7 +457,8 @@ useEffect(() => {
                 sm:grid-cols-2
                 lg:grid-cols-3
                 xl:grid-cols-4
-                gap-5
+                gap-3
+                sm:gap-5
               "
               >
                 {products.map((product) =>
@@ -446,8 +486,11 @@ useEffect(() => {
       flex
       items-center
       justify-center
-      gap-3
-      mt-8
+      gap-2
+      sm:gap-3
+      mt-6
+      sm:mt-8
+      flex-wrap
     "
   >
     {/* Previous */}
@@ -457,12 +500,14 @@ useEffect(() => {
       disabled={page === 1}
       onClick={() => setPage((prev) => prev - 1)}
       className="
-        px-4
+        px-3
+        sm:px-4
         py-2
         rounded-xl
         border
         border-gray-200
-        text-sm
+        text-xs
+        sm:text-sm
         font-semibold
         disabled:opacity-40
         disabled:cursor-not-allowed
@@ -477,12 +522,14 @@ useEffect(() => {
 
     <span
       className="
-        px-4
+        px-3
+        sm:px-4
         py-2
         rounded-xl
         bg-gray-900
         text-white
-        text-sm
+        text-xs
+        sm:text-sm
         font-semibold
       "
     >
@@ -496,12 +543,14 @@ useEffect(() => {
       onClick={() => setPage((prev) => prev + 1)}
       disabled={products.length < 10}
       className="
-        px-4
+        px-3
+        sm:px-4
         py-2
         rounded-xl
         border
         border-gray-200
-        text-sm
+        text-xs
+        sm:text-sm
         font-semibold
         disabled:opacity-40
         disabled:cursor-not-allowed
@@ -519,34 +568,40 @@ useEffect(() => {
 
             <div
               className="
-              py-20
-              px-6
+              py-14
+              sm:py-20
+              px-4
+              sm:px-6
               text-center
             "
             >
               <div
                 className="
-                w-16
-                h-16
+                w-14
+                h-14
+                sm:w-16
+                sm:h-16
                 mx-auto
                 rounded-2xl
                 bg-gray-100
                 flex
                 items-center
                 justify-center
-                mb-4
+                mb-3
+                sm:mb-4
               "
               >
                 {activeType === "flower" ? (
-                  <Flower2 size={28} className="text-gray-500" />
+                  <Flower2 size={25} className="sm:w-[28px] sm:h-[28px] text-gray-500" />
                 ) : (
-                  <Package size={28} className="text-gray-500" />
+                  <Package size={25} className="sm:w-[28px] sm:h-[28px] text-gray-500" />
                 )}
               </div>
 
               <h3
                 className="
-                text-lg
+                text-base
+                sm:text-lg
                 font-semibold
                 text-gray-900
               "
@@ -556,7 +611,8 @@ useEffect(() => {
 
               <p
                 className="
-                text-sm
+                text-xs
+                sm:text-sm
                 text-gray-500
                 mt-2
               "

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { ShippedOrderItem } from "./ShippedOrderItem";
 
@@ -7,15 +8,15 @@ export const ShippedOrder = ({ orders = [] }) => {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4 sm:space-y-5">
 
       {/* HEADING */}
-      <div>
-        <h2 className="text-xl font-bold text-gray-800">
+      <div className="min-w-0">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-800 break-words">
           Shipped Orders
         </h2>
 
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">
           {shippedOrders.length} shipped order
           {shippedOrders.length !== 1 ? "s" : ""}
         </p>
@@ -23,7 +24,7 @@ export const ShippedOrder = ({ orders = [] }) => {
 
       {/* ORDERS */}
       {shippedOrders.length > 0 ? (
-        <div className="space-y-3">
+        <div className="w-full space-y-3">
 
           {shippedOrders.map((order) => (
             <ShippedOrderItem
@@ -34,13 +35,13 @@ export const ShippedOrder = ({ orders = [] }) => {
 
         </div>
       ) : (
-        <div className="bg-white border border-indigo-100 rounded-2xl p-10 text-center">
+        <div className="w-full bg-white border border-indigo-100 rounded-xl sm:rounded-2xl p-6 sm:p-10 text-center">
 
           <p className="text-gray-500 font-medium">
             No shipped orders
           </p>
 
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-xs sm:text-sm text-gray-400 mt-1">
             Shipped orders will appear here.
           </p>
 
@@ -50,3 +51,5 @@ export const ShippedOrder = ({ orders = [] }) => {
     </div>
   );
 };
+
+

@@ -116,7 +116,8 @@ export const ProfileDropdown = ({
           setShowProfile(!showProfile)
         }
         className="
-          px-4
+          px-2.5
+          sm:px-4
           py-2
           rounded-full
           text-gray-700
@@ -124,19 +125,28 @@ export const ProfileDropdown = ({
           transition
           flex
           items-center
-          gap-2
+          gap-1.5
+          sm:gap-2
+          max-w-[150px]
+          sm:max-w-none
         "
       >
 
-        <User size={18} />
+        <User
+          size={17}
+          className="sm:w-[18px] sm:h-[18px] shrink-0"
+        />
 
-        <span className="hidden sm:inline">
+        <span className="hidden sm:inline truncate text-sm sm:text-base">
           {userInfo?.name || "Profile"}
         </span>
 
         <ChevronDown
-          size={16}
+          size={15}
           className={`
+            sm:w-4
+            sm:h-4
+            shrink-0
             transition-transform
             ${
               showProfile
@@ -158,14 +168,18 @@ export const ProfileDropdown = ({
           className="
             absolute
             right-0
-            top-12
-            w-56
+            top-11
+            sm:top-12
+            w-[calc(100vw-24px)]
+            max-w-56
             bg-white
-            rounded-2xl
+            rounded-xl
+            sm:rounded-2xl
             shadow-xl
             border
             border-gray-100
-            p-2
+            p-1.5
+            sm:p-2
             z-[70]
           "
         >
@@ -184,18 +198,26 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-gray-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
-                <User size={17} />
+                <User
+                  size={16}
+                  className="sm:w-[17px] sm:h-[17px] shrink-0"
+                />
 
                 <span>
                   My Profile
@@ -210,14 +232,19 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-gray-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
@@ -236,14 +263,19 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-gray-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
@@ -262,18 +294,26 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-gray-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
-                <Settings size={17} />
+                <Settings
+                  size={16}
+                  className="sm:w-[17px] sm:h-[17px] shrink-0"
+                />
 
                 <span>
                   Settings
@@ -293,19 +333,21 @@ export const ProfileDropdown = ({
 
               <div
                 className="
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2
                   mb-1
                 "
               >
 
-                <p className="text-xs text-gray-400">
+                <p className="text-[11px] sm:text-xs text-gray-400">
                   Signed in as
                 </p>
 
                 <p
                   className="
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-semibold
                     text-gray-800
                     truncate
@@ -325,14 +367,19 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-pink-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
@@ -353,18 +400,26 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-pink-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
-                <Settings size={17} />
+                <Settings
+                  size={16}
+                  className="sm:w-[17px] sm:h-[17px] shrink-0"
+                />
 
                 <span>
                   Settings
@@ -384,19 +439,21 @@ export const ProfileDropdown = ({
 
               <div
                 className="
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2
                   mb-1
                 "
               >
 
-                <p className="text-xs text-gray-400">
+                <p className="text-[11px] sm:text-xs text-gray-400">
                   Signed in as
                 </p>
 
                 <p
                   className="
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-semibold
                     text-gray-800
                     truncate
@@ -417,14 +474,19 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-green-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
@@ -445,18 +507,26 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-green-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
-                <Bike size={17} />
+                <Bike
+                  size={16}
+                  className="sm:w-[17px] sm:h-[17px] shrink-0"
+                />
 
                 <span>
                   My Profile
@@ -473,18 +543,26 @@ export const ProfileDropdown = ({
                 className="
                   w-full
                   text-left
-                  px-4
+                  px-3
+                  sm:px-4
                   py-2.5
-                  rounded-xl
+                  rounded-lg
+                  sm:rounded-xl
                   hover:bg-green-50
                   text-gray-700
                   flex
                   items-center
-                  gap-3
+                  gap-2.5
+                  sm:gap-3
+                  text-sm
+                  sm:text-base
                 "
               >
 
-                <Settings size={17} />
+                <Settings
+                  size={16}
+                  className="sm:w-[17px] sm:h-[17px] shrink-0"
+                />
 
                 <span>
                   Settings
@@ -499,7 +577,7 @@ export const ProfileDropdown = ({
               DIVIDER
           ================================================= */}
 
-          <div className="border-t border-gray-100 my-2" />
+          <div className="border-t border-gray-100 my-1.5 sm:my-2" />
 
           {/* =================================================
               LOGOUT
@@ -510,19 +588,27 @@ export const ProfileDropdown = ({
             className="
               w-full
               text-left
-              px-4
+              px-3
+              sm:px-4
               py-2.5
-              rounded-xl
+              rounded-lg
+              sm:rounded-xl
               text-red-500
               hover:bg-red-50
               transition
               flex
               items-center
-              gap-3
+              gap-2.5
+              sm:gap-3
+              text-sm
+              sm:text-base
             "
           >
 
-            <LogOut size={17} />
+            <LogOut
+              size={16}
+              className="sm:w-[17px] sm:h-[17px] shrink-0"
+            />
 
             <span>
               Logout

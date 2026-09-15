@@ -306,13 +306,15 @@ export const SingleWoolenBouquet = () => {
       <>
         <Auth />
 
-        <div className="min-h-[75vh] flex items-center justify-center">
+        <div className="min-h-[65vh] sm:min-h-[75vh] flex items-center justify-center px-4">
           <div className="text-center">
 
             <div
               className="
-                w-14
-                h-14
+                w-12
+                h-12
+                sm:w-14
+                sm:h-14
                 mx-auto
                 rounded-full
                 bg-purple-50
@@ -323,12 +325,24 @@ export const SingleWoolenBouquet = () => {
               "
             >
               <Flower2
+                size={23}
+                className="text-purple-400 sm:hidden"
+              />
+
+              <Flower2
                 size={26}
-                className="text-purple-400"
+                className="text-purple-400 hidden sm:block"
               />
             </div>
 
-            <p className="mt-3 text-sm text-gray-500">
+            <p
+              className="
+                mt-3
+                text-xs
+                sm:text-sm
+                text-gray-500
+              "
+            >
               Loading woolen bouquet details...
             </p>
 
@@ -342,13 +356,23 @@ export const SingleWoolenBouquet = () => {
     <>
       <Auth />
 
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-white overflow-x-hidden">
 
         {/* ============================
             BACK
         ============================ */}
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-5">
+        <div
+          className="
+            max-w-6xl
+            mx-auto
+            px-3
+            min-[380px]:px-4
+            sm:px-6
+            pt-4
+            sm:pt-5
+          "
+        >
 
           <button
             type="button"
@@ -356,18 +380,31 @@ export const SingleWoolenBouquet = () => {
             className="
               inline-flex
               items-center
-              gap-2
-              text-sm
+              gap-1.5
+              sm:gap-2
+              text-xs
+              sm:text-sm
               font-medium
               text-gray-500
               hover:text-purple-600
               transition-colors
               cursor-pointer
+              max-w-full
             "
           >
-            <ArrowLeft size={17} />
+            <ArrowLeft
+              size={15}
+              className="sm:hidden shrink-0"
+            />
 
-            Back to Woolen Bouquets
+            <ArrowLeft
+              size={17}
+              className="hidden sm:block shrink-0"
+            />
+
+            <span className="truncate">
+              Back to Woolen Bouquets
+            </span>
           </button>
 
         </div>
@@ -376,14 +413,26 @@ export const SingleWoolenBouquet = () => {
             PRODUCT SECTION
         ============================ */}
 
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        <section
+          className="
+            max-w-6xl
+            mx-auto
+            px-3
+            min-[380px]:px-4
+            sm:px-6
+            py-5
+            sm:py-6
+          "
+        >
 
           <div
             className="
               grid
               grid-cols-1
               lg:grid-cols-[0.9fr_1.1fr]
-              gap-7
+              gap-5
+              min-[380px]:gap-6
+              sm:gap-7
               lg:gap-10
               items-start
             "
@@ -395,10 +444,12 @@ export const SingleWoolenBouquet = () => {
               className="
                 relative
                 w-full
-                h-[300px]
+                h-[270px]
+                min-[380px]:h-[300px]
                 sm:h-[340px]
                 lg:h-[390px]
-                rounded-3xl
+                rounded-2xl
+                min-[380px]:rounded-3xl
                 overflow-hidden
                 bg-gradient-to-br
                 from-purple-50
@@ -415,10 +466,14 @@ export const SingleWoolenBouquet = () => {
               <div
                 className="
                   absolute
-                  -top-16
-                  -right-16
-                  w-44
-                  h-44
+                  -top-12
+                  -right-12
+                  sm:-top-16
+                  sm:-right-16
+                  w-32
+                  h-32
+                  sm:w-44
+                  sm:h-44
                   rounded-full
                   bg-white/70
                 "
@@ -427,10 +482,14 @@ export const SingleWoolenBouquet = () => {
               <div
                 className="
                   absolute
-                  -bottom-20
-                  -left-20
-                  w-52
-                  h-52
+                  -bottom-16
+                  -left-16
+                  sm:-bottom-20
+                  sm:-left-20
+                  w-40
+                  h-40
+                  sm:w-52
+                  sm:h-52
                   rounded-full
                   bg-purple-100/40
                 "
@@ -441,13 +500,19 @@ export const SingleWoolenBouquet = () => {
               <div
                 className={`
                   absolute
-                  top-4
-                  left-4
+                  top-3
+                  left-3
+                  sm:top-4
+                  sm:left-4
                   z-20
-                  px-3
-                  py-1.5
+                  px-2
+                  min-[380px]:px-3
+                  py-1
+                  sm:py-1.5
                   rounded-full
-                  text-[11px]
+                  text-[9px]
+                  min-[380px]:text-[10px]
+                  sm:text-[11px]
                   font-bold
 
                   ${
@@ -476,11 +541,15 @@ export const SingleWoolenBouquet = () => {
                 }
                 className={`
                   absolute
-                  top-4
-                  right-4
+                  top-3
+                  right-3
+                  sm:top-4
+                  sm:right-4
                   z-20
-                  w-10
-                  h-10
+                  w-9
+                  h-9
+                  sm:w-10
+                  sm:h-10
                   rounded-full
                   bg-white
                   border
@@ -500,7 +569,18 @@ export const SingleWoolenBouquet = () => {
                 `}
               >
                 <Heart
+                  size={16}
+                  className="sm:hidden"
+                  fill={
+                    isWishlisted
+                      ? "currentColor"
+                      : "none"
+                  }
+                />
+
+                <Heart
                   size={18}
+                  className="hidden sm:block"
                   fill={
                     isWishlisted
                       ? "currentColor"
@@ -521,8 +601,10 @@ export const SingleWoolenBouquet = () => {
                   className="
                     relative
                     z-10
-                    max-w-[88%]
-                    max-h-[82%]
+                    max-w-[86%]
+                    sm:max-w-[88%]
+                    max-h-[78%]
+                    sm:max-h-[82%]
                     object-contain
                     transition-transform
                     duration-500
@@ -530,14 +612,21 @@ export const SingleWoolenBouquet = () => {
                   "
                 />
               ) : (
-                <div className="text-center text-gray-300">
+                <div className="text-center text-gray-300 px-4">
 
                   <Flower2
-                    size={65}
+                    size={52}
+                    className="mx-auto sm:hidden"
                     strokeWidth={1}
                   />
 
-                  <p className="text-sm mt-2">
+                  <Flower2
+                    size={65}
+                    className="hidden sm:block mx-auto"
+                    strokeWidth={1}
+                  />
+
+                  <p className="text-xs sm:text-sm mt-2">
                     No image available
                   </p>
 
@@ -548,24 +637,32 @@ export const SingleWoolenBouquet = () => {
 
             {/* RIGHT - PRODUCT DETAILS */}
 
-            <div className="pt-1">
+            <div className="pt-0 lg:pt-1 min-w-0">
 
               {/* CATEGORY */}
 
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-2">
+
+                <Flower2
+                  size={14}
+                  className="text-purple-500 shrink-0 sm:hidden"
+                />
 
                 <Flower2
                   size={15}
-                  className="text-purple-500"
+                  className="text-purple-500 shrink-0 hidden sm:block"
                 />
 
                 <span
                   className="
-                    text-[10px]
+                    text-[9px]
+                    min-[380px]:text-[10px]
                     font-bold
                     uppercase
-                    tracking-[0.18em]
+                    tracking-[0.14em]
+                    min-[380px]:tracking-[0.18em]
                     text-purple-500
+                    truncate
                   "
                 >
                   {singleWoolen?.category ||
@@ -578,12 +675,14 @@ export const SingleWoolenBouquet = () => {
 
               <h1
                 className="
-                  text-2xl
+                  text-xl
+                  min-[380px]:text-2xl
                   sm:text-3xl
                   font-extrabold
                   text-gray-900
                   capitalize
                   tracking-tight
+                  break-words
                 "
               >
                 {singleWoolen?.name ||
@@ -594,9 +693,12 @@ export const SingleWoolenBouquet = () => {
 
               <p
                 className="
-                  mt-4
-                  text-sm
-                  leading-6
+                  mt-3
+                  sm:mt-4
+                  text-xs
+                  min-[380px]:text-sm
+                  leading-5
+                  sm:leading-6
                   text-gray-500
                   max-w-xl
                 "
@@ -607,11 +709,12 @@ export const SingleWoolenBouquet = () => {
 
               {/* PRICE */}
 
-              <div className="mt-4">
+              <div className="mt-3 sm:mt-4">
 
                 <p
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     uppercase
                     tracking-wider
                     font-bold
@@ -621,11 +724,12 @@ export const SingleWoolenBouquet = () => {
                   Price
                 </p>
 
-                <div className="flex items-baseline mt-0.5">
+                <div className="flex items-baseline mt-0.5 flex-wrap">
 
                   <span
                     className="
-                      text-base
+                      text-sm
+                      sm:text-base
                       font-semibold
                       text-gray-500
                       mr-1
@@ -636,7 +740,8 @@ export const SingleWoolenBouquet = () => {
 
                   <span
                     className="
-                      text-2xl
+                      text-xl
+                      min-[380px]:text-2xl
                       font-extrabold
                       text-gray-900
                     "
@@ -648,7 +753,8 @@ export const SingleWoolenBouquet = () => {
                     <span
                       className="
                         ml-2
-                        text-sm
+                        text-xs
+                        sm:text-sm
                         text-gray-400
                         line-through
                       "
@@ -663,21 +769,52 @@ export const SingleWoolenBouquet = () => {
 
               {/* STOCK */}
 
-              <div className="flex items-center gap-2 mt-3">
+              <div
+                className="
+                  flex
+                  items-start
+                  gap-1.5
+                  sm:gap-2
+                  mt-3
+                "
+              >
+
+                <CheckCircle2
+                  size={15}
+                  className={`
+                    mt-0.5
+                    shrink-0
+                    sm:hidden
+                    ${
+                      isAvailable
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }
+                  `}
+                />
 
                 <CheckCircle2
                   size={16}
-                  className={
-                    isAvailable
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }
+                  className={`
+                    mt-0.5
+                    shrink-0
+                    hidden
+                    sm:block
+                    ${
+                      isAvailable
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }
+                  `}
                 />
 
                 <span
                   className={`
-                    text-sm
+                    text-xs
+                    min-[380px]:text-sm
                     font-semibold
+                    leading-5
+                    break-words
                     ${
                       isAvailable
                         ? "text-green-600"
@@ -696,7 +833,15 @@ export const SingleWoolenBouquet = () => {
                   BUTTONS
               ============================ */}
 
-              <div className="grid grid-cols-2 gap-2 mt-4">
+              <div
+                className="
+                  grid
+                  grid-cols-1
+                  min-[380px]:grid-cols-2
+                  gap-2
+                  mt-4
+                "
+              >
 
                 {/* ADD TO CART */}
 
@@ -708,16 +853,19 @@ export const SingleWoolenBouquet = () => {
                   }
                   onClick={handleAddToCart}
                   className="
-                    h-11
+                    h-10
+                    min-[380px]:h-11
                     rounded-xl
                     bg-gray-900
                     text-white
-                    text-sm
+                    text-xs
+                    min-[380px]:text-sm
                     font-bold
                     flex
                     items-center
                     justify-center
-                    gap-2
+                    gap-1.5
+                    min-[380px]:gap-2
                     hover:bg-purple-600
                     active:scale-[0.98]
                     disabled:bg-gray-100
@@ -725,15 +873,21 @@ export const SingleWoolenBouquet = () => {
                     disabled:cursor-not-allowed
                     transition-all
                     cursor-pointer
+                    px-2
                   "
                 >
-                  <ShoppingCart size={17} />
+                  <ShoppingCart
+                    size={16}
+                    className="shrink-0"
+                  />
 
-                  {isInCart
-                    ? "Added to Cart"
-                    : isAvailable
-                      ? "Add to Cart"
-                      : "Unavailable"}
+                  <span className="truncate">
+                    {isInCart
+                      ? "Added to Cart"
+                      : isAvailable
+                        ? "Add to Cart"
+                        : "Unavailable"}
+                  </span>
                 </button>
 
                 {/* BUY NOW */}
@@ -743,16 +897,19 @@ export const SingleWoolenBouquet = () => {
                   disabled={!isAvailable}
                   onClick={handleBuyNow}
                   className="
-                    h-11
+                    h-10
+                    min-[380px]:h-11
                     rounded-xl
                     bg-purple-500
                     text-white
-                    text-sm
+                    text-xs
+                    min-[380px]:text-sm
                     font-bold
                     flex
                     items-center
                     justify-center
-                    gap-2
+                    gap-1.5
+                    min-[380px]:gap-2
                     hover:bg-purple-600
                     active:scale-[0.98]
                     disabled:bg-gray-100
@@ -760,10 +917,12 @@ export const SingleWoolenBouquet = () => {
                     disabled:cursor-not-allowed
                     transition-all
                     cursor-pointer
+                    px-2
                   "
                 >
                   <Zap
-                    size={17}
+                    size={16}
+                    className="shrink-0"
                     fill="currentColor"
                   />
 
@@ -785,14 +944,17 @@ export const SingleWoolenBouquet = () => {
                 className={`
                   w-full
                   h-10
+                  min-[380px]:h-11
                   mt-2
                   rounded-xl
                   border
                   flex
                   items-center
                   justify-center
-                  gap-2
-                  text-sm
+                  gap-1.5
+                  sm:gap-2
+                  text-xs
+                  min-[380px]:text-sm
                   font-semibold
                   transition-all
                   cursor-pointer
@@ -805,7 +967,8 @@ export const SingleWoolenBouquet = () => {
                 `}
               >
                 <Heart
-                  size={17}
+                  size={16}
+                  className="sm:hidden shrink-0"
                   fill={
                     isWishlisted
                       ? "currentColor"
@@ -813,25 +976,41 @@ export const SingleWoolenBouquet = () => {
                   }
                 />
 
-                {isWishlisted
-                  ? "Added to Wishlist"
-                  : "Add to Wishlist"}
+                <Heart
+                  size={17}
+                  className="hidden sm:block shrink-0"
+                  fill={
+                    isWishlisted
+                      ? "currentColor"
+                      : "none"
+                  }
+                />
+
+                <span className="truncate">
+                  {isWishlisted
+                    ? "Added to Wishlist"
+                    : "Add to Wishlist"}
+                </span>
               </button>
 
               {/* OCCASION */}
 
               <div
                 className="
-                  mt-6
-                  pt-5
+                  mt-5
+                  sm:mt-6
+                  pt-4
+                  sm:pt-5
                   border-t
                   border-gray-100
+                  min-w-0
                 "
               >
 
                 <p
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     uppercase
                     tracking-wider
                     font-bold
@@ -842,11 +1021,13 @@ export const SingleWoolenBouquet = () => {
                   Perfect For
                 </p>
 
-                <Occasion
-                  occasion={
-                    singleWoolen?.occasion
-                  }
-                />
+                <div className="min-w-0 overflow-hidden">
+                  <Occasion
+                    occasion={
+                      singleWoolen?.occasion
+                    }
+                  />
+                </div>
 
               </div>
 
@@ -861,9 +1042,12 @@ export const SingleWoolenBouquet = () => {
               grid
               grid-cols-1
               sm:grid-cols-3
-              gap-3
-              mt-8
-              pb-6
+              gap-2
+              sm:gap-3
+              mt-6
+              sm:mt-8
+              pb-5
+              sm:pb-6
             "
           >
 
@@ -873,20 +1057,25 @@ export const SingleWoolenBouquet = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
                 bg-white
                 shadow-sm
+                min-w-0
               "
             >
 
               <div
                 className="
-                  w-9
-                  h-9
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
                   rounded-lg
                   bg-purple-50
                   flex
@@ -896,18 +1085,38 @@ export const SingleWoolenBouquet = () => {
                 "
               >
                 <Flower2
+                  size={17}
+                  className="text-purple-500 sm:hidden"
+                />
+
+                <Flower2
                   size={18}
-                  className="text-purple-500"
+                  className="text-purple-500 hidden sm:block"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p
+                  className="
+                    text-xs
+                    sm:text-sm
+                    font-bold
+                    text-gray-800
+                    truncate
+                  "
+                >
                   Handmade
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p
+                  className="
+                    text-[10px]
+                    sm:text-[11px]
+                    text-gray-400
+                    truncate
+                  "
+                >
                   Carefully handcrafted
                 </p>
 
@@ -921,20 +1130,25 @@ export const SingleWoolenBouquet = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
                 bg-white
                 shadow-sm
+                min-w-0
               "
             >
 
               <div
                 className="
-                  w-9
-                  h-9
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
                   rounded-lg
                   bg-pink-50
                   flex
@@ -944,18 +1158,38 @@ export const SingleWoolenBouquet = () => {
                 "
               >
                 <Truck
+                  size={17}
+                  className="text-pink-500 sm:hidden"
+                />
+
+                <Truck
                   size={18}
-                  className="text-pink-500"
+                  className="text-pink-500 hidden sm:block"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p
+                  className="
+                    text-xs
+                    sm:text-sm
+                    font-bold
+                    text-gray-800
+                    truncate
+                  "
+                >
                   Fast Delivery
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p
+                  className="
+                    text-[10px]
+                    sm:text-[11px]
+                    text-gray-400
+                    truncate
+                  "
+                >
                   Delivered with care
                 </p>
 
@@ -969,20 +1203,25 @@ export const SingleWoolenBouquet = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
                 bg-white
                 shadow-sm
+                min-w-0
               "
             >
 
               <div
                 className="
-                  w-9
-                  h-9
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
                   rounded-lg
                   bg-green-50
                   flex
@@ -992,18 +1231,38 @@ export const SingleWoolenBouquet = () => {
                 "
               >
                 <ShieldCheck
+                  size={17}
+                  className="text-green-500 sm:hidden"
+                />
+
+                <ShieldCheck
                   size={18}
-                  className="text-green-500"
+                  className="text-green-500 hidden sm:block"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p
+                  className="
+                    text-xs
+                    sm:text-sm
+                    font-bold
+                    text-gray-800
+                    truncate
+                  "
+                >
                   Quality Assured
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p
+                  className="
+                    text-[10px]
+                    sm:text-[11px]
+                    text-gray-400
+                    truncate
+                  "
+                >
                   Premium quality bouquet
                 </p>
 

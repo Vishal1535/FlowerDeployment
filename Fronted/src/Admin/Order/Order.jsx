@@ -229,11 +229,11 @@ export const Order = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-[#fffafa]">
+      <div className="min-h-[60vh] flex items-center justify-center bg-[#fffafa] px-4">
         <div className="flex flex-col items-center gap-3">
           <div className="loading loading-spinner loading-lg text-pink-500" />
 
-          <p className="text-sm text-gray-500 font-medium">
+          <p className="text-xs sm:text-sm text-gray-500 font-medium text-center">
             Loading orders...
           </p>
         </div>
@@ -247,14 +247,15 @@ export const Order = () => {
 
   if (error) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-[#fffafa] px-4">
-        <div className="bg-white border border-red-100 rounded-2xl p-8 text-center shadow-sm">
+      <div className="min-h-[60vh] flex items-center justify-center bg-[#fffafa] px-4 py-6">
+        <div className="w-full max-w-md bg-white border border-red-100 rounded-xl sm:rounded-2xl p-6 sm:p-8 text-center shadow-sm">
+
           <XCircle
-            size={40}
-            className="mx-auto text-red-400 mb-3"
+            size={36}
+            className="mx-auto text-red-400 mb-3 sm:w-10 sm:h-10"
           />
 
-          <p className="text-red-500 font-semibold">
+          <p className="text-sm sm:text-base text-red-500 font-semibold break-words">
             {error}
           </p>
 
@@ -263,10 +264,11 @@ export const Order = () => {
             onClick={() =>
               dispatch(GetAllOrdersThunk())
             }
-            className="mt-4 px-5 py-2.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-sm font-bold transition"
+            className="mt-4 px-4 sm:px-5 py-2.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs sm:text-sm font-bold transition"
           >
             Try Again
           </button>
+
         </div>
       </div>
     );
@@ -277,19 +279,19 @@ export const Order = () => {
   // =====================================================
 
   return (
-    <div className="min-h-screen bg-[#fffafa] px-4 py-5 sm:px-6 lg:px-8">
+    <div className="min-h-screen w-full bg-[#fffafa] px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
 
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto min-w-0">
 
         {/* ================================================= */}
         {/* TOP BAR */}
         {/* ================================================= */}
 
-        <div className="flex items-center justify-between gap-4 mb-5">
+        <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
 
           {/* LEFT SIDE */}
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
 
             {/* BACK BUTTON */}
 
@@ -297,9 +299,13 @@ export const Order = () => {
               type="button"
               onClick={() => navigate('/')}
               className="
-                w-10
-                h-10
-                rounded-xl
+                w-9
+                h-9
+                sm:w-10
+                sm:h-10
+                shrink-0
+                rounded-lg
+                sm:rounded-xl
                 bg-white
                 border
                 border-gray-200
@@ -315,28 +321,30 @@ export const Order = () => {
               "
               title="Go Back"
             >
-              <ArrowLeft size={19} />
+              <ArrowLeft size={17} className="sm:w-[19px] sm:h-[19px]" />
             </button>
 
             {/* TITLE */}
 
-            <div>
-              <div className="flex items-center gap-2">
+            <div className="min-w-0 flex-1">
 
-                <h1 className="text-2xl sm:text-3xl font-black text-gray-800">
+              <div className="flex items-center gap-2 min-w-0">
+
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-800 truncate">
                   Orders
                 </h1>
 
-                <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-pink-50 text-pink-600 border border-pink-100 text-[10px] font-bold">
+                <span className="hidden sm:inline-flex shrink-0 items-center gap-1 px-2.5 py-1 rounded-full bg-pink-50 text-pink-600 border border-pink-100 text-[10px] font-bold">
                   <ClipboardList size={12} />
                   {orders.length} Total
                 </span>
 
               </div>
 
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-xs sm:text-sm text-gray-500 mt-1 break-words">
                 Manage and track all customer orders
               </p>
+
             </div>
 
           </div>
@@ -347,9 +355,9 @@ export const Order = () => {
         {/* STATUS NAVIGATION */}
         {/* ================================================= */}
 
-        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-2.5 mb-6">
+        <div className="w-full bg-white border border-gray-100 rounded-xl sm:rounded-2xl shadow-sm p-2 sm:p-2.5 mb-5 sm:mb-6">
 
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-hide pb-0.5">
 
             {statusTabs.map((tab) => {
 
@@ -370,10 +378,14 @@ export const Order = () => {
                     shrink-0
                     flex
                     items-center
-                    gap-2
-                    px-3.5
-                    py-2.5
-                    rounded-xl
+                    gap-1.5
+                    sm:gap-2
+                    px-2.5
+                    sm:px-3.5
+                    py-2
+                    sm:py-2.5
+                    rounded-lg
+                    sm:rounded-xl
                     border
                     transition-all
                     duration-200
@@ -390,9 +402,13 @@ export const Order = () => {
 
                   <span
                     className={`
-                      w-7
-                      h-7
-                      rounded-lg
+                      w-6
+                      h-6
+                      sm:w-7
+                      sm:h-7
+                      shrink-0
+                      rounded-md
+                      sm:rounded-lg
                       flex
                       items-center
                       justify-center
@@ -403,12 +419,12 @@ export const Order = () => {
                       }
                     `}
                   >
-                    <Icon size={14} />
+                    <Icon size={13} className="sm:w-[14px] sm:h-[14px]" />
                   </span>
 
                   {/* LABEL */}
 
-                  <span className="text-xs sm:text-sm font-bold">
+                  <span className="text-[11px] sm:text-xs md:text-sm font-bold whitespace-nowrap">
                     {tab.label}
                   </span>
 
@@ -419,6 +435,7 @@ export const Order = () => {
                       min-w-5
                       h-5
                       px-1.5
+                      shrink-0
                       rounded-full
                       flex
                       items-center
@@ -446,7 +463,7 @@ export const Order = () => {
         {/* ACTIVE SECTION */}
         {/* ================================================= */}
 
-        <div className="animate-[fadeIn_0.2s_ease-in-out]">
+        <div className="w-full min-w-0 animate-[fadeIn_0.2s_ease-in-out]">
           {renderActiveSection()}
         </div>
 

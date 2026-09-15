@@ -12,6 +12,7 @@ import { registerThunks } from "../../Store/AuthSlice/authApi";
 
 export const Register = () => {
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const { loading, error } = useSelector((state) => state.user);
@@ -57,6 +58,7 @@ export const Register = () => {
     const confirmPassword = formData.confirmPassword;
 
     // Name
+
     if (!name) {
       toast.error("Please enter your full name");
       return false;
@@ -73,6 +75,7 @@ export const Register = () => {
     }
 
     // Phone
+
     if (!phone) {
       toast.error("Please enter your phone number");
       return false;
@@ -84,6 +87,7 @@ export const Register = () => {
     }
 
     // Email
+
     if (!email) {
       toast.error("Please enter your email");
       return false;
@@ -97,6 +101,7 @@ export const Register = () => {
     }
 
     // Password
+
     if (!password) {
       toast.error("Please enter a password");
       return false;
@@ -108,6 +113,7 @@ export const Register = () => {
     }
 
     // Confirm password
+
     if (!confirmPassword) {
       toast.error("Please confirm your password");
       return false;
@@ -141,11 +147,14 @@ export const Register = () => {
           name: registerData.name.trim(),
           phone: registerData.phone.trim(),
           email: registerData.email.trim(),
-        }),
+        })
       ).unwrap();
 
       if (response?.success) {
-        sessionStorage.setItem("emailStoreForOtp", formData.email.trim());
+        sessionStorage.setItem(
+          "emailStoreForOtp",
+          formData.email.trim()
+        );
 
         toast.success("OTP sent to your email");
 
@@ -156,7 +165,9 @@ export const Register = () => {
     } catch (error) {
       console.error("Register Error:", error);
 
-      toast.error(error || "Registration failed. Please try again.");
+      toast.error(
+        error || "Registration failed. Please try again."
+      );
     }
   };
 
@@ -165,13 +176,14 @@ export const Register = () => {
   // =====================================================
 
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-[#fafafa] flex items-center justify-center px-4 py-8">
+    <div className="min-h-[calc(100vh-80px)] bg-[#fafafa] flex items-center justify-center px-3 sm:px-4 py-5 sm:py-8">
       <div
         className="
           w-full
           max-w-5xl
           bg-white
-          rounded-[28px]
+          rounded-2xl
+          sm:rounded-[28px]
           shadow-[0_20px_60px_rgba(0,0,0,0.08)]
           overflow-hidden
           grid
@@ -188,11 +200,15 @@ export const Register = () => {
           onClick={() => navigate(-1)}
           className="
             absolute
-            top-5
-            left-5
+            top-3
+            left-3
+            sm:top-5
+            sm:left-5
             z-30
-            w-10
-            h-10
+            w-9
+            h-9
+            sm:w-10
+            sm:h-10
             rounded-full
             bg-white/90
             backdrop-blur-sm
@@ -213,7 +229,10 @@ export const Register = () => {
           "
           aria-label="Go back"
         >
-          <ArrowLeft size={19} />
+          <ArrowLeft
+            size={17}
+            className="sm:w-[19px] sm:h-[19px]"
+          />
         </button>
 
         {/* =================================================
@@ -260,10 +279,11 @@ export const Register = () => {
 
           {/* Flower Animation */}
 
-          <div className="relative z-10 text-center px-10">
+          <div className="relative z-10 text-center px-8 lg:px-10">
             <div
               className="
-                text-[120px]
+                text-[90px]
+                lg:text-[120px]
                 leading-none
                 animate-bounce
               "
@@ -271,7 +291,7 @@ export const Register = () => {
               💐
             </div>
 
-            <h2 className="text-4xl font-bold text-gray-800 mt-5">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mt-5">
               Welcome to Flower
             </h2>
 
@@ -280,14 +300,16 @@ export const Register = () => {
               more memorable.
             </p>
 
-            <div className="flex justify-center gap-3 mt-7">
+            <div className="flex justify-center gap-2 lg:gap-3 mt-7 flex-wrap">
               <span
                 className="
-                  px-4
+                  px-3
+                  lg:px-4
                   py-2
                   rounded-full
                   bg-white/70
-                  text-sm
+                  text-xs
+                  lg:text-sm
                   text-gray-600
                 "
               >
@@ -296,11 +318,13 @@ export const Register = () => {
 
               <span
                 className="
-                  px-4
+                  px-3
+                  lg:px-4
                   py-2
                   rounded-full
                   bg-white/70
-                  text-sm
+                  text-xs
+                  lg:text-sm
                   text-gray-600
                 "
               >
@@ -314,41 +338,51 @@ export const Register = () => {
             RIGHT SIDE
         ================================================= */}
 
-        <div className="p-7 sm:p-9 md:p-10">
+        <div className="p-5 sm:p-7 md:p-9 lg:p-10">
           {/* Heading */}
 
-          <div className="mb-6">
+          <div className="mb-5 sm:mb-6">
             <div
               className="
                 flex
                 items-center
                 gap-2
                 text-gray-800
-                mb-3
+                mb-2.5
+                sm:mb-3
               "
             >
               <div
                 className="
-                  w-9
-                  h-9
-                  rounded-xl
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
+                  rounded-lg
+                  sm:rounded-xl
                   bg-gray-100
                   flex
                   items-center
                   justify-center
+                  shrink-0
                 "
               >
-                <Flower2 size={20} />
+                <Flower2
+                  size={18}
+                  className="sm:w-5 sm:h-5"
+                />
               </div>
 
-              <span className="font-semibold">Flower</span>
+              <span className="font-semibold text-sm sm:text-base">
+                Flower
+              </span>
             </div>
 
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
               Create your account
             </h1>
 
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-xs sm:text-sm text-gray-500 mt-2 leading-5 sm:leading-normal">
               Start your beautiful journey with us.
             </p>
           </div>
@@ -357,7 +391,10 @@ export const Register = () => {
               FORM
           ================================================= */}
 
-          <form onSubmit={handleSubmit} className="space-y-3.5">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-3 sm:space-y-3.5"
+          >
             {/* Name + Phone */}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -377,7 +414,11 @@ export const Register = () => {
                   input
                   input-bordered
                   w-full
+                  h-11
+                  sm:h-12
                   rounded-xl
+                  text-sm
+                  sm:text-base
                   focus:outline-none
                   focus:border-gray-500
                   transition
@@ -402,7 +443,11 @@ export const Register = () => {
                   input
                   input-bordered
                   w-full
+                  h-11
+                  sm:h-12
                   rounded-xl
+                  text-sm
+                  sm:text-base
                   focus:outline-none
                   focus:border-gray-500
                   transition
@@ -423,7 +468,11 @@ export const Register = () => {
                 input
                 input-bordered
                 w-full
+                h-11
+                sm:h-12
                 rounded-xl
+                text-sm
+                sm:text-base
                 focus:outline-none
                 focus:border-gray-500
                 transition
@@ -444,8 +493,13 @@ export const Register = () => {
                   input
                   input-bordered
                   w-full
-                  pr-12
+                  h-11
+                  sm:h-12
+                  pr-11
+                  sm:pr-12
                   rounded-xl
+                  text-sm
+                  sm:text-base
                   focus:outline-none
                   focus:border-gray-500
                   transition
@@ -455,19 +509,33 @@ export const Register = () => {
 
               <button
                 type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
+                onClick={() =>
+                  setShowPassword((prev) => !prev)
+                }
                 className="
                   absolute
-                  right-3
+                  right-2.5
+                  sm:right-3
                   top-1/2
                   -translate-y-1/2
+                  p-1
                   text-gray-400
                   hover:text-gray-700
                   transition
                   cursor-pointer
                 "
               >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showPassword ? (
+                  <EyeOff
+                    size={17}
+                    className="sm:w-[18px] sm:h-[18px]"
+                  />
+                ) : (
+                  <Eye
+                    size={17}
+                    className="sm:w-[18px] sm:h-[18px]"
+                  />
+                )}
               </button>
             </div>
 
@@ -484,8 +552,13 @@ export const Register = () => {
                   input
                   input-bordered
                   w-full
-                  pr-12
+                  h-11
+                  sm:h-12
+                  pr-11
+                  sm:pr-12
                   rounded-xl
+                  text-sm
+                  sm:text-base
                   focus:outline-none
                   focus:border-gray-500
                   transition
@@ -495,25 +568,43 @@ export const Register = () => {
 
               <button
                 type="button"
-                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                onClick={() =>
+                  setShowConfirmPassword((prev) => !prev)
+                }
                 className="
                   absolute
-                  right-3
+                  right-2.5
+                  sm:right-3
                   top-1/2
                   -translate-y-1/2
+                  p-1
                   text-gray-400
                   hover:text-gray-700
                   transition
                   cursor-pointer
                 "
               >
-                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showConfirmPassword ? (
+                  <EyeOff
+                    size={17}
+                    className="sm:w-[18px] sm:h-[18px]"
+                  />
+                ) : (
+                  <Eye
+                    size={17}
+                    className="sm:w-[18px] sm:h-[18px]"
+                  />
+                )}
               </button>
             </div>
 
             {/* Backend Error */}
 
-            {error && <p className="text-red-500 text-xs">{error}</p>}
+            {error && (
+              <p className="text-red-500 text-xs break-words">
+                {error}
+              </p>
+            )}
 
             {/* Submit */}
 
@@ -522,15 +613,19 @@ export const Register = () => {
               disabled={loading}
               className="
                 w-full
-                h-12
+                h-11
+                sm:h-12
                 rounded-xl
                 bg-gray-900
                 text-white
+                text-sm
+                sm:text-base
                 font-semibold
                 flex
                 items-center
                 justify-center
-                gap-2
+                gap-1.5
+                sm:gap-2
                 hover:bg-gray-800
                 hover:-translate-y-0.5
                 active:translate-y-0
@@ -545,7 +640,11 @@ export const Register = () => {
               ) : (
                 <>
                   Create Account
-                  <ArrowRight size={18} />
+
+                  <ArrowRight
+                    size={17}
+                    className="sm:w-[18px] sm:h-[18px]"
+                  />
                 </>
               )}
             </button>
@@ -555,8 +654,8 @@ export const Register = () => {
               LOGIN
           ================================================= */}
 
-          <div className="text-center mt-6">
-            <p className="text-sm text-gray-500">
+          <div className="text-center mt-5 sm:mt-6">
+            <p className="text-xs sm:text-sm text-gray-500">
               Already have an account?{" "}
               <Link
                 to="/login"

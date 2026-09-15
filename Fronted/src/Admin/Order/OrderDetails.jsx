@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -48,9 +49,9 @@ export const OrderDetails = () => {
     return (
       <div className="min-h-screen bg-[#fffafa] flex items-center justify-center px-4">
 
-        <div className="text-center">
+        <div className="w-full max-w-sm text-center">
 
-          <p className="text-gray-500 font-semibold">
+          <p className="text-sm sm:text-base text-gray-500 font-semibold">
             Order not found
           </p>
 
@@ -64,7 +65,8 @@ export const OrderDetails = () => {
               gap-1
               mx-auto
               text-pink-600
-              text-sm
+              text-xs
+              sm:text-sm
               font-semibold
             "
           >
@@ -182,9 +184,9 @@ export const OrderDetails = () => {
   // =====================================================
 
   return (
-    <div className="min-h-screen bg-[#fffafa] px-4 py-5 sm:px-6">
+    <div className="min-h-screen w-full bg-[#fffafa] px-3 py-4 sm:px-6 sm:py-5">
 
-      <div className="max-w-5xl mx-auto">
+      <div className="w-full max-w-5xl mx-auto min-w-0">
 
         {/* ================================================= */}
         {/* BACK */}
@@ -197,14 +199,16 @@ export const OrderDetails = () => {
             flex
             items-center
             gap-1.5
-            text-sm
+            text-xs
+            sm:text-sm
             font-semibold
             text-gray-600
             hover:text-pink-600
-            mb-4
+            mb-3
+            sm:mb-4
           "
         >
-          <ArrowLeft size={17} />
+          <ArrowLeft size={16} className="sm:w-[17px] sm:h-[17px]" />
           Back to Orders
         </button>
 
@@ -213,26 +217,33 @@ export const OrderDetails = () => {
         {/* ================================================= */}
 
         <div className="
+          w-full
           bg-white
           border
           border-gray-100
           rounded-xl
           shadow-sm
-          px-4
-          py-4
+          px-3
+          py-3
+          sm:px-4
+          sm:py-4
         ">
 
           <div className="
             flex
-            items-center
-            justify-between
-            gap-3
+            flex-col
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+            gap-2
+            sm:gap-3
           ">
 
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
 
               <p className="
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
                 text-gray-400
                 uppercase
                 font-semibold
@@ -241,9 +252,11 @@ export const OrderDetails = () => {
               </p>
 
               <h1 className="
-                text-lg
+                text-base
+                sm:text-lg
                 font-black
                 text-gray-800
+                truncate
               ">
                 #{order._id?.slice(-8)}
               </h1>
@@ -252,6 +265,7 @@ export const OrderDetails = () => {
                 text-xs
                 text-gray-500
                 mt-1
+                truncate
               ">
                 {order.user?.name || "Customer"}
               </p>
@@ -260,12 +274,16 @@ export const OrderDetails = () => {
 
             <span
               className={`
+                self-start
                 shrink-0
-                px-3
-                py-1.5
+                px-2.5
+                sm:px-3
+                py-1
+                sm:py-1.5
                 rounded-full
                 border
-                text-xs
+                text-[10px]
+                sm:text-xs
                 font-bold
                 ${
                   statusColor[order.orderStatus] ||
@@ -286,6 +304,7 @@ export const OrderDetails = () => {
 
         <div className="
           grid
+          grid-cols-1
           md:grid-cols-2
           gap-3
           mt-3
@@ -294,11 +313,14 @@ export const OrderDetails = () => {
           {/* CUSTOMER */}
 
           <div className="
+            w-full
             bg-white
             border
             border-gray-100
             rounded-xl
-            p-4
+            p-3
+            sm:p-4
+            min-w-0
           ">
 
             <div className="
@@ -310,7 +332,7 @@ export const OrderDetails = () => {
 
               <Package
                 size={17}
-                className="text-pink-500"
+                className="text-pink-500 shrink-0"
               />
 
               <h2 className="
@@ -327,6 +349,7 @@ export const OrderDetails = () => {
               text-sm
               font-semibold
               text-gray-800
+              truncate
             ">
               {order.user?.name || "-"}
             </p>
@@ -344,6 +367,7 @@ export const OrderDetails = () => {
               text-xs
               text-gray-500
               mt-1
+              break-words
             ">
               {order.user?.phone || "-"}
             </p>
@@ -353,11 +377,14 @@ export const OrderDetails = () => {
           {/* ADDRESS */}
 
           <div className="
+            w-full
             bg-white
             border
             border-gray-100
             rounded-xl
-            p-4
+            p-3
+            sm:p-4
+            min-w-0
           ">
 
             <div className="
@@ -369,7 +396,7 @@ export const OrderDetails = () => {
 
               <MapPin
                 size={17}
-                className="text-pink-500"
+                className="text-pink-500 shrink-0"
               />
 
               <h2 className="
@@ -386,6 +413,7 @@ export const OrderDetails = () => {
               text-sm
               font-semibold
               text-gray-800
+              break-words
             ">
               {address?.fullName ||
                 order.user?.name ||
@@ -396,6 +424,7 @@ export const OrderDetails = () => {
               text-xs
               text-gray-600
               mt-1
+              break-words
             ">
 
               {address?.houseNumber
@@ -410,6 +439,7 @@ export const OrderDetails = () => {
               text-xs
               text-gray-500
               mt-1
+              break-words
             ">
 
               {address?.city || ""}
@@ -423,6 +453,7 @@ export const OrderDetails = () => {
             <p className="
               text-xs
               text-gray-500
+              break-words
             ">
 
               {address?.pincode || ""}
@@ -438,6 +469,7 @@ export const OrderDetails = () => {
                 text-xs
                 text-gray-400
                 mt-1
+                break-words
               ">
                 Landmark: {address.landmark}
               </p>
@@ -447,6 +479,7 @@ export const OrderDetails = () => {
               text-xs
               text-gray-500
               mt-1
+              break-words
             ">
               Phone: {address?.phone || "-"}
             </p>
@@ -460,12 +493,15 @@ export const OrderDetails = () => {
         {/* ================================================= */}
 
         <div className="
+          w-full
           bg-white
           border
           border-gray-100
           rounded-xl
-          p-4
+          p-3
+          sm:p-4
           mt-3
+          min-w-0
         ">
 
           <div className="
@@ -477,7 +513,7 @@ export const OrderDetails = () => {
 
             <Package
               size={17}
-              className="text-pink-500"
+              className="text-pink-500 shrink-0"
             />
 
             <h2 className="
@@ -490,7 +526,7 @@ export const OrderDetails = () => {
 
           </div>
 
-          <div className="space-y-2">
+          <div className="w-full space-y-2">
 
             {order.items?.map((item, index) => (
 
@@ -499,11 +535,13 @@ export const OrderDetails = () => {
                 className="
                   flex
                   items-center
-                  gap-3
+                  gap-2
+                  sm:gap-3
                   border
                   border-gray-100
                   rounded-lg
                   p-2
+                  min-w-0
                 "
               >
 
@@ -513,8 +551,10 @@ export const OrderDetails = () => {
                     src={item.image}
                     alt={item.name || "Product"}
                     className="
-                      w-12
-                      h-12
+                      w-11
+                      h-11
+                      sm:w-12
+                      sm:h-12
                       rounded-lg
                       object-cover
                       shrink-0
@@ -524,8 +564,10 @@ export const OrderDetails = () => {
                 ) : (
 
                   <div className="
-                    w-12
-                    h-12
+                    w-11
+                    h-11
+                    sm:w-12
+                    sm:h-12
                     rounded-lg
                     bg-gray-100
                     shrink-0
@@ -551,13 +593,16 @@ export const OrderDetails = () => {
                     text-[10px]
                     text-gray-400
                     capitalize
+                    truncate
                   ">
                     {item.productType || "-"}
                   </p>
 
                   <p className="
-                    text-[11px]
+                    text-[10px]
+                    sm:text-[11px]
                     text-gray-500
+                    truncate
                   ">
                     ₹{item.price || 0} ×{" "}
                     {item.quantity || 0}
@@ -566,7 +611,8 @@ export const OrderDetails = () => {
                 </div>
 
                 <p className="
-                  text-xs
+                  text-[11px]
+                  sm:text-xs
                   font-bold
                   text-gray-800
                   shrink-0
@@ -599,20 +645,25 @@ export const OrderDetails = () => {
             border
             border-gray-100
             rounded-xl
-            p-3
+            p-2.5
+            sm:p-3
+            min-w-0
           ">
 
             <p className="
-              text-[10px]
+              text-[9px]
+              sm:text-[10px]
               text-gray-400
             ">
               Subtotal
             </p>
 
             <p className="
-              text-sm
+              text-xs
+              sm:text-sm
               font-bold
               text-gray-800
+              truncate
             ">
               ₹{order.subtotal || 0}
             </p>
@@ -624,20 +675,25 @@ export const OrderDetails = () => {
             border
             border-gray-100
             rounded-xl
-            p-3
+            p-2.5
+            sm:p-3
+            min-w-0
           ">
 
             <p className="
-              text-[10px]
+              text-[9px]
+              sm:text-[10px]
               text-gray-400
             ">
               Delivery
             </p>
 
             <p className="
-              text-sm
+              text-xs
+              sm:text-sm
               font-bold
               text-gray-800
+              truncate
             ">
               ₹{order.deliveryCharge || 0}
             </p>
@@ -649,20 +705,25 @@ export const OrderDetails = () => {
             border
             border-gray-100
             rounded-xl
-            p-3
+            p-2.5
+            sm:p-3
+            min-w-0
           ">
 
             <p className="
-              text-[10px]
+              text-[9px]
+              sm:text-[10px]
               text-gray-400
             ">
               Paid
             </p>
 
             <p className="
-              text-sm
+              text-xs
+              sm:text-sm
               font-bold
               text-green-600
+              truncate
             ">
               ₹{order.paidAmount || 0}
             </p>
@@ -674,20 +735,25 @@ export const OrderDetails = () => {
             border
             border-gray-100
             rounded-xl
-            p-3
+            p-2.5
+            sm:p-3
+            min-w-0
           ">
 
             <p className="
-              text-[10px]
+              text-[9px]
+              sm:text-[10px]
               text-gray-400
             ">
               Total
             </p>
 
             <p className="
-              text-sm
+              text-xs
+              sm:text-sm
               font-black
               text-gray-800
+              truncate
             ">
               ₹{order.totalAmount || 0}
             </p>
@@ -701,12 +767,15 @@ export const OrderDetails = () => {
         {/* ================================================= */}
 
         <div className="
+          w-full
           bg-white
           border
           border-gray-100
           rounded-xl
-          p-4
+          p-3
+          sm:p-4
           mt-3
+          min-w-0
         ">
 
           <div className="
@@ -718,7 +787,7 @@ export const OrderDetails = () => {
 
             <CreditCard
               size={17}
-              className="text-pink-500"
+              className="text-pink-500 shrink-0"
             />
 
             <h2 className="
@@ -733,12 +802,13 @@ export const OrderDetails = () => {
 
           <div className="
             grid
+            grid-cols-1
             sm:grid-cols-2
             gap-2
             text-xs
           ">
 
-            <p className="text-gray-500">
+            <p className="text-gray-500 break-words">
 
               Payment Method:{" "}
 
@@ -752,7 +822,7 @@ export const OrderDetails = () => {
 
             </p>
 
-            <p className="text-gray-500">
+            <p className="text-gray-500 break-words">
 
               Payment Type:{" "}
 
@@ -766,7 +836,7 @@ export const OrderDetails = () => {
 
             </p>
 
-            <p className="text-gray-500">
+            <p className="text-gray-500 break-words">
 
               Payment Status:{" "}
 
@@ -829,12 +899,15 @@ export const OrderDetails = () => {
         {/* ================================================= */}
 
         <div className="
+          w-full
           bg-white
           border
           border-gray-100
           rounded-xl
-          p-4
+          p-3
+          sm:p-4
           mt-3
+          min-w-0
         ">
 
           <div className="
@@ -846,7 +919,7 @@ export const OrderDetails = () => {
 
             <Truck
               size={17}
-              className="text-pink-500"
+              className="text-pink-500 shrink-0"
             />
 
             <h2 className="
@@ -862,13 +935,14 @@ export const OrderDetails = () => {
           <div className="
             flex
             flex-wrap
-            gap-x-6
+            gap-x-4
+            sm:gap-x-6
             gap-y-2
             text-xs
             text-gray-500
           ">
 
-            <p>
+            <p className="break-words">
 
               Type:{" "}
 
@@ -884,28 +958,37 @@ export const OrderDetails = () => {
 
             <p className="
               flex
-              items-center
+              items-start
+              sm:items-center
               gap-1
+              min-w-0
             ">
 
-              <CalendarDays size={13} />
+              <CalendarDays
+                size={13}
+                className="shrink-0 mt-0.5 sm:mt-0"
+              />
 
-              Expected:{" "}
+              <span className="break-words">
 
-              <span className="
-                font-semibold
-                text-gray-700
-              ">
-                {order.deliverDate
-                  ? new Date(
-                      order.deliverDate
-                    ).toLocaleDateString()
-                  : "-"}
+                Expected:{" "}
+
+                <span className="
+                  font-semibold
+                  text-gray-700
+                ">
+                  {order.deliverDate
+                    ? new Date(
+                        order.deliverDate
+                      ).toLocaleDateString()
+                    : "-"}
+                </span>
+
               </span>
 
             </p>
 
-            <p>
+            <p className="break-words">
 
               Payment:{" "}
 
@@ -932,23 +1015,29 @@ export const OrderDetails = () => {
           order.deliveryBoy && (
 
             <div className="
+              w-full
               bg-white
               border
               border-orange-100
               rounded-xl
-              px-4
+              px-3
               py-3
+              sm:px-4
               mt-3
               shadow-sm
+              min-w-0
             ">
 
               {/* TOP */}
 
               <div className="
                 flex
-                items-center
-                justify-between
-                gap-3
+                flex-col
+                sm:flex-row
+                sm:items-center
+                sm:justify-between
+                gap-2
+                sm:gap-3
               ">
 
                 {/* DELIVERY BOY */}
@@ -958,6 +1047,7 @@ export const OrderDetails = () => {
                   items-center
                   gap-2.5
                   min-w-0
+                  flex-1
                 ">
 
                   <div className="
@@ -977,7 +1067,8 @@ export const OrderDetails = () => {
                   <div className="min-w-0">
 
                     <p className="
-                      text-[10px]
+                      text-[9px]
+                      sm:text-[10px]
                       text-gray-400
                       uppercase
                       font-semibold
@@ -1001,6 +1092,7 @@ export const OrderDetails = () => {
                 {/* STATUS */}
 
                 <span className="
+                  self-start
                   shrink-0
                   px-2.5
                   py-1
@@ -1021,8 +1113,11 @@ export const OrderDetails = () => {
 
               <div className="
                 flex
-                flex-wrap
-                items-center
+                flex-col
+                sm:flex-row
+                sm:flex-wrap
+                items-start
+                sm:items-center
                 gap-x-5
                 gap-y-1
                 mt-3
@@ -1034,6 +1129,7 @@ export const OrderDetails = () => {
                 <p className="
                   text-xs
                   text-gray-500
+                  break-words
                 ">
 
                   Phone:
@@ -1077,12 +1173,15 @@ export const OrderDetails = () => {
         {/* ================================================= */}
 
         <div className="
+          w-full
           bg-white
           border
           border-gray-100
           rounded-xl
-          p-4
+          p-3
+          sm:p-4
           mt-3
+          min-w-0
         ">
 
           <div className="
@@ -1094,7 +1193,7 @@ export const OrderDetails = () => {
 
             <CalendarDays
               size={17}
-              className="text-pink-500"
+              className="text-pink-500 shrink-0"
             />
 
             <h2 className="
@@ -1109,13 +1208,14 @@ export const OrderDetails = () => {
 
           <div className="
             grid
+            grid-cols-1
             sm:grid-cols-2
             gap-2
             text-xs
             text-gray-500
           ">
 
-            <p>
+            <p className="break-words">
 
               Ordered At:{" "}
 
@@ -1132,7 +1232,7 @@ export const OrderDetails = () => {
 
             </p>
 
-            <p>
+            <p className="break-words">
 
               Created At:{" "}
 
@@ -1149,7 +1249,7 @@ export const OrderDetails = () => {
 
             </p>
 
-            <p>
+            <p className="break-words">
 
               Last Updated:{" "}
 
@@ -1166,7 +1266,7 @@ export const OrderDetails = () => {
 
             </p>
 
-            <p>
+            <p className="break-words">
 
               Remaining Amount:{" "}
 
@@ -1191,23 +1291,31 @@ export const OrderDetails = () => {
           order.orderStatus !== "cancelled" && (
 
           <div className="
+            w-full
             bg-white
             border
             border-gray-100
             rounded-xl
-            p-4
+            p-3
+            sm:p-4
             mt-3
+            mb-4
           ">
 
             <p className="
-              text-xs
+              text-[11px]
+              sm:text-xs
               text-gray-400
               mb-2
             ">
               Order Action
             </p>
 
-            <div className="flex gap-2">
+            <div className="
+              grid
+              grid-cols-[1fr_auto]
+              gap-2
+            ">
 
               {/* NEXT STATUS */}
 
@@ -1220,27 +1328,41 @@ export const OrderDetails = () => {
                     handleStatusChange(next)
                   }
                   className="
-                    flex-1
-                    h-9
+                    min-w-0
+                    min-h-9
                     rounded-lg
                     bg-pink-500
                     hover:bg-pink-600
                     text-white
-                    text-xs
+                    text-[10px]
+                    sm:text-xs
                     font-bold
                     flex
                     items-center
                     justify-center
                     gap-1.5
+                    px-2
+                    sm:px-3
                     disabled:opacity-60
                   "
                 >
 
-                  <CheckCircle size={15} />
+                  <CheckCircle
+                    size={15}
+                    className="shrink-0"
+                  />
 
                   {changing
-                    ? "Updating..."
-                    : `Proceed to ${statusLabel(next)}`}
+                    ? (
+                      <span className="truncate">
+                        Updating...
+                      </span>
+                    )
+                    : (
+                      <span className="truncate">
+                        Proceed to {statusLabel(next)}
+                      </span>
+                    )}
 
                 </button>
 
@@ -1255,24 +1377,30 @@ export const OrderDetails = () => {
                   handleStatusChange("cancelled")
                 }
                 className="
-                  h-9
-                  px-4
+                  min-h-9
+                  px-3
+                  sm:px-4
                   rounded-lg
                   bg-red-50
                   hover:bg-red-100
                   border
                   border-red-200
                   text-red-600
-                  text-xs
+                  text-[10px]
+                  sm:text-xs
                   font-bold
                   flex
                   items-center
+                  justify-center
                   gap-1.5
                   disabled:opacity-60
                 "
               >
 
-                <XCircle size={15} />
+                <XCircle
+                  size={15}
+                  className="shrink-0"
+                />
 
                 Cancel
 
@@ -1289,3 +1417,4 @@ export const OrderDetails = () => {
     </div>
   );
 };
+

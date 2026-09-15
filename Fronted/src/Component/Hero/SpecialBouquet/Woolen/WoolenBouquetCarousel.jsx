@@ -268,38 +268,64 @@ export const WoolenBouquetCarousel = () => {
   }
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-10 py-10">
+    <section
+      className="
+        w-full
+        max-w-full
+        overflow-hidden
+        px-3
+        min-[380px]:px-4
+        sm:px-6
+        lg:px-10
+        py-7
+        sm:py-10
+      "
+    >
 
       {/* ================================= */}
       {/* HEADER */}
       {/* ================================= */}
 
-      <div className="mb-8 sm:mb-10">
+      <div className="mb-6 sm:mb-10">
 
-        <div className="flex items-end justify-between gap-5">
+        <div
+          className="
+            flex
+            flex-col
+            sm:flex-row
+            sm:items-end
+            sm:justify-between
+            gap-4
+            sm:gap-5
+          "
+        >
 
           {/* ================= LEFT ================= */}
 
-          <div>
+          <div className="min-w-0">
 
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
 
               <span
                 className="
-                  w-8
+                  w-6
+                  sm:w-8
                   h-[2px]
                   bg-pink-500
                   rounded-full
+                  shrink-0
                 "
               />
 
               <span
                 className="
-                  text-[11px]
+                  text-[9px]
+                  min-[380px]:text-[10px]
                   sm:text-xs
                   font-bold
                   uppercase
-                  tracking-[0.22em]
+                  tracking-[0.16em]
+                  sm:tracking-[0.22em]
                   text-pink-500
                 "
               >
@@ -310,13 +336,15 @@ export const WoolenBouquetCarousel = () => {
 
             <h2
               className="
-                text-3xl
+                text-2xl
+                min-[380px]:text-3xl
                 sm:text-4xl
                 lg:text-5xl
                 font-extrabold
                 tracking-tight
                 text-gray-900
                 leading-tight
+                break-words
               "
             >
               Beautiful{" "}
@@ -329,7 +357,8 @@ export const WoolenBouquetCarousel = () => {
               className="
                 mt-2
                 sm:mt-3
-                text-sm
+                text-xs
+                min-[380px]:text-sm
                 sm:text-base
                 text-gray-500
                 max-w-lg
@@ -345,25 +374,11 @@ export const WoolenBouquetCarousel = () => {
 
           {/* ================= RIGHT ================= */}
 
-          <div className="hidden sm:flex items-center gap-3 pb-2">
+          <div className="w-full sm:w-auto">
 
-            {/* ================= SEARCH ================= */}
+            {/* ================= MOBILE SEARCH ================= */}
 
-            <div
-              className={`
-                flex
-                items-center
-                transition-all
-                duration-300
-                overflow-hidden
-
-                ${
-                  isSearchOpen
-                    ? "w-[220px]"
-                    : "w-10"
-                }
-              `}
-            >
+            <div className="flex sm:hidden w-full">
 
               {!isSearchOpen ? (
 
@@ -374,16 +389,16 @@ export const WoolenBouquetCarousel = () => {
                   }
                   aria-label="Open woolen bouquet search"
                   className="
-                    w-10
+                    w-full
                     h-10
-                    shrink-0
-                    rounded-full
+                    rounded-xl
                     border
                     border-gray-200
                     bg-white
                     flex
                     items-center
                     justify-center
+                    gap-2
                     text-gray-500
                     shadow-sm
                     hover:bg-pink-500
@@ -393,7 +408,11 @@ export const WoolenBouquetCarousel = () => {
                     duration-300
                   "
                 >
-                  <Search size={18} />
+                  <Search size={17} />
+
+                  <span className="text-xs font-medium">
+                    Search woolen bouquets
+                  </span>
                 </button>
 
               ) : (
@@ -404,7 +423,7 @@ export const WoolenBouquetCarousel = () => {
                     items-center
                     w-full
                     h-10
-                    rounded-full
+                    rounded-xl
                     border
                     border-pink-300
                     bg-white
@@ -417,7 +436,7 @@ export const WoolenBouquetCarousel = () => {
                 >
 
                   <Search
-                    size={17}
+                    size={16}
                     className="
                       text-pink-500
                       shrink-0
@@ -435,7 +454,7 @@ export const WoolenBouquetCarousel = () => {
                       min-w-0
                       bg-transparent
                       outline-none
-                      text-sm
+                      text-xs
                       text-gray-700
                       placeholder:text-gray-400
                     "
@@ -461,6 +480,124 @@ export const WoolenBouquetCarousel = () => {
 
             </div>
 
+            {/* ================= DESKTOP SEARCH ================= */}
+
+            <div className="hidden sm:flex items-center gap-3 pb-2">
+
+              <div
+                className={`
+                  flex
+                  items-center
+                  transition-all
+                  duration-300
+                  overflow-hidden
+
+                  ${
+                    isSearchOpen
+                      ? "w-[220px]"
+                      : "w-10"
+                  }
+                `}
+              >
+
+                {!isSearchOpen ? (
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setIsSearchOpen(true)
+                    }
+                    aria-label="Open woolen bouquet search"
+                    className="
+                      w-10
+                      h-10
+                      shrink-0
+                      rounded-full
+                      border
+                      border-gray-200
+                      bg-white
+                      flex
+                      items-center
+                      justify-center
+                      text-gray-500
+                      shadow-sm
+                      hover:bg-pink-500
+                      hover:text-white
+                      hover:border-pink-500
+                      transition-all
+                      duration-300
+                    "
+                  >
+                    <Search size={18} />
+                  </button>
+
+                ) : (
+
+                  <div
+                    className="
+                      flex
+                      items-center
+                      w-full
+                      h-10
+                      rounded-full
+                      border
+                      border-pink-300
+                      bg-white
+                      shadow-sm
+                      px-3
+                      gap-2
+                      ring-2
+                      ring-pink-50
+                    "
+                  >
+
+                    <Search
+                      size={17}
+                      className="
+                        text-pink-500
+                        shrink-0
+                      "
+                    />
+
+                    <input
+                      type="text"
+                      value={searchText}
+                      onChange={handleSearchChange}
+                      autoFocus
+                      placeholder="Search woolen..."
+                      className="
+                        w-full
+                        min-w-0
+                        bg-transparent
+                        outline-none
+                        text-sm
+                        text-gray-700
+                        placeholder:text-gray-400
+                      "
+                    />
+
+                    <button
+                      type="button"
+                      onClick={handleCloseSearch}
+                      aria-label="Close search"
+                      className="
+                        shrink-0
+                        text-gray-400
+                        hover:text-pink-500
+                        transition-colors
+                      "
+                    >
+                      <X size={16} />
+                    </button>
+
+                  </div>
+
+                )}
+
+              </div>
+
+            </div>
+
           </div>
 
         </div>
@@ -469,7 +606,8 @@ export const WoolenBouquetCarousel = () => {
 
         <div
           className="
-            mt-6
+            mt-5
+            sm:mt-6
             h-px
             bg-gradient-to-r
             from-pink-200
@@ -488,9 +626,11 @@ export const WoolenBouquetCarousel = () => {
         className="
           flex
           items-center
-          gap-2
+          gap-1.5
+          min-[380px]:gap-2
           sm:gap-4
           w-full
+          min-w-0
         "
       >
 
@@ -509,8 +649,10 @@ export const WoolenBouquetCarousel = () => {
           aria-label="Previous woolen bouquets"
           className="
             shrink-0
-            w-10
-            h-10
+            w-8
+            h-8
+            min-[380px]:w-9
+            min-[380px]:h-9
             sm:w-12
             sm:h-12
             rounded-full
@@ -534,7 +676,14 @@ export const WoolenBouquetCarousel = () => {
           "
         >
           <ChevronLeft
+            size={17}
+            className="sm:hidden"
+            strokeWidth={2}
+          />
+
+          <ChevronLeft
             size={22}
+            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>
@@ -575,7 +724,8 @@ export const WoolenBouquetCarousel = () => {
                 sm:grid-cols-2
                 lg:grid-cols-3
                 xl:grid-cols-4
-                gap-4
+                gap-3
+                min-[380px]:gap-4
                 sm:gap-5
               "
             >
@@ -583,8 +733,11 @@ export const WoolenBouquetCarousel = () => {
                 <div
                   key={item}
                   className="
-                    h-[470px]
+                    h-[400px]
+                    min-[380px]:h-[430px]
+                    sm:h-[470px]
                     rounded-2xl
+                    sm:rounded-3xl
                     bg-gray-100
                     animate-pulse
                   "
@@ -598,21 +751,26 @@ export const WoolenBouquetCarousel = () => {
 
             <div
               className="
-                py-20
+                py-12
+                sm:py-20
+                px-4
                 text-center
-                rounded-3xl
+                rounded-2xl
+                sm:rounded-3xl
                 bg-pink-50/50
                 border
                 border-pink-100
               "
             >
 
-              <div className="text-4xl mb-3">
+              <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">
                 🧶
               </div>
 
               <p
                 className="
+                  text-sm
+                  sm:text-base
                   text-gray-600
                   font-medium
                 "
@@ -622,7 +780,8 @@ export const WoolenBouquetCarousel = () => {
 
               <p
                 className="
-                  text-sm
+                  text-xs
+                  sm:text-sm
                   text-gray-400
                   mt-1
                 "
@@ -645,7 +804,8 @@ export const WoolenBouquetCarousel = () => {
                 sm:grid-cols-2
                 lg:grid-cols-3
                 xl:grid-cols-4
-                gap-4
+                gap-3
+                min-[380px]:gap-4
                 sm:gap-5
 
                 ${
@@ -686,8 +846,10 @@ export const WoolenBouquetCarousel = () => {
           aria-label="Next woolen bouquets"
           className="
             shrink-0
-            w-10
-            h-10
+            w-8
+            h-8
+            min-[380px]:w-9
+            min-[380px]:h-9
             sm:w-12
             sm:h-12
             rounded-full
@@ -711,7 +873,14 @@ export const WoolenBouquetCarousel = () => {
           "
         >
           <ChevronRight
+            size={17}
+            className="sm:hidden"
+            strokeWidth={2}
+          />
+
+          <ChevronRight
             size={22}
+            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>

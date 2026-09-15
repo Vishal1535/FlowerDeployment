@@ -16,6 +16,8 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
   return (
     <div
       className="
+        w-full
+        min-w-0
         bg-white
         border
         border-gray-100
@@ -34,7 +36,7 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
       {/* ================= IMAGE ================= */}
 
-      <div className="w-full h-44 bg-gray-100 overflow-hidden">
+      <div className="w-full h-40 min-[380px]:h-44 sm:h-48 bg-gray-100 overflow-hidden">
         <img
           src={comboBouquet.image}
           alt={comboBouquet.name}
@@ -51,25 +53,25 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
       {/* ================= CONTENT ================= */}
 
-      <div className="p-4">
+      <div className="p-3 min-[380px]:p-4">
 
         {/* ================= NAME + PRICE ================= */}
 
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start justify-between gap-2 min-[380px]:gap-3">
 
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
 
-            <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">
+            <h3 className="text-base min-[380px]:text-lg font-semibold text-gray-800 line-clamp-1">
               {comboBouquet.name}
             </h3>
 
-            <p className="text-sm text-gray-500 mt-1.5 line-clamp-2 leading-5">
+            <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1.5 line-clamp-2 leading-5">
               {comboBouquet.description}
             </p>
 
           </div>
 
-          <span className="text-lg font-semibold text-pink-600 whitespace-nowrap">
+          <span className="text-base min-[380px]:text-lg font-semibold text-pink-600 whitespace-nowrap">
             ₹{comboBouquet.price}
           </span>
 
@@ -77,18 +79,23 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
         {/* ================= DETAILS ================= */}
 
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="flex flex-wrap gap-1.5 min-[380px]:gap-2 mt-3 min-[380px]:mt-4">
 
           {comboBouquet.occasion && (
             <span
               className="
-                px-3
-                py-1.5
+                max-w-full
+                px-2.5
+                min-[380px]:px-3
+                py-1
+                min-[380px]:py-1.5
                 rounded-full
                 bg-pink-50
                 text-pink-600
-                text-xs
+                text-[11px]
+                min-[380px]:text-xs
                 font-medium
+                truncate
               "
             >
               {comboBouquet.occasion}
@@ -98,13 +105,18 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
           {comboBouquet.category && (
             <span
               className="
-                px-3
-                py-1.5
+                max-w-full
+                px-2.5
+                min-[380px]:px-3
+                py-1
+                min-[380px]:py-1.5
                 rounded-full
                 bg-gray-100
                 text-gray-600
-                text-xs
+                text-[11px]
+                min-[380px]:text-xs
                 font-medium
+                truncate
               "
             >
               {comboBouquet.category}
@@ -114,13 +126,17 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
           {comboBouquet.stock !== undefined && (
             <span
               className="
-                px-3
-                py-1.5
+                px-2.5
+                min-[380px]:px-3
+                py-1
+                min-[380px]:py-1.5
                 rounded-full
                 bg-gray-100
                 text-gray-600
-                text-xs
+                text-[11px]
+                min-[380px]:text-xs
                 font-medium
+                whitespace-nowrap
               "
             >
               Stock: {comboBouquet.stock}
@@ -131,7 +147,7 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
         {/* ================= BUTTONS ================= */}
 
-        <div className="flex gap-2.5 mt-5">
+        <div className="flex flex-col min-[380px]:flex-row gap-2 mt-4 min-[380px]:mt-5">
 
           {/* EDIT */}
 

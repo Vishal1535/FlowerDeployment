@@ -58,29 +58,29 @@ export const DeleteMiniCupcakePopUp = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 sm:px-4 py-4">
 
-      <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
+      <div className="w-full max-w-md rounded-xl sm:rounded-2xl bg-white shadow-xl overflow-hidden">
 
         {/* ================= HEADER ================= */}
 
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
 
-            <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-lg sm:rounded-xl bg-red-50 flex items-center justify-center">
               <Trash2
-                size={20}
-                className="text-red-500"
+                size={18}
+                className="sm:w-5 sm:h-5 text-red-500"
               />
             </div>
 
-            <div>
-              <h2 className="text-lg font-semibold text-gray-800">
+            <div className="min-w-0">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-800 truncate">
                 Delete Mini Cupcake
               </h2>
 
-              <p className="text-sm text-gray-500">
+              <p className="text-[11px] sm:text-sm text-gray-500">
                 This action cannot be undone
               </p>
             </div>
@@ -94,8 +94,11 @@ export const DeleteMiniCupcakePopUp = () => {
             }
             disabled={loading}
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
               rounded-full
               flex
               items-center
@@ -106,41 +109,45 @@ export const DeleteMiniCupcakePopUp = () => {
               disabled:cursor-not-allowed
             "
           >
-            <X size={20} />
+            <X size={18} className="sm:w-5 sm:h-5" />
           </button>
 
         </div>
 
         {/* ================= CONTENT ================= */}
 
-        <div className="px-6 py-5">
+        <div className="px-4 sm:px-6 py-4 sm:py-5">
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
 
             <img
               src={selectedMiniCupcake.image}
               alt={selectedMiniCupcake.name}
               className="
-                w-16
-                h-16
-                rounded-xl
+                w-14
+                h-14
+                sm:w-16
+                sm:h-16
+                shrink-0
+                rounded-lg
+                sm:rounded-xl
                 object-cover
               "
             />
 
-            <div>
-              <h3 className="font-medium text-gray-800">
+            <div className="min-w-0">
+              <h3 className="font-medium text-sm sm:text-base text-gray-800 truncate">
                 {selectedMiniCupcake.name}
               </h3>
 
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-xs sm:text-sm text-gray-500 mt-1">
                 ₹{selectedMiniCupcake.price}
               </p>
             </div>
 
           </div>
 
-          <p className="text-sm text-gray-600 mt-5">
+          <p className="text-sm text-gray-600 mt-4 sm:mt-5 leading-5">
             Are you sure you want to delete this mini cupcake?
           </p>
 
@@ -148,7 +155,7 @@ export const DeleteMiniCupcakePopUp = () => {
 
         {/* ================= BUTTONS ================= */}
 
-        <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-100">
+        <div className="flex flex-col min-[380px]:flex-row sm:justify-end gap-2 min-[380px]:gap-3 px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-100">
 
           <button
             type="button"
@@ -157,9 +164,13 @@ export const DeleteMiniCupcakePopUp = () => {
             }
             disabled={loading}
             className="
+              w-full
+              min-[380px]:w-auto
               px-5
-              py-2.5
-              rounded-xl
+              py-2
+              sm:py-2.5
+              rounded-lg
+              sm:rounded-xl
               border
               border-gray-200
               text-sm
@@ -179,14 +190,19 @@ export const DeleteMiniCupcakePopUp = () => {
             onClick={handleDelete}
             disabled={loading}
             className="
+              w-full
+              min-[380px]:w-auto
               flex
               items-center
               justify-center
               gap-2
-              min-w-[110px]
+              min-w-0
+              min-[380px]:min-w-[110px]
               px-5
-              py-2.5
-              rounded-xl
+              py-2
+              sm:py-2.5
+              rounded-lg
+              sm:rounded-xl
               bg-red-500
               text-white
               text-sm

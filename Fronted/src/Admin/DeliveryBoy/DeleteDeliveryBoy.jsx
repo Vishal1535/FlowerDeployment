@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Trash2, X, Loader2 } from "lucide-react";
@@ -76,7 +77,10 @@ export const DeleteDeliveryBoy = () => {
         justify-center
         bg-black/40
         backdrop-blur-sm
-        px-4
+        px-2
+        sm:px-4
+        py-4
+        sm:py-6
       "
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
@@ -92,8 +96,11 @@ export const DeleteDeliveryBoy = () => {
         className="
           w-full
           max-w-md
+          max-h-[94vh]
+          sm:max-h-[90vh]
           bg-white
-          rounded-3xl
+          rounded-2xl
+          sm:rounded-3xl
           shadow-2xl
           border
           border-red-100
@@ -107,22 +114,28 @@ export const DeleteDeliveryBoy = () => {
 
         <div
           className="
-            px-5
+            px-4
             sm:px-6
-            py-5
+            py-4
+            sm:py-5
             border-b
             border-gray-100
             flex
             items-center
             justify-between
+            gap-3
           "
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             <div
               className="
-                w-11
-                h-11
-                rounded-2xl
+                w-10
+                h-10
+                sm:w-11
+                sm:h-11
+                shrink-0
+                rounded-xl
+                sm:rounded-2xl
                 bg-red-50
                 text-red-500
                 flex
@@ -130,15 +143,18 @@ export const DeleteDeliveryBoy = () => {
                 justify-center
               "
             >
-              <Trash2 size={22} />
+              <Trash2
+                size={20}
+                className="sm:w-[22px] sm:h-[22px]"
+              />
             </div>
 
-            <div>
-              <h2 className="text-lg font-bold text-gray-800">
+            <div className="min-w-0">
+              <h2 className="text-base sm:text-lg font-bold text-gray-800 truncate">
                 Delete Delivery Boy
               </h2>
 
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500">
                 Confirm deletion
               </p>
             </div>
@@ -149,9 +165,13 @@ export const DeleteDeliveryBoy = () => {
             onClick={handleClose}
             disabled={loading}
             className="
-              w-9
-              h-9
-              rounded-xl
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
+              rounded-lg
+              sm:rounded-xl
               flex
               items-center
               justify-center
@@ -162,7 +182,7 @@ export const DeleteDeliveryBoy = () => {
               disabled:opacity-50
             "
           >
-            <X size={20} />
+            <X size={18} className="sm:w-5 sm:h-5" />
           </button>
         </div>
 
@@ -170,11 +190,13 @@ export const DeleteDeliveryBoy = () => {
             CONTENT
         ===================================================== */}
 
-        <div className="px-5 sm:px-6 py-6">
+        <div className="px-4 sm:px-6 py-5 sm:py-6">
           <div
             className="
-              p-4
-              rounded-2xl
+              p-3.5
+              sm:p-4
+              rounded-xl
+              sm:rounded-2xl
               bg-red-50
               border
               border-red-100
@@ -202,6 +224,7 @@ export const DeleteDeliveryBoy = () => {
                 border-red-100
                 text-red-600
                 text-sm
+                break-words
               "
             >
               {error}
@@ -215,13 +238,15 @@ export const DeleteDeliveryBoy = () => {
 
         <div
           className="
-            px-5
+            px-4
             sm:px-6
-            pb-5
+            pb-4
+            sm:pb-5
             flex
             flex-col-reverse
             sm:flex-row
-            gap-3
+            gap-2.5
+            sm:gap-3
           "
         >
           <button
@@ -231,12 +256,15 @@ export const DeleteDeliveryBoy = () => {
             className="
               w-full
               sm:flex-1
-              h-12
+              h-11
+              sm:h-12
               rounded-xl
               border
               border-gray-200
               bg-white
               text-gray-600
+              text-sm
+              sm:text-base
               font-semibold
               hover:bg-gray-50
               transition
@@ -253,11 +281,14 @@ export const DeleteDeliveryBoy = () => {
             className="
               w-full
               sm:flex-1
-              h-12
+              h-11
+              sm:h-12
               rounded-xl
               bg-red-500
               hover:bg-red-600
               text-white
+              text-sm
+              sm:text-base
               font-semibold
               flex
               items-center
@@ -291,3 +322,4 @@ export const DeleteDeliveryBoy = () => {
     </div>
   );
 };
+

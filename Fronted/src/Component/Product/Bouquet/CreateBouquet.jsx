@@ -143,21 +143,21 @@ export const CreateBouquet = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 sm:p-4">
 
-      <div className="w-full max-w-xl rounded-xl bg-white shadow-xl">
+      <div className="w-full max-w-xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto rounded-xl sm:rounded-2xl bg-white shadow-xl">
 
         {/* ================= HEADER ================= */}
 
-        <div className="flex items-center justify-between border-b px-5 py-3">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b px-4 sm:px-5 py-3 bg-white">
 
-          <h2 className="text-lg font-semibold text-pink-600">
+          <h2 className="text-base sm:text-lg font-semibold text-pink-600">
             Create Bouquet
           </h2>
 
           <button
             type="button"
-            className="text-xl text-gray-500 hover:text-red-500"
+            className="w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-xl text-gray-500 hover:bg-gray-100 hover:text-red-500"
             onClick={() => {
               dispatch(closeCreateBouquetPopup());
             }}
@@ -171,15 +171,15 @@ export const CreateBouquet = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-5"
+          className="p-4 sm:p-5"
         >
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-3">
 
             {/* ================= NAME ================= */}
 
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Name
               </label>
 
@@ -191,6 +191,7 @@ export const CreateBouquet = () => {
                 placeholder="Bouquet name"
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   px-3
@@ -205,7 +206,7 @@ export const CreateBouquet = () => {
             {/* ================= PRICE ================= */}
 
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Price
               </label>
 
@@ -218,6 +219,7 @@ export const CreateBouquet = () => {
                 min="0"
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   px-3
@@ -231,9 +233,9 @@ export const CreateBouquet = () => {
 
             {/* ================= DESCRIPTION ================= */}
 
-            <div className="col-span-2">
+            <div className="min-[380px]:col-span-2">
 
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Description
               </label>
 
@@ -245,6 +247,7 @@ export const CreateBouquet = () => {
                 placeholder="Bouquet description"
                 className="
                   w-full
+                  min-w-0
                   resize-none
                   rounded-md
                   border
@@ -260,9 +263,9 @@ export const CreateBouquet = () => {
 
             {/* ================= IMAGE ================= */}
 
-            <div className="col-span-2">
+            <div className="min-[380px]:col-span-2">
 
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Image URL
               </label>
 
@@ -274,6 +277,7 @@ export const CreateBouquet = () => {
                 placeholder="Image URL"
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   px-3
@@ -290,7 +294,7 @@ export const CreateBouquet = () => {
 
             <div>
 
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Occasion
               </label>
 
@@ -300,10 +304,12 @@ export const CreateBouquet = () => {
                 onChange={handleChange}
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   bg-white
-                  px-3
+                  px-2
+                  sm:px-3
                   py-2
                   text-sm
                   outline-none
@@ -329,7 +335,7 @@ export const CreateBouquet = () => {
 
             <div>
 
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Size
               </label>
 
@@ -339,10 +345,12 @@ export const CreateBouquet = () => {
                 onChange={handleChange}
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   bg-white
-                  px-3
+                  px-2
+                  sm:px-3
                   py-2
                   text-sm
                   outline-none
@@ -361,7 +369,7 @@ export const CreateBouquet = () => {
 
             <div>
 
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Stock
               </label>
 
@@ -374,6 +382,7 @@ export const CreateBouquet = () => {
                 min="0"
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   px-3
@@ -390,7 +399,7 @@ export const CreateBouquet = () => {
 
             <div>
 
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Category
               </label>
 
@@ -402,6 +411,7 @@ export const CreateBouquet = () => {
                 placeholder="Category"
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   px-3
@@ -418,7 +428,7 @@ export const CreateBouquet = () => {
 
             <div>
 
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Number of Flowers
               </label>
 
@@ -431,6 +441,7 @@ export const CreateBouquet = () => {
                 min="1"
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   px-3
@@ -447,7 +458,7 @@ export const CreateBouquet = () => {
 
             <div>
 
-              <label className="mb-1 block text-xs font-medium text-gray-600">
+              <label className="mb-1 block text-[11px] sm:text-xs font-medium text-gray-600">
                 Flowers
               </label>
 
@@ -459,6 +470,7 @@ export const CreateBouquet = () => {
                 placeholder="Rose, Lily, Baby's Breath"
                 className="
                   w-full
+                  min-w-0
                   rounded-md
                   border
                   px-3
@@ -469,7 +481,7 @@ export const CreateBouquet = () => {
                 "
               />
 
-              <p className="mt-1 text-[10px] text-gray-400">
+              <p className="mt-1 text-[9px] sm:text-[10px] text-gray-400">
                 Separate multiple flowers with commas
               </p>
 
@@ -486,7 +498,8 @@ export const CreateBouquet = () => {
               cursor-pointer
               items-center
               gap-2
-              text-sm
+              text-xs
+              sm:text-sm
               text-gray-600
             "
           >
@@ -496,7 +509,7 @@ export const CreateBouquet = () => {
               name="isAvailable"
               checked={formData.isAvailable}
               onChange={handleChange}
-              className="accent-pink-600"
+              className="accent-pink-600 shrink-0"
             />
 
             Available
@@ -509,6 +522,8 @@ export const CreateBouquet = () => {
             className="
               mt-4
               flex
+              flex-col
+              min-[380px]:flex-row
               justify-end
               gap-2
               border-t
@@ -519,6 +534,8 @@ export const CreateBouquet = () => {
             <button
               type="button"
               className="
+                w-full
+                min-[380px]:w-auto
                 rounded-md
                 border
                 px-4
@@ -537,6 +554,8 @@ export const CreateBouquet = () => {
               type="submit"
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 rounded-md
                 bg-pink-600
                 px-5

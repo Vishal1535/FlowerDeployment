@@ -30,17 +30,38 @@ export const Occasion = ({ occasion }) => {
   ];
 
   return (
-    <section className="w-full">
+    <section className="
+      w-full
+      min-w-0
+      overflow-hidden
+    ">
 
       {/* ================= HEADER ================= */}
 
-      <div className="mb-4">
+      <div className="
+        mb-3
+        min-[380px]:mb-4
+      ">
 
-        <p className="text-[11px] font-semibold text-pink-500 uppercase tracking-wider">
+        <p className="
+          text-[9px]
+          min-[380px]:text-[11px]
+          font-semibold
+          text-pink-500
+          uppercase
+          tracking-wider
+        ">
           Make Your Gift Special
         </p>
 
-        <h2 className="text-lg font-bold text-gray-900 mt-1">
+        <h2 className="
+          text-base
+          min-[380px]:text-lg
+          font-bold
+          text-gray-900
+          mt-0.5
+          min-[380px]:mt-1
+        ">
           Add Something Extra ✨
         </h2>
 
@@ -48,7 +69,15 @@ export const Occasion = ({ occasion }) => {
 
       {/* ================= TABS ================= */}
 
-      <div className="flex gap-2 mb-5">
+      <div className="
+        flex
+        gap-1.5
+        min-[380px]:gap-2
+        mb-4
+        min-[380px]:mb-5
+        w-full
+        min-w-0
+      ">
 
         {tabs.map((tab) => (
           <button
@@ -57,19 +86,26 @@ export const Occasion = ({ occasion }) => {
             onClick={() => setActiveTab(tab.id)}
             className={`
               flex-1
-              h-11
-              px-3
-              rounded-xl
+              min-w-0
+              h-9
+              min-[380px]:h-11
+              px-1.5
+              min-[380px]:px-3
+              rounded-lg
+              min-[380px]:rounded-xl
               border
               flex
               items-center
               justify-center
-              gap-1.5
-              text-xs
+              gap-1
+              min-[380px]:gap-1.5
+              text-[10px]
+              min-[380px]:text-xs
               font-semibold
               transition-all
               duration-200
               cursor-pointer
+              whitespace-nowrap
               ${
                 activeTab === tab.id
                   ? "bg-pink-500 border-pink-500 text-white shadow-sm"
@@ -78,11 +114,17 @@ export const Occasion = ({ occasion }) => {
             `}
           >
 
-            <span className="text-base">
+            <span className="
+              text-sm
+              min-[380px]:text-base
+              shrink-0
+            ">
               {tab.emoji}
             </span>
 
-            {tab.label}
+            <span className="truncate">
+              {tab.label}
+            </span>
 
           </button>
         ))}
@@ -91,7 +133,11 @@ export const Occasion = ({ occasion }) => {
 
       {/* ================= CONTENT ================= */}
 
-      <div>
+      <div className="
+        w-full
+        min-w-0
+        overflow-hidden
+      ">
 
         {activeTab === "chocolate" && (
           <Chocolate

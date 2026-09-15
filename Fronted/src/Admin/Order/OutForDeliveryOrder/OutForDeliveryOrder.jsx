@@ -8,15 +8,15 @@ export const OutForDeliveryOrder = ({ orders = [] }) => {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4 sm:space-y-5">
 
       {/* HEADING */}
-      <div>
-        <h2 className="text-xl font-bold text-gray-800">
+      <div className="min-w-0">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-800 break-words">
           Out For Delivery Orders
         </h2>
 
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">
           {outForDeliveryOrders.length} order
           {outForDeliveryOrders.length !== 1 ? "s" : ""} out for delivery
         </p>
@@ -24,7 +24,7 @@ export const OutForDeliveryOrder = ({ orders = [] }) => {
 
       {/* ORDERS */}
       {outForDeliveryOrders.length > 0 ? (
-        <div className="space-y-3">
+        <div className="w-full space-y-3">
           {outForDeliveryOrders.map((order) => (
             <OutForDeliveryOrderItem
               key={order._id}
@@ -33,16 +33,14 @@ export const OutForDeliveryOrder = ({ orders = [] }) => {
           ))}
         </div>
       ) : (
-        <div className="bg-white border border-orange-100 rounded-2xl p-10 text-center">
-
-          <p className="text-gray-500 font-medium">
+        <div className="w-full bg-white border border-orange-100 rounded-xl sm:rounded-2xl p-6 sm:p-10 text-center">
+          <p className="text-sm sm:text-base text-gray-500 font-medium">
             No orders out for delivery
           </p>
 
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-xs sm:text-sm text-gray-400 mt-1">
             Orders ready for delivery will appear here.
           </p>
-
         </div>
       )}
 

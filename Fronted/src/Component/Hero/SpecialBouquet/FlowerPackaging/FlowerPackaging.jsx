@@ -41,18 +41,32 @@ export const FlowerPackaging = () => {
   };
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-10 py-8">
+    <section
+      className="
+        w-full
+        max-w-full
+        overflow-hidden
+        px-3
+        min-[380px]:px-4
+        sm:px-6
+        lg:px-10
+        py-6
+        sm:py-8
+      "
+    >
 
       {/* ================= TITLE ================= */}
 
-      <div className="text-center mb-8">
+      <div className="text-center mb-6 sm:mb-8">
 
         <p
           className="
-            text-xs
+            text-[10px]
+            min-[380px]:text-xs
             font-semibold
             uppercase
-            tracking-[0.25em]
+            tracking-[0.18em]
+            min-[380px]:tracking-[0.25em]
             text-pink-500
             mb-2
           "
@@ -62,7 +76,8 @@ export const FlowerPackaging = () => {
 
         <h2
           className="
-            text-3xl
+            text-2xl
+            min-[380px]:text-3xl
             sm:text-4xl
             font-bold
             text-gray-900
@@ -74,7 +89,15 @@ export const FlowerPackaging = () => {
           </span>
         </h2>
 
-        <p className="text-sm text-gray-500 mt-2">
+        <p
+          className="
+            text-xs
+            min-[380px]:text-sm
+            text-gray-500
+            mt-2
+            px-2
+          "
+        >
           Choose the perfect packaging for your flowers
         </p>
 
@@ -89,9 +112,11 @@ export const FlowerPackaging = () => {
           sm:flex-row
           items-center
           justify-center
-          gap-5
+          gap-3
+          min-[380px]:gap-4
           sm:gap-7
-          mb-10
+          mb-7
+          sm:mb-10
         "
       >
 
@@ -104,12 +129,18 @@ export const FlowerPackaging = () => {
             group
             w-full
             max-w-[360px]
-            h-[76px]
+            h-[64px]
+            min-[380px]:h-[70px]
+            sm:h-[76px]
             rounded-full
             flex
             items-center
             justify-center
-            gap-4
+            gap-2.5
+            min-[380px]:gap-3
+            sm:gap-4
+            px-3
+            min-[380px]:px-4
             border
             cursor-pointer
             transition-all
@@ -143,12 +174,17 @@ export const FlowerPackaging = () => {
 
           <span
             className={`
-              w-11
-              h-11
+              w-9
+              h-9
+              min-[380px]:w-10
+              min-[380px]:h-10
+              sm:w-11
+              sm:h-11
               rounded-full
               flex
               items-center
               justify-center
+              shrink-0
               transition-all
               duration-300
 
@@ -159,18 +195,37 @@ export const FlowerPackaging = () => {
               }
             `}
           >
-            <Package size={22} strokeWidth={1.8} />
+            <Package
+              size={19}
+              className="min-[380px]:hidden"
+              strokeWidth={1.8}
+            />
+
+            <Package
+              size={21}
+              className="hidden min-[380px]:block sm:hidden"
+              strokeWidth={1.8}
+            />
+
+            <Package
+              size={22}
+              className="hidden sm:block"
+              strokeWidth={1.8}
+            />
           </span>
 
           {/* TEXT */}
 
-          <div className="text-left">
+          <div className="text-left min-w-0">
 
             <p
               className={`
-                text-lg
+                text-sm
+                min-[380px]:text-base
+                sm:text-lg
                 font-bold
                 leading-none
+                truncate
                 ${
                   isShowFlowerInBox
                     ? "text-white"
@@ -183,8 +238,11 @@ export const FlowerPackaging = () => {
 
             <p
               className={`
-                text-xs
+                text-[10px]
+                min-[380px]:text-[11px]
+                sm:text-xs
                 mt-1
+                truncate
                 ${
                   isShowFlowerInBox
                     ? "text-white/80"
@@ -208,12 +266,18 @@ export const FlowerPackaging = () => {
             group
             w-full
             max-w-[360px]
-            h-[76px]
+            h-[64px]
+            min-[380px]:h-[70px]
+            sm:h-[76px]
             rounded-full
             flex
             items-center
             justify-center
-            gap-4
+            gap-2.5
+            min-[380px]:gap-3
+            sm:gap-4
+            px-3
+            min-[380px]:px-4
             border
             cursor-pointer
             transition-all
@@ -247,12 +311,17 @@ export const FlowerPackaging = () => {
 
           <span
             className={`
-              w-11
-              h-11
+              w-9
+              h-9
+              min-[380px]:w-10
+              min-[380px]:h-10
+              sm:w-11
+              sm:h-11
               rounded-full
               flex
               items-center
               justify-center
+              shrink-0
               transition-all
               duration-300
 
@@ -263,18 +332,37 @@ export const FlowerPackaging = () => {
               }
             `}
           >
-            <Flower2 size={22} strokeWidth={1.8} />
+            <Flower2
+              size={19}
+              className="min-[380px]:hidden"
+              strokeWidth={1.8}
+            />
+
+            <Flower2
+              size={21}
+              className="hidden min-[380px]:block sm:hidden"
+              strokeWidth={1.8}
+            />
+
+            <Flower2
+              size={22}
+              className="hidden sm:block"
+              strokeWidth={1.8}
+            />
           </span>
 
           {/* TEXT */}
 
-          <div className="text-left">
+          <div className="text-left min-w-0">
 
             <p
               className={`
-                text-lg
+                text-sm
+                min-[380px]:text-base
+                sm:text-lg
                 font-bold
                 leading-none
+                truncate
                 ${
                   isShowFlowerInSleeve
                     ? "text-white"
@@ -287,8 +375,11 @@ export const FlowerPackaging = () => {
 
             <p
               className={`
-                text-xs
+                text-[10px]
+                min-[380px]:text-[11px]
+                sm:text-xs
                 mt-1
+                truncate
                 ${
                   isShowFlowerInSleeve
                     ? "text-white/80"
@@ -307,7 +398,7 @@ export const FlowerPackaging = () => {
 
       {/* ================= CONTENT ================= */}
 
-      <div className="w-full">
+      <div className="w-full min-w-0 overflow-hidden">
 
         <FlowerInBox />
 

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { X, User, Mail, Phone, Bike, Hash, Save, Loader2 } from "lucide-react";
@@ -72,84 +73,84 @@ export const EditDeliveryBoy = () => {
   // SUBMIT
   // =====================================================
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // ===================================================
-  // VALIDATION
-  // ===================================================
+    // ===================================================
+    // VALIDATION
+    // ===================================================
 
-  if (!formData.name.trim()) {
-    setValidationError("Name is required");
-    return;
-  }
+    if (!formData.name.trim()) {
+      setValidationError("Name is required");
+      return;
+    }
 
-  if (!formData.phone.trim()) {
-    setValidationError("Phone number is required");
-    return;
-  }
+    if (!formData.phone.trim()) {
+      setValidationError("Phone number is required");
+      return;
+    }
 
-  if (formData.phone.trim().length < 10) {
-    setValidationError("Please enter a valid phone number");
-    return;
-  }
+    if (formData.phone.trim().length < 10) {
+      setValidationError("Please enter a valid phone number");
+      return;
+    }
 
-  if (!formData.vehicleType) {
-    setValidationError("Vehicle type is required");
-    return;
-  }
+    if (!formData.vehicleType) {
+      setValidationError("Vehicle type is required");
+      return;
+    }
 
-  if (!selectedDeliveryBoy?._id) {
-    setValidationError("Delivery boy ID not found");
-    return;
-  }
+    if (!selectedDeliveryBoy?._id) {
+      setValidationError("Delivery boy ID not found");
+      return;
+    }
 
-  // ===================================================
-  // DATA
-  // ===================================================
+    // ===================================================
+    // DATA
+    // ===================================================
 
-  const updateData = {
-    name: formData.name.trim(),
-    phone: formData.phone.trim(),
-    vehicleType: formData.vehicleType,
-    vehicleNumber: formData.vehicleNumber.trim(),
+    const updateData = {
+      name: formData.name.trim(),
+      phone: formData.phone.trim(),
+      vehicleType: formData.vehicleType,
+      vehicleNumber: formData.vehicleNumber.trim(),
+    };
+
+    // ===================================================
+    // UPDATE
+    // ===================================================
+
+    const result = await dispatch(
+      updateDeliveryBoyThunk({
+        id: selectedDeliveryBoy._id,
+        data: updateData,
+      })
+    );
+
+    // ===================================================
+    // SUCCESS
+    // ===================================================
+
+    if (updateDeliveryBoyThunk.fulfilled.match(result)) {
+      toast.success(
+        result.payload?.message ||
+          "Delivery boy updated successfully!"
+      );
+
+      dispatch(closeEditDeliveryPopup());
+    }
+
+    // ===================================================
+    // ERROR
+    // ===================================================
+
+    else {
+      toast.error(
+        result.payload ||
+          "Failed to update delivery boy"
+      );
+    }
   };
-
-  // ===================================================
-  // UPDATE
-  // ===================================================
-
-  const result = await dispatch(
-    updateDeliveryBoyThunk({
-      id: selectedDeliveryBoy._id,
-      data: updateData,
-    })
-  );
-
-  // ===================================================
-  // SUCCESS
-  // ===================================================
-
-  if (updateDeliveryBoyThunk.fulfilled.match(result)) {
-    toast.success(
-      result.payload?.message ||
-        "Delivery boy updated successfully!"
-    );
-
-    dispatch(closeEditDeliveryPopup());
-  }
-
-  // ===================================================
-  // ERROR
-  // ===================================================
-
-  else {
-    toast.error(
-      result.payload ||
-        "Failed to update delivery boy"
-    );
-  }
-};
 
   // =====================================================
   // POPUP CLOSED
@@ -172,8 +173,10 @@ export const EditDeliveryBoy = () => {
         justify-center
         bg-black/40
         backdrop-blur-sm
-        px-4
-        py-6
+        px-2
+        sm:px-4
+        py-3
+        sm:py-6
       "
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
@@ -189,10 +192,12 @@ export const EditDeliveryBoy = () => {
         className="
           w-full
           max-w-lg
-          max-h-[90vh]
+          max-h-[95vh]
+          sm:max-h-[90vh]
           overflow-y-auto
           bg-white
-          rounded-3xl
+          rounded-2xl
+          sm:rounded-3xl
           shadow-2xl
           border
           border-pink-100
@@ -209,22 +214,28 @@ export const EditDeliveryBoy = () => {
             top-0
             z-10
             bg-white
-            px-5
+            px-4
             sm:px-6
-            py-5
+            py-4
+            sm:py-5
             border-b
             border-gray-100
             flex
             items-center
             justify-between
+            gap-3
           "
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             <div
               className="
-                w-11
-                h-11
-                rounded-2xl
+                w-10
+                h-10
+                sm:w-11
+                sm:h-11
+                shrink-0
+                rounded-xl
+                sm:rounded-2xl
                 bg-pink-100
                 text-pink-600
                 flex
@@ -232,15 +243,15 @@ export const EditDeliveryBoy = () => {
                 justify-center
               "
             >
-              <User size={22} />
+              <User size={20} className="sm:w-[22px] sm:h-[22px]" />
             </div>
 
-            <div>
-              <h2 className="text-xl font-bold text-gray-800">
+            <div className="min-w-0">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-800 truncate">
                 Edit Delivery Boy
               </h2>
 
-              <p className="text-sm text-gray-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5 truncate">
                 Update delivery boy information
               </p>
             </div>
@@ -251,9 +262,13 @@ export const EditDeliveryBoy = () => {
             onClick={handleClose}
             disabled={loading}
             className="
-              w-9
-              h-9
-              rounded-xl
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
+              rounded-lg
+              sm:rounded-xl
               flex
               items-center
               justify-center
@@ -264,7 +279,7 @@ export const EditDeliveryBoy = () => {
               disabled:opacity-50
             "
           >
-            <X size={20} />
+            <X size={18} className="sm:w-5 sm:h-5" />
           </button>
         </div>
 
@@ -272,7 +287,10 @@ export const EditDeliveryBoy = () => {
             FORM
         ===================================================== */}
 
-        <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="p-4 sm:p-6 space-y-4"
+        >
           {/* =================================================
               NAME
           ================================================= */}
@@ -284,10 +302,11 @@ export const EditDeliveryBoy = () => {
 
             <div className="relative">
               <User
-                size={18}
+                size={17}
                 className="
                   absolute
-                  left-3.5
+                  left-3
+                  sm:left-3.5
                   top-1/2
                   -translate-y-1/2
                   text-gray-400
@@ -302,13 +321,18 @@ export const EditDeliveryBoy = () => {
                 placeholder="Enter full name"
                 className="
                   w-full
-                  h-12
-                  pl-11
-                  pr-4
+                  h-11
+                  sm:h-12
+                  pl-10
+                  sm:pl-11
+                  pr-3
+                  sm:pr-4
                   rounded-xl
                   border
                   border-gray-200
                   bg-gray-50
+                  text-sm
+                  sm:text-base
                   text-gray-800
                   outline-none
                   focus:bg-white
@@ -332,10 +356,11 @@ export const EditDeliveryBoy = () => {
 
             <div className="relative">
               <Mail
-                size={18}
+                size={17}
                 className="
                   absolute
-                  left-3.5
+                  left-3
+                  sm:left-3.5
                   top-1/2
                   -translate-y-1/2
                   text-gray-400
@@ -348,20 +373,26 @@ export const EditDeliveryBoy = () => {
                 disabled
                 className="
                   w-full
-                  h-12
-                  pl-11
-                  pr-4
+                  h-11
+                  sm:h-12
+                  pl-10
+                  sm:pl-11
+                  pr-3
+                  sm:pr-4
                   rounded-xl
                   border
                   border-gray-200
                   bg-gray-100
+                  text-sm
+                  sm:text-base
                   text-gray-500
                   cursor-not-allowed
+                  truncate
                 "
               />
             </div>
 
-            <p className="text-xs text-gray-400 mt-1.5">
+            <p className="text-[11px] sm:text-xs text-gray-400 mt-1.5">
               Email address cannot be changed here.
             </p>
           </div>
@@ -377,10 +408,11 @@ export const EditDeliveryBoy = () => {
 
             <div className="relative">
               <Phone
-                size={18}
+                size={17}
                 className="
                   absolute
-                  left-3.5
+                  left-3
+                  sm:left-3.5
                   top-1/2
                   -translate-y-1/2
                   text-gray-400
@@ -395,13 +427,18 @@ export const EditDeliveryBoy = () => {
                 placeholder="Enter phone number"
                 className="
                   w-full
-                  h-12
-                  pl-11
-                  pr-4
+                  h-11
+                  sm:h-12
+                  pl-10
+                  sm:pl-11
+                  pr-3
+                  sm:pr-4
                   rounded-xl
                   border
                   border-gray-200
                   bg-gray-50
+                  text-sm
+                  sm:text-base
                   text-gray-800
                   outline-none
                   focus:bg-white
@@ -425,10 +462,11 @@ export const EditDeliveryBoy = () => {
 
             <div className="relative">
               <Bike
-                size={18}
+                size={17}
                 className="
                   absolute
-                  left-3.5
+                  left-3
+                  sm:left-3.5
                   top-1/2
                   -translate-y-1/2
                   text-gray-400
@@ -441,23 +479,28 @@ export const EditDeliveryBoy = () => {
                 value={formData.vehicleType}
                 onChange={handleChange}
                 className="
-    w-full
-    h-12
-    pl-11
-    pr-4
-    rounded-xl
-    border
-    border-gray-200
-    bg-gray-50
-    text-gray-800
-    outline-none
-    focus:bg-white
-    focus:border-pink-400
-    focus:ring-4
-    focus:ring-pink-50
-    transition
-    appearance-none
-  "
+                  w-full
+                  h-11
+                  sm:h-12
+                  pl-10
+                  sm:pl-11
+                  pr-3
+                  sm:pr-4
+                  rounded-xl
+                  border
+                  border-gray-200
+                  bg-gray-50
+                  text-sm
+                  sm:text-base
+                  text-gray-800
+                  outline-none
+                  focus:bg-white
+                  focus:border-pink-400
+                  focus:ring-4
+                  focus:ring-pink-50
+                  transition
+                  appearance-none
+                "
               >
                 <option value="bike">Bike</option>
                 <option value="scooter">Scooter</option>
@@ -478,10 +521,11 @@ export const EditDeliveryBoy = () => {
 
             <div className="relative">
               <Hash
-                size={18}
+                size={17}
                 className="
                   absolute
-                  left-3.5
+                  left-3
+                  sm:left-3.5
                   top-1/2
                   -translate-y-1/2
                   text-gray-400
@@ -496,13 +540,18 @@ export const EditDeliveryBoy = () => {
                 placeholder="e.g. MH 01 AB 1234"
                 className="
                   w-full
-                  h-12
-                  pl-11
-                  pr-4
+                  h-11
+                  sm:h-12
+                  pl-10
+                  sm:pl-11
+                  pr-3
+                  sm:pr-4
                   rounded-xl
                   border
                   border-gray-200
                   bg-gray-50
+                  text-sm
+                  sm:text-base
                   text-gray-800
                   outline-none
                   focus:bg-white
@@ -523,13 +572,15 @@ export const EditDeliveryBoy = () => {
           {(validationError || error) && (
             <div
               className="
-                p-3.5
+                p-3
+                sm:p-3.5
                 rounded-xl
                 bg-red-50
                 border
                 border-red-100
                 text-red-600
                 text-sm
+                break-words
               "
             >
               {validationError || error}
@@ -545,7 +596,8 @@ export const EditDeliveryBoy = () => {
               flex
               flex-col-reverse
               sm:flex-row
-              gap-3
+              gap-2.5
+              sm:gap-3
               pt-3
               border-t
               border-gray-100
@@ -558,12 +610,15 @@ export const EditDeliveryBoy = () => {
               className="
                 w-full
                 sm:flex-1
-                h-12
+                h-11
+                sm:h-12
                 rounded-xl
                 border
                 border-gray-200
                 bg-white
                 text-gray-600
+                text-sm
+                sm:text-base
                 font-semibold
                 hover:bg-gray-50
                 transition
@@ -579,11 +634,14 @@ export const EditDeliveryBoy = () => {
               className="
                 w-full
                 sm:flex-1
-                h-12
+                h-11
+                sm:h-12
                 rounded-xl
                 bg-pink-500
                 hover:bg-pink-600
                 text-white
+                text-sm
+                sm:text-base
                 font-semibold
                 flex
                 items-center
@@ -614,3 +672,4 @@ export const EditDeliveryBoy = () => {
     </div>
   );
 };
+

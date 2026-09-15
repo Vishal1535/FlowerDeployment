@@ -304,13 +304,15 @@ export const SingleFlowerInBox = () => {
       <>
         <Auth />
 
-        <div className="min-h-[75vh] flex items-center justify-center">
+        <div className="min-h-[70vh] sm:min-h-[75vh] flex items-center justify-center px-4">
           <div className="text-center">
 
             <div
               className="
-                w-14
-                h-14
+                w-12
+                h-12
+                sm:w-14
+                sm:h-14
                 mx-auto
                 rounded-full
                 bg-pink-50
@@ -321,12 +323,17 @@ export const SingleFlowerInBox = () => {
               "
             >
               <Flower2
+                size={23}
+                className="sm:hidden text-pink-400"
+              />
+
+              <Flower2
                 size={26}
-                className="text-pink-400"
+                className="hidden sm:block text-pink-400"
               />
             </div>
 
-            <p className="mt-3 text-sm text-gray-500">
+            <p className="mt-3 text-xs sm:text-sm text-gray-500">
               Loading flower box details...
             </p>
 
@@ -340,13 +347,13 @@ export const SingleFlowerInBox = () => {
     <>
       <Auth />
 
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-white overflow-x-hidden">
 
         {/* ============================
             BACK
         ============================ */}
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-5">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 pt-4 sm:pt-5">
 
           <button
             type="button"
@@ -354,8 +361,10 @@ export const SingleFlowerInBox = () => {
             className="
               inline-flex
               items-center
-              gap-2
-              text-sm
+              gap-1.5
+              sm:gap-2
+              text-xs
+              sm:text-sm
               font-medium
               text-gray-500
               hover:text-pink-600
@@ -363,7 +372,8 @@ export const SingleFlowerInBox = () => {
               cursor-pointer
             "
           >
-            <ArrowLeft size={17} />
+            <ArrowLeft size={15} className="sm:hidden" />
+            <ArrowLeft size={17} className="hidden sm:block" />
 
             Back to Flower Boxes
           </button>
@@ -374,14 +384,15 @@ export const SingleFlowerInBox = () => {
             PRODUCT SECTION
         ============================ */}
 
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        <section className="max-w-6xl mx-auto px-3 sm:px-6 py-5 sm:py-6">
 
           <div
             className="
               grid
               grid-cols-1
               lg:grid-cols-[0.9fr_1.1fr]
-              gap-7
+              gap-6
+              sm:gap-7
               lg:gap-10
               items-start
             "
@@ -395,10 +406,12 @@ export const SingleFlowerInBox = () => {
               className="
                 relative
                 w-full
-                h-[300px]
+                h-[270px]
+                min-[380px]:h-[300px]
                 sm:h-[340px]
                 lg:h-[390px]
-                rounded-3xl
+                rounded-2xl
+                sm:rounded-3xl
                 overflow-hidden
                 bg-gradient-to-br
                 from-pink-50
@@ -417,10 +430,14 @@ export const SingleFlowerInBox = () => {
               <div
                 className="
                   absolute
-                  -top-16
-                  -right-16
-                  w-44
-                  h-44
+                  -top-10
+                  -right-10
+                  sm:-top-16
+                  sm:-right-16
+                  w-28
+                  h-28
+                  sm:w-44
+                  sm:h-44
                   rounded-full
                   bg-white/70
                 "
@@ -429,10 +446,14 @@ export const SingleFlowerInBox = () => {
               <div
                 className="
                   absolute
-                  -bottom-20
-                  -left-20
-                  w-52
-                  h-52
+                  -bottom-14
+                  -left-14
+                  sm:-bottom-20
+                  sm:-left-20
+                  w-36
+                  h-36
+                  sm:w-52
+                  sm:h-52
                   rounded-full
                   bg-pink-100/40
                 "
@@ -445,14 +466,20 @@ export const SingleFlowerInBox = () => {
               <div
                 className={`
                   absolute
-                  top-4
-                  left-4
+                  top-2.5
+                  left-2.5
+                  sm:top-4
+                  sm:left-4
                   z-20
-                  px-3
-                  py-1.5
+                  px-2.5
+                  sm:px-3
+                  py-1
+                  sm:py-1.5
                   rounded-full
-                  text-[11px]
+                  text-[9px]
+                  sm:text-[11px]
                   font-bold
+                  whitespace-nowrap
 
                   ${
                     isAvailable
@@ -482,11 +509,15 @@ export const SingleFlowerInBox = () => {
                 }
                 className={`
                   absolute
-                  top-4
-                  right-4
+                  top-2.5
+                  right-2.5
+                  sm:top-4
+                  sm:right-4
                   z-20
-                  w-10
-                  h-10
+                  w-9
+                  h-9
+                  sm:w-10
+                  sm:h-10
                   rounded-full
                   border
                   shadow-sm
@@ -505,7 +536,18 @@ export const SingleFlowerInBox = () => {
                 `}
               >
                 <Heart
+                  size={16}
+                  className="sm:hidden"
+                  fill={
+                    isWishlisted
+                      ? "currentColor"
+                      : "none"
+                  }
+                />
+
+                <Heart
                   size={18}
+                  className="hidden sm:block"
                   fill={
                     isWishlisted
                       ? "currentColor"
@@ -529,7 +571,8 @@ export const SingleFlowerInBox = () => {
                     relative
                     z-10
                     max-w-[88%]
-                    max-h-[82%]
+                    max-h-[78%]
+                    sm:max-h-[82%]
                     object-contain
                     transition-transform
                     duration-500
@@ -537,14 +580,21 @@ export const SingleFlowerInBox = () => {
                   "
                 />
               ) : (
-                <div className="text-center text-gray-300">
+                <div className="text-center text-gray-300 px-4">
 
                   <Flower2
-                    size={65}
+                    size={52}
+                    className="sm:hidden mx-auto"
                     strokeWidth={1}
                   />
 
-                  <p className="text-sm mt-2">
+                  <Flower2
+                    size={65}
+                    className="hidden sm:block mx-auto"
+                    strokeWidth={1}
+                  />
+
+                  <p className="text-xs sm:text-sm mt-2">
                     No image available
                   </p>
 
@@ -557,24 +607,32 @@ export const SingleFlowerInBox = () => {
                 DETAILS
             ============================ */}
 
-            <div className="pt-1">
+            <div className="pt-0.5 sm:pt-1 min-w-0">
 
               {/* CATEGORY */}
 
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-2">
+
+                <Flower2
+                  size={14}
+                  className="sm:hidden text-pink-500 shrink-0"
+                />
 
                 <Flower2
                   size={15}
-                  className="text-pink-500"
+                  className="hidden sm:block text-pink-500 shrink-0"
                 />
 
                 <span
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     font-bold
                     uppercase
-                    tracking-[0.18em]
+                    tracking-[0.15em]
+                    sm:tracking-[0.18em]
                     text-pink-500
+                    truncate
                   "
                 >
                   {singleFlowerInBox?.category ||
@@ -587,12 +645,14 @@ export const SingleFlowerInBox = () => {
 
               <h1
                 className="
-                  text-2xl
+                  text-xl
+                  min-[380px]:text-2xl
                   sm:text-3xl
                   font-extrabold
                   text-gray-900
                   capitalize
                   tracking-tight
+                  break-words
                 "
               >
                 {singleFlowerInBox?.name ||
@@ -603,9 +663,12 @@ export const SingleFlowerInBox = () => {
 
               <p
                 className="
-                  mt-4
-                  text-sm
-                  leading-6
+                  mt-3
+                  sm:mt-4
+                  text-xs
+                  sm:text-sm
+                  leading-5
+                  sm:leading-6
                   text-gray-500
                   max-w-xl
                 "
@@ -620,7 +683,8 @@ export const SingleFlowerInBox = () => {
 
                 <p
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     uppercase
                     tracking-wider
                     font-bold
@@ -630,11 +694,12 @@ export const SingleFlowerInBox = () => {
                   Price
                 </p>
 
-                <div className="flex items-baseline mt-0.5">
+                <div className="flex items-baseline mt-0.5 flex-wrap">
 
                   <span
                     className="
-                      text-base
+                      text-sm
+                      sm:text-base
                       font-semibold
                       text-gray-500
                       mr-1
@@ -645,7 +710,8 @@ export const SingleFlowerInBox = () => {
 
                   <span
                     className="
-                      text-2xl
+                      text-xl
+                      min-[380px]:text-2xl
                       font-extrabold
                       text-gray-900
                     "
@@ -657,7 +723,8 @@ export const SingleFlowerInBox = () => {
                     <span
                       className="
                         ml-2
-                        text-sm
+                        text-xs
+                        sm:text-sm
                         text-gray-400
                         line-through
                       "
@@ -672,21 +739,43 @@ export const SingleFlowerInBox = () => {
 
               {/* STOCK */}
 
-              <div className="flex items-center gap-2 mt-3">
+              <div className="flex items-start gap-2 mt-3">
+
+                <CheckCircle2
+                  size={15}
+                  className={`
+                    mt-0.5
+                    shrink-0
+                    sm:hidden
+                    ${
+                      isAvailable
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }
+                  `}
+                />
 
                 <CheckCircle2
                   size={16}
-                  className={
-                    isAvailable
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }
+                  className={`
+                    mt-0.5
+                    shrink-0
+                    hidden
+                    sm:block
+                    ${
+                      isAvailable
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }
+                  `}
                 />
 
                 <span
                   className={`
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-semibold
+                    leading-5
                     ${
                       isAvailable
                         ? "text-green-600"
@@ -705,7 +794,7 @@ export const SingleFlowerInBox = () => {
                   BUTTONS
               ============================ */}
 
-              <div className="grid grid-cols-2 gap-2 mt-4">
+              <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-2 mt-4">
 
                 {/* ADD TO CART */}
 
@@ -717,16 +806,20 @@ export const SingleFlowerInBox = () => {
                   }
                   onClick={handleAddToCart}
                   className="
-                    h-11
+                    w-full
+                    h-10
+                    sm:h-11
                     rounded-xl
                     bg-gray-900
                     text-white
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-bold
                     flex
                     items-center
                     justify-center
-                    gap-2
+                    gap-1.5
+                    sm:gap-2
                     hover:bg-pink-500
                     active:scale-[0.98]
                     disabled:bg-gray-100
@@ -736,7 +829,15 @@ export const SingleFlowerInBox = () => {
                     cursor-pointer
                   "
                 >
-                  <ShoppingCart size={17} />
+                  <ShoppingCart
+                    size={16}
+                    className="sm:hidden"
+                  />
+
+                  <ShoppingCart
+                    size={17}
+                    className="hidden sm:block"
+                  />
 
                   {isInCart
                     ? "Added to Cart"
@@ -752,16 +853,20 @@ export const SingleFlowerInBox = () => {
                   disabled={!isAvailable}
                   onClick={handleBuyNow}
                   className="
-                    h-11
+                    w-full
+                    h-10
+                    sm:h-11
                     rounded-xl
                     bg-pink-500
                     text-white
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-bold
                     flex
                     items-center
                     justify-center
-                    gap-2
+                    gap-1.5
+                    sm:gap-2
                     hover:bg-pink-600
                     active:scale-[0.98]
                     disabled:bg-gray-100
@@ -771,7 +876,15 @@ export const SingleFlowerInBox = () => {
                     cursor-pointer
                   "
                 >
-                  <Zap size={17} />
+                  <Zap
+                    size={16}
+                    className="sm:hidden"
+                  />
+
+                  <Zap
+                    size={17}
+                    className="hidden sm:block"
+                  />
 
                   {isAvailable
                     ? "Buy Now"
@@ -792,7 +905,8 @@ export const SingleFlowerInBox = () => {
                 }
                 className={`
                   w-full
-                  h-11
+                  h-10
+                  sm:h-11
                   rounded-xl
                   border
                   flex
@@ -800,6 +914,9 @@ export const SingleFlowerInBox = () => {
                   justify-center
                   gap-2
                   mt-2
+                  text-xs
+                  sm:text-sm
+                  font-medium
                   transition-all
                   cursor-pointer
 
@@ -811,7 +928,7 @@ export const SingleFlowerInBox = () => {
                 `}
               >
                 <Heart
-                  size={18}
+                  size={17}
                   fill={
                     isWishlisted
                       ? "currentColor"
@@ -830,8 +947,10 @@ export const SingleFlowerInBox = () => {
 
               <div
                 className="
-                  mt-6
-                  pt-5
+                  mt-5
+                  sm:mt-6
+                  pt-4
+                  sm:pt-5
                   border-t
                   border-gray-100
                 "
@@ -839,7 +958,8 @@ export const SingleFlowerInBox = () => {
 
                 <p
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     uppercase
                     tracking-wider
                     font-bold
@@ -871,9 +991,12 @@ export const SingleFlowerInBox = () => {
               grid
               grid-cols-1
               sm:grid-cols-3
-              gap-3
-              mt-8
-              pb-6
+              gap-2.5
+              sm:gap-3
+              mt-7
+              sm:mt-8
+              pb-5
+              sm:pb-6
             "
           >
 
@@ -883,8 +1006,10 @@ export const SingleFlowerInBox = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -895,8 +1020,10 @@ export const SingleFlowerInBox = () => {
 
               <div
                 className="
-                  w-9
-                  h-9
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
                   rounded-lg
                   bg-pink-50
                   flex
@@ -906,18 +1033,23 @@ export const SingleFlowerInBox = () => {
                 "
               >
                 <Flower2
+                  size={17}
+                  className="sm:hidden text-pink-500"
+                />
+
+                <Flower2
                   size={18}
-                  className="text-pink-500"
+                  className="hidden sm:block text-pink-500"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p className="text-xs sm:text-sm font-bold text-gray-800">
                   Fresh Flowers
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p className="text-[10px] sm:text-[11px] text-gray-400">
                   Beautifully arranged
                 </p>
 
@@ -931,8 +1063,10 @@ export const SingleFlowerInBox = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -943,8 +1077,10 @@ export const SingleFlowerInBox = () => {
 
               <div
                 className="
-                  w-9
-                  h-9
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
                   rounded-lg
                   bg-rose-50
                   flex
@@ -954,18 +1090,23 @@ export const SingleFlowerInBox = () => {
                 "
               >
                 <Truck
+                  size={17}
+                  className="sm:hidden text-rose-500"
+                />
+
+                <Truck
                   size={18}
-                  className="text-rose-500"
+                  className="hidden sm:block text-rose-500"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p className="text-xs sm:text-sm font-bold text-gray-800">
                   Fast Delivery
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p className="text-[10px] sm:text-[11px] text-gray-400">
                   Delivered with care
                 </p>
 
@@ -979,8 +1120,10 @@ export const SingleFlowerInBox = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -991,8 +1134,10 @@ export const SingleFlowerInBox = () => {
 
               <div
                 className="
-                  w-9
-                  h-9
+                  w-8
+                  h-8
+                  sm:w-9
+                  sm:h-9
                   rounded-lg
                   bg-green-50
                   flex
@@ -1002,18 +1147,23 @@ export const SingleFlowerInBox = () => {
                 "
               >
                 <ShieldCheck
+                  size={17}
+                  className="sm:hidden text-green-500"
+                />
+
+                <ShieldCheck
                   size={18}
-                  className="text-green-500"
+                  className="hidden sm:block text-green-500"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p className="text-xs sm:text-sm font-bold text-gray-800">
                   Quality Assured
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p className="text-[10px] sm:text-[11px] text-gray-400">
                   Premium quality flowers
                 </p>
 

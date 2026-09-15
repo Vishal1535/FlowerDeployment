@@ -70,7 +70,9 @@ export const DelelteBouquetAddToPopUp = () => {
         items-center
         justify-center
         bg-black/40
-        px-4
+        px-3
+        sm:px-4
+        py-4
       "
       onClick={HandleClose}
     >
@@ -80,9 +82,13 @@ export const DelelteBouquetAddToPopUp = () => {
           w-full
           max-w-sm
           bg-white
-          rounded-2xl
+          rounded-xl
+          sm:rounded-2xl
           shadow-2xl
-          p-5
+          p-4
+          sm:p-5
+          max-h-[90vh]
+          overflow-y-auto
         "
         onClick={(e) =>
           e.stopPropagation()
@@ -93,34 +99,37 @@ export const DelelteBouquetAddToPopUp = () => {
             HEADER
         ============================== */}
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between gap-3">
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
 
             <div
               className="
-                w-10
-                h-10
+                w-9
+                h-9
+                sm:w-10
+                sm:h-10
                 rounded-full
                 bg-red-50
                 flex
                 items-center
                 justify-center
+                shrink-0
               "
             >
               <Trash2
-                size={19}
-                className="text-red-500"
+                size={17}
+                className="text-red-500 sm:w-[19px] sm:h-[19px]"
               />
             </div>
 
-            <div>
+            <div className="min-w-0">
 
-              <h2 className="text-base font-bold text-gray-900">
+              <h2 className="text-sm sm:text-base font-bold text-gray-900 truncate">
                 Remove Bouquet
               </h2>
 
-              <p className="text-xs text-gray-400">
+              <p className="text-[11px] sm:text-xs text-gray-400 break-words">
                 Remove this bouquet from cart?
               </p>
 
@@ -143,9 +152,10 @@ export const DelelteBouquetAddToPopUp = () => {
               hover:text-gray-700
               transition
               cursor-pointer
+              shrink-0
             "
           >
-            <X size={18} />
+            <X size={17} />
           </button>
 
         </div>
@@ -154,7 +164,7 @@ export const DelelteBouquetAddToPopUp = () => {
             MESSAGE
         ============================== */}
 
-        <p className="text-sm text-gray-500 mt-5">
+        <p className="text-xs sm:text-sm text-gray-500 mt-4 sm:mt-5 leading-relaxed">
           Are you sure you want to remove
           this bouquet from your cart?
         </p>
@@ -163,27 +173,30 @@ export const DelelteBouquetAddToPopUp = () => {
             BUTTONS
         ============================== */}
 
-        <div className="flex gap-3 mt-6">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-3 mt-5 sm:mt-6">
 
           <button
             type="button"
             onClick={HandleClose}
             disabled={loading}
             className="
-              flex-1
-              h-10
-              rounded-xl
+              w-full
+              min-h-10
+              rounded-lg
+              sm:rounded-xl
               border
               border-gray-200
               bg-white
               text-gray-700
-              text-sm
+              text-xs
+              sm:text-sm
               font-semibold
               hover:bg-gray-50
               transition
               cursor-pointer
               disabled:opacity-50
               disabled:cursor-not-allowed
+              px-2
             "
           >
             Cancel
@@ -194,12 +207,14 @@ export const DelelteBouquetAddToPopUp = () => {
             onClick={HandleDelete}
             disabled={loading}
             className="
-              flex-1
-              h-10
-              rounded-xl
+              w-full
+              min-h-10
+              rounded-lg
+              sm:rounded-xl
               bg-red-500
               text-white
-              text-sm
+              text-xs
+              sm:text-sm
               font-semibold
               hover:bg-red-600
               transition
@@ -209,19 +224,24 @@ export const DelelteBouquetAddToPopUp = () => {
               flex
               items-center
               justify-center
-              gap-2
+              gap-1.5
+              px-2
             "
           >
 
             {loading ? (
               <>
-                <span className="loading loading-spinner loading-xs" />
-                Removing...
+                <span className="loading loading-spinner loading-xs shrink-0" />
+                <span className="truncate">
+                  Removing...
+                </span>
               </>
             ) : (
               <>
-                <Trash2 size={15} />
-                Remove
+                <Trash2 size={14} className="shrink-0" />
+                <span>
+                  Remove
+                </span>
               </>
             )}
 

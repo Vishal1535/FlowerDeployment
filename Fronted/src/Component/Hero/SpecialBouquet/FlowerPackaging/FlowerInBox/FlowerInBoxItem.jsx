@@ -156,8 +156,10 @@ export const FlowerInBoxItem = ({ flower }) => {
       className="
         group
         w-full
+        min-w-0
         overflow-hidden
-        rounded-2xl
+        rounded-xl
+        sm:rounded-2xl
         bg-white
         border border-gray-100
         shadow-sm
@@ -173,7 +175,10 @@ export const FlowerInBoxItem = ({ flower }) => {
       <div
         className="
           relative
-          h-52
+          h-48
+          min-[380px]:h-52
+          sm:h-60
+          lg:h-64
           overflow-hidden
           bg-gradient-to-br
           from-pink-50
@@ -192,7 +197,9 @@ export const FlowerInBoxItem = ({ flower }) => {
               w-full
               h-full
               object-contain
-              p-4
+              p-3
+              min-[380px]:p-4
+              sm:p-5
               transition-transform
               duration-500
               group-hover:scale-105
@@ -210,11 +217,18 @@ export const FlowerInBoxItem = ({ flower }) => {
             "
           >
             <Flower2
-              size={48}
+              size={40}
+              className="sm:hidden"
               strokeWidth={1.2}
             />
 
-            <span className="text-xs mt-2">
+            <Flower2
+              size={48}
+              className="hidden sm:block"
+              strokeWidth={1.2}
+            />
+
+            <span className="text-[10px] sm:text-xs mt-2">
               No image
             </span>
           </div>
@@ -225,13 +239,18 @@ export const FlowerInBoxItem = ({ flower }) => {
         <span
           className={`
             absolute
-            top-3
-            left-3
-            px-2.5
+            top-2
+            left-2
+            sm:top-3
+            sm:left-3
+            px-2
+            sm:px-2.5
             py-1
             rounded-full
-            text-[10px]
+            text-[9px]
+            sm:text-[10px]
             font-semibold
+            whitespace-nowrap
 
             ${
               isAvailable
@@ -261,10 +280,14 @@ export const FlowerInBoxItem = ({ flower }) => {
           }
           className={`
             absolute
-            top-3
-            right-3
+            top-2
+            right-2
+            sm:top-3
+            sm:right-3
             w-8
             h-8
+            sm:w-9
+            sm:h-9
             rounded-full
             shadow-sm
             flex
@@ -281,7 +304,18 @@ export const FlowerInBoxItem = ({ flower }) => {
           `}
         >
           <Heart
-            size={15}
+            size={14}
+            className="sm:hidden"
+            fill={
+              isWishlisted
+                ? "currentColor"
+                : "none"
+            }
+          />
+
+          <Heart
+            size={16}
+            className="hidden sm:block"
             fill={
               isWishlisted
                 ? "currentColor"
@@ -295,13 +329,19 @@ export const FlowerInBoxItem = ({ flower }) => {
         <span
           className="
             absolute
-            bottom-3
-            left-3
-            px-2.5
+            bottom-2
+            left-2
+            sm:bottom-3
+            sm:left-3
+            max-w-[65%]
+            truncate
+            px-2
+            sm:px-2.5
             py-1
             rounded-md
             bg-white/90
-            text-[10px]
+            text-[9px]
+            sm:text-[10px]
             font-medium
             text-gray-600
           "
@@ -313,15 +353,18 @@ export const FlowerInBoxItem = ({ flower }) => {
 
       {/* ================= CONTENT ================= */}
 
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
 
         {/* ================= NAME + PRICE ================= */}
 
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start justify-between gap-2 sm:gap-3">
 
           <h3
             className="
-              text-base
+              min-w-0
+              flex-1
+              text-sm
+              sm:text-base
               font-semibold
               text-gray-900
               capitalize
@@ -334,12 +377,12 @@ export const FlowerInBoxItem = ({ flower }) => {
 
           <div className="shrink-0 text-right">
 
-            <p className="text-base font-bold text-gray-900">
+            <p className="text-sm sm:text-base font-bold text-gray-900">
               ₹{finalPrice}
             </p>
 
             {hasDiscount && (
-              <p className="text-[10px] text-gray-400 line-through">
+              <p className="text-[9px] sm:text-[10px] text-gray-400 line-through">
                 ₹{flower.price}
               </p>
             )}
@@ -353,11 +396,13 @@ export const FlowerInBoxItem = ({ flower }) => {
         <p
           className="
             mt-2
-            text-xs
+            text-[11px]
+            sm:text-xs
             text-gray-500
             leading-relaxed
             line-clamp-2
-            min-h-[32px]
+            min-h-[30px]
+            sm:min-h-[32px]
           "
         >
           {flower?.description ||
@@ -371,8 +416,10 @@ export const FlowerInBoxItem = ({ flower }) => {
             flex
             items-center
             justify-between
+            gap-2
             mt-3
-            text-xs
+            text-[11px]
+            sm:text-xs
           "
         >
           <span className="text-gray-400">
@@ -382,8 +429,8 @@ export const FlowerInBoxItem = ({ flower }) => {
           <span
             className={
               isAvailable
-                ? "font-semibold text-gray-700"
-                : "font-semibold text-red-500"
+                ? "font-semibold text-gray-700 text-right"
+                : "font-semibold text-red-500 text-right"
             }
           >
             {isAvailable
@@ -399,7 +446,7 @@ export const FlowerInBoxItem = ({ flower }) => {
 
         {/* ================= BUTTONS ================= */}
 
-        <div className="flex gap-2">
+        <div className="flex flex-col min-[380px]:flex-row gap-2">
 
           {/* VIEW */}
 
@@ -411,14 +458,17 @@ export const FlowerInBoxItem = ({ flower }) => {
               )
             }
             className="
-              flex-1
-              h-10
+              w-full
+              min-[380px]:flex-1
+              h-9
+              sm:h-10
               rounded-lg
               border
               border-gray-200
               bg-white
               text-gray-600
-              text-xs
+              text-[11px]
+              sm:text-xs
               font-semibold
               flex
               items-center
@@ -431,7 +481,8 @@ export const FlowerInBoxItem = ({ flower }) => {
               cursor-pointer
             "
           >
-            <Eye size={15} />
+            <Eye size={14} className="sm:hidden" />
+            <Eye size={15} className="hidden sm:block" />
             View
           </button>
 
@@ -449,12 +500,15 @@ export const FlowerInBoxItem = ({ flower }) => {
               )
             }
             className="
-              flex-1
-              h-10
+              w-full
+              min-[380px]:flex-1
+              h-9
+              sm:h-10
               rounded-lg
               bg-gray-900
               text-white
-              text-xs
+              text-[11px]
+              sm:text-xs
               font-semibold
               flex
               items-center
@@ -468,7 +522,15 @@ export const FlowerInBoxItem = ({ flower }) => {
               disabled:cursor-not-allowed
             "
           >
-            <ShoppingCart size={15} />
+            <ShoppingCart
+              size={14}
+              className="sm:hidden"
+            />
+
+            <ShoppingCart
+              size={15}
+              className="hidden sm:block"
+            />
 
             {isInCart
               ? "Added to Cart"

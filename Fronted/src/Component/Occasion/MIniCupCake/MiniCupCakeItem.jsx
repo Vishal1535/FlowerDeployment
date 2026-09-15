@@ -8,11 +8,11 @@ import {
   AddMiniCupcakeToCartThunk,
 } from "../../../Store/AddToCart/MiniCupCake/MiniCupCakeAddToCartApi";
 
-export const MiniCupCakeItem = ({ miniCupcake }) => {
+export const MiniCupCakeItem = ({ miniCupCake }) => {
   const dispatch = useDispatch();
 
   const {
-    miniCupcakeFromCart = [],
+    miniCupCakeFromCart = [],
   } = useSelector(
     (state) => state.MiniCupCakeAddToCart
   );
@@ -31,10 +31,10 @@ export const MiniCupCakeItem = ({ miniCupcake }) => {
 
   // ================= CHECK ALREADY IN CART =================
 
-  const isInCart = miniCupcakeFromCart.some(
+  const isInCart = miniCupCakeFromCart.some(
     (item) =>
-      item?.miniCupcake?._id?.toString() ===
-      miniCupcake?._id?.toString()
+      item?.miniCupCake?._id?.toString() ===
+      miniCupCake?._id?.toString()
   );
 
   // ================= ADD TO CART =================
@@ -68,8 +68,11 @@ export const MiniCupCakeItem = ({ miniCupcake }) => {
   return (
     <div className="
       group
+      w-full
+      min-w-0
       bg-white
       rounded-xl
+      sm:rounded-2xl
       border
       border-gray-100
       overflow-hidden
@@ -84,17 +87,19 @@ export const MiniCupCakeItem = ({ miniCupcake }) => {
 
       <div className="
         w-full
-        h-32
+        h-28
+        min-[380px]:h-32
+        sm:h-36
         bg-pink-50
         overflow-hidden
       ">
 
-        {miniCupcake?.image ? (
+        {miniCupCake?.image ? (
           <img
-            src={miniCupcake.image}
+            src={miniCupCake.image}
             alt={
-              miniCupcake?.name ||
-              "Mini Cupcake"
+              miniCupCake?.name ||
+              "Mini CupCake"
             }
             className="
               w-full
@@ -112,7 +117,8 @@ export const MiniCupCakeItem = ({ miniCupcake }) => {
             flex
             items-center
             justify-center
-            text-4xl
+            text-3xl
+            min-[380px]:text-4xl
           ">
             🧁
           </div>
@@ -122,29 +128,36 @@ export const MiniCupCakeItem = ({ miniCupcake }) => {
 
       {/* CONTENT */}
 
-      <div className="p-3">
+      <div className="
+        p-2.5
+        min-[380px]:p-3
+        min-w-0
+      ">
 
         {/* NAME */}
 
         <h3 className="
-          text-sm
+          text-xs
+          min-[380px]:text-sm
           font-bold
           text-gray-800
           truncate
         ">
-          {miniCupcake?.name ||
-            "Delicious Mini Cupcake"}
+          {miniCupCake?.name ||
+            "Delicious Mini CupCake"}
         </h3>
 
         {/* PRICE */}
 
         <p className="
-          text-base
+          text-sm
+          min-[380px]:text-base
           font-extrabold
           text-gray-900
-          mt-1
+          mt-0.5
+          min-[380px]:mt-1
         ">
-          ₹{miniCupcake?.price ?? 0}
+          ₹{miniCupCake?.price ?? 0}
         </p>
 
         {/* ADD TO CART */}
@@ -152,24 +165,28 @@ export const MiniCupCakeItem = ({ miniCupcake }) => {
         <button
           type="button"
           disabled={
-            !miniCupcake?.isAvailable ||
+            !miniCupCake?.isAvailable ||
             isInCart
           }
           onClick={() =>
-            HandleAddToCart(miniCupcake?._id)
+            HandleAddToCart(miniCupCake?._id)
           }
           className="
             w-full
-            h-9
-            mt-2.5
+            h-8
+            min-[380px]:h-9
+            mt-2
+            min-[380px]:mt-2.5
             rounded-lg
             bg-gray-900
             text-white
             flex
             items-center
             justify-center
-            gap-1.5
-            text-xs
+            gap-1
+            min-[380px]:gap-1.5
+            text-[10px]
+            min-[380px]:text-xs
             font-semibold
             hover:bg-pink-500
             active:scale-[0.98]
@@ -178,13 +195,17 @@ export const MiniCupCakeItem = ({ miniCupcake }) => {
             disabled:cursor-not-allowed
             transition-all
             cursor-pointer
+            whitespace-nowrap
           "
         >
-          <ShoppingBag size={14} />
+          <ShoppingBag
+            size={13}
+            className="min-[380px]:w-3.5 min-[380px]:h-3.5"
+          />
 
           {isInCart
             ? "Added to Cart"
-            : miniCupcake?.isAvailable
+            : miniCupCake?.isAvailable
               ? "Add to Cart"
               : "Unavailable"}
         </button>

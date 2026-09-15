@@ -1,6 +1,10 @@
+
 import React, { useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
+
 import { Eye, EyeOff, X, Bike, Mail, Phone, User } from "lucide-react";
+
 import toast from "react-hot-toast";
 
 import { createDeliveryBoyThunk } from "../../Store/Admin/DeliveryBoy/DeliveryApi";
@@ -101,6 +105,7 @@ export const CreateDeliveryBoy = () => {
       formData.vehicleNumber.trim();
 
     // NAME
+
     if (!name) {
       toast.error("Please enter delivery boy name");
       return false;
@@ -114,13 +119,14 @@ export const CreateDeliveryBoy = () => {
     }
 
     // EMAIL
+
     if (!email) {
       toast.error("Please enter email address");
       return false;
     }
 
-    const emailRegex =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   const emailRegex =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
       toast.error("Please enter a valid email address");
@@ -128,6 +134,7 @@ export const CreateDeliveryBoy = () => {
     }
 
     // PHONE
+
     if (!phone) {
       toast.error("Please enter phone number");
       return false;
@@ -143,6 +150,7 @@ export const CreateDeliveryBoy = () => {
     }
 
     // PASSWORD
+
     if (!password) {
       toast.error("Please enter password");
       return false;
@@ -156,6 +164,7 @@ export const CreateDeliveryBoy = () => {
     }
 
     // CONFIRM PASSWORD
+
     if (!confirmPassword) {
       toast.error("Please confirm password");
       return false;
@@ -167,6 +176,7 @@ export const CreateDeliveryBoy = () => {
     }
 
     // VEHICLE NUMBER
+
     if (vehicleNumber) {
       if (vehicleNumber.length < 4) {
         toast.error(
@@ -246,8 +256,10 @@ export const CreateDeliveryBoy = () => {
         justify-center
         bg-black/30
         backdrop-blur-sm
-        px-4
-        py-6
+        px-2
+        sm:px-4
+        py-3
+        sm:py-6
       "
     >
       {/* =================================================
@@ -259,10 +271,12 @@ export const CreateDeliveryBoy = () => {
           relative
           w-full
           max-w-2xl
-          max-h-[90vh]
+          max-h-[94vh]
+          sm:max-h-[90vh]
           overflow-y-auto
           bg-white
-          rounded-3xl
+          rounded-2xl
+          sm:rounded-3xl
           shadow-2xl
           border
           border-pink-100
@@ -280,19 +294,27 @@ export const CreateDeliveryBoy = () => {
             bg-white
             border-b
             border-gray-100
-            px-6
-            py-5
+            px-4
+            sm:px-6
+            py-3.5
+            sm:py-5
           "
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-3">
+
             {/* LEFT */}
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2.5 sm:gap-4 min-w-0">
+
               <div
                 className="
-                  w-12
-                  h-12
-                  rounded-2xl
+                  w-10
+                  h-10
+                  sm:w-12
+                  sm:h-12
+                  shrink-0
+                  rounded-xl
+                  sm:rounded-2xl
                   bg-pink-100
                   text-pink-600
                   flex
@@ -300,18 +322,41 @@ export const CreateDeliveryBoy = () => {
                   justify-center
                 "
               >
-                <Bike size={25} />
+                <Bike
+                  size={21}
+                  className="sm:w-[25px] sm:h-[25px]"
+                />
               </div>
 
-              <div>
-                <h2 className="text-xl font-bold text-gray-800">
+              <div className="min-w-0">
+
+                <h2
+                  className="
+                    text-lg
+                    sm:text-xl
+                    font-bold
+                    text-gray-800
+                    truncate
+                  "
+                >
                   Add Delivery Boy
                 </h2>
 
-                <p className="text-sm text-gray-500 mt-1">
+                <p
+                  className="
+                    text-xs
+                    sm:text-sm
+                    text-gray-500
+                    mt-0.5
+                    sm:mt-1
+                    truncate
+                  "
+                >
                   Create a new delivery team member
                 </p>
+
               </div>
+
             </div>
 
             {/* CLOSE */}
@@ -322,6 +367,7 @@ export const CreateDeliveryBoy = () => {
               className="
                 w-9
                 h-9
+                shrink-0
                 rounded-full
                 flex
                 items-center
@@ -334,6 +380,7 @@ export const CreateDeliveryBoy = () => {
             >
               <X size={20} />
             </button>
+
           </div>
         </div>
 
@@ -343,26 +390,35 @@ export const CreateDeliveryBoy = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-6 space-y-5"
+          className="
+            p-4
+            sm:p-6
+            space-y-4
+            sm:space-y-5
+          "
         >
           {/* =================================================
               PERSONAL INFORMATION
           ================================================= */}
 
           <div>
+
             <h3 className="text-sm font-semibold text-gray-800 mb-3">
               Personal Information
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+
               {/* NAME */}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                  Full Name <span className="text-red-500">*</span>
+                  Full Name{" "}
+                  <span className="text-red-500">*</span>
                 </label>
 
                 <div className="relative">
+
                   <User
                     size={17}
                     className="
@@ -398,6 +454,7 @@ export const CreateDeliveryBoy = () => {
                     "
                     required
                   />
+
                 </div>
               </div>
 
@@ -410,6 +467,7 @@ export const CreateDeliveryBoy = () => {
                 </label>
 
                 <div className="relative">
+
                   <Phone
                     size={17}
                     className="
@@ -455,18 +513,21 @@ export const CreateDeliveryBoy = () => {
                     "
                     required
                   />
+
                 </div>
               </div>
 
               {/* EMAIL */}
 
               <div className="sm:col-span-2">
+
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Email Address{" "}
                   <span className="text-red-500">*</span>
                 </label>
 
                 <div className="relative">
+
                   <Mail
                     size={17}
                     className="
@@ -502,8 +563,10 @@ export const CreateDeliveryBoy = () => {
                     "
                     required
                   />
+
                 </div>
               </div>
+
             </div>
           </div>
 
@@ -512,20 +575,24 @@ export const CreateDeliveryBoy = () => {
           ================================================= */}
 
           <div>
+
             <h3 className="text-sm font-semibold text-gray-800 mb-3">
               Login Information
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+
               {/* PASSWORD */}
 
               <div>
+
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Password{" "}
                   <span className="text-red-500">*</span>
                 </label>
 
                 <div className="relative">
+
                   <input
                     type={
                       showPassword
@@ -577,18 +644,21 @@ export const CreateDeliveryBoy = () => {
                       <Eye size={18} />
                     )}
                   </button>
+
                 </div>
               </div>
 
               {/* CONFIRM PASSWORD */}
 
               <div>
+
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Confirm Password{" "}
                   <span className="text-red-500">*</span>
                 </label>
 
                 <div className="relative">
+
                   <input
                     type={
                       showConfirmPassword
@@ -640,8 +710,10 @@ export const CreateDeliveryBoy = () => {
                       <Eye size={18} />
                     )}
                   </button>
+
                 </div>
               </div>
+
             </div>
           </div>
 
@@ -650,14 +722,17 @@ export const CreateDeliveryBoy = () => {
           ================================================= */}
 
           <div>
+
             <h3 className="text-sm font-semibold text-gray-800 mb-3">
               Vehicle Information
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+
               {/* VEHICLE TYPE */}
 
               <div>
+
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Vehicle Type
                 </label>
@@ -699,11 +774,13 @@ export const CreateDeliveryBoy = () => {
                     Other
                   </option>
                 </select>
+
               </div>
 
               {/* VEHICLE NUMBER */}
 
               <div>
+
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Vehicle Number
                 </label>
@@ -731,7 +808,9 @@ export const CreateDeliveryBoy = () => {
                     transition
                   "
                 />
+
               </div>
+
             </div>
           </div>
 
@@ -742,7 +821,8 @@ export const CreateDeliveryBoy = () => {
           {error && (
             <div
               className="
-                px-4
+                px-3.5
+                sm:px-4
                 py-3
                 rounded-xl
                 bg-red-50
@@ -750,6 +830,7 @@ export const CreateDeliveryBoy = () => {
                 border-red-100
                 text-sm
                 text-red-600
+                break-words
               "
             >
               {error}
@@ -766,12 +847,14 @@ export const CreateDeliveryBoy = () => {
               flex-col-reverse
               sm:flex-row
               sm:justify-end
-              gap-3
+              gap-2.5
+              sm:gap-3
               pt-3
               border-t
               border-gray-100
             "
           >
+
             {/* CANCEL */}
 
             <button
@@ -779,6 +862,8 @@ export const CreateDeliveryBoy = () => {
               onClick={handleClose}
               disabled={loading}
               className="
+                w-full
+                sm:w-auto
                 px-5
                 py-2.5
                 rounded-xl
@@ -800,6 +885,8 @@ export const CreateDeliveryBoy = () => {
               type="submit"
               disabled={loading}
               className="
+                w-full
+                sm:w-auto
                 px-6
                 py-2.5
                 rounded-xl
@@ -830,9 +917,12 @@ export const CreateDeliveryBoy = () => {
                 </>
               )}
             </button>
+
           </div>
+
         </form>
       </div>
     </div>
   );
 };
+

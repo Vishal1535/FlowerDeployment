@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import {
   ArrowLeft,
@@ -262,13 +261,15 @@ export const SingleFlower = () => {
       <>
         <Auth />
 
-        <div className="min-h-[75vh] flex items-center justify-center">
+        <div className="min-h-[70vh] sm:min-h-[75vh] flex items-center justify-center px-4">
           <div className="text-center">
 
             <div
               className="
-                w-14
-                h-14
+                w-12
+                h-12
+                sm:w-14
+                sm:h-14
                 mx-auto
                 rounded-full
                 bg-pink-50
@@ -279,12 +280,17 @@ export const SingleFlower = () => {
               "
             >
               <Flower2
+                size={23}
+                className="text-pink-400 sm:hidden"
+              />
+
+              <Flower2
                 size={26}
-                className="text-pink-400"
+                className="text-pink-400 hidden sm:block"
               />
             </div>
 
-            <p className="mt-3 text-sm text-gray-500">
+            <p className="mt-3 text-xs sm:text-sm text-gray-500">
               Loading flower details...
             </p>
 
@@ -309,13 +315,13 @@ export const SingleFlower = () => {
     <>
       <Auth />
 
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-white overflow-hidden">
 
         {/* ============================
             BACK
         ============================ */}
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-5">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 pt-4 sm:pt-5">
 
           <button
             type="button"
@@ -323,8 +329,10 @@ export const SingleFlower = () => {
             className="
               inline-flex
               items-center
-              gap-2
-              text-sm
+              gap-1.5
+              sm:gap-2
+              text-xs
+              sm:text-sm
               font-medium
               text-gray-500
               hover:text-pink-600
@@ -332,7 +340,8 @@ export const SingleFlower = () => {
               cursor-pointer
             "
           >
-            <ArrowLeft size={17} />
+            <ArrowLeft size={16} className="sm:hidden" />
+            <ArrowLeft size={17} className="hidden sm:block" />
 
             Back to Flowers
           </button>
@@ -343,14 +352,15 @@ export const SingleFlower = () => {
             PRODUCT SECTION
         ============================ */}
 
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        <section className="max-w-6xl mx-auto px-3 sm:px-6 py-5 sm:py-6">
 
           <div
             className="
               grid
               grid-cols-1
               lg:grid-cols-[0.9fr_1.1fr]
-              gap-7
+              gap-6
+              sm:gap-7
               lg:gap-10
               items-start
             "
@@ -364,10 +374,12 @@ export const SingleFlower = () => {
               className="
                 relative
                 w-full
-                h-[300px]
+                h-[270px]
+                min-[380px]:h-[300px]
                 sm:h-[340px]
                 lg:h-[390px]
-                rounded-3xl
+                rounded-2xl
+                sm:rounded-3xl
                 overflow-hidden
                 bg-gradient-to-br
                 from-pink-50
@@ -386,10 +398,14 @@ export const SingleFlower = () => {
               <div
                 className="
                   absolute
-                  -top-16
-                  -right-16
-                  w-44
-                  h-44
+                  -top-12
+                  -right-12
+                  sm:-top-16
+                  sm:-right-16
+                  w-32
+                  h-32
+                  sm:w-44
+                  sm:h-44
                   rounded-full
                   bg-white/70
                 "
@@ -398,10 +414,14 @@ export const SingleFlower = () => {
               <div
                 className="
                   absolute
-                  -bottom-20
-                  -left-20
-                  w-52
-                  h-52
+                  -bottom-14
+                  -left-14
+                  sm:-bottom-20
+                  sm:-left-20
+                  w-40
+                  h-40
+                  sm:w-52
+                  sm:h-52
                   rounded-full
                   bg-pink-100/40
                 "
@@ -412,13 +432,18 @@ export const SingleFlower = () => {
               <div
                 className={`
                   absolute
-                  top-4
-                  left-4
+                  top-3
+                  left-3
+                  sm:top-4
+                  sm:left-4
                   z-20
-                  px-3
-                  py-1.5
+                  px-2.5
+                  sm:px-3
+                  py-1
+                  sm:py-1.5
                   rounded-full
-                  text-[11px]
+                  text-[10px]
+                  sm:text-[11px]
                   font-bold
 
                   ${
@@ -447,11 +472,15 @@ export const SingleFlower = () => {
                 }
                 className={`
                   absolute
-                  top-4
-                  right-4
+                  top-3
+                  right-3
+                  sm:top-4
+                  sm:right-4
                   z-20
-                  w-10
-                  h-10
+                  w-9
+                  h-9
+                  sm:w-10
+                  sm:h-10
                   rounded-full
                   border
                   shadow-sm
@@ -470,7 +499,18 @@ export const SingleFlower = () => {
                 `}
               >
                 <Heart
+                  size={17}
+                  className="sm:hidden"
+                  fill={
+                    isWishlisted
+                      ? "currentColor"
+                      : "none"
+                  }
+                />
+
+                <Heart
                   size={18}
+                  className="hidden sm:block"
                   fill={
                     isWishlisted
                       ? "currentColor"
@@ -491,8 +531,10 @@ export const SingleFlower = () => {
                   className="
                     relative
                     z-10
-                    max-w-[88%]
-                    max-h-[82%]
+                    max-w-[86%]
+                    sm:max-w-[88%]
+                    max-h-[78%]
+                    sm:max-h-[82%]
                     object-contain
                     transition-transform
                     duration-500
@@ -500,14 +542,21 @@ export const SingleFlower = () => {
                   "
                 />
               ) : (
-                <div className="text-center text-gray-300">
+                <div className="text-center text-gray-300 px-4">
 
                   <Flower2
-                    size={65}
+                    size={55}
+                    className="mx-auto sm:hidden"
                     strokeWidth={1}
                   />
 
-                  <p className="text-sm mt-2">
+                  <Flower2
+                    size={65}
+                    className="hidden sm:block mx-auto"
+                    strokeWidth={1}
+                  />
+
+                  <p className="text-xs sm:text-sm mt-2">
                     No image available
                   </p>
 
@@ -520,23 +569,25 @@ export const SingleFlower = () => {
                 RIGHT - PRODUCT DETAILS
             ============================ */}
 
-            <div className="pt-1">
+            <div className="pt-0.5 sm:pt-1 min-w-0">
 
               {/* CATEGORY */}
 
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-2">
 
                 <Flower2
-                  size={15}
-                  className="text-pink-500"
+                  size={14}
+                  className="text-pink-500 shrink-0"
                 />
 
                 <span
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     font-bold
                     uppercase
-                    tracking-[0.18em]
+                    tracking-[0.14em]
+                    sm:tracking-[0.18em]
                     text-pink-500
                   "
                 >
@@ -550,12 +601,15 @@ export const SingleFlower = () => {
 
               <h1
                 className="
-                  text-2xl
+                  text-[25px]
+                  min-[380px]:text-2xl
                   sm:text-3xl
                   font-extrabold
                   text-gray-900
                   capitalize
                   tracking-tight
+                  leading-tight
+                  break-words
                 "
               >
                 {singleFlower?.name ||
@@ -566,13 +620,13 @@ export const SingleFlower = () => {
 
               <div className="flex items-center gap-2 mt-2">
 
-                <span className="text-xs text-gray-400">
+                <span className="text-[11px] sm:text-xs text-gray-400">
                   Color
                 </span>
 
-                <span className="w-1 h-1 rounded-full bg-gray-300" />
+                <span className="w-1 h-1 rounded-full bg-gray-300 shrink-0" />
 
-                <span className="text-xs font-semibold text-gray-700">
+                <span className="text-[11px] sm:text-xs font-semibold text-gray-700 break-words">
                   {singleFlower?.color || "—"}
                 </span>
 
@@ -582,9 +636,12 @@ export const SingleFlower = () => {
 
               <p
                 className="
-                  mt-4
-                  text-sm
-                  leading-6
+                  mt-3
+                  sm:mt-4
+                  text-[13px]
+                  sm:text-sm
+                  leading-5
+                  sm:leading-6
                   text-gray-500
                   max-w-xl
                 "
@@ -599,7 +656,8 @@ export const SingleFlower = () => {
 
                 <p
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     uppercase
                     tracking-wider
                     font-bold
@@ -609,11 +667,12 @@ export const SingleFlower = () => {
                   Price
                 </p>
 
-                <div className="flex items-baseline gap-2 mt-0.5">
+                <div className="flex items-baseline gap-2 mt-0.5 flex-wrap">
 
                   <span
                     className="
                       text-2xl
+                      sm:text-2xl
                       font-extrabold
                       text-gray-900
                     "
@@ -629,7 +688,7 @@ export const SingleFlower = () => {
                   {singleFlower?.discountPrice > 0 &&
                     singleFlower?.discountPrice <
                       singleFlower?.price && (
-                      <span className="text-sm text-gray-400 line-through">
+                      <span className="text-xs sm:text-sm text-gray-400 line-through">
                         ₹{singleFlower?.price}
                       </span>
                     )}
@@ -640,21 +699,28 @@ export const SingleFlower = () => {
 
               {/* STOCK */}
 
-              <div className="flex items-center gap-2 mt-3">
+              <div className="flex items-start sm:items-center gap-2 mt-3">
 
                 <CheckCircle2
                   size={16}
-                  className={
-                    isAvailable
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }
+                  className={`
+                    shrink-0
+                    mt-0.5
+                    sm:mt-0
+                    ${
+                      isAvailable
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }
+                  `}
                 />
 
                 <span
                   className={`
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-semibold
+                    leading-5
 
                     ${
                       isAvailable
@@ -672,7 +738,7 @@ export const SingleFlower = () => {
 
               {/* ================= BUTTONS ================= */}
 
-              <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-2 mt-4">
+              <div className="grid grid-cols-1 min-[380px]:grid-cols-2 sm:grid-cols-[1fr_1fr_auto] gap-2 mt-4">
 
                 {/* ADD TO CART */}
 
@@ -684,12 +750,14 @@ export const SingleFlower = () => {
                     h-11
                     rounded-xl
                     text-white
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-bold
                     flex
                     items-center
                     justify-center
-                    gap-2
+                    gap-1.5
+                    sm:gap-2
                     active:scale-[0.98]
                     transition-all
                     cursor-pointer
@@ -705,7 +773,7 @@ export const SingleFlower = () => {
                     disabled:cursor-not-allowed
                   `}
                 >
-                  <ShoppingCart size={17} />
+                  <ShoppingCart size={16} />
 
                   {!isAvailable
                     ? "Unavailable"
@@ -728,19 +796,21 @@ export const SingleFlower = () => {
                     disabled:bg-gray-100
                     disabled:text-gray-400
                     text-white
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-bold
                     flex
                     items-center
                     justify-center
-                    gap-2
+                    gap-1.5
+                    sm:gap-2
                     active:scale-[0.98]
                     transition-all
                     cursor-pointer
                     disabled:cursor-not-allowed
                   "
                 >
-                  <Zap size={17} />
+                  <Zap size={16} />
 
                   Buy Now
                 </button>
@@ -792,8 +862,10 @@ export const SingleFlower = () => {
 
               <div
                 className="
-                  mt-6
-                  pt-5
+                  mt-5
+                  sm:mt-6
+                  pt-4
+                  sm:pt-5
                   border-t
                   border-gray-100
                 "
@@ -801,7 +873,8 @@ export const SingleFlower = () => {
 
                 <p
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     uppercase
                     tracking-wider
                     font-bold
@@ -833,9 +906,12 @@ export const SingleFlower = () => {
               grid
               grid-cols-1
               sm:grid-cols-3
-              gap-3
-              mt-8
-              pb-6
+              gap-2.5
+              sm:gap-3
+              mt-6
+              sm:mt-8
+              pb-5
+              sm:pb-6
             "
           >
 
@@ -846,7 +922,8 @@ export const SingleFlower = () => {
                 flex
                 items-center
                 gap-3
-                p-3.5
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -873,7 +950,7 @@ export const SingleFlower = () => {
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
                 <p className="text-sm font-bold text-gray-800">
                   Fresh Flowers
@@ -894,7 +971,8 @@ export const SingleFlower = () => {
                 flex
                 items-center
                 gap-3
-                p-3.5
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -921,7 +999,7 @@ export const SingleFlower = () => {
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
                 <p className="text-sm font-bold text-gray-800">
                   Fast Delivery
@@ -942,7 +1020,8 @@ export const SingleFlower = () => {
                 flex
                 items-center
                 gap-3
-                p-3.5
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -969,7 +1048,7 @@ export const SingleFlower = () => {
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
                 <p className="text-sm font-bold text-gray-800">
                   Quality Assured
@@ -991,4 +1070,3 @@ export const SingleFlower = () => {
     </>
   );
 };
-

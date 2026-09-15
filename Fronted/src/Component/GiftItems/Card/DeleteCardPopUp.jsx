@@ -59,15 +59,15 @@ export const DeleteCardPopUp = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 min-[380px]:px-4 py-4">
 
-      <div className="w-full max-w-md rounded-2xl bg-white shadow-xl">
+      <div className="w-full max-w-md rounded-2xl bg-white shadow-xl overflow-hidden">
 
         {/* ================= HEADER ================= */}
 
-        <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+        <div className="flex items-center justify-between gap-3 border-b border-gray-100 px-4 min-[380px]:px-6 py-3.5 min-[380px]:py-4">
 
-          <h2 className="text-lg font-semibold text-gray-800">
+          <h2 className="text-base min-[380px]:text-lg font-semibold text-gray-800 truncate">
             Delete Card
           </h2>
 
@@ -79,8 +79,11 @@ export const DeleteCardPopUp = () => {
             disabled={loading}
             className="
               flex
-              h-9
-              w-9
+              h-8
+              w-8
+              min-[380px]:h-9
+              min-[380px]:w-9
+              shrink-0
               items-center
               justify-center
               rounded-full
@@ -91,49 +94,61 @@ export const DeleteCardPopUp = () => {
               disabled:cursor-not-allowed
             "
           >
-            <X size={19} />
+            <X size={18} className="min-[380px]:w-[19px] min-[380px]:h-[19px]" />
           </button>
 
         </div>
 
         {/* ================= CONTENT ================= */}
 
-        <div className="px-6 py-6">
+        <div className="px-4 min-[380px]:px-6 py-5 min-[380px]:py-6">
 
-          <div className="flex justify-center mb-5">
+          <div className="flex justify-center mb-4 min-[380px]:mb-5">
 
-            <div className="
-              flex
-              h-14
-              w-14
-              items-center
-              justify-center
-              rounded-full
-              bg-red-50
-            ">
+            <div
+              className="
+                flex
+                h-12
+                w-12
+                min-[380px]:h-14
+                min-[380px]:w-14
+                items-center
+                justify-center
+                rounded-full
+                bg-red-50
+              "
+            >
               <Trash2
-                size={25}
-                className="text-red-500"
+                size={22}
+                className="text-red-500 min-[380px]:w-[25px] min-[380px]:h-[25px]"
               />
             </div>
 
           </div>
 
-          <h3 className="
-            text-center
-            text-lg
-            font-semibold
-            text-gray-800
-          ">
+          <h3
+            className="
+              text-center
+              text-base
+              min-[380px]:text-lg
+              font-semibold
+              text-gray-800
+            "
+          >
             Delete this card?
           </h3>
 
-          <p className="
-            mt-2
-            text-center
-            text-sm
-            text-gray-500
-          ">
+          <p
+            className="
+              mt-2
+              text-center
+              text-xs
+              min-[380px]:text-sm
+              leading-5
+              text-gray-500
+              break-words
+            "
+          >
             Are you sure you want to delete{" "}
             <span className="font-medium text-gray-700">
               {selectedCard.name}
@@ -145,15 +160,22 @@ export const DeleteCardPopUp = () => {
 
         {/* ================= BUTTONS ================= */}
 
-        <div className="
-          flex
-          justify-end
-          gap-3
-          border-t
-          border-gray-100
-          px-6
-          py-4
-        ">
+        <div
+          className="
+            flex
+            flex-col
+            min-[380px]:flex-row
+            min-[380px]:justify-end
+            gap-2
+            min-[380px]:gap-3
+            border-t
+            border-gray-100
+            px-4
+            min-[380px]:px-6
+            py-3.5
+            min-[380px]:py-4
+          "
+        >
 
           {/* CANCEL */}
 
@@ -164,6 +186,8 @@ export const DeleteCardPopUp = () => {
             }
             disabled={loading}
             className="
+              w-full
+              min-[380px]:w-auto
               rounded-xl
               border
               border-gray-200
@@ -188,6 +212,8 @@ export const DeleteCardPopUp = () => {
             onClick={handleDelete}
             disabled={loading}
             className="
+              w-full
+              min-[380px]:w-auto
               min-w-[125px]
               rounded-xl
               bg-red-500
@@ -217,6 +243,7 @@ export const DeleteCardPopUp = () => {
                   border-white
                   border-t-transparent
                   animate-spin
+                  shrink-0
                 "
               />
             )}

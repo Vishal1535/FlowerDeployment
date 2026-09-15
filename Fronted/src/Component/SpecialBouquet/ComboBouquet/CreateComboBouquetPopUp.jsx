@@ -146,7 +146,7 @@ export const CreateComboBouquetPopUp = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 min-[380px]:p-3 sm:p-4">
 
       {/* ================= OVERLAY ================= */}
 
@@ -162,10 +162,12 @@ export const CreateComboBouquetPopUp = () => {
           relative
           w-full
           max-w-2xl
-          max-h-[90vh]
+          max-h-[95vh]
+          sm:max-h-[90vh]
           overflow-y-auto
           bg-white
-          rounded-2xl
+          rounded-xl
+          min-[380px]:rounded-2xl
           shadow-xl
         "
       >
@@ -175,19 +177,21 @@ export const CreateComboBouquetPopUp = () => {
         <div
           className="
             flex
-            items-center
+            items-start
             justify-between
-            p-5
+            gap-3
+            p-4
+            min-[380px]:p-5
             border-b
             border-gray-100
           "
         >
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+          <div className="min-w-0">
+            <h2 className="text-lg min-[380px]:text-xl font-semibold text-gray-800">
               Create Combo Bouquet
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1 leading-5">
               Add a new combo bouquet to your collection
             </p>
           </div>
@@ -197,8 +201,11 @@ export const CreateComboBouquetPopUp = () => {
             onClick={handleClose}
             disabled={loading}
             className="
-              w-10
-              h-10
+              w-9
+              h-9
+              min-[380px]:w-10
+              min-[380px]:h-10
+              shrink-0
               rounded-xl
               flex
               items-center
@@ -209,7 +216,7 @@ export const CreateComboBouquetPopUp = () => {
               transition
             "
           >
-            <X size={20} />
+            <X size={19} />
           </button>
         </div>
 
@@ -217,14 +224,14 @@ export const CreateComboBouquetPopUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-5 sm:p-6"
+          className="p-4 min-[380px]:p-5 sm:p-6"
         >
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-[380px]:gap-5">
 
             {/* ================= NAME ================= */}
 
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Bouquet Name
               </label>
 
@@ -238,8 +245,11 @@ export const CreateComboBouquetPopUp = () => {
                 disabled={loading}
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -255,7 +265,7 @@ export const CreateComboBouquetPopUp = () => {
             {/* ================= PRICE ================= */}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Price
               </label>
 
@@ -270,8 +280,11 @@ export const CreateComboBouquetPopUp = () => {
                 disabled={loading}
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -287,7 +300,7 @@ export const CreateComboBouquetPopUp = () => {
             {/* ================= STOCK ================= */}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Stock
               </label>
 
@@ -302,8 +315,11 @@ export const CreateComboBouquetPopUp = () => {
                 disabled={loading}
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -319,7 +335,7 @@ export const CreateComboBouquetPopUp = () => {
             {/* ================= OCCASION ================= */}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Occasion
               </label>
 
@@ -333,8 +349,11 @@ export const CreateComboBouquetPopUp = () => {
                 disabled={loading}
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -350,7 +369,7 @@ export const CreateComboBouquetPopUp = () => {
             {/* ================= CATEGORY ================= */}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Category
               </label>
 
@@ -364,8 +383,11 @@ export const CreateComboBouquetPopUp = () => {
                 disabled={loading}
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -381,16 +403,17 @@ export const CreateComboBouquetPopUp = () => {
             {/* ================= IMAGE ================= */}
 
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Image URL
               </label>
 
               <div className="relative">
                 <Upload
-                  size={18}
+                  size={17}
                   className="
                     absolute
-                    left-4
+                    left-3
+                    min-[380px]:left-4
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
@@ -407,9 +430,13 @@ export const CreateComboBouquetPopUp = () => {
                   disabled={loading}
                   className="
                     w-full
-                    pl-11
-                    pr-4
-                    py-3
+                    pl-10
+                    min-[380px]:pl-11
+                    pr-3
+                    min-[380px]:pr-4
+                    py-2.5
+                    min-[380px]:py-3
+                    text-sm
                     rounded-xl
                     border
                     border-gray-200
@@ -427,13 +454,14 @@ export const CreateComboBouquetPopUp = () => {
 
             {formData.image && (
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                   Image Preview
                 </label>
 
                 <div
                   className="
-                    h-48
+                    h-40
+                    min-[380px]:h-48
                     rounded-xl
                     overflow-hidden
                     bg-gray-100
@@ -456,7 +484,7 @@ export const CreateComboBouquetPopUp = () => {
             {/* ================= DESCRIPTION ================= */}
 
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs min-[380px]:text-sm font-medium text-gray-700 mb-1.5 min-[380px]:mb-2">
                 Description
               </label>
 
@@ -470,8 +498,11 @@ export const CreateComboBouquetPopUp = () => {
                 disabled={loading}
                 className="
                   w-full
-                  px-4
-                  py-3
+                  px-3
+                  min-[380px]:px-4
+                  py-2.5
+                  min-[380px]:py-3
+                  text-sm
                   rounded-xl
                   border
                   border-gray-200
@@ -493,20 +524,21 @@ export const CreateComboBouquetPopUp = () => {
                   flex
                   items-center
                   justify-between
-                  gap-4
-                  p-4
+                  gap-3
+                  p-3
+                  min-[380px]:p-4
                   rounded-xl
                   border
                   border-gray-100
                   cursor-pointer
                 "
               >
-                <div>
-                  <p className="text-sm font-medium text-gray-700">
+                <div className="min-w-0">
+                  <p className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                     Available for customers
                   </p>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[11px] min-[380px]:text-xs text-gray-500 mt-1 leading-4">
                     Enable or disable this combo bouquet.
                   </p>
                 </div>
@@ -517,7 +549,7 @@ export const CreateComboBouquetPopUp = () => {
                   checked={formData.isAvailable}
                   onChange={handleChange}
                   disabled={loading}
-                  className="w-5 h-5 accent-pink-500"
+                  className="w-5 h-5 shrink-0 accent-pink-500"
                 />
               </label>
             </div>
@@ -528,10 +560,15 @@ export const CreateComboBouquetPopUp = () => {
           <div
             className="
               flex
-              justify-end
-              gap-3
-              mt-7
-              pt-5
+              flex-col
+              min-[380px]:flex-row
+              min-[380px]:justify-end
+              gap-2.5
+              min-[380px]:gap-3
+              mt-6
+              min-[380px]:mt-7
+              pt-4
+              min-[380px]:pt-5
               border-t
               border-gray-100
             "
@@ -541,12 +578,15 @@ export const CreateComboBouquetPopUp = () => {
               onClick={handleClose}
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-5
                 py-2.5
                 rounded-xl
                 border
                 border-gray-200
                 text-gray-600
+                text-sm
                 hover:bg-gray-50
                 disabled:opacity-60
                 transition
@@ -559,6 +599,8 @@ export const CreateComboBouquetPopUp = () => {
               type="submit"
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 flex
                 items-center
                 justify-center
@@ -568,11 +610,12 @@ export const CreateComboBouquetPopUp = () => {
                 rounded-xl
                 bg-pink-500
                 text-white
+                text-sm
                 hover:bg-pink-600
                 disabled:opacity-60
                 disabled:cursor-not-allowed
                 transition
-                min-w-[150px]
+                min-[380px]:min-w-[150px]
               "
             >
               {loading && (

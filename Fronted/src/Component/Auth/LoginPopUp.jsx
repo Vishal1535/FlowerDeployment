@@ -80,15 +80,18 @@ export const LoginPopUp = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm px-3 sm:px-4 py-4">
 
       <div
         className="
           relative
           w-full
           max-w-md
+          max-h-[95vh]
+          overflow-y-auto
           bg-white
-          rounded-3xl
+          rounded-2xl
+          sm:rounded-3xl
           shadow-2xl
           overflow-hidden
           animate-[popupIn_0.45s_ease-out]
@@ -102,15 +105,20 @@ export const LoginPopUp = () => {
           onClick={closePopup}
           className="
             absolute
-            top-4
-            right-4
+            top-3
+            right-3
+            sm:top-4
+            sm:right-4
             z-10
-            w-9
-            h-9
+            w-8
+            h-8
+            sm:w-9
+            sm:h-9
             rounded-full
             bg-white/90
             text-gray-500
-            text-xl
+            text-lg
+            sm:text-xl
             flex
             items-center
             justify-center
@@ -130,7 +138,8 @@ export const LoginPopUp = () => {
         <div
           className="
             relative
-            h-32
+            h-28
+            sm:h-32
             bg-gray-100
             flex
             items-center
@@ -144,8 +153,10 @@ export const LoginPopUp = () => {
               absolute
               -top-10
               -left-10
-              w-32
-              h-32
+              w-28
+              h-28
+              sm:w-32
+              sm:h-32
               rounded-full
               bg-white/70
               animate-pulse
@@ -155,10 +166,12 @@ export const LoginPopUp = () => {
           <div
             className="
               absolute
-              -bottom-12
+              -bottom-10
               -right-8
-              w-36
-              h-36
+              w-32
+              h-32
+              sm:w-36
+              sm:h-36
               rounded-full
               bg-white/70
             "
@@ -167,7 +180,8 @@ export const LoginPopUp = () => {
           <div
             className="
               relative
-              text-6xl
+              text-5xl
+              sm:text-6xl
               animate-[float_2.5s_ease-in-out_infinite]
             "
           >
@@ -178,13 +192,15 @@ export const LoginPopUp = () => {
 
         {/* ================= CONTENT ================= */}
 
-        <div className="px-7 py-7 text-center">
+        <div className="px-5 sm:px-7 py-6 sm:py-7 text-center">
 
           <p
             className="
-              text-xs
+              text-[10px]
+              sm:text-xs
               font-semibold
-              tracking-[3px]
+              tracking-[2px]
+              sm:tracking-[3px]
               uppercase
               text-gray-400
             "
@@ -192,11 +208,11 @@ export const LoginPopUp = () => {
             Welcome
           </p>
 
-          <h1 className="text-2xl font-bold text-gray-900 mt-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mt-2">
             Welcome to Flower
           </h1>
 
-          <p className="text-sm text-gray-500 mt-3 leading-6">
+          <p className="text-xs sm:text-sm text-gray-500 mt-3 leading-5 sm:leading-6">
             Beautiful flowers for beautiful moments.
             <br />
             Login to continue your journey.
@@ -204,17 +220,20 @@ export const LoginPopUp = () => {
 
           {/* ================= BUTTONS ================= */}
 
-          <div className="mt-7 space-y-3">
+          <div className="mt-6 sm:mt-7 space-y-3">
 
             <button
               type="button"
               onClick={handleLogin}
               className="
                 w-full
-                h-12
+                h-11
+                sm:h-12
                 rounded-xl
                 bg-gray-900
                 text-white
+                text-sm
+                sm:text-base
                 font-semibold
                 hover:bg-gray-800
                 hover:-translate-y-0.5
@@ -230,12 +249,15 @@ export const LoginPopUp = () => {
               onClick={handleRegister}
               className="
                 w-full
-                h-12
+                h-11
+                sm:h-12
                 rounded-xl
                 border
                 border-gray-200
                 bg-white
                 text-gray-800
+                text-sm
+                sm:text-base
                 font-semibold
                 hover:bg-gray-50
                 hover:-translate-y-0.5
@@ -248,7 +270,7 @@ export const LoginPopUp = () => {
 
           </div>
 
-          <p className="text-xs text-gray-400 mt-6">
+          <p className="text-[10px] sm:text-xs text-gray-400 mt-5 sm:mt-6 leading-5">
             Fresh flowers • Beautiful moments • Easy shopping
           </p>
 

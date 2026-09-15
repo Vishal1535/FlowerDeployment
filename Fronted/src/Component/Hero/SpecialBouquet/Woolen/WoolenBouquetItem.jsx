@@ -150,8 +150,10 @@ export const WoolenBouquetItem = ({ woolen }) => {
         group
         relative
         w-full
+        min-w-0
         overflow-hidden
-        rounded-3xl
+        rounded-2xl
+        sm:rounded-3xl
         bg-white
         border
         border-gray-100
@@ -168,7 +170,8 @@ export const WoolenBouquetItem = ({ woolen }) => {
       <div
         className="
           relative
-          h-64
+          h-48
+          min-[380px]:h-52
           sm:h-60
           lg:h-64
           xl:h-72
@@ -185,10 +188,14 @@ export const WoolenBouquetItem = ({ woolen }) => {
         <div
           className="
             absolute
-            -top-12
-            -right-12
-            w-36
-            h-36
+            -top-9
+            -right-9
+            sm:-top-12
+            sm:-right-12
+            w-28
+            h-28
+            sm:w-36
+            sm:h-36
             rounded-full
             bg-white/50
           "
@@ -209,7 +216,9 @@ export const WoolenBouquetItem = ({ woolen }) => {
               w-full
               h-full
               object-contain
-              p-5
+              p-3
+              min-[380px]:p-4
+              sm:p-5
               transition-transform
               duration-700
               ease-out
@@ -226,14 +235,29 @@ export const WoolenBouquetItem = ({ woolen }) => {
               items-center
               justify-center
               text-gray-300
+              px-3
             "
           >
             <Flower2
-              size={58}
+              size={46}
+              className="sm:hidden"
               strokeWidth={1.2}
             />
 
-            <span className="text-xs mt-2">
+            <Flower2
+              size={58}
+              className="hidden sm:block"
+              strokeWidth={1.2}
+            />
+
+            <span
+              className="
+                text-[10px]
+                sm:text-xs
+                mt-2
+                text-center
+              "
+            >
               No image available
             </span>
           </div>
@@ -246,7 +270,8 @@ export const WoolenBouquetItem = ({ woolen }) => {
             absolute
             inset-x-0
             bottom-0
-            h-24
+            h-16
+            sm:h-24
             bg-gradient-to-t
             from-black/10
             to-transparent
@@ -259,15 +284,23 @@ export const WoolenBouquetItem = ({ woolen }) => {
         <div
           className={`
             absolute
-            top-4
-            left-4
+            top-2.5
+            left-2.5
+            sm:top-4
+            sm:left-4
             z-20
-            px-3
-            py-1.5
+            px-2
+            min-[380px]:px-3
+            py-1
+            sm:py-1.5
             rounded-full
-            text-[11px]
+            text-[9px]
+            min-[380px]:text-[10px]
+            sm:text-[11px]
             font-bold
             backdrop-blur-md
+            max-w-[45%]
+            truncate
 
             ${
               isAvailable
@@ -297,11 +330,17 @@ export const WoolenBouquetItem = ({ woolen }) => {
           }
           className={`
             absolute
-            right-4
-            top-4
+            right-2.5
+            top-2.5
+            sm:right-4
+            sm:top-4
             z-20
-            w-10
-            h-10
+            w-8
+            h-8
+            min-[380px]:w-9
+            min-[380px]:h-9
+            sm:w-10
+            sm:h-10
             rounded-full
             bg-white/90
             backdrop-blur-md
@@ -325,7 +364,18 @@ export const WoolenBouquetItem = ({ woolen }) => {
           `}
         >
           <Heart
+            size={15}
+            className="sm:hidden"
+            fill={
+              isWishlisted
+                ? "currentColor"
+                : "none"
+            }
+          />
+
+          <Heart
             size={18}
+            className="hidden sm:block"
             fill={
               isWishlisted
                 ? "currentColor"
@@ -339,46 +389,79 @@ export const WoolenBouquetItem = ({ woolen }) => {
         <div
           className="
             absolute
-            left-4
-            bottom-4
+            left-2.5
+            bottom-2.5
+            sm:left-4
+            sm:bottom-4
             z-20
             flex
             items-center
-            gap-1.5
-            px-3
-            py-1.5
+            gap-1
+            sm:gap-1.5
+            max-w-[75%]
+            px-2
+            min-[380px]:px-3
+            py-1
+            sm:py-1.5
             rounded-full
             bg-white/90
             backdrop-blur-md
             border
             border-white
             shadow-sm
-            text-xs
+            text-[10px]
+            sm:text-xs
             font-semibold
             text-gray-700
           "
         >
           <Flower2
-            size={13}
-            className="text-purple-500"
+            size={11}
+            className="text-purple-500 shrink-0 sm:hidden"
           />
 
-          {woolen?.category ||
-            "Woolen Bouquet"}
+          <Flower2
+            size={13}
+            className="text-purple-500 shrink-0 hidden sm:block"
+          />
+
+          <span className="truncate">
+            {woolen?.category ||
+              "Woolen Bouquet"}
+          </span>
         </div>
       </div>
 
       {/* ================= CONTENT ================= */}
 
-      <div className="p-5">
+      <div
+        className="
+          p-3
+          min-[380px]:p-4
+          sm:p-5
+          min-w-0
+        "
+      >
 
         {/* ================= NAME + PRICE ================= */}
 
-        <div className="flex items-start justify-between gap-3">
+        <div
+          className="
+            flex
+            items-start
+            justify-between
+            gap-2
+            sm:gap-3
+            min-w-0
+          "
+        >
 
           <h3
             className="
-              text-lg
+              min-w-0
+              flex-1
+              text-base
+              min-[380px]:text-lg
               sm:text-xl
               font-bold
               text-gray-900
@@ -390,11 +473,18 @@ export const WoolenBouquetItem = ({ woolen }) => {
               "Beautiful Woolen Bouquet"}
           </h3>
 
-          <div className="flex items-baseline shrink-0">
+          <div
+            className="
+              flex
+              items-baseline
+              shrink-0
+            "
+          >
 
             <span
               className="
-                text-sm
+                text-xs
+                sm:text-sm
                 font-semibold
                 text-gray-500
                 mr-0.5
@@ -405,7 +495,8 @@ export const WoolenBouquetItem = ({ woolen }) => {
 
             <span
               className="
-                text-xl
+                text-lg
+                min-[380px]:text-xl
                 font-extrabold
                 text-gray-900
               "
@@ -418,19 +509,29 @@ export const WoolenBouquetItem = ({ woolen }) => {
 
         {/* ================= OCCASION ================= */}
 
-        <div className="flex items-center gap-2 mt-2">
+        <div
+          className="
+            flex
+            items-center
+            gap-1.5
+            sm:gap-2
+            mt-2
+            min-w-0
+          "
+        >
 
-          <span className="text-xs text-gray-400">
+          <span className="text-[10px] sm:text-xs text-gray-400 shrink-0">
             Occasion
           </span>
 
-          <span className="text-gray-200">
+          <span className="text-gray-200 shrink-0">
             •
           </span>
 
           <span
             className="
-              text-xs
+              text-[10px]
+              min-[380px]:text-xs
               font-semibold
               text-gray-700
               truncate
@@ -446,12 +547,15 @@ export const WoolenBouquetItem = ({ woolen }) => {
 
         <p
           className="
-            mt-3
-            text-sm
+            mt-2
+            sm:mt-3
+            text-xs
+            min-[380px]:text-sm
             text-gray-500
             leading-relaxed
             line-clamp-2
-            min-h-[40px]
+            min-h-[36px]
+            min-[380px]:min-h-[40px]
           "
         >
           {woolen?.description ||
@@ -460,19 +564,29 @@ export const WoolenBouquetItem = ({ woolen }) => {
 
         {/* ================= DIVIDER ================= */}
 
-        <div className="border-t border-gray-100 my-4" />
+        <div className="border-t border-gray-100 my-3 sm:my-4" />
 
         {/* ================= STOCK ================= */}
 
-        <div className="flex items-center justify-between">
+        <div
+          className="
+            flex
+            items-center
+            justify-between
+            gap-2
+            min-w-0
+          "
+        >
 
-          <div>
+          <div className="min-w-0">
 
             <p
               className="
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
                 uppercase
-                tracking-[0.15em]
+                tracking-[0.12em]
+                sm:tracking-[0.15em]
                 font-bold
                 text-gray-400
               "
@@ -482,9 +596,12 @@ export const WoolenBouquetItem = ({ woolen }) => {
 
             <p
               className={`
-                mt-1
-                text-sm
+                mt-0.5
+                sm:mt-1
+                text-xs
+                min-[380px]:text-sm
                 font-bold
+                truncate
                 ${
                   isAvailable
                     ? "text-gray-800"
@@ -503,12 +620,16 @@ export const WoolenBouquetItem = ({ woolen }) => {
 
           <span
             className="
-              px-3
-              py-1.5
+              shrink-0
+              px-2
+              min-[380px]:px-3
+              py-1
+              min-[380px]:py-1.5
               rounded-full
               bg-purple-50
               text-purple-600
-              text-xs
+              text-[10px]
+              min-[380px]:text-xs
               font-semibold
             "
           >
@@ -519,7 +640,16 @@ export const WoolenBouquetItem = ({ woolen }) => {
 
         {/* ================= ACTION BUTTONS ================= */}
 
-        <div className="flex gap-2 mt-5">
+        <div
+          className="
+            flex
+            flex-col
+            min-[380px]:flex-row
+            gap-2
+            mt-4
+            min-[380px]:mt-5
+          "
+        >
 
           {/* VIEW DETAILS */}
 
@@ -532,18 +662,22 @@ export const WoolenBouquetItem = ({ woolen }) => {
             }}
             className="
               flex-1
-              h-11
+              min-w-0
+              h-10
+              min-[380px]:h-11
               rounded-xl
               border
               border-gray-200
               bg-white
               text-gray-700
-              text-sm
+              text-xs
+              min-[380px]:text-sm
               font-semibold
               flex
               items-center
               justify-center
-              gap-2
+              gap-1.5
+              min-[380px]:gap-2
               hover:bg-purple-50
               hover:border-purple-200
               hover:text-purple-600
@@ -551,11 +685,17 @@ export const WoolenBouquetItem = ({ woolen }) => {
               cursor-pointer
               transition-all
               duration-300
+              px-2
             "
           >
-            <Eye size={16} />
+            <Eye
+              size={15}
+              className="shrink-0"
+            />
 
-            View Details
+            <span className="truncate">
+              View Details
+            </span>
           </button>
 
           {/* ADD TO CART */}
@@ -570,16 +710,20 @@ export const WoolenBouquetItem = ({ woolen }) => {
             }
             className="
               flex-1
-              h-11
+              min-w-0
+              h-10
+              min-[380px]:h-11
               rounded-xl
               bg-gray-900
               text-white
-              text-sm
+              text-xs
+              min-[380px]:text-sm
               font-bold
               flex
               items-center
               justify-center
-              gap-2
+              gap-1.5
+              min-[380px]:gap-2
               hover:bg-purple-600
               hover:shadow-lg
               hover:shadow-purple-200
@@ -591,15 +735,21 @@ export const WoolenBouquetItem = ({ woolen }) => {
               disabled:cursor-not-allowed
               transition-all
               duration-300
+              px-2
             "
           >
-            <ShoppingCart size={16} />
+            <ShoppingCart
+              size={15}
+              className="shrink-0"
+            />
 
-            {isInCart
-              ? "Added to Cart"
-              : isAvailable
-                ? "Add to Cart"
-                : "Unavailable"}
+            <span className="truncate">
+              {isInCart
+                ? "Added to Cart"
+                : isAvailable
+                  ? "Add to Cart"
+                  : "Unavailable"}
+            </span>
           </button>
 
         </div>

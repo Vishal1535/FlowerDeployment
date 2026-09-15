@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -268,7 +267,18 @@ export const BouquetSlider = () => {
   }
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-10 py-6">
+    <section
+      className="
+        w-full
+        max-w-full
+        overflow-hidden
+        px-2.5
+        sm:px-6
+        lg:px-10
+        py-4
+        sm:py-6
+      "
+    >
 
       {/* ================= HERO ================= */}
 
@@ -276,11 +286,13 @@ export const BouquetSlider = () => {
         className="
           relative
           w-full
-          h-[420px]
+          h-[430px]
+          min-[380px]:h-[450px]
           sm:h-[480px]
           lg:h-[540px]
           overflow-hidden
-          rounded-3xl
+          rounded-2xl
+          sm:rounded-3xl
           bg-gray-100
           shadow-[0_15px_45px_rgba(0,0,0,0.08)]
           select-none
@@ -363,7 +375,8 @@ export const BouquetSlider = () => {
                     w-full
                     h-full
                     object-contain
-                    p-3
+                    p-2
+                    min-[380px]:p-3
                     sm:p-5
                     lg:p-7
                     transition-transform
@@ -402,8 +415,8 @@ export const BouquetSlider = () => {
               inset-0
               z-10
               bg-gradient-to-r
-              from-black/55
-              via-black/15
+              from-black/60
+              via-black/20
               to-transparent
               pointer-events-none
             "
@@ -414,10 +427,12 @@ export const BouquetSlider = () => {
           <div
             className="
               absolute
-              left-5
+              left-4
+              right-4
               sm:left-8
+              sm:right-auto
               lg:left-14
-              bottom-14
+              bottom-12
               sm:bottom-16
               max-w-xl
               text-white
@@ -430,12 +445,14 @@ export const BouquetSlider = () => {
 
             <p
               className="
-                text-xs
+                text-[10px]
                 sm:text-sm
                 uppercase
-                tracking-[0.2em]
+                tracking-[0.14em]
+                sm:tracking-[0.2em]
                 font-semibold
                 text-pink-200
+                truncate
               "
             >
               {currentBouquet.occasion ||
@@ -446,13 +463,16 @@ export const BouquetSlider = () => {
 
             <h1
               className="
-                mt-2
-                text-3xl
+                mt-1.5
+                sm:mt-2
+                text-2xl
+                min-[380px]:text-3xl
                 sm:text-4xl
                 lg:text-6xl
                 font-extrabold
                 leading-tight
                 drop-shadow-lg
+                line-clamp-2
               "
             >
               {currentBouquet.name}
@@ -462,11 +482,13 @@ export const BouquetSlider = () => {
 
             <p
               className="
-                mt-3
+                mt-2
+                sm:mt-3
                 max-w-lg
-                text-sm
+                text-xs
                 sm:text-base
-                leading-6
+                leading-5
+                sm:leading-6
                 text-white/85
                 line-clamp-2
                 drop-shadow
@@ -480,9 +502,13 @@ export const BouquetSlider = () => {
             <div
               className="
                 flex
+                flex-wrap
                 items-center
-                gap-3
-                mt-5
+                gap-2
+                sm:gap-3
+                mt-3
+                sm:mt-5
+                max-w-full
               "
             >
 
@@ -490,14 +516,19 @@ export const BouquetSlider = () => {
 
               <span
                 className="
-                  px-4
-                  py-2
-                  rounded-xl
+                  px-3
+                  sm:px-4
+                  py-1.5
+                  sm:py-2
+                  rounded-lg
+                  sm:rounded-xl
                   bg-white
                   text-gray-900
-                  text-lg
+                  text-base
+                  sm:text-lg
                   font-extrabold
                   shadow-lg
+                  whitespace-nowrap
                 "
               >
                 ₹{currentBouquet.price}
@@ -508,16 +539,21 @@ export const BouquetSlider = () => {
               {currentBouquet.size && (
                 <span
                   className="
-                    px-4
-                    py-2
-                    rounded-xl
+                    px-3
+                    sm:px-4
+                    py-1.5
+                    sm:py-2
+                    rounded-lg
+                    sm:rounded-xl
                     bg-black/20
                     backdrop-blur-sm
                     border
                     border-white/20
                     text-white
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-semibold
+                    whitespace-nowrap
                   "
                 >
                   {currentBouquet.size}
@@ -541,6 +577,7 @@ export const BouquetSlider = () => {
                     text-white
                     text-sm
                     font-semibold
+                    whitespace-nowrap
                   "
                 >
                   🌸 {currentBouquet.flowerCount} Flowers
@@ -606,13 +643,13 @@ export const BouquetSlider = () => {
           aria-label="Previous bouquet"
           className="
             absolute
-            left-4
+            left-2
             sm:left-6
             top-1/2
             -translate-y-1/2
             z-30
-            w-10
-            h-10
+            w-8
+            h-8
             sm:w-12
             sm:h-12
             rounded-full
@@ -632,7 +669,10 @@ export const BouquetSlider = () => {
             cursor-pointer
           "
         >
-          <ChevronLeft size={22} />
+          <ChevronLeft
+            size={18}
+            className="sm:w-[22px] sm:h-[22px]"
+          />
         </button>
 
         {/* ================= RIGHT ARROW ================= */}
@@ -647,13 +687,13 @@ export const BouquetSlider = () => {
           aria-label="Next bouquet"
           className="
             absolute
-            right-4
+            right-2
             sm:right-6
             top-1/2
             -translate-y-1/2
             z-30
-            w-10
-            h-10
+            w-8
+            h-8
             sm:w-12
             sm:h-12
             rounded-full
@@ -673,7 +713,10 @@ export const BouquetSlider = () => {
             cursor-pointer
           "
         >
-          <ChevronRight size={22} />
+          <ChevronRight
+            size={18}
+            className="sm:w-[22px] sm:h-[22px]"
+          />
         </button>
 
         {/* ================= DOTS ================= */}
@@ -681,15 +724,19 @@ export const BouquetSlider = () => {
         <div
           className="
             absolute
-            bottom-5
+            bottom-4
+            sm:bottom-5
             left-1/2
             -translate-x-1/2
             z-30
             flex
             items-center
-            gap-2
-            px-3
-            py-2
+            gap-1.5
+            sm:gap-2
+            px-2.5
+            sm:px-3
+            py-1.5
+            sm:py-2
             rounded-full
             bg-black/20
             backdrop-blur-sm
@@ -719,14 +766,15 @@ export const BouquetSlider = () => {
                   setCurrentIndex(index);
                 }}
                 className={`
-                  h-2
+                  h-1.5
+                  sm:h-2
                   rounded-full
                   transition-all
                   duration-300
                   ${
                     currentIndex === index
-                      ? "w-7 bg-white"
-                      : "w-2 bg-white/50 hover:bg-white/80"
+                      ? "w-6 sm:w-7 bg-white"
+                      : "w-1.5 sm:w-2 bg-white/50 hover:bg-white/80"
                   }
                 `}
               />
@@ -739,18 +787,21 @@ export const BouquetSlider = () => {
         <div
           className="
             absolute
-            top-4
-            right-4
+            top-3
+            right-3
             sm:top-5
             sm:right-5
             z-30
-            px-3
-            py-1.5
+            px-2.5
+            sm:px-3
+            py-1
+            sm:py-1.5
             rounded-full
             bg-black/20
             backdrop-blur-sm
             text-white
-            text-xs
+            text-[10px]
+            sm:text-xs
             font-semibold
           "
         >
@@ -806,4 +857,3 @@ export const BouquetSlider = () => {
     </section>
   );
 };
-

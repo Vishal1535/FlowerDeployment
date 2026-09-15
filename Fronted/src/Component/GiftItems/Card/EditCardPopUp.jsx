@@ -115,20 +115,20 @@ export const EditCardPopUp = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 min-[380px]:px-4 py-3 sm:py-6 overflow-y-auto">
 
-      <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl">
+      <div className="w-full max-w-xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-xl">
 
         {/* ================= HEADER ================= */}
 
-        <div className="flex items-center justify-between px-5 py-4 border-b">
+        <div className="flex items-center justify-between gap-3 px-4 min-[380px]:px-5 py-3.5 min-[380px]:py-4 border-b">
 
-          <div>
-            <h2 className="text-lg font-semibold text-gray-800">
+          <div className="min-w-0">
+            <h2 className="text-base min-[380px]:text-lg font-semibold text-gray-800 truncate">
               Edit Card
             </h2>
 
-            <p className="text-xs text-gray-500">
+            <p className="text-[11px] min-[380px]:text-xs text-gray-500">
               Update card details
             </p>
           </div>
@@ -140,14 +140,16 @@ export const EditCardPopUp = () => {
             }
             disabled={loading}
             className="
-              p-2
+              p-1.5
+              min-[380px]:p-2
+              shrink-0
               rounded-full
               hover:bg-gray-100
               disabled:opacity-50
               disabled:cursor-not-allowed
             "
           >
-            <X size={19} />
+            <X size={18} className="min-[380px]:w-[19px] min-[380px]:h-[19px]" />
           </button>
 
         </div>
@@ -156,13 +158,13 @@ export const EditCardPopUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-5 space-y-3"
+          className="p-4 min-[380px]:p-5 space-y-3"
         >
 
           {/* NAME */}
 
           <div>
-            <label className="text-xs font-medium text-gray-600">
+            <label className="text-[11px] min-[380px]:text-xs font-medium text-gray-600">
               Card Name
             </label>
 
@@ -175,9 +177,11 @@ export const EditCardPopUp = () => {
               required
               className="
                 w-full
+                min-w-0
                 mt-1
                 px-3
                 py-2
+                text-sm
                 rounded-lg
                 border
                 border-gray-200
@@ -191,7 +195,7 @@ export const EditCardPopUp = () => {
           {/* DESCRIPTION */}
 
           <div>
-            <label className="text-xs font-medium text-gray-600">
+            <label className="text-[11px] min-[380px]:text-xs font-medium text-gray-600">
               Description
             </label>
 
@@ -204,9 +208,11 @@ export const EditCardPopUp = () => {
               required
               className="
                 w-full
+                min-w-0
                 mt-1
                 px-3
                 py-2
+                text-sm
                 rounded-lg
                 border
                 border-gray-200
@@ -220,10 +226,10 @@ export const EditCardPopUp = () => {
 
           {/* PRICE + STOCK */}
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2 min-[380px]:gap-3">
 
-            <div>
-              <label className="text-xs font-medium text-gray-600">
+            <div className="min-w-0">
+              <label className="text-[11px] min-[380px]:text-xs font-medium text-gray-600">
                 Price
               </label>
 
@@ -237,9 +243,11 @@ export const EditCardPopUp = () => {
                 required
                 className="
                   w-full
+                  min-w-0
                   mt-1
                   px-3
                   py-2
+                  text-sm
                   rounded-lg
                   border
                   border-gray-200
@@ -250,8 +258,8 @@ export const EditCardPopUp = () => {
               />
             </div>
 
-            <div>
-              <label className="text-xs font-medium text-gray-600">
+            <div className="min-w-0">
+              <label className="text-[11px] min-[380px]:text-xs font-medium text-gray-600">
                 Stock
               </label>
 
@@ -265,9 +273,11 @@ export const EditCardPopUp = () => {
                 required
                 className="
                   w-full
+                  min-w-0
                   mt-1
                   px-3
                   py-2
+                  text-sm
                   rounded-lg
                   border
                   border-gray-200
@@ -283,7 +293,7 @@ export const EditCardPopUp = () => {
           {/* IMAGE */}
 
           <div>
-            <label className="text-xs font-medium text-gray-600">
+            <label className="text-[11px] min-[380px]:text-xs font-medium text-gray-600">
               Image URL
             </label>
 
@@ -296,9 +306,11 @@ export const EditCardPopUp = () => {
               required
               className="
                 w-full
+                min-w-0
                 mt-1
                 px-3
                 py-2
+                text-sm
                 rounded-lg
                 border
                 border-gray-200
@@ -311,10 +323,10 @@ export const EditCardPopUp = () => {
 
           {/* OCCASION + CATEGORY */}
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2 min-[380px]:gap-3">
 
-            <div>
-              <label className="text-xs font-medium text-gray-600">
+            <div className="min-w-0">
+              <label className="text-[11px] min-[380px]:text-xs font-medium text-gray-600">
                 Occasion
               </label>
 
@@ -327,9 +339,11 @@ export const EditCardPopUp = () => {
                 required
                 className="
                   w-full
+                  min-w-0
                   mt-1
                   px-3
                   py-2
+                  text-sm
                   rounded-lg
                   border
                   border-gray-200
@@ -340,8 +354,8 @@ export const EditCardPopUp = () => {
               />
             </div>
 
-            <div>
-              <label className="text-xs font-medium text-gray-600">
+            <div className="min-w-0">
+              <label className="text-[11px] min-[380px]:text-xs font-medium text-gray-600">
                 Category
               </label>
 
@@ -354,9 +368,11 @@ export const EditCardPopUp = () => {
                 required
                 className="
                   w-full
+                  min-w-0
                   mt-1
                   px-3
                   py-2
+                  text-sm
                   rounded-lg
                   border
                   border-gray-200
@@ -371,7 +387,7 @@ export const EditCardPopUp = () => {
 
           {/* AVAILABILITY */}
 
-          <label className="flex items-center gap-2 text-sm text-gray-600">
+          <label className="flex items-center gap-2 text-xs min-[380px]:text-sm text-gray-600">
 
             <input
               type="checkbox"
@@ -379,7 +395,7 @@ export const EditCardPopUp = () => {
               checked={data.isAvailable}
               onChange={handleChange}
               disabled={loading}
-              className="accent-pink-500"
+              className="accent-pink-500 shrink-0"
             />
 
             Card is available
@@ -388,7 +404,7 @@ export const EditCardPopUp = () => {
 
           {/* ================= BUTTONS ================= */}
 
-          <div className="flex justify-end gap-2 pt-3 border-t">
+          <div className="flex flex-col min-[380px]:flex-row min-[380px]:justify-end gap-2 pt-3 border-t">
 
             <button
               type="button"
@@ -397,6 +413,8 @@ export const EditCardPopUp = () => {
               }
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-4
                 py-2
                 rounded-lg
@@ -415,6 +433,8 @@ export const EditCardPopUp = () => {
               type="submit"
               disabled={loading}
               className="
+                w-full
+                min-[380px]:w-auto
                 px-5
                 py-2
                 rounded-lg
@@ -442,6 +462,7 @@ export const EditCardPopUp = () => {
                     border-white
                     border-t-transparent
                     animate-spin
+                    shrink-0
                   "
                 />
               )}

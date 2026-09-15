@@ -8,15 +8,15 @@ export const PendingOrder = ({ orders = [] }) => {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4 sm:space-y-5">
 
       {/* HEADING */}
-      <div>
-        <h2 className="text-xl font-bold text-gray-800">
+      <div className="min-w-0">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-800 break-words">
           Pending Orders
         </h2>
 
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">
           {pendingOrders.length} pending order
           {pendingOrders.length !== 1 ? "s" : ""}
         </p>
@@ -24,7 +24,7 @@ export const PendingOrder = ({ orders = [] }) => {
 
       {/* ORDERS */}
       {pendingOrders.length > 0 ? (
-        <div className="space-y-3">
+        <div className="w-full space-y-3">
 
           {pendingOrders.map((order) => (
             <PendingOrderItem
@@ -35,13 +35,13 @@ export const PendingOrder = ({ orders = [] }) => {
 
         </div>
       ) : (
-        <div className="bg-white border border-amber-100 rounded-2xl p-10 text-center">
+        <div className="w-full bg-white border border-amber-100 rounded-xl sm:rounded-2xl p-6 sm:p-10 text-center">
 
-          <p className="text-gray-500 font-medium">
+          <p className="text-sm sm:text-base text-gray-500 font-medium">
             No pending orders
           </p>
 
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-xs sm:text-sm text-gray-400 mt-1">
             New pending orders will appear here.
           </p>
 

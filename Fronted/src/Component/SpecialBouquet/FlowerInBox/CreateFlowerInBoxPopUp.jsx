@@ -109,7 +109,7 @@ export const CreateFlowerInBoxPopUp = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 min-[380px]:p-3 sm:p-4">
 
       {/* ================= OVERLAY ================= */}
 
@@ -125,10 +125,12 @@ export const CreateFlowerInBoxPopUp = () => {
           relative
           w-full
           max-w-2xl
-          max-h-[90vh]
+          max-h-[95vh]
+          sm:max-h-[90vh]
           overflow-y-auto
           bg-white
-          rounded-2xl
+          rounded-xl
+          min-[380px]:rounded-2xl
           shadow-xl
         "
       >
@@ -142,21 +144,25 @@ export const CreateFlowerInBoxPopUp = () => {
             z-10
             bg-white
             flex
-            items-center
+            items-start
             justify-between
-            px-6
-            py-4
+            gap-3
+            px-4
+            min-[380px]:px-5
+            sm:px-6
+            py-3.5
+            min-[380px]:py-4
             border-b
             border-gray-100
           "
         >
 
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+          <div className="min-w-0">
+            <h2 className="text-lg min-[380px]:text-xl font-semibold text-gray-800">
               Create Flower In Box
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs min-[380px]:text-sm text-gray-500 mt-1 leading-5">
               Add a new flower box product
             </p>
           </div>
@@ -166,8 +172,11 @@ export const CreateFlowerInBoxPopUp = () => {
             onClick={handleClose}
             disabled={loading}
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              min-[380px]:w-9
+              min-[380px]:h-9
+              shrink-0
               rounded-lg
               flex
               items-center
@@ -177,7 +186,7 @@ export const CreateFlowerInBoxPopUp = () => {
               disabled:opacity-50
             "
           >
-            <X size={20} />
+            <X size={19} />
           </button>
 
         </div>
@@ -186,16 +195,16 @@ export const CreateFlowerInBoxPopUp = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-6"
+          className="p-4 min-[380px]:p-5 sm:p-6"
         >
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 min-[380px]:gap-4">
 
             {/* ================= NAME ================= */}
 
             <div className="md:col-span-2">
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Name{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -211,6 +220,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -221,7 +233,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div className="md:col-span-2">
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Description{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -237,7 +249,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   textarea
                   textarea-bordered
                   w-full
+                  text-sm
                   mt-1
+                  min-h-[90px]
                 "
               />
 
@@ -247,7 +261,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Price{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -264,6 +278,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -274,7 +291,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Discount Price
               </label>
 
@@ -289,6 +306,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -299,7 +319,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div className="md:col-span-2">
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Image URL{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -315,6 +335,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -325,7 +348,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Flower Type{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -341,6 +364,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -351,7 +377,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Box Type{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -367,6 +393,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -377,7 +406,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Color{" "}
                 <span className="text-red-500">*</span>
               </label>
@@ -393,6 +422,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -403,7 +435,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Occasion
               </label>
 
@@ -417,6 +449,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -427,7 +462,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Size
               </label>
 
@@ -439,6 +474,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   select
                   select-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               >
@@ -467,7 +505,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
             <div>
 
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs min-[380px]:text-sm font-medium text-gray-700">
                 Stock
               </label>
 
@@ -482,6 +520,9 @@ export const CreateFlowerInBoxPopUp = () => {
                   input
                   input-bordered
                   w-full
+                  h-10
+                  min-[380px]:h-11
+                  text-sm
                   mt-1
                 "
               />
@@ -492,7 +533,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
           {/* ================= CHECKBOXES ================= */}
 
-          <div className="flex gap-6 mt-5">
+          <div className="flex flex-col min-[380px]:flex-row gap-3 min-[380px]:gap-6 mt-4 min-[380px]:mt-5">
 
             {/* AVAILABLE */}
 
@@ -556,7 +597,7 @@ export const CreateFlowerInBoxPopUp = () => {
 
           {/* ================= BUTTONS ================= */}
 
-          <div className="flex gap-3 mt-7">
+          <div className="flex flex-col min-[380px]:flex-row gap-2.5 min-[380px]:gap-3 mt-6 min-[380px]:mt-7">
 
             {/* CANCEL */}
 
@@ -565,12 +606,14 @@ export const CreateFlowerInBoxPopUp = () => {
               onClick={handleClose}
               disabled={loading}
               className="
-                flex-1
+                w-full
+                min-[380px]:flex-1
                 py-2.5
                 rounded-xl
                 border
                 border-gray-200
                 text-gray-600
+                text-sm
                 font-medium
                 hover:bg-gray-50
                 disabled:opacity-60
@@ -585,11 +628,13 @@ export const CreateFlowerInBoxPopUp = () => {
               type="submit"
               disabled={loading}
               className="
-                flex-1
+                w-full
+                min-[380px]:flex-1
                 py-2.5
                 rounded-xl
                 bg-pink-500
                 text-white
+                text-sm
                 font-medium
                 hover:bg-pink-600
                 disabled:opacity-60

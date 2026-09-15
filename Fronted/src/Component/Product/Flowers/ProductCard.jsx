@@ -33,9 +33,9 @@ export const ProductCard = ({ product, type, onDelete }) => {
     stock === 0 ? "Out of Stock" : stock <= 5 ? "Low Stock" : "In Stock";
 
   return (
-    <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300">
+    <div className="group w-full min-w-0 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300">
       {/* Image */}
-      <div className="relative h-56 bg-gray-100 overflow-hidden">
+      <div className="relative h-44 min-[380px]:h-48 sm:h-56 bg-gray-100 overflow-hidden">
         <EditFlower />
         {showDeleteFlowerPopup&&<DeleteFlowerPopUp />}
         {product?.image ? (
@@ -54,9 +54,17 @@ export const ProductCard = ({ product, type, onDelete }) => {
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             {isFlower ? (
-              <Flower2 size={55} strokeWidth={1.5} className="text-gray-300" />
+              <Flower2
+                size={42}
+                className="sm:w-[55px] sm:h-[55px]"
+                strokeWidth={1.5}
+              />
             ) : (
-              <Package size={55} strokeWidth={1.5} className="text-gray-300" />
+              <Package
+                size={42}
+                className="sm:w-[55px] sm:h-[55px]"
+                strokeWidth={1.5}
+              />
             )}
           </div>
         )}
@@ -68,26 +76,34 @@ export const ProductCard = ({ product, type, onDelete }) => {
         <div
           className="
             absolute
-            top-4
-            left-4
+            top-2.5
+            left-2.5
+            sm:top-4
+            sm:left-4
             flex
             items-center
-            gap-2
-            px-3.5
-            py-2
+            gap-1.5
+            sm:gap-2
+            px-2.5
+            sm:px-3.5
+            py-1.5
+            sm:py-2
             rounded-full
             bg-white/95
             backdrop-blur
             shadow-lg
-            text-xs
+            text-[10px]
+            sm:text-xs
             font-bold
             text-gray-800
+            max-w-[45%]
+            truncate
           "
         >
           {isFlower ? (
-            <Flower2 size={15} className="text-pink-500" />
+            <Flower2 size={13} className="sm:w-[15px] sm:h-[15px] text-pink-500 shrink-0" />
           ) : (
-            <Package size={15} className="text-purple-500" />
+            <Package size={13} className="sm:w-[15px] sm:h-[15px] text-purple-500 shrink-0" />
           )}
 
           {isFlower ? "Flower" : "Bouquet"}
@@ -95,7 +111,7 @@ export const ProductCard = ({ product, type, onDelete }) => {
 
         {/* Stock */}
         <div
-          className={`absolute top-4 right-4 flex items-center gap-1.5 px-3 py-2 rounded-full backdrop-blur shadow-md text-xs font-semibold ${
+          className={`absolute top-2.5 right-2.5 sm:top-4 sm:right-4 flex items-center gap-1 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full backdrop-blur shadow-md text-[10px] sm:text-xs font-semibold max-w-[48%] truncate ${
             stock === 0
               ? "bg-red-50/95 text-red-600"
               : stock <= 5
@@ -103,84 +119,89 @@ export const ProductCard = ({ product, type, onDelete }) => {
                 : "bg-green-50/95 text-green-700"
           }`}
         >
-          <CircleCheck size={13} />
-          {stockStatus}
+          <CircleCheck size={12} className="sm:w-[13px] sm:h-[13px] shrink-0" />
+          <span className="truncate">{stockStatus}</span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-3 min-[380px]:p-4 sm:p-5">
         {/* Name */}
-        <h3 className="text-xl font-bold text-gray-900 truncate">
+        <h3 className="text-base min-[380px]:text-lg sm:text-xl font-bold text-gray-900 truncate">
           {product?.name || "Unnamed Product"}
         </h3>
 
         {/* Category */}
-        <div className="flex items-center gap-2 mt-2">
-          <div className="w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center">
-            <Tag size={14} className="text-gray-400" />
+        <div className="flex items-center gap-2 mt-2 min-w-0">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 shrink-0 rounded-lg bg-gray-50 flex items-center justify-center">
+            <Tag size={13} className="sm:w-[14px] sm:h-[14px] text-gray-400" />
           </div>
 
-          <span className="text-sm text-gray-500 truncate">
+          <span className="text-xs sm:text-sm text-gray-500 truncate">
             {product?.category || "No category"}
           </span>
         </div>
 
         {/* Price + Stock */}
-        <div className="flex items-end justify-between mt-5 pt-4 border-t border-gray-100">
-          <div>
-            <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+        <div className="flex items-end justify-between gap-3 mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-gray-100">
+          <div className="min-w-0">
+            <p className="text-[9px] sm:text-xs text-gray-400 font-medium uppercase tracking-wider">
               Price
             </p>
 
             <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-sm font-semibold text-gray-500">₹</span>
+              <span className="text-xs sm:text-sm font-semibold text-gray-500">₹</span>
 
-              <span className="text-2xl font-extrabold text-gray-900">
+              <span className="text-xl min-[380px]:text-2xl font-extrabold text-gray-900">
                 {product?.price ?? 0}
               </span>
             </div>
           </div>
 
-          <div className="text-right">
-            <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+          <div className="text-right min-w-0">
+            <p className="text-[9px] sm:text-xs text-gray-400 font-medium uppercase tracking-wider">
               Available
             </p>
 
-            <div className="flex items-center justify-end gap-2 mt-1">
-              <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center">
-                <Boxes size={16} className="text-gray-500" />
+            <div className="flex items-center justify-end gap-1.5 sm:gap-2 mt-1">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gray-50 flex items-center justify-center">
+                <Boxes size={14} className="sm:w-[16px] sm:h-[16px] text-gray-500" />
               </div>
 
-              <span className="text-lg font-bold text-gray-800">{stock}</span>
+              <span className="text-base sm:text-lg font-bold text-gray-800">
+                {stock}
+              </span>
             </div>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2 mt-5">
+        <div className="flex gap-2 mt-4 sm:mt-5">
           {/* Edit */}
           <button
             type="button"
             onClick={handleEdit}
             className="
               flex-1
-              h-11
+              h-10
+              sm:h-11
               rounded-xl
               bg-gray-900
               text-white
-              text-sm
+              text-xs
+              sm:text-sm
               font-semibold
               flex
               items-center
               justify-center
-              gap-2
+              gap-1.5
+              sm:gap-2
               hover:bg-gray-800
               active:scale-[0.98]
               transition-all
             "
           >
-            <Pencil size={16} />
+            <Pencil size={14} className="sm:w-[16px] sm:h-[16px]" />
             Edit
           </button>
 
@@ -191,8 +212,11 @@ export const ProductCard = ({ product, type, onDelete }) => {
             dispatch(openDeleteFlowerPopup(product?._id))
             }}
             className="
-              w-11
-              h-11
+              w-10
+              h-10
+              sm:w-11
+              sm:h-11
+              shrink-0
               rounded-xl
               bg-red-50
               text-red-500
@@ -207,7 +231,7 @@ export const ProductCard = ({ product, type, onDelete }) => {
               transition-all
             "
           >
-            <Trash2 size={17} />
+            <Trash2 size={16} className="sm:w-[17px] sm:h-[17px]" />
           </button>
         </div>
       </div>

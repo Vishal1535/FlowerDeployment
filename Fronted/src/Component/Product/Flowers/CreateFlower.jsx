@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { X, Flower2, LoaderCircle } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -95,7 +94,8 @@ export const CreateFlower = () => {
         justify-center
         bg-black/40
         backdrop-blur-sm
-        p-4
+        p-3
+        min-[380px]:p-4
         overflow-hidden
       "
     >
@@ -105,12 +105,14 @@ export const CreateFlower = () => {
           w-full
           max-w-lg
           bg-white
-          rounded-3xl
+          rounded-2xl
+          sm:rounded-3xl
           shadow-2xl
           overflow-hidden
           flex
           flex-col
-          max-h-[90vh]
+          max-h-[95vh]
+          sm:max-h-[90vh]
         "
       >
         {/* Header */}
@@ -119,19 +121,26 @@ export const CreateFlower = () => {
             flex
             items-center
             justify-between
-            px-6
-            py-5
+            gap-3
+            px-4
+            min-[380px]:px-5
+            sm:px-6
+            py-3.5
+            sm:py-5
             border-b
             border-gray-100
             bg-white
             shrink-0
           "
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             <div
               className="
-                w-11
-                h-11
+                w-9
+                h-9
+                sm:w-11
+                sm:h-11
+                shrink-0
                 rounded-xl
                 bg-pink-50
                 flex
@@ -140,17 +149,17 @@ export const CreateFlower = () => {
               "
             >
               <Flower2
-                size={22}
-                className="text-pink-600"
+                size={19}
+                className="sm:w-[22px] sm:h-[22px] text-pink-600"
               />
             </div>
 
-            <div>
-              <h2 className="text-xl font-bold text-gray-900">
+            <div className="min-w-0">
+              <h2 className="text-base sm:text-xl font-bold text-gray-900 truncate">
                 Add New Flower
               </h2>
 
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1 truncate">
                 Add a new flower to your store
               </p>
             </div>
@@ -163,8 +172,11 @@ export const CreateFlower = () => {
               dispatch(closeCreateFlowerPopup())
             }
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
               rounded-full
               flex
               items-center
@@ -174,10 +186,9 @@ export const CreateFlower = () => {
               hover:bg-gray-200
               hover:text-gray-900
               transition-all
-              shrink-0
             "
           >
-            <X size={19} />
+            <X size={17} className="sm:w-[19px] sm:h-[19px]" />
           </button>
         </div>
 
@@ -192,11 +203,11 @@ export const CreateFlower = () => {
         >
           <form
             onSubmit={handleSubmit}
-            className="p-6 space-y-5"
+            className="p-4 min-[380px]:p-5 sm:p-6 space-y-4 sm:space-y-5"
           >
             {/* Name */}
             <div>
-              <label className="text-sm font-semibold text-gray-700">
+              <label className="text-xs sm:text-sm font-semibold text-gray-700">
                 Flower Name
               </label>
 
@@ -210,15 +221,19 @@ export const CreateFlower = () => {
                   input
                   input-bordered
                   w-full
-                  mt-2
+                  h-10
+                  sm:h-11
+                  mt-1.5
+                  sm:mt-2
                   rounded-xl
+                  text-sm
                 "
               />
             </div>
 
             {/* Description */}
             <div>
-              <label className="text-sm font-semibold text-gray-700">
+              <label className="text-xs sm:text-sm font-semibold text-gray-700">
                 Description
               </label>
 
@@ -232,17 +247,19 @@ export const CreateFlower = () => {
                   textarea
                   textarea-bordered
                   w-full
-                  mt-2
+                  mt-1.5
+                  sm:mt-2
                   rounded-xl
                   resize-none
+                  text-sm
                 "
               />
             </div>
 
             {/* Price + Stock */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-semibold text-gray-700">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
+              <div className="min-w-0">
+                <label className="text-xs sm:text-sm font-semibold text-gray-700">
                   Price
                 </label>
 
@@ -257,14 +274,18 @@ export const CreateFlower = () => {
                     input
                     input-bordered
                     w-full
-                    mt-2
+                    h-10
+                    sm:h-11
+                    mt-1.5
+                    sm:mt-2
                     rounded-xl
+                    text-sm
                   "
                 />
               </div>
 
-              <div>
-                <label className="text-sm font-semibold text-gray-700">
+              <div className="min-w-0">
+                <label className="text-xs sm:text-sm font-semibold text-gray-700">
                   Stock
                 </label>
 
@@ -279,17 +300,21 @@ export const CreateFlower = () => {
                     input
                     input-bordered
                     w-full
-                    mt-2
+                    h-10
+                    sm:h-11
+                    mt-1.5
+                    sm:mt-2
                     rounded-xl
+                    text-sm
                   "
                 />
               </div>
             </div>
 
             {/* Color + Category */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-semibold text-gray-700">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
+              <div className="min-w-0">
+                <label className="text-xs sm:text-sm font-semibold text-gray-700">
                   Color
                 </label>
 
@@ -303,14 +328,18 @@ export const CreateFlower = () => {
                     input
                     input-bordered
                     w-full
-                    mt-2
+                    h-10
+                    sm:h-11
+                    mt-1.5
+                    sm:mt-2
                     rounded-xl
+                    text-sm
                   "
                 />
               </div>
 
-              <div>
-                <label className="text-sm font-semibold text-gray-700">
+              <div className="min-w-0">
+                <label className="text-xs sm:text-sm font-semibold text-gray-700">
                   Category
                 </label>
 
@@ -324,8 +353,12 @@ export const CreateFlower = () => {
                     input
                     input-bordered
                     w-full
-                    mt-2
+                    h-10
+                    sm:h-11
+                    mt-1.5
+                    sm:mt-2
                     rounded-xl
+                    text-sm
                   "
                 />
               </div>
@@ -333,7 +366,7 @@ export const CreateFlower = () => {
 
             {/* Image */}
             <div>
-              <label className="text-sm font-semibold text-gray-700">
+              <label className="text-xs sm:text-sm font-semibold text-gray-700">
                 Image URL
               </label>
 
@@ -347,14 +380,18 @@ export const CreateFlower = () => {
                   input
                   input-bordered
                   w-full
-                  mt-2
+                  h-10
+                  sm:h-11
+                  mt-1.5
+                  sm:mt-2
                   rounded-xl
+                  text-sm
                 "
               />
 
               {/* Preview */}
               {formData.image && (
-                <div className="mt-3 h-32 rounded-xl overflow-hidden bg-gray-100">
+                <div className="mt-2.5 sm:mt-3 h-28 sm:h-32 rounded-xl overflow-hidden bg-gray-100">
                   <img
                     src={formData.image}
                     alt="Flower preview"
@@ -368,7 +405,7 @@ export const CreateFlower = () => {
             </div>
 
             {/* Buttons */}
-            <div className="flex gap-3 pt-2 pb-2">
+            <div className="flex flex-col min-[380px]:flex-row gap-2.5 sm:gap-3 pt-1 sm:pt-2 pb-1 sm:pb-2">
               <button
                 type="button"
                 onClick={() =>
@@ -376,13 +413,16 @@ export const CreateFlower = () => {
                 }
                 disabled={loading}
                 className="
-                  flex-1
-                  h-12
+                  w-full
+                  min-[380px]:flex-1
+                  h-11
+                  sm:h-12
                   rounded-xl
                   border
                   border-gray-200
                   bg-white
                   text-gray-700
+                  text-sm
                   font-semibold
                   hover:bg-gray-50
                   disabled:cursor-not-allowed
@@ -396,11 +436,14 @@ export const CreateFlower = () => {
                 type="submit"
                 disabled={loading}
                 className="
-                  flex-1
-                  h-12
+                  w-full
+                  min-[380px]:flex-1
+                  h-11
+                  sm:h-12
                   rounded-xl
                   bg-gray-900
                   text-white
+                  text-sm
                   font-semibold
                   hover:bg-gray-800
                   disabled:bg-gray-400
@@ -434,4 +477,3 @@ export const CreateFlower = () => {
     </div>
   );
 };
-

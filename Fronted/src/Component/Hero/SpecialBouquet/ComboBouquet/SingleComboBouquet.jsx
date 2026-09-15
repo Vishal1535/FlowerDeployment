@@ -301,13 +301,15 @@ export const SingleComboBouquet = () => {
       <>
         <Auth />
 
-        <div className="min-h-[75vh] flex items-center justify-center">
+        <div className="min-h-[70vh] sm:min-h-[75vh] px-4 flex items-center justify-center">
           <div className="text-center">
 
             <div
               className="
-                w-14
-                h-14
+                w-12
+                h-12
+                sm:w-14
+                sm:h-14
                 mx-auto
                 rounded-full
                 bg-pink-50
@@ -318,12 +320,12 @@ export const SingleComboBouquet = () => {
               "
             >
               <Flower2
-                size={26}
-                className="text-pink-400"
+                size={23}
+                className="sm:w-[26px] sm:h-[26px] text-pink-400"
               />
             </div>
 
-            <p className="mt-3 text-sm text-gray-500">
+            <p className="mt-3 text-xs sm:text-sm text-gray-500">
               Loading combo bouquet details...
             </p>
 
@@ -337,11 +339,11 @@ export const SingleComboBouquet = () => {
     <>
       <Auth />
 
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-white overflow-hidden">
 
         {/* BACK */}
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-5">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 pt-4 sm:pt-5">
 
           <button
             type="button"
@@ -349,8 +351,10 @@ export const SingleComboBouquet = () => {
             className="
               inline-flex
               items-center
-              gap-2
-              text-sm
+              gap-1.5
+              sm:gap-2
+              text-xs
+              sm:text-sm
               font-medium
               text-gray-500
               hover:text-pink-600
@@ -358,23 +362,29 @@ export const SingleComboBouquet = () => {
               cursor-pointer
             "
           >
-            <ArrowLeft size={17} />
+            <ArrowLeft
+              size={15}
+              className="sm:w-[17px] sm:h-[17px]"
+            />
 
-            Back to Combo Bouquets
+            <span>
+              Back to Combo Bouquets
+            </span>
           </button>
 
         </div>
 
         {/* PRODUCT SECTION */}
 
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        <section className="max-w-6xl mx-auto px-3 sm:px-6 py-5 sm:py-6">
 
           <div
             className="
               grid
               grid-cols-1
               lg:grid-cols-[0.9fr_1.1fr]
-              gap-7
+              gap-6
+              sm:gap-7
               lg:gap-10
               items-start
             "
@@ -386,10 +396,12 @@ export const SingleComboBouquet = () => {
               className="
                 relative
                 w-full
-                h-[300px]
+                h-[270px]
+                min-[380px]:h-[300px]
                 sm:h-[340px]
                 lg:h-[390px]
-                rounded-3xl
+                rounded-2xl
+                sm:rounded-3xl
                 overflow-hidden
                 bg-gradient-to-br
                 from-pink-50
@@ -406,10 +418,14 @@ export const SingleComboBouquet = () => {
               <div
                 className="
                   absolute
-                  -top-16
-                  -right-16
-                  w-44
-                  h-44
+                  -top-12
+                  -right-12
+                  sm:-top-16
+                  sm:-right-16
+                  w-32
+                  h-32
+                  sm:w-44
+                  sm:h-44
                   rounded-full
                   bg-white/70
                 "
@@ -418,10 +434,14 @@ export const SingleComboBouquet = () => {
               <div
                 className="
                   absolute
-                  -bottom-20
-                  -left-20
-                  w-52
-                  h-52
+                  -bottom-14
+                  -left-14
+                  sm:-bottom-20
+                  sm:-left-20
+                  w-40
+                  h-40
+                  sm:w-52
+                  sm:h-52
                   rounded-full
                   bg-pink-100/40
                 "
@@ -432,14 +452,21 @@ export const SingleComboBouquet = () => {
               <div
                 className={`
                   absolute
-                  top-4
-                  left-4
+                  top-3
+                  left-3
+                  sm:top-4
+                  sm:left-4
                   z-20
-                  px-3
-                  py-1.5
+                  max-w-[55%]
+                  px-2.5
+                  py-1
+                  sm:px-3
+                  sm:py-1.5
                   rounded-full
-                  text-[11px]
+                  text-[10px]
+                  sm:text-[11px]
                   font-bold
+                  truncate
 
                   ${
                     isAvailable
@@ -467,11 +494,15 @@ export const SingleComboBouquet = () => {
                 }
                 className={`
                   absolute
-                  top-4
-                  right-4
+                  top-3
+                  right-3
+                  sm:top-4
+                  sm:right-4
                   z-20
-                  w-10
-                  h-10
+                  w-9
+                  h-9
+                  sm:w-10
+                  sm:h-10
                   rounded-full
                   border
                   shadow-sm
@@ -490,7 +521,8 @@ export const SingleComboBouquet = () => {
                 `}
               >
                 <Heart
-                  size={18}
+                  size={17}
+                  className="sm:w-[18px] sm:h-[18px]"
                   fill={
                     isWishlisted
                       ? "currentColor"
@@ -511,8 +543,10 @@ export const SingleComboBouquet = () => {
                   className="
                     relative
                     z-10
-                    max-w-[88%]
-                    max-h-[82%]
+                    max-w-[90%]
+                    sm:max-w-[88%]
+                    max-h-[80%]
+                    sm:max-h-[82%]
                     object-contain
                     transition-transform
                     duration-500
@@ -523,11 +557,12 @@ export const SingleComboBouquet = () => {
                 <div className="text-center text-gray-300">
 
                   <Flower2
-                    size={65}
+                    size={52}
+                    className="sm:w-[65px] sm:h-[65px]"
                     strokeWidth={1}
                   />
 
-                  <p className="text-sm mt-2">
+                  <p className="text-xs sm:text-sm mt-2">
                     No image available
                   </p>
 
@@ -538,24 +573,27 @@ export const SingleComboBouquet = () => {
 
             {/* RIGHT DETAILS */}
 
-            <div className="pt-1">
+            <div className="pt-0 lg:pt-1 min-w-0">
 
               {/* CATEGORY */}
 
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-2">
 
                 <Flower2
-                  size={15}
-                  className="text-pink-500"
+                  size={14}
+                  className="sm:w-[15px] sm:h-[15px] text-pink-500 shrink-0"
                 />
 
                 <span
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     font-bold
                     uppercase
-                    tracking-[0.18em]
+                    tracking-[0.14em]
+                    sm:tracking-[0.18em]
                     text-pink-500
+                    truncate
                   "
                 >
                   {singleComboBouquet?.category ||
@@ -569,11 +607,13 @@ export const SingleComboBouquet = () => {
               <h1
                 className="
                   text-2xl
+                  min-[380px]:text-[27px]
                   sm:text-3xl
                   font-extrabold
                   text-gray-900
                   capitalize
                   tracking-tight
+                  break-words
                 "
               >
                 {singleComboBouquet?.name ||
@@ -584,9 +624,12 @@ export const SingleComboBouquet = () => {
 
               <p
                 className="
-                  mt-4
-                  text-sm
-                  leading-6
+                  mt-3
+                  sm:mt-4
+                  text-xs
+                  sm:text-sm
+                  leading-5
+                  sm:leading-6
                   text-gray-500
                   max-w-xl
                 "
@@ -601,7 +644,8 @@ export const SingleComboBouquet = () => {
 
                 <p
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     uppercase
                     tracking-wider
                     font-bold
@@ -611,11 +655,12 @@ export const SingleComboBouquet = () => {
                   Price
                 </p>
 
-                <div className="flex items-baseline mt-0.5">
+                <div className="flex items-baseline mt-0.5 flex-wrap">
 
                   <span
                     className="
-                      text-base
+                      text-sm
+                      sm:text-base
                       font-semibold
                       text-gray-500
                       mr-1
@@ -627,6 +672,7 @@ export const SingleComboBouquet = () => {
                   <span
                     className="
                       text-2xl
+                      sm:text-2xl
                       font-extrabold
                       text-gray-900
                     "
@@ -638,7 +684,8 @@ export const SingleComboBouquet = () => {
                     <span
                       className="
                         ml-2
-                        text-sm
+                        text-xs
+                        sm:text-sm
                         text-gray-400
                         line-through
                       "
@@ -653,21 +700,30 @@ export const SingleComboBouquet = () => {
 
               {/* STOCK */}
 
-              <div className="flex items-center gap-2 mt-3">
+              <div className="flex items-start sm:items-center gap-1.5 sm:gap-2 mt-3">
 
                 <CheckCircle2
-                  size={16}
-                  className={
-                    isAvailable
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }
+                  size={15}
+                  className={`
+                    sm:w-4
+                    sm:h-4
+                    shrink-0
+                    mt-0.5
+                    sm:mt-0
+                    ${
+                      isAvailable
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }
+                  `}
                 />
 
                 <span
                   className={`
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-semibold
+                    leading-5
 
                     ${
                       isAvailable
@@ -685,7 +741,7 @@ export const SingleComboBouquet = () => {
 
               {/* BUTTONS */}
 
-              <div className="grid grid-cols-2 gap-2 mt-4">
+              <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-2 mt-4">
 
                 {/* ADD TO CART */}
 
@@ -697,16 +753,21 @@ export const SingleComboBouquet = () => {
                   }
                   onClick={handleAddToCart}
                   className="
-                    h-11
+                    w-full
+                    h-10
+                    sm:h-11
                     rounded-xl
                     bg-gray-900
                     text-white
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-bold
                     flex
                     items-center
                     justify-center
-                    gap-2
+                    gap-1.5
+                    sm:gap-2
+                    px-2
                     hover:bg-pink-600
                     active:scale-[0.98]
                     disabled:bg-gray-100
@@ -716,13 +777,18 @@ export const SingleComboBouquet = () => {
                     cursor-pointer
                   "
                 >
-                  <ShoppingCart size={17} />
+                  <ShoppingCart
+                    size={16}
+                    className="sm:w-[17px] sm:h-[17px] shrink-0"
+                  />
 
-                  {isInCart
-                    ? "Added to Cart"
-                    : isAvailable
-                      ? "Add to Cart"
-                      : "Unavailable"}
+                  <span className="truncate">
+                    {isInCart
+                      ? "Added to Cart"
+                      : isAvailable
+                        ? "Add to Cart"
+                        : "Unavailable"}
+                  </span>
                 </button>
 
                 {/* BUY NOW */}
@@ -732,16 +798,21 @@ export const SingleComboBouquet = () => {
                   disabled={!isAvailable}
                   onClick={handleBuyNow}
                   className="
-                    h-11
+                    w-full
+                    h-10
+                    sm:h-11
                     rounded-xl
                     bg-pink-500
                     text-white
-                    text-sm
+                    text-xs
+                    sm:text-sm
                     font-bold
                     flex
                     items-center
                     justify-center
-                    gap-2
+                    gap-1.5
+                    sm:gap-2
+                    px-2
                     hover:bg-pink-600
                     active:scale-[0.98]
                     disabled:bg-gray-100
@@ -752,7 +823,8 @@ export const SingleComboBouquet = () => {
                   "
                 >
                   <Zap
-                    size={17}
+                    size={16}
+                    className="sm:w-[17px] sm:h-[17px] shrink-0"
                     fill="currentColor"
                   />
 
@@ -775,8 +847,10 @@ export const SingleComboBouquet = () => {
                   flex
                   items-center
                   justify-center
-                  gap-2
-                  text-sm
+                  gap-1.5
+                  sm:gap-2
+                  text-xs
+                  sm:text-sm
                   font-semibold
                   transition-all
                   cursor-pointer
@@ -789,7 +863,8 @@ export const SingleComboBouquet = () => {
                 `}
               >
                 <Heart
-                  size={17}
+                  size={16}
+                  className="sm:w-[17px] sm:h-[17px]"
                   fill={
                     isWishlisted
                       ? "currentColor"
@@ -806,8 +881,10 @@ export const SingleComboBouquet = () => {
 
               <div
                 className="
-                  mt-6
-                  pt-5
+                  mt-5
+                  sm:mt-6
+                  pt-4
+                  sm:pt-5
                   border-t
                   border-gray-100
                 "
@@ -815,7 +892,8 @@ export const SingleComboBouquet = () => {
 
                 <p
                   className="
-                    text-[10px]
+                    text-[9px]
+                    sm:text-[10px]
                     uppercase
                     tracking-wider
                     font-bold
@@ -845,9 +923,12 @@ export const SingleComboBouquet = () => {
               grid
               grid-cols-1
               sm:grid-cols-3
-              gap-3
-              mt-8
-              pb-6
+              gap-2.5
+              sm:gap-3
+              mt-7
+              sm:mt-8
+              pb-5
+              sm:pb-6
             "
           >
 
@@ -857,8 +938,10 @@ export const SingleComboBouquet = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -880,18 +963,18 @@ export const SingleComboBouquet = () => {
                 "
               >
                 <Flower2
-                  size={18}
-                  className="text-pink-500"
+                  size={17}
+                  className="sm:w-[18px] sm:h-[18px] text-pink-500"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p className="text-xs sm:text-sm font-bold text-gray-800 truncate">
                   Fresh Flowers
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p className="text-[10px] sm:text-[11px] text-gray-400">
                   Carefully selected
                 </p>
 
@@ -905,8 +988,10 @@ export const SingleComboBouquet = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -928,18 +1013,18 @@ export const SingleComboBouquet = () => {
                 "
               >
                 <Truck
-                  size={18}
-                  className="text-purple-500"
+                  size={17}
+                  className="sm:w-[18px] sm:h-[18px] text-purple-500"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p className="text-xs sm:text-sm font-bold text-gray-800 truncate">
                   Fast Delivery
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p className="text-[10px] sm:text-[11px] text-gray-400">
                   Delivered with care
                 </p>
 
@@ -953,8 +1038,10 @@ export const SingleComboBouquet = () => {
               className="
                 flex
                 items-center
-                gap-3
-                p-3.5
+                gap-2.5
+                sm:gap-3
+                p-3
+                sm:p-3.5
                 rounded-xl
                 border
                 border-gray-100
@@ -976,18 +1063,18 @@ export const SingleComboBouquet = () => {
                 "
               >
                 <ShieldCheck
-                  size={18}
-                  className="text-green-500"
+                  size={17}
+                  className="sm:w-[18px] sm:h-[18px] text-green-500"
                 />
               </div>
 
-              <div>
+              <div className="min-w-0">
 
-                <p className="text-sm font-bold text-gray-800">
+                <p className="text-xs sm:text-sm font-bold text-gray-800 truncate">
                   Quality Assured
                 </p>
 
-                <p className="text-[11px] text-gray-400">
+                <p className="text-[10px] sm:text-[11px] text-gray-400">
                   Premium quality bouquet
                 </p>
 

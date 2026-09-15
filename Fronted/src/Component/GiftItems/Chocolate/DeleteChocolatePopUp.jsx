@@ -52,29 +52,29 @@ export const DeleteChocolatePopUp = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3 sm:px-4 py-4">
 
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl">
+      <div className="w-full max-w-md bg-white rounded-xl sm:rounded-2xl shadow-xl overflow-hidden">
 
         {/* ================= HEADER ================= */}
 
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100">
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
 
-            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-red-50 flex items-center justify-center">
               <AlertTriangle
-                size={20}
-                className="text-red-500"
+                size={18}
+                className="sm:w-5 sm:h-5 text-red-500"
               />
             </div>
 
-            <div>
-              <h2 className="text-lg font-semibold text-gray-800">
+            <div className="min-w-0">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-800 truncate">
                 Delete Chocolate
               </h2>
 
-              <p className="text-xs text-gray-500">
+              <p className="text-[11px] sm:text-xs text-gray-500">
                 This action cannot be undone
               </p>
             </div>
@@ -88,8 +88,11 @@ export const DeleteChocolatePopUp = () => {
               dispatch(closeDeleteChocolatePopup())
             }
             className="
-              w-9
-              h-9
+              w-8
+              h-8
+              sm:w-9
+              sm:h-9
+              shrink-0
               rounded-full
               flex
               items-center
@@ -100,24 +103,24 @@ export const DeleteChocolatePopUp = () => {
               disabled:opacity-50
             "
           >
-            <X size={19} />
+            <X size={18} className="sm:w-[19px] sm:h-[19px]" />
           </button>
 
         </div>
 
         {/* ================= CONTENT ================= */}
 
-        <div className="px-6 py-5">
+        <div className="px-4 sm:px-6 py-4 sm:py-5">
 
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 leading-5">
             Are you sure you want to delete{" "}
-            <span className="font-semibold text-gray-800">
+            <span className="font-semibold text-gray-800 break-words">
               {selectedChocolate.name}
             </span>
             ?
           </p>
 
-          <p className="text-xs text-red-500 mt-2">
+          <p className="text-xs text-red-500 mt-2 leading-4">
             Once deleted, this chocolate cannot be recovered.
           </p>
 
@@ -125,7 +128,7 @@ export const DeleteChocolatePopUp = () => {
 
         {/* ================= BUTTONS ================= */}
 
-        <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-100">
+        <div className="flex flex-col min-[380px]:flex-row sm:justify-end gap-2 min-[380px]:gap-3 px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-100">
 
           <button
             type="button"
@@ -134,9 +137,13 @@ export const DeleteChocolatePopUp = () => {
               dispatch(closeDeleteChocolatePopup())
             }
             className="
+              w-full
+              min-[380px]:w-auto
               px-5
-              py-2.5
-              rounded-xl
+              py-2
+              sm:py-2.5
+              rounded-lg
+              sm:rounded-xl
               border
               border-gray-200
               text-sm
@@ -155,10 +162,15 @@ export const DeleteChocolatePopUp = () => {
             onClick={handleDelete}
             disabled={loading}
             className="
-              min-w-[110px]
+              w-full
+              min-[380px]:w-auto
+              min-w-0
+              min-[380px]:min-w-[110px]
               px-5
-              py-2.5
-              rounded-xl
+              py-2
+              sm:py-2.5
+              rounded-lg
+              sm:rounded-xl
               bg-red-500
               text-white
               text-sm
