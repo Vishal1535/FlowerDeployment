@@ -3,13 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { X } from "lucide-react";
 import toast from "react-hot-toast";
 
-import {
-  closeEditMiniCupcakePopup,
-} from "../../../Store/MIniCupCake/MIniCupCakeSlice";
-
-import {
-  UpdateMiniCupcakeThunk,
-} from "../../../Store/MIniCupCake/MIniCupCakeApi";
+import { closeEditMiniCupcakePopup } from "../../../Store/MiniCupCake/MiniCupCakeSlice";
+import { UpdateMiniCupcakeThunk } from "../../../Store/MiniCupCake/MIniCupCakeApi";
 
 export const EditMiniCupcakePopUp = () => {
   const dispatch = useDispatch();
