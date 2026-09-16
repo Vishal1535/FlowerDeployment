@@ -804,7 +804,7 @@ export const Address = () => {
             </div>
 
             {/* =================================================
-                PHONE NUMBER - UPDATED DESIGN
+                PHONE NUMBER
             ================================================= */}
 
             <div>
@@ -1139,11 +1139,65 @@ export const Address = () => {
               border-t
               border-gray-100
               flex
-              flex-col-reverse
+              flex-col
               sm:flex-row
               gap-3
             "
           >
+
+            {/* SAVE ADDRESS */}
+
+            <button
+              type="submit"
+              disabled={
+                loading ||
+                latestLoading ||
+                locationLoading
+              }
+              className="
+                order-1
+                sm:order-2
+                w-full
+                sm:flex-1
+                h-11
+                sm:h-12
+                rounded-xl
+                bg-pink-500
+                text-white
+                text-sm
+                sm:text-base
+                font-semibold
+                flex
+                items-center
+                justify-center
+                gap-2
+                shadow-sm
+                hover:bg-pink-600
+                active:scale-[0.99]
+                disabled:opacity-50
+                disabled:cursor-not-allowed
+                transition-all
+                cursor-pointer
+              "
+            >
+
+              {loading ? (
+                <>
+                  <span className="loading loading-spinner loading-sm"></span>
+
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save size={18} />
+
+                  <span>
+                    Save Address
+                  </span>
+                </>
+              )}
+
+            </button>
 
             {/* GET LATEST ADDRESS */}
 
@@ -1158,23 +1212,29 @@ export const Address = () => {
                 locationLoading
               }
               className="
-                flex-1
+                order-2
+                sm:order-1
+                w-full
+                sm:flex-1
                 h-11
-                rounded-lg
+                sm:h-12
+                rounded-xl
                 border
                 border-gray-300
                 bg-white
                 text-gray-700
                 text-sm
+                sm:text-base
                 font-semibold
                 flex
                 items-center
                 justify-center
                 gap-2
                 hover:bg-gray-50
+                active:scale-[0.99]
                 disabled:opacity-50
                 disabled:cursor-not-allowed
-                transition
+                transition-all
                 cursor-pointer
               "
             >
@@ -1187,54 +1247,11 @@ export const Address = () => {
                 </>
               ) : (
                 <>
-                  <RefreshCw size={16} />
+                  <RefreshCw size={18} />
 
-                  Get Latest Address
-                </>
-              )}
-
-            </button>
-
-            {/* SAVE ADDRESS */}
-
-            <button
-              type="submit"
-              disabled={
-                loading ||
-                latestLoading ||
-                locationLoading
-              }
-              className="
-                flex-1
-                h-11
-                rounded-lg
-                bg-pink-500
-                text-white
-                text-sm
-                font-semibold
-                flex
-                items-center
-                justify-center
-                gap-2
-                hover:bg-pink-600
-                disabled:opacity-50
-                disabled:cursor-not-allowed
-                transition
-                cursor-pointer
-              "
-            >
-
-              {loading ? (
-                <>
-                  <span className="loading loading-spinner loading-sm"></span>
-
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <Save size={16} />
-
-                  Save Address
+                  <span>
+                    Get Latest Address
+                  </span>
                 </>
               )}
 

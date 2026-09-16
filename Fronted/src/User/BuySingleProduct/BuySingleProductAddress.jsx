@@ -526,6 +526,7 @@ export const BuySingleProductAddress = () => {
     text-gray-700
     outline-none
     focus:ring-1
+    transition
   `;
 
   // =====================================================
@@ -600,6 +601,7 @@ export const BuySingleProductAddress = () => {
                 justify-center
                 text-sm
                 font-bold
+                shrink-0
               "
             >
               ✓
@@ -629,6 +631,7 @@ export const BuySingleProductAddress = () => {
                 justify-center
                 text-sm
                 font-bold
+                shrink-0
               "
             >
               2
@@ -658,6 +661,7 @@ export const BuySingleProductAddress = () => {
                 justify-center
                 text-sm
                 font-bold
+                shrink-0
               "
             >
               3
@@ -713,12 +717,13 @@ export const BuySingleProductAddress = () => {
               flex
               items-center
               justify-center
+              shrink-0
             "
           >
             <MapPin size={20} />
           </div>
 
-          <div>
+          <div className="min-w-0">
 
             <h2 className="text-lg font-bold text-gray-800">
               Delivery Address
@@ -774,13 +779,11 @@ export const BuySingleProductAddress = () => {
               {locationLoading ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
-
                   Detecting your location...
                 </>
               ) : (
                 <>
                   <LocateFixed size={18} />
-
                   Use My Current Location
                 </>
               )}
@@ -865,9 +868,7 @@ export const BuySingleProductAddress = () => {
 
             </div>
 
-            {/* =================================================
-                PHONE NUMBER
-            ================================================= */}
+            {/* PHONE NUMBER */}
 
             <div>
 
@@ -1190,7 +1191,9 @@ export const BuySingleProductAddress = () => {
 
           </div>
 
-          {/* BUTTONS */}
+          {/* =================================================
+              BUTTONS
+          ================================================= */}
 
           <div
             className="
@@ -1199,11 +1202,74 @@ export const BuySingleProductAddress = () => {
               border-t
               border-gray-100
               flex
-              flex-col-reverse
+              flex-col
               sm:flex-row
               gap-3
             "
           >
+
+            {/* SAVE ADDRESS */}
+
+            <button
+              type="submit"
+              disabled={
+                loading ||
+                latestLoading ||
+                locationLoading
+              }
+              className="
+                order-1
+                sm:order-2
+
+                w-full
+                sm:flex-1
+
+                h-12
+
+                rounded-xl
+
+                bg-pink-500
+                text-white
+
+                text-sm
+                sm:text-base
+
+                font-semibold
+
+                flex
+                items-center
+                justify-center
+
+                gap-2
+
+                shadow-sm
+
+                hover:bg-pink-600
+                hover:shadow-md
+
+                active:scale-[0.99]
+
+                disabled:opacity-50
+                disabled:cursor-not-allowed
+
+                transition
+                cursor-pointer
+              "
+            >
+
+              {loading ? (
+                <>
+                  <span className="loading loading-spinner loading-sm"></span>
+                  <span>Saving...</span>
+                </>
+              ) : (
+                <>
+                  <Save size={18} />
+                  <span>Save Address</span>
+                </>
+              )}
+
+            </button>
 
             {/* GET LATEST ADDRESS */}
 
@@ -1218,22 +1284,40 @@ export const BuySingleProductAddress = () => {
                 locationLoading
               }
               className="
-                flex-1
-                h-11
-                rounded-lg
+                order-2
+                sm:order-1
+
+                w-full
+                sm:flex-1
+
+                h-12
+
+                rounded-xl
+
                 border
                 border-gray-300
+
                 bg-white
                 text-gray-700
+
                 text-sm
+                sm:text-base
+
                 font-semibold
+
                 flex
                 items-center
                 justify-center
+
                 gap-2
+
                 hover:bg-gray-50
+
+                active:scale-[0.99]
+
                 disabled:opacity-50
                 disabled:cursor-not-allowed
+
                 transition
                 cursor-pointer
               "
@@ -1242,59 +1326,12 @@ export const BuySingleProductAddress = () => {
               {latestLoading ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
-
-                  Loading...
+                  <span>Loading...</span>
                 </>
               ) : (
                 <>
-                  <RefreshCw size={16} />
-
-                  Get Latest Address
-                </>
-              )}
-
-            </button>
-
-            {/* SAVE ADDRESS */}
-
-            <button
-              type="submit"
-              disabled={
-                loading ||
-                latestLoading ||
-                locationLoading
-              }
-              className="
-                flex-1
-                h-11
-                rounded-lg
-                bg-pink-500
-                text-white
-                text-sm
-                font-semibold
-                flex
-                items-center
-                justify-center
-                gap-2
-                hover:bg-pink-600
-                disabled:opacity-50
-                disabled:cursor-not-allowed
-                transition
-                cursor-pointer
-              "
-            >
-
-              {loading ? (
-                <>
-                  <span className="loading loading-spinner loading-sm"></span>
-
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <Save size={16} />
-
-                  Save Address
+                  <RefreshCw size={18} />
+                  <span>Get Latest Address</span>
                 </>
               )}
 

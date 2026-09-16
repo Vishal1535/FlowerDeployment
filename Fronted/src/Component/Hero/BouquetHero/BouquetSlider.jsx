@@ -622,13 +622,13 @@ export const BouquetSlider = () => {
             absolute
             z-30
 
-            /* MOBILE - TOP RIGHT */
+            /* MOBILE */
             top-3
-            right-12
+            right-[112px]
             w-8
             h-8
 
-            /* TABLET / DESKTOP - LEFT CENTER */
+            /* TABLET / DESKTOP */
             sm:left-6
             sm:right-auto
             sm:top-1/2
@@ -672,13 +672,13 @@ export const BouquetSlider = () => {
             absolute
             z-30
 
-            /* MOBILE - TOP RIGHT */
+            /* MOBILE */
             top-3
-            right-3
+            right-[72px]
             w-8
             h-8
 
-            /* TABLET / DESKTOP - RIGHT CENTER */
+            /* TABLET / DESKTOP */
             sm:right-6
             sm:top-1/2
             sm:-translate-y-1/2
@@ -793,6 +793,7 @@ export const BouquetSlider = () => {
             font-semibold
             border
             border-white/10
+            whitespace-nowrap
           "
         >
           {currentIndex + 1} / {bouquets.length}
