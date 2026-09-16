@@ -180,7 +180,18 @@ export const FlowerInBox = () => {
     flowersInBox.length === 0
   ) {
     return (
-      <section className="w-full px-3 sm:px-6 lg:px-10 py-8 sm:py-10">
+      <section
+        className="
+          w-full
+          bg-white
+          text-gray-900
+          px-3
+          sm:px-6
+          lg:px-10
+          py-8
+          sm:py-10
+        "
+      >
 
         <div className="text-center py-12 sm:py-16">
 
@@ -188,11 +199,26 @@ export const FlowerInBox = () => {
             🌸
           </div>
 
-          <p className="text-sm sm:text-base text-gray-600 font-medium">
+          <p
+            className="
+              text-sm
+              sm:text-base
+              text-gray-600
+              font-medium
+            "
+          >
             No flowers in box found
           </p>
 
-          <p className="text-xs sm:text-sm text-gray-400 mt-1 px-4">
+          <p
+            className="
+              text-xs
+              sm:text-sm
+              text-gray-400
+              mt-1
+              px-4
+            "
+          >
             Flower in box collection is currently empty.
           </p>
 
@@ -208,6 +234,8 @@ export const FlowerInBox = () => {
         w-full
         max-w-full
         overflow-hidden
+        bg-white
+        text-gray-900
         px-3
         sm:px-6
         lg:px-10
@@ -236,7 +264,15 @@ export const FlowerInBox = () => {
 
           <div className="min-w-0">
 
-            <div className="flex items-center gap-2 mb-2 sm:mb-3">
+            <div
+              className="
+                flex
+                items-center
+                gap-2
+                mb-2
+                sm:mb-3
+              "
+            >
 
               <span
                 className="
@@ -303,18 +339,17 @@ export const FlowerInBox = () => {
 
           </div>
 
-          {/* ================= SEARCH ================= */}
+          {/* ================= DESKTOP SEARCH ================= */}
 
           <div
             className="
-              flex
+              hidden
+              sm:flex
               items-center
               justify-end
               gap-3
-              pb-0
-              sm:pb-2
-              w-full
-              sm:w-auto
+              pb-2
+              shrink-0
             "
           >
 
@@ -329,7 +364,7 @@ export const FlowerInBox = () => {
 
                 ${
                   isSearchOpen
-                    ? "w-full sm:w-[220px]"
+                    ? "w-[220px]"
                     : "w-10"
                 }
               `}
@@ -387,10 +422,8 @@ export const FlowerInBox = () => {
                 >
 
                   <Search
-                    size={16}
+                    size={17}
                     className="
-                      sm:w-[17px]
-                      sm:h-[17px]
                       text-pink-500
                       shrink-0
                     "
@@ -407,8 +440,7 @@ export const FlowerInBox = () => {
                       min-w-0
                       bg-transparent
                       outline-none
-                      text-xs
-                      sm:text-sm
+                      text-sm
                       text-gray-700
                       placeholder:text-gray-400
                     "
@@ -438,6 +470,82 @@ export const FlowerInBox = () => {
 
         </div>
 
+        {/* ================= MOBILE SEARCH ================= */}
+
+        <div
+          className="
+            flex
+            sm:hidden
+            mt-4
+            w-full
+          "
+        >
+
+          <div
+            className="
+              flex
+              items-center
+              w-full
+              h-10
+              rounded-full
+              border
+              border-gray-200
+              bg-white
+              shadow-sm
+              px-3
+              gap-2
+              focus-within:border-pink-300
+              focus-within:ring-2
+              focus-within:ring-pink-50
+            "
+          >
+
+            <Search
+              size={17}
+              className="
+                text-pink-500
+                shrink-0
+              "
+            />
+
+            <input
+              type="text"
+              value={searchText}
+              onChange={handleSearchChange}
+              placeholder="Search flower box..."
+              className="
+                w-full
+                min-w-0
+                bg-transparent
+                outline-none
+                text-sm
+                text-gray-700
+                placeholder:text-gray-400
+              "
+            />
+
+            {searchText && (
+
+              <button
+                type="button"
+                onClick={handleCloseSearch}
+                aria-label="Close search"
+                className="
+                  shrink-0
+                  text-gray-400
+                  hover:text-pink-500
+                  transition-colors
+                "
+              >
+                <X size={16} />
+              </button>
+
+            )}
+
+          </div>
+
+        </div>
+
         {/* ================= DIVIDER ================= */}
 
         <div
@@ -454,20 +562,22 @@ export const FlowerInBox = () => {
 
       </div>
 
-      {/* ================= CAROUSEL ================= */}
+      {/* ========================================= */}
+      {/* MOBILE ARROWS */}
+      {/* ========================================= */}
 
       <div
         className="
           flex
+          sm:hidden
           items-center
-          gap-1.5
-          sm:gap-4
-          w-full
-          min-w-0
+          justify-between
+          mb-3
+          px-1
         "
       >
 
-        {/* ================= PREVIOUS ================= */}
+        {/* MOBILE PREVIOUS */}
 
         <button
           type="button"
@@ -479,19 +589,111 @@ export const FlowerInBox = () => {
           }
           aria-label="Previous flowers in box"
           className="
-            shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
-            sm:w-12
-            sm:h-12
+            w-9
+            h-9
             rounded-full
             bg-white
             border
             border-gray-200
             shadow-md
             flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
+            active:scale-90
+            disabled:opacity-25
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronLeft
+            size={19}
+            strokeWidth={2}
+          />
+        </button>
+
+        {/* MOBILE NEXT */}
+
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={
+            loading ||
+            filteredFlowersInBox.length === 0 ||
+            startIndex >=
+              filteredFlowersInBox.length -
+                visibleCount
+          }
+          aria-label="Next flowers in box"
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
+            flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
+            active:scale-90
+            disabled:opacity-25
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronRight
+            size={19}
+            strokeWidth={2}
+          />
+        </button>
+
+      </div>
+
+      {/* ================= CAROUSEL ================= */}
+
+      <div
+        className="
+          flex
+          items-center
+          gap-4
+          sm:gap-4
+          w-full
+          min-w-0
+        "
+      >
+
+        {/* ================= DESKTOP PREVIOUS ================= */}
+
+        <button
+          type="button"
+          onClick={handlePrevious}
+          disabled={
+            startIndex === 0 ||
+            loading ||
+            filteredFlowersInBox.length === 0
+          }
+          aria-label="Previous flowers in box"
+          className="
+            hidden
+            sm:flex
+            shrink-0
+            w-12
+            h-12
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
             items-center
             justify-center
             text-gray-700
@@ -507,15 +709,23 @@ export const FlowerInBox = () => {
           "
         >
           <ChevronLeft
-            size={18}
-            className="sm:w-[22px] sm:h-[22px]"
+            size={22}
             strokeWidth={2}
           />
         </button>
 
         {/* ================= ITEMS ================= */}
 
-        <div className="flex-1 min-w-0 overflow-hidden">
+        <div
+          className="
+            flex-1
+            min-w-0
+            max-w-full
+            overflow-hidden
+            select-none
+            touch-pan-y
+          "
+        >
 
           {/* ================= LOADING ================= */}
 
@@ -532,8 +742,10 @@ export const FlowerInBox = () => {
                 sm:gap-5
               "
             >
+
               {[1, 2, 3, 4].map(
                 (item) => (
+
                   <div
                     key={item}
                     className="
@@ -546,8 +758,10 @@ export const FlowerInBox = () => {
                       animate-pulse
                     "
                   />
+
                 )
               )}
+
             </div>
 
           ) : filteredFlowersInBox.length === 0 ? (
@@ -568,7 +782,13 @@ export const FlowerInBox = () => {
               "
             >
 
-              <div className="text-3xl sm:text-4xl mb-3">
+              <div
+                className="
+                  text-3xl
+                  sm:text-4xl
+                  mb-3
+                "
+              >
                 🌸
               </div>
 
@@ -621,10 +841,12 @@ export const FlowerInBox = () => {
 
               {visibleFlowersInBox.map(
                 (flower) => (
+
                   <FlowerInBoxItem
                     key={flower._id}
                     flower={flower}
                   />
+
                 )
               )}
 
@@ -634,7 +856,7 @@ export const FlowerInBox = () => {
 
         </div>
 
-        {/* ================= NEXT ================= */}
+        {/* ================= DESKTOP NEXT ================= */}
 
         <button
           type="button"
@@ -648,19 +870,16 @@ export const FlowerInBox = () => {
           }
           aria-label="Next flowers in box"
           className="
+            hidden
+            sm:flex
             shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
-            sm:w-12
-            sm:h-12
+            w-12
+            h-12
             rounded-full
             bg-white
             border
             border-gray-200
             shadow-md
-            flex
             items-center
             justify-center
             text-gray-700
@@ -676,8 +895,7 @@ export const FlowerInBox = () => {
           "
         >
           <ChevronRight
-            size={18}
-            className="sm:w-[22px] sm:h-[22px]"
+            size={22}
             strokeWidth={2}
           />
         </button>

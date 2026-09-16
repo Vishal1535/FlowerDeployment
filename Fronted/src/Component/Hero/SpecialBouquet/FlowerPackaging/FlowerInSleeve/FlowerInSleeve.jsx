@@ -72,6 +72,12 @@ export const FlowerInSleeve = () => {
     dispatch(GetAllFlowerInSleeveThunk());
   }, [dispatch]);
 
+  // ================= RESET INDEX =================
+
+  useEffect(() => {
+    setStartIndex(0);
+  }, [visibleCount]);
+
   // ================= SEARCH =================
 
   const filteredFlowers = flowersInSleeve.filter(
@@ -86,15 +92,19 @@ export const FlowerInSleeve = () => {
         flower?.name
           ?.toLowerCase()
           .includes(search) ||
+
         flower?.flowerType
           ?.toLowerCase()
           .includes(search) ||
+
         flower?.sleeveType
           ?.toLowerCase()
           .includes(search) ||
+
         flower?.color
           ?.toLowerCase()
           .includes(search) ||
+
         flower?.occasion?.some((item) =>
           item
             ?.toLowerCase()
@@ -268,6 +278,8 @@ export const FlowerInSleeve = () => {
         w-full
         max-w-full
         overflow-hidden
+        bg-white
+        text-gray-900
         px-3
         sm:px-6
         lg:px-10
@@ -292,11 +304,19 @@ export const FlowerInSleeve = () => {
           "
         >
 
-          {/* LEFT */}
+          {/* ================= LEFT ================= */}
 
           <div className="min-w-0">
 
-            <div className="flex items-center gap-2 mb-2 sm:mb-3">
+            <div
+              className="
+                flex
+                items-center
+                gap-2
+                mb-2
+                sm:mb-3
+              "
+            >
 
               <span
                 className="
@@ -349,8 +369,8 @@ export const FlowerInSleeve = () => {
                 mt-2
                 sm:mt-3
                 text-xs
-                sm:text-sm
-                lg:text-base
+                min-[380px]:text-sm
+                sm:text-base
                 text-gray-500
                 max-w-lg
                 leading-relaxed
@@ -363,17 +383,18 @@ export const FlowerInSleeve = () => {
 
           </div>
 
-          {/* RIGHT SEARCH */}
+          {/* ================= DESKTOP SEARCH ================= */}
 
           <div
             className="
-              w-full
-              sm:w-auto
-              flex
+              hidden
+              sm:flex
+              w-auto
               justify-end
               items-center
               gap-3
-              sm:pb-2
+              pb-2
+              shrink-0
             "
           >
 
@@ -384,9 +405,10 @@ export const FlowerInSleeve = () => {
                 transition-all
                 duration-300
                 overflow-hidden
+
                 ${
                   isSearchOpen
-                    ? "w-full sm:w-[220px]"
+                    ? "w-[220px]"
                     : "w-10"
                 }
               `}
@@ -401,10 +423,8 @@ export const FlowerInSleeve = () => {
                   }
                   aria-label="Open flower sleeve search"
                   className="
-                    w-9
-                    h-9
-                    sm:w-10
-                    sm:h-10
+                    w-10
+                    h-10
                     shrink-0
                     rounded-full
                     border
@@ -422,15 +442,7 @@ export const FlowerInSleeve = () => {
                     duration-300
                   "
                 >
-                  <Search
-                    size={16}
-                    className="sm:hidden"
-                  />
-
-                  <Search
-                    size={18}
-                    className="hidden sm:block"
-                  />
+                  <Search size={18} />
                 </button>
 
               ) : (
@@ -440,8 +452,7 @@ export const FlowerInSleeve = () => {
                     flex
                     items-center
                     w-full
-                    h-9
-                    sm:h-10
+                    h-10
                     rounded-full
                     border
                     border-pink-300
@@ -455,7 +466,7 @@ export const FlowerInSleeve = () => {
                 >
 
                   <Search
-                    size={16}
+                    size={17}
                     className="
                       text-pink-500
                       shrink-0
@@ -473,8 +484,7 @@ export const FlowerInSleeve = () => {
                       min-w-0
                       bg-transparent
                       outline-none
-                      text-xs
-                      sm:text-sm
+                      text-sm
                       text-gray-700
                       placeholder:text-gray-400
                     "
@@ -491,11 +501,7 @@ export const FlowerInSleeve = () => {
                       transition-colors
                     "
                   >
-                    <X size={15} className="sm:hidden" />
-                    <X
-                      size={16}
-                      className="hidden sm:block"
-                    />
+                    <X size={16} />
                   </button>
 
                 </div>
@@ -508,7 +514,83 @@ export const FlowerInSleeve = () => {
 
         </div>
 
-        {/* DIVIDER */}
+        {/* ================= MOBILE SEARCH ================= */}
+
+        <div
+          className="
+            flex
+            sm:hidden
+            mt-4
+            w-full
+          "
+        >
+
+          <div
+            className="
+              flex
+              items-center
+              w-full
+              h-10
+              rounded-full
+              border
+              border-gray-200
+              bg-white
+              shadow-sm
+              px-3
+              gap-2
+              focus-within:border-pink-300
+              focus-within:ring-2
+              focus-within:ring-pink-50
+            "
+          >
+
+            <Search
+              size={17}
+              className="
+                text-pink-500
+                shrink-0
+              "
+            />
+
+            <input
+              type="text"
+              value={searchText}
+              onChange={handleSearchChange}
+              placeholder="Search flowers..."
+              className="
+                w-full
+                min-w-0
+                bg-transparent
+                outline-none
+                text-sm
+                text-gray-700
+                placeholder:text-gray-400
+              "
+            />
+
+            {searchText && (
+
+              <button
+                type="button"
+                onClick={handleCloseSearch}
+                aria-label="Close search"
+                className="
+                  shrink-0
+                  text-gray-400
+                  hover:text-pink-500
+                  transition-colors
+                "
+              >
+                <X size={16} />
+              </button>
+
+            )}
+
+          </div>
+
+        </div>
+
+        {/* ================= DIVIDER ================= */}
 
         <div
           className="
@@ -524,20 +606,22 @@ export const FlowerInSleeve = () => {
 
       </div>
 
-      {/* ================= CAROUSEL ================= */}
+      {/* ========================================= */}
+      {/* MOBILE ARROWS */}
+      {/* ========================================= */}
 
       <div
         className="
           flex
+          sm:hidden
           items-center
-          gap-1.5
-          min-[380px]:gap-2
-          sm:gap-4
-          w-full
+          justify-between
+          mb-3
+          px-1
         "
       >
 
-        {/* LEFT BUTTON */}
+        {/* MOBILE PREVIOUS */}
 
         <button
           type="button"
@@ -549,19 +633,110 @@ export const FlowerInSleeve = () => {
           }
           aria-label="Previous flower sleeves"
           className="
-            shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
-            sm:w-12
-            sm:h-12
+            w-9
+            h-9
             rounded-full
             bg-white
             border
             border-gray-200
             shadow-md
             flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
+            active:scale-90
+            disabled:opacity-25
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronLeft
+            size={19}
+            strokeWidth={2}
+          />
+        </button>
+
+        {/* MOBILE NEXT */}
+
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={
+            loading ||
+            filteredFlowers.length === 0 ||
+            startIndex >=
+              filteredFlowers.length -
+                visibleCount
+          }
+          aria-label="Next flower sleeves"
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
+            flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
+            active:scale-90
+            disabled:opacity-25
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronRight
+            size={19}
+            strokeWidth={2}
+          />
+        </button>
+
+      </div>
+
+      {/* ================= CAROUSEL ================= */}
+
+      <div
+        className="
+          flex
+          items-center
+          gap-4
+          w-full
+          min-w-0
+        "
+      >
+
+        {/* ================= DESKTOP PREVIOUS ================= */}
+
+        <button
+          type="button"
+          onClick={handlePrevious}
+          disabled={
+            startIndex === 0 ||
+            loading ||
+            filteredFlowers.length === 0
+          }
+          aria-label="Previous flower sleeves"
+          className="
+            hidden
+            sm:flex
+            shrink-0
+            w-12
+            h-12
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
             items-center
             justify-center
             text-gray-700
@@ -577,24 +752,18 @@ export const FlowerInSleeve = () => {
           "
         >
           <ChevronLeft
-            size={17}
-            className="sm:hidden"
-            strokeWidth={2}
-          />
-
-          <ChevronLeft
             size={22}
-            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>
 
-        {/* FLOWER AREA */}
+        {/* ================= FLOWER AREA ================= */}
 
         <div
           className={`
             flex-1
             min-w-0
+            max-w-full
             overflow-hidden
             select-none
             touch-pan-y
@@ -612,7 +781,7 @@ export const FlowerInSleeve = () => {
           onTouchEnd={handleTouchEnd}
         >
 
-          {/* LOADING */}
+          {/* ================= LOADING ================= */}
 
           {loading ? (
 
@@ -627,8 +796,10 @@ export const FlowerInSleeve = () => {
                 sm:gap-5
               "
             >
+
               {[1, 2, 3, 4].map(
                 (item) => (
+
                   <div
                     key={item}
                     className="
@@ -641,13 +812,15 @@ export const FlowerInSleeve = () => {
                       animate-pulse
                     "
                   />
+
                 )
               )}
+
             </div>
 
           ) : filteredFlowers.length === 0 ? (
 
-            /* NO SEARCH RESULT */
+            /* ================= NO SEARCH RESULT ================= */
 
             <div
               className="
@@ -663,7 +836,13 @@ export const FlowerInSleeve = () => {
               "
             >
 
-              <div className="text-3xl sm:text-4xl mb-3">
+              <div
+                className="
+                  text-3xl
+                  sm:text-4xl
+                  mb-3
+                "
+              >
                 🌸
               </div>
 
@@ -694,7 +873,7 @@ export const FlowerInSleeve = () => {
 
           ) : (
 
-            /* CARDS */
+            /* ================= CARDS ================= */
 
             <div
               key={startIndex}
@@ -717,10 +896,12 @@ export const FlowerInSleeve = () => {
 
               {visibleFlowers.map(
                 (flower) => (
+
                   <FlowerInSleeveItem
                     key={flower._id}
                     flower={flower}
                   />
+
                 )
               )}
 
@@ -730,7 +911,7 @@ export const FlowerInSleeve = () => {
 
         </div>
 
-        {/* RIGHT BUTTON */}
+        {/* ================= DESKTOP NEXT ================= */}
 
         <button
           type="button"
@@ -744,19 +925,16 @@ export const FlowerInSleeve = () => {
           }
           aria-label="Next flower sleeves"
           className="
+            hidden
+            sm:flex
             shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
-            sm:w-12
-            sm:h-12
+            w-12
+            h-12
             rounded-full
             bg-white
             border
             border-gray-200
             shadow-md
-            flex
             items-center
             justify-center
             text-gray-700
@@ -772,14 +950,7 @@ export const FlowerInSleeve = () => {
           "
         >
           <ChevronRight
-            size={17}
-            className="sm:hidden"
-            strokeWidth={2}
-          />
-
-          <ChevronRight
             size={22}
-            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>

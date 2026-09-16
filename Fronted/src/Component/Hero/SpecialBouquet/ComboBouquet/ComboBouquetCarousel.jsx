@@ -167,7 +167,6 @@ export const ComboBouquetCarousel = () => {
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
-
     setStartIndex(0);
   };
 
@@ -177,9 +176,7 @@ export const ComboBouquetCarousel = () => {
 
   const handleCloseSearch = () => {
     setSearchText("");
-
     setIsSearchOpen(false);
-
     setStartIndex(0);
   };
 
@@ -191,7 +188,6 @@ export const ComboBouquetCarousel = () => {
     if (loading) return;
 
     setDragStartX(event.clientX);
-
     setIsDragging(true);
   };
 
@@ -206,7 +202,6 @@ export const ComboBouquetCarousel = () => {
       event.clientX - dragStartX;
 
     setDragStartX(null);
-
     setIsDragging(false);
 
     if (Math.abs(dragDistance) < 70) {
@@ -214,13 +209,11 @@ export const ComboBouquetCarousel = () => {
     }
 
     // LEFT → NEXT
-
     if (dragDistance < 0) {
       handleNext();
     }
 
     // RIGHT → PREVIOUS
-
     if (dragDistance > 0) {
       handlePrevious();
     }
@@ -233,7 +226,6 @@ export const ComboBouquetCarousel = () => {
   const handleMouseLeave = () => {
     if (dragStartX !== null) {
       setDragStartX(null);
-
       setIsDragging(false);
     }
   };
@@ -270,13 +262,11 @@ export const ComboBouquetCarousel = () => {
     }
 
     // LEFT → NEXT
-
     if (dragDistance < 0) {
       handleNext();
     }
 
     // RIGHT → PREVIOUS
-
     if (dragDistance > 0) {
       handlePrevious();
     }
@@ -304,7 +294,20 @@ export const ComboBouquetCarousel = () => {
   }
 
   return (
-    <section className="w-full max-w-full overflow-hidden px-3 sm:px-6 lg:px-10 py-7 sm:py-10">
+    <section
+      className="
+        w-full
+        max-w-full
+        overflow-hidden
+        bg-white
+        text-gray-900
+        px-3
+        sm:px-6
+        lg:px-10
+        py-7
+        sm:py-10
+      "
+    >
 
       {/* ================================= */}
       {/* HEADER */}
@@ -312,13 +315,31 @@ export const ComboBouquetCarousel = () => {
 
       <div className="mb-7 sm:mb-10">
 
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 sm:gap-8">
+        <div
+          className="
+            flex
+            flex-col
+            sm:flex-row
+            sm:items-end
+            sm:justify-between
+            gap-5
+            sm:gap-8
+          "
+        >
 
           {/* ================= LEFT ================= */}
 
           <div className="min-w-0">
 
-            <div className="flex items-center gap-2 mb-2.5 sm:mb-3">
+            <div
+              className="
+                flex
+                items-center
+                gap-2
+                mb-2.5
+                sm:mb-3
+              "
+            >
 
               <span
                 className="
@@ -384,11 +405,18 @@ export const ComboBouquetCarousel = () => {
 
           </div>
 
-          {/* ================= RIGHT ================= */}
+          {/* ================= DESKTOP SEARCH ================= */}
 
-          <div className="hidden sm:flex items-center gap-3 pb-2 shrink-0">
-
-            {/* ================= SEARCH ================= */}
+          <div
+            className="
+              hidden
+              sm:flex
+              items-center
+              gap-3
+              pb-2
+              shrink-0
+            "
+          >
 
             <div
               className={`
@@ -512,7 +540,14 @@ export const ComboBouquetCarousel = () => {
 
         {/* ================= MOBILE SEARCH ================= */}
 
-        <div className="flex sm:hidden mt-4 w-full">
+        <div
+          className="
+            flex
+            sm:hidden
+            mt-4
+            w-full
+          "
+        >
 
           <div
             className="
@@ -535,7 +570,10 @@ export const ComboBouquetCarousel = () => {
 
             <Search
               size={17}
-              className="text-pink-500 shrink-0"
+              className="
+                text-pink-500
+                shrink-0
+              "
             />
 
             <input
@@ -557,6 +595,7 @@ export const ComboBouquetCarousel = () => {
             />
 
             {searchText && (
+
               <button
                 type="button"
                 onClick={handleCloseSearch}
@@ -570,6 +609,7 @@ export const ComboBouquetCarousel = () => {
               >
                 <X size={16} />
               </button>
+
             )}
 
           </div>
@@ -593,6 +633,103 @@ export const ComboBouquetCarousel = () => {
       </div>
 
       {/* ================================= */}
+      {/* MOBILE ARROWS */}
+      {/* ================================= */}
+
+      <div
+        className="
+          flex
+          sm:hidden
+          items-center
+          justify-between
+          mb-3
+          px-1
+        "
+      >
+
+        {/* MOBILE LEFT ARROW */}
+
+        <button
+          type="button"
+          onClick={handlePrevious}
+          disabled={
+            startIndex === 0 ||
+            loading ||
+            filteredComboBouquets.length === 0
+          }
+          aria-label="Previous combo bouquets"
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
+            flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
+            active:scale-90
+            disabled:opacity-25
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronLeft
+            size={19}
+            strokeWidth={2}
+          />
+        </button>
+
+        {/* MOBILE RIGHT ARROW */}
+
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={
+            loading ||
+            filteredComboBouquets.length === 0 ||
+            startIndex >=
+              filteredComboBouquets.length -
+                visibleCount
+          }
+          aria-label="Next combo bouquets"
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
+            flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
+            active:scale-90
+            disabled:opacity-25
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronRight
+            size={19}
+            strokeWidth={2}
+          />
+        </button>
+
+      </div>
+
+      {/* ================================= */}
       {/* CAROUSEL */}
       {/* ================================= */}
 
@@ -600,15 +737,15 @@ export const ComboBouquetCarousel = () => {
         className="
           flex
           items-center
-          gap-1.5
-          min-[380px]:gap-2
+          gap-4
           sm:gap-4
           w-full
+          min-w-0
         "
       >
 
         {/* ================================= */}
-        {/* LEFT BUTTON */}
+        {/* DESKTOP LEFT BUTTON */}
         {/* ================================= */}
 
         <button
@@ -621,19 +758,16 @@ export const ComboBouquetCarousel = () => {
           }
           aria-label="Previous combo bouquets"
           className="
+            hidden
+            sm:flex
             shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
-            sm:w-12
-            sm:h-12
+            w-12
+            h-12
             rounded-full
             bg-white
             border
             border-gray-200
             shadow-md
-            flex
             items-center
             justify-center
             text-gray-700
@@ -649,14 +783,7 @@ export const ComboBouquetCarousel = () => {
           "
         >
           <ChevronLeft
-            size={18}
-            className="sm:hidden"
-            strokeWidth={2}
-          />
-
-          <ChevronLeft
             size={22}
-            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>
@@ -669,6 +796,7 @@ export const ComboBouquetCarousel = () => {
           className={`
             flex-1
             min-w-0
+            max-w-full
             overflow-hidden
             select-none
             touch-pan-y
@@ -702,8 +830,10 @@ export const ComboBouquetCarousel = () => {
                 sm:gap-5
               "
             >
+
               {[1, 2, 3, 4].map(
                 (item) => (
+
                   <div
                     key={item}
                     className="
@@ -716,8 +846,10 @@ export const ComboBouquetCarousel = () => {
                       animate-pulse
                     "
                   />
+
                 )
               )}
+
             </div>
 
           ) : filteredComboBouquets.length ===
@@ -738,7 +870,14 @@ export const ComboBouquetCarousel = () => {
                 border-pink-100
               "
             >
-              <div className="text-3xl sm:text-4xl mb-3">
+
+              <div
+                className="
+                  text-3xl
+                  sm:text-4xl
+                  mb-3
+                "
+              >
                 💐
               </div>
 
@@ -764,6 +903,7 @@ export const ComboBouquetCarousel = () => {
                 Try searching for another
                 combo bouquet.
               </p>
+
             </div>
 
           ) : (
@@ -789,16 +929,20 @@ export const ComboBouquetCarousel = () => {
                 }
               `}
             >
+
               {visibleComboBouquets.map(
                 (comboBouquet) => (
+
                   <ComboBouquetItem
                     key={comboBouquet._id}
                     comboBouquet={
                       comboBouquet
                     }
                   />
+
                 )
               )}
+
             </div>
 
           )}
@@ -806,7 +950,7 @@ export const ComboBouquetCarousel = () => {
         </div>
 
         {/* ================================= */}
-        {/* RIGHT BUTTON */}
+        {/* DESKTOP RIGHT BUTTON */}
         {/* ================================= */}
 
         <button
@@ -814,27 +958,23 @@ export const ComboBouquetCarousel = () => {
           onClick={handleNext}
           disabled={
             loading ||
-            filteredComboBouquets.length ===
-              0 ||
+            filteredComboBouquets.length === 0 ||
             startIndex >=
               filteredComboBouquets.length -
                 visibleCount
           }
           aria-label="Next combo bouquets"
           className="
+            hidden
+            sm:flex
             shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
-            sm:w-12
-            sm:h-12
+            w-12
+            h-12
             rounded-full
             bg-white
             border
             border-gray-200
             shadow-md
-            flex
             items-center
             justify-center
             text-gray-700
@@ -850,14 +990,7 @@ export const ComboBouquetCarousel = () => {
           "
         >
           <ChevronRight
-            size={18}
-            className="sm:hidden"
-            strokeWidth={2}
-          />
-
-          <ChevronRight
             size={22}
-            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>

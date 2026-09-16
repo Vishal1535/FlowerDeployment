@@ -273,6 +273,8 @@ export const WoolenBouquetCarousel = () => {
         w-full
         max-w-full
         overflow-hidden
+        bg-white
+        text-gray-900
         px-3
         min-[380px]:px-4
         sm:px-6
@@ -619,6 +621,105 @@ export const WoolenBouquetCarousel = () => {
       </div>
 
       {/* ================================= */}
+      {/* MOBILE ARROWS */}
+      {/* ================================= */}
+
+      <div
+        className="
+          flex
+          sm:hidden
+          justify-end
+          items-center
+          gap-2
+          mb-3
+          relative
+          z-10
+        "
+      >
+
+        {/* MOBILE PREVIOUS */}
+
+        <button
+          type="button"
+          onClick={handlePrevious}
+          disabled={
+            startIndex === 0 ||
+            loading ||
+            filteredWoolens.length === 0
+          }
+          aria-label="Previous woolen bouquets"
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
+            flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-50
+            hover:text-pink-600
+            hover:border-pink-200
+            active:scale-90
+            disabled:opacity-30
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronLeft
+            size={18}
+            strokeWidth={2}
+          />
+        </button>
+
+        {/* MOBILE NEXT */}
+
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={
+            loading ||
+            filteredWoolens.length === 0 ||
+            startIndex >=
+              filteredWoolens.length -
+                visibleCount
+          }
+          aria-label="Next woolen bouquets"
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
+            flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-50
+            hover:text-pink-600
+            hover:border-pink-200
+            active:scale-90
+            disabled:opacity-30
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronRight
+            size={18}
+            strokeWidth={2}
+          />
+        </button>
+
+      </div>
+
+      {/* ================================= */}
       {/* CAROUSEL */}
       {/* ================================= */}
 
@@ -635,7 +736,7 @@ export const WoolenBouquetCarousel = () => {
       >
 
         {/* ================================= */}
-        {/* LEFT BUTTON */}
+        {/* DESKTOP LEFT BUTTON */}
         {/* ================================= */}
 
         <button
@@ -648,11 +749,9 @@ export const WoolenBouquetCarousel = () => {
           }
           aria-label="Previous woolen bouquets"
           className="
+            hidden
+            sm:flex
             shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
             sm:w-12
             sm:h-12
             rounded-full
@@ -660,7 +759,6 @@ export const WoolenBouquetCarousel = () => {
             border
             border-gray-200
             shadow-md
-            flex
             items-center
             justify-center
             text-gray-700
@@ -676,14 +774,7 @@ export const WoolenBouquetCarousel = () => {
           "
         >
           <ChevronLeft
-            size={17}
-            className="sm:hidden"
-            strokeWidth={2}
-          />
-
-          <ChevronLeft
             size={22}
-            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>
@@ -830,7 +921,7 @@ export const WoolenBouquetCarousel = () => {
         </div>
 
         {/* ================================= */}
-        {/* RIGHT BUTTON */}
+        {/* DESKTOP RIGHT BUTTON */}
         {/* ================================= */}
 
         <button
@@ -845,11 +936,9 @@ export const WoolenBouquetCarousel = () => {
           }
           aria-label="Next woolen bouquets"
           className="
+            hidden
+            sm:flex
             shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
             sm:w-12
             sm:h-12
             rounded-full
@@ -857,7 +946,6 @@ export const WoolenBouquetCarousel = () => {
             border
             border-gray-200
             shadow-md
-            flex
             items-center
             justify-center
             text-gray-700
@@ -873,14 +961,7 @@ export const WoolenBouquetCarousel = () => {
           "
         >
           <ChevronRight
-            size={17}
-            className="sm:hidden"
-            strokeWidth={2}
-          />
-
-          <ChevronRight
             size={22}
-            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>
