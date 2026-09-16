@@ -15,6 +15,7 @@ export const MiniCupCake = () => {
     (state) => state.miniCupCake
   );
 
+
   const [currentIndex, setCurrentIndex] =
     useState(0);
 
@@ -308,7 +309,7 @@ export const MiniCupCake = () => {
           (miniCupcake) => (
             <MiniCupCakeItem
               key={miniCupcake._id}
-              miniCupcake={miniCupcake}
+              miniCupCake={miniCupcake}
             />
           )
         )}

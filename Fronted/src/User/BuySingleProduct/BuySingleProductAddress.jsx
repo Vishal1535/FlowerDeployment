@@ -14,8 +14,11 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-//  GetLatestAddressThunk
-import { AddAddressThunk ,GetLatestAddressThunk} from "../../Store/Address/AddressApi";
+
+import {
+  AddAddressThunk,
+  GetLatestAddressThunk,
+} from "../../Store/Address/AddressApi";
 
 export const BuySingleProductAddress = () => {
   const dispatch = useDispatch();
@@ -28,17 +31,14 @@ export const BuySingleProductAddress = () => {
   const { isAuthorized } = useSelector(
     (state) => state.user
   );
-  
-useEffect(() => {
-  // User login nahi hai
-  // Ya user admin nahi hai
-  if (!isAuthorized) {
-    navigate("/", {
-      replace: true,
-    });
-  }
-}, [isAuthorized, navigate]);
 
+  useEffect(() => {
+    if (!isAuthorized) {
+      navigate("/", {
+        replace: true,
+      });
+    }
+  }, [isAuthorized, navigate]);
 
   const [latestLoading, setLatestLoading] =
     useState(false);
@@ -56,7 +56,6 @@ useEffect(() => {
     city: "",
     state: "",
     country: "India",
-
     latitude: null,
     longitude: null,
   });
@@ -106,10 +105,6 @@ useEffect(() => {
           const longitude =
             location.coords.longitude;
 
-          // =============================================
-          // REVERSE GEOCODING
-          // =============================================
-
           const response = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&addressdetails=1`,
             {
@@ -129,10 +124,6 @@ useEffect(() => {
 
           const address =
             data?.address || {};
-
-          // =============================================
-          // GET ADDRESS VALUES
-          // =============================================
 
           const pincode =
             address.postcode || "";
@@ -160,34 +151,18 @@ useEffect(() => {
           const houseNumber =
             address.house_number || "";
 
-          // =============================================
-          // UPDATE FORM
-          // =============================================
-
           setFormData((prev) => ({
             ...prev,
-
             pincode,
-
             houseNumber:
               houseNumber || prev.houseNumber,
-
             area,
-
             city,
-
             state,
-
             country,
-
             latitude,
-
             longitude,
           }));
-
-          // =============================================
-          // CLEAR AUTO-FILLED FIELD ERRORS
-          // =============================================
 
           setErrors((prev) => ({
             ...prev,
@@ -212,7 +187,6 @@ useEffect(() => {
             "Location detected, but address could not be found. Please enter the address manually."
           );
 
-          // GPS coordinates still save
           setFormData((prev) => ({
             ...prev,
             latitude:
@@ -432,7 +406,9 @@ useEffect(() => {
 
       setErrors({});
 
-      navigate("/buy-single-product-checkout");
+      navigate(
+        "/buy-single-product-checkout"
+      );
     } else {
       toast.error(
         result.payload ||
@@ -578,9 +554,7 @@ useEffect(() => {
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-6">
 
-      {/* =================================================
-          BACK
-      ================================================= */}
+      {/* BACK */}
 
       <button
         type="button"
@@ -601,104 +575,103 @@ useEffect(() => {
         <ArrowLeft size={18} />
         Back
       </button>
+
       {/* =================================================
-    STEP INDICATOR
-================================================= */}
+          STEP INDICATOR
+      ================================================= */}
 
-<div className="mb-6">
-  <div className="flex items-center justify-center gap-2 sm:gap-3">
+      <div className="mb-6">
 
-    {/* STEP 1 - PRODUCT */}
+        <div className="flex items-center justify-center gap-2 sm:gap-3">
 
-    <div className="flex items-center gap-2">
+          {/* STEP 1 */}
 
-      <div
-        className="
-          w-8
-          h-8
-          rounded-full
-          bg-green-500
-          text-white
-          flex
-          items-center
-          justify-center
-          text-sm
-          font-bold
-        "
-      >
-        ✓
+          <div className="flex items-center gap-2">
+
+            <div
+              className="
+                w-8
+                h-8
+                rounded-full
+                bg-green-500
+                text-white
+                flex
+                items-center
+                justify-center
+                text-sm
+                font-bold
+              "
+            >
+              ✓
+            </div>
+
+            <span className="hidden sm:block text-sm font-semibold text-green-600">
+              Product
+            </span>
+
+          </div>
+
+          <div className="w-8 sm:w-14 h-px bg-green-300" />
+
+          {/* STEP 2 */}
+
+          <div className="flex items-center gap-2">
+
+            <div
+              className="
+                w-8
+                h-8
+                rounded-full
+                bg-pink-500
+                text-white
+                flex
+                items-center
+                justify-center
+                text-sm
+                font-bold
+              "
+            >
+              2
+            </div>
+
+            <span className="text-sm font-bold text-pink-600">
+              Address
+            </span>
+
+          </div>
+
+          <div className="w-8 sm:w-14 h-px bg-gray-200" />
+
+          {/* STEP 3 */}
+
+          <div className="flex items-center gap-2">
+
+            <div
+              className="
+                w-8
+                h-8
+                rounded-full
+                bg-gray-100
+                text-gray-400
+                flex
+                items-center
+                justify-center
+                text-sm
+                font-bold
+              "
+            >
+              3
+            </div>
+
+            <span className="hidden sm:block text-sm font-medium text-gray-400">
+              Checkout
+            </span>
+
+          </div>
+
+        </div>
+
       </div>
-
-      <span className="hidden sm:block text-sm font-semibold text-green-600">
-        Product
-      </span>
-
-    </div>
-
-    {/* LINE */}
-
-    <div className="w-8 sm:w-14 h-px bg-green-300" />
-
-    {/* STEP 2 - ADDRESS */}
-
-    <div className="flex items-center gap-2">
-
-      <div
-        className="
-          w-8
-          h-8
-          rounded-full
-          bg-pink-500
-          text-white
-          flex
-          items-center
-          justify-center
-          text-sm
-          font-bold
-        "
-      >
-        2
-      </div>
-
-      <span className="text-sm font-bold text-pink-600">
-        Address
-      </span>
-
-    </div>
-
-    {/* LINE */}
-
-    <div className="w-8 sm:w-14 h-px bg-gray-200" />
-
-    {/* STEP 3 - CHECKOUT */}
-
-    <div className="flex items-center gap-2">
-
-      <div
-        className="
-          w-8
-          h-8
-          rounded-full
-          bg-gray-100
-          text-gray-400
-          flex
-          items-center
-          justify-center
-          text-sm
-          font-bold
-        "
-      >
-        3
-      </div>
-
-      <span className="hidden sm:block text-sm font-medium text-gray-400">
-        Checkout
-      </span>
-
-    </div>
-
-  </div>
-</div>
 
       {/* =================================================
           CARD
@@ -715,9 +688,7 @@ useEffect(() => {
         "
       >
 
-        {/* =================================================
-            HEADER
-        ================================================= */}
+        {/* HEADER */}
 
         <div
           className="
@@ -761,18 +732,14 @@ useEffect(() => {
 
         </div>
 
-        {/* =================================================
-            FORM
-        ================================================= */}
+        {/* FORM */}
 
         <form
           onSubmit={HandleSubmit}
           className="p-5 sm:p-6"
         >
 
-          {/* =================================================
-              CURRENT LOCATION
-          ================================================= */}
+          {/* CURRENT LOCATION */}
 
           <div className="mb-6">
 
@@ -847,9 +814,7 @@ useEffect(() => {
 
           </div>
 
-          {/* =================================================
-              INPUT GRID
-          ================================================= */}
+          {/* INPUT GRID */}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
@@ -871,6 +836,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -899,7 +865,9 @@ useEffect(() => {
 
             </div>
 
-            {/* PHONE */}
+            {/* =================================================
+                PHONE NUMBER
+            ================================================= */}
 
             <div>
 
@@ -917,6 +885,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -929,11 +898,15 @@ useEffect(() => {
                   onChange={
                     HandleChange
                   }
-                  placeholder="10-digit phone number"
+                  placeholder="Enter 10-digit phone number"
                   maxLength={10}
-                  className={`${InputClass(
-                    "phone"
-                  )} pl-10`}
+                  inputMode="numeric"
+                  className={`
+                    ${InputClass("phone")}
+                    pl-10
+                    pr-3
+                    tracking-wide
+                  `}
                 />
 
               </div>
@@ -965,6 +938,7 @@ useEffect(() => {
                 }
                 placeholder="6-digit pincode"
                 maxLength={6}
+                inputMode="numeric"
                 className={InputClass(
                   "pincode"
                 )}
@@ -996,6 +970,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -1042,6 +1017,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -1184,6 +1160,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -1213,9 +1190,7 @@ useEffect(() => {
 
           </div>
 
-          {/* =================================================
-              BUTTONS
-          ================================================= */}
+          {/* BUTTONS */}
 
           <div
             className="

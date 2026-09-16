@@ -268,7 +268,6 @@ export const BouquetSlider = () => {
         sm:py-6
       "
     >
-
       {/* ================= HERO ================= */}
 
       <div
@@ -292,7 +291,6 @@ export const BouquetSlider = () => {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-
         {/* ================= SLIDE ================= */}
 
         <div
@@ -307,12 +305,10 @@ export const BouquetSlider = () => {
             cursor-pointer
           `}
         >
-
           {/* ================= BACKGROUND IMAGE ================= */}
 
           {currentBouquet.image ? (
             <>
-
               <img
                 src={currentBouquet.image}
                 alt=""
@@ -354,7 +350,6 @@ export const BouquetSlider = () => {
                   pointer-events-none
                 "
               >
-
                 <img
                   src={currentBouquet.image}
                   alt={currentBouquet.name}
@@ -371,12 +366,9 @@ export const BouquetSlider = () => {
                     lg:p-7
                   "
                 />
-
               </div>
-
             </>
           ) : (
-
             <div
               className="
                 absolute
@@ -392,7 +384,6 @@ export const BouquetSlider = () => {
             >
               No Image
             </div>
-
           )}
 
           {/* ================= DARK OVERLAY ================= */}
@@ -429,7 +420,6 @@ export const BouquetSlider = () => {
               pointer-events-none
             "
           >
-
             {/* OCCASION */}
 
             <p
@@ -502,7 +492,6 @@ export const BouquetSlider = () => {
                 max-w-full
               "
             >
-
               {/* PRICE */}
 
               <span
@@ -615,11 +604,8 @@ export const BouquetSlider = () => {
                   "
                 />
               </span>
-
             </div>
-
           </div>
-
         </div>
 
         {/* ================= LEFT ARROW ================= */}
@@ -634,18 +620,22 @@ export const BouquetSlider = () => {
           aria-label="Previous bouquet"
           className="
             absolute
-            left-2
-            min-[380px]:left-2.5
-            sm:left-6
-            top-1/2
-            -translate-y-1/2
             z-30
+
+            /* MOBILE - TOP RIGHT */
+            top-3
+            right-12
             w-8
             h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
+
+            /* TABLET / DESKTOP - LEFT CENTER */
+            sm:left-6
+            sm:right-auto
+            sm:top-1/2
+            sm:-translate-y-1/2
             sm:w-12
             sm:h-12
+
             rounded-full
             bg-white/95
             backdrop-blur-sm
@@ -665,15 +655,7 @@ export const BouquetSlider = () => {
             cursor-pointer
           "
         >
-          <ChevronLeft
-            size={18}
-            className="sm:hidden"
-          />
-
-          <ChevronLeft
-            size={22}
-            className="hidden sm:block"
-          />
+          <ChevronLeft size={18} />
         </button>
 
         {/* ================= RIGHT ARROW ================= */}
@@ -688,18 +670,21 @@ export const BouquetSlider = () => {
           aria-label="Next bouquet"
           className="
             absolute
-            right-2
-            min-[380px]:right-2.5
-            sm:right-6
-            top-1/2
-            -translate-y-1/2
             z-30
+
+            /* MOBILE - TOP RIGHT */
+            top-3
+            right-3
             w-8
             h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
+
+            /* TABLET / DESKTOP - RIGHT CENTER */
+            sm:right-6
+            sm:top-1/2
+            sm:-translate-y-1/2
             sm:w-12
             sm:h-12
+
             rounded-full
             bg-white/95
             backdrop-blur-sm
@@ -719,15 +704,7 @@ export const BouquetSlider = () => {
             cursor-pointer
           "
         >
-          <ChevronRight
-            size={18}
-            className="sm:hidden"
-          />
-
-          <ChevronRight
-            size={22}
-            className="hidden sm:block"
-          />
+          <ChevronRight size={18} />
         </button>
 
         {/* ================= DOTS ================= */}
@@ -820,7 +797,6 @@ export const BouquetSlider = () => {
         >
           {currentIndex + 1} / {bouquets.length}
         </div>
-
       </div>
 
       {/* ================= ANIMATION ================= */}
@@ -866,7 +842,6 @@ export const BouquetSlider = () => {
           }
         `}
       </style>
-
     </section>
   );
 };

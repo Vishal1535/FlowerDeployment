@@ -31,17 +31,15 @@ export const Address = () => {
   const { isAuthorized } = useSelector(
     (state) => state.user
   );
-  
-useEffect(() => {
-  // User login nahi hai
-  // Ya user admin nahi hai
-  if (!isAuthorized) {
-    navigate("/", {
-      replace: true,
-    });
-  }
-}, [isAuthorized, navigate]);
 
+  useEffect(() => {
+    // User login nahi hai
+    if (!isAuthorized) {
+      navigate("/", {
+        replace: true,
+      });
+    }
+  }, [isAuthorized, navigate]);
 
   const [latestLoading, setLatestLoading] =
     useState(false);
@@ -776,6 +774,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -804,7 +803,9 @@ useEffect(() => {
 
             </div>
 
-            {/* PHONE */}
+            {/* =================================================
+                PHONE NUMBER - UPDATED DESIGN
+            ================================================= */}
 
             <div>
 
@@ -822,6 +823,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -834,11 +836,15 @@ useEffect(() => {
                   onChange={
                     HandleChange
                   }
-                  placeholder="10-digit phone number"
+                  placeholder="Enter 10-digit phone number"
                   maxLength={10}
-                  className={`${InputClass(
-                    "phone"
-                  )} pl-10`}
+                  inputMode="numeric"
+                  className={`
+                    ${InputClass("phone")}
+                    pl-10
+                    pr-3
+                    tracking-wide
+                  `}
                 />
 
               </div>
@@ -870,6 +876,7 @@ useEffect(() => {
                 }
                 placeholder="6-digit pincode"
                 maxLength={6}
+                inputMode="numeric"
                 className={InputClass(
                   "pincode"
                 )}
@@ -901,6 +908,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -947,6 +955,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
@@ -1089,6 +1098,7 @@ useEffect(() => {
                     top-1/2
                     -translate-y-1/2
                     text-gray-400
+                    pointer-events-none
                   "
                 />
 
