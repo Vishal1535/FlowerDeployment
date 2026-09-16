@@ -45,7 +45,10 @@ export const FlowerPackaging = () => {
       className="
         w-full
         max-w-full
+        min-w-0
         overflow-hidden
+        bg-white
+        text-gray-900
         px-3
         min-[380px]:px-4
         sm:px-6
@@ -54,11 +57,9 @@ export const FlowerPackaging = () => {
         sm:py-8
       "
     >
-
       {/* ================= TITLE ================= */}
 
       <div className="text-center mb-6 sm:mb-8">
-
         <p
           className="
             text-[10px]
@@ -100,10 +101,9 @@ export const FlowerPackaging = () => {
         >
           Choose the perfect packaging for your flowers
         </p>
-
       </div>
 
-      {/* ================= ELLIPSE BUTTONS ================= */}
+      {/* ================= PACKAGING BUTTONS ================= */}
 
       <div
         className="
@@ -117,9 +117,9 @@ export const FlowerPackaging = () => {
           sm:gap-7
           mb-7
           sm:mb-10
+          w-full
         "
       >
-
         {/* ================= FLOWER IN BOX ================= */}
 
         <button
@@ -146,14 +146,13 @@ export const FlowerPackaging = () => {
             transition-all
             duration-300
             active:scale-[0.97]
-
             ${
               isShowFlowerInBox
                 ? `
                   bg-pink-500
                   border-pink-500
                   text-white
-                  shadow-[0_12px_35px_rgba(236,72,153,0.28)]
+                  shadow-[0_12px_35px_rgba(236,72,153,0.25)]
                   -translate-y-1
                 `
                 : `
@@ -169,7 +168,6 @@ export const FlowerPackaging = () => {
             }
           `}
         >
-
           {/* ICON */}
 
           <span
@@ -187,7 +185,6 @@ export const FlowerPackaging = () => {
               shrink-0
               transition-all
               duration-300
-
               ${
                 isShowFlowerInBox
                   ? "bg-white/20 text-white"
@@ -217,7 +214,6 @@ export const FlowerPackaging = () => {
           {/* TEXT */}
 
           <div className="text-left min-w-0">
-
             <p
               className={`
                 text-sm
@@ -252,9 +248,7 @@ export const FlowerPackaging = () => {
             >
               Elegant box packaging
             </p>
-
           </div>
-
         </button>
 
         {/* ================= FLOWER IN SLEEVE ================= */}
@@ -283,14 +277,13 @@ export const FlowerPackaging = () => {
             transition-all
             duration-300
             active:scale-[0.97]
-
             ${
               isShowFlowerInSleeve
                 ? `
                   bg-pink-500
                   border-pink-500
                   text-white
-                  shadow-[0_12px_35px_rgba(236,72,153,0.28)]
+                  shadow-[0_12px_35px_rgba(236,72,153,0.25)]
                   -translate-y-1
                 `
                 : `
@@ -306,7 +299,6 @@ export const FlowerPackaging = () => {
             }
           `}
         >
-
           {/* ICON */}
 
           <span
@@ -324,7 +316,6 @@ export const FlowerPackaging = () => {
               shrink-0
               transition-all
               duration-300
-
               ${
                 isShowFlowerInSleeve
                   ? "bg-white/20 text-white"
@@ -354,7 +345,6 @@ export const FlowerPackaging = () => {
           {/* TEXT */}
 
           <div className="text-left min-w-0">
-
             <p
               className={`
                 text-sm
@@ -389,23 +379,16 @@ export const FlowerPackaging = () => {
             >
               Simple sleeve packaging
             </p>
-
           </div>
-
         </button>
-
       </div>
 
       {/* ================= CONTENT ================= */}
 
-      <div className="w-full min-w-0 overflow-hidden">
-
+      <div className="w-full min-w-0 overflow-hidden bg-white">
         <FlowerInBox />
-
         <FlowerInSleeve />
-
       </div>
-
     </section>
   );
 };

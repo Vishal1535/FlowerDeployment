@@ -96,6 +96,25 @@ export const BouquetCarousel = () => {
   }, [searchText]);
 
   // ============================
+  // KEEP INDEX VALID
+  // ============================
+
+  useEffect(() => {
+    const maxIndex = Math.max(
+      filteredBouquets.length - visibleCount,
+      0
+    );
+
+    if (startIndex > maxIndex) {
+      setStartIndex(maxIndex);
+    }
+  }, [
+    filteredBouquets.length,
+    visibleCount,
+    startIndex,
+  ]);
+
+  // ============================
   // PREVIOUS
   // ============================
 
@@ -118,10 +137,12 @@ export const BouquetCarousel = () => {
       return;
     }
 
-    if (
-      startIndex >=
-      filteredBouquets.length - visibleCount
-    ) {
+    const maxIndex = Math.max(
+      filteredBouquets.length - visibleCount,
+      0
+    );
+
+    if (startIndex >= maxIndex) {
       return;
     }
 
@@ -250,14 +271,11 @@ export const BouquetCarousel = () => {
         w-full
         max-w-full
         overflow-hidden
-
         bg-white
         text-gray-900
-
         px-3
         sm:px-6
         lg:px-10
-
         py-8
         sm:py-12
       "
@@ -500,6 +518,7 @@ export const BouquetCarousel = () => {
               text-xs
               sm:text-sm
               text-gray-700
+              bg-transparent
             "
           />
 
@@ -511,6 +530,7 @@ export const BouquetCarousel = () => {
             }}
             className="
               text-gray-400
+              hover:text-gray-700
               shrink-0
               ml-1
             "
@@ -540,104 +560,97 @@ export const BouquetCarousel = () => {
       {/* MOBILE ARROWS */}
       {/* ================================================= */}
 
-      {!loading && visibleBouquets.length > 0 && (
-        <div
-          className="
-            flex
-            sm:hidden
-            justify-end
-            items-center
-            gap-2
-            mb-3
-          "
-        >
-          {/* Previous */}
-
-          <button
-            type="button"
-            onClick={handlePrevious}
-            disabled={
-              startIndex === 0 ||
-              loading
-            }
-            aria-label="Previous bouquets"
+      {!loading &&
+        filteredBouquets.length > visibleCount && (
+          <div
             className="
-              w-9
-              h-9
-              rounded-full
-              bg-white
-              border
-              border-gray-200
-              shadow-sm
               flex
+              sm:hidden
+              justify-end
               items-center
-              justify-center
-              text-gray-700
-
-              hover:bg-pink-500
-              hover:text-white
-              hover:border-pink-500
-
-              active:scale-90
-
-              disabled:opacity-40
-              disabled:cursor-not-allowed
-
-              transition-all
-              duration-300
+              gap-2
+              mb-3
             "
           >
-            <ChevronLeft
-              size={19}
-              strokeWidth={2.7}
-            />
-          </button>
+            {/* Previous */}
 
-          {/* Next */}
+            <button
+              type="button"
+              onClick={handlePrevious}
+              disabled={
+                startIndex === 0 ||
+                loading
+              }
+              aria-label="Previous bouquets"
+              className="
+                w-9
+                h-9
+                rounded-full
+                bg-white
+                border
+                border-gray-200
+                shadow-sm
+                flex
+                items-center
+                justify-center
+                text-gray-700
+                hover:bg-pink-500
+                hover:text-white
+                hover:border-pink-500
+                active:scale-90
+                disabled:opacity-40
+                disabled:cursor-not-allowed
+                transition-all
+                duration-300
+              "
+            >
+              <ChevronLeft
+                size={19}
+                strokeWidth={2.7}
+              />
+            </button>
 
-          <button
-            type="button"
-            onClick={handleNext}
-            disabled={
-              loading ||
-              startIndex >=
-                filteredBouquets.length -
-                  visibleCount
-            }
-            aria-label="Next bouquets"
-            className="
-              w-9
-              h-9
-              rounded-full
-              bg-white
-              border
-              border-gray-200
-              shadow-sm
-              flex
-              items-center
-              justify-center
-              text-gray-700
+            {/* Next */}
 
-              hover:bg-pink-500
-              hover:text-white
-              hover:border-pink-500
-
-              active:scale-90
-
-              disabled:opacity-40
-              disabled:cursor-not-allowed
-
-              transition-all
-              duration-300
-            "
-          >
-            <ChevronRight
-              size={19}
-              strokeWidth={2.7}
-            />
-          </button>
-        </div>
-      )}
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={
+                loading ||
+                startIndex >=
+                  filteredBouquets.length -
+                    visibleCount
+              }
+              aria-label="Next bouquets"
+              className="
+                w-9
+                h-9
+                rounded-full
+                bg-white
+                border
+                border-gray-200
+                shadow-sm
+                flex
+                items-center
+                justify-center
+                text-gray-700
+                hover:bg-pink-500
+                hover:text-white
+                hover:border-pink-500
+                active:scale-90
+                disabled:opacity-40
+                disabled:cursor-not-allowed
+                transition-all
+                duration-300
+              "
+            >
+              <ChevronRight
+                size={19}
+                strokeWidth={2.7}
+              />
+            </button>
+          </div>
+        )}
 
       {/* ================================================= */}
       {/* CAROUSEL */}
@@ -666,34 +679,23 @@ export const BouquetCarousel = () => {
           className="
             hidden
             sm:flex
-
             shrink-0
-
             w-12
             h-12
-
             rounded-full
-
             bg-white
             border
             border-gray-300
-
             shadow-[0_5px_18px_rgba(0,0,0,0.18)]
-
             items-center
             justify-center
-
             text-gray-800
-
             hover:bg-pink-500
             hover:text-white
             hover:border-pink-500
-
             active:scale-90
-
             disabled:opacity-60
             disabled:cursor-not-allowed
-
             transition-all
             duration-300
           "
@@ -863,34 +865,23 @@ export const BouquetCarousel = () => {
           className="
             hidden
             sm:flex
-
             shrink-0
-
             w-12
             h-12
-
             rounded-full
-
             bg-white
             border
             border-gray-300
-
             shadow-[0_5px_18px_rgba(0,0,0,0.18)]
-
             items-center
             justify-center
-
             text-gray-800
-
             hover:bg-pink-500
             hover:text-white
             hover:border-pink-500
-
             active:scale-90
-
             disabled:opacity-60
             disabled:cursor-not-allowed
-
             transition-all
             duration-300
           "
@@ -904,13 +895,15 @@ export const BouquetCarousel = () => {
 
       {/* ================================================= */}
       {/* POSITION INDICATOR */}
+      {/* MOBILE HIDDEN - TABLET/DESKTOP VISIBLE */}
       {/* ================================================= */}
 
       {!loading &&
         filteredBouquets.length > visibleCount && (
           <div
             className="
-              flex
+              hidden
+              sm:flex
               justify-center
               mt-5
               sm:mt-7

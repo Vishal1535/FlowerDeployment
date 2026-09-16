@@ -10,21 +10,30 @@ import {
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-950 text-white w-full overflow-hidden">
+    <footer className="w-full overflow-hidden bg-white text-gray-800">
+
+      {/* ================= TOP LINE ================= */}
+
+      <div className="h-1 w-full bg-gradient-to-r from-pink-200 via-pink-500 to-pink-200" />
 
       {/* ================= MAIN FOOTER ================= */}
 
-      <div className="
-        w-full
-        px-4
-        min-[380px]:px-5
-        sm:px-8
-        lg:px-12
-        xl:px-20
-        py-10
-        sm:py-14
-      ">
-
+      <div
+        className="
+          w-full
+          bg-gradient-to-b
+          from-pink-50/60
+          to-white
+          px-4
+          min-[380px]:px-5
+          sm:px-8
+          lg:px-12
+          xl:px-20
+          py-10
+          sm:py-14
+          lg:py-16
+        "
+      >
         <div
           className="
             max-w-7xl
@@ -39,51 +48,66 @@ export const Footer = () => {
           "
         >
 
-          {/* ================= BRAND ================= */}
+          {/* ================================================= */}
+          {/* BRAND */}
+          {/* ================================================= */}
 
           <div className="min-w-0">
 
-            <div className="flex items-center gap-2">
+            {/* Logo */}
+
+            <div className="flex items-center gap-2.5">
 
               <div
                 className="
-                  w-9
-                  h-9
-                  sm:w-10
-                  sm:h-10
+                  w-10
+                  h-10
+                  sm:w-11
+                  sm:h-11
                   shrink-0
-                  rounded-xl
+                  rounded-2xl
                   bg-pink-500
                   flex
                   items-center
                   justify-center
+                  shadow-[0_8px_20px_rgba(236,72,153,0.20)]
                 "
               >
                 <Flower2
-                  size={20}
-                  className="sm:w-[22px] sm:h-[22px] text-white"
+                  size={22}
+                  className="text-white"
+                  strokeWidth={2}
                 />
               </div>
 
-              <h2 className="
-                text-xl
-                min-[380px]:text-2xl
-                font-extrabold
-              ">
-                Bloom<span className="text-pink-500">Nest</span>
+              <h2
+                className="
+                  text-xl
+                  min-[380px]:text-2xl
+                  font-extrabold
+                  tracking-tight
+                  text-gray-900
+                "
+              >
+                Bloom
+                <span className="text-pink-500">
+                  Nest
+                </span>
               </h2>
 
             </div>
+
+            {/* Description */}
 
             <p
               className="
                 mt-4
                 sm:mt-5
+                max-w-sm
                 text-xs
                 sm:text-sm
                 leading-6
-                text-gray-400
-                max-w-sm
+                text-gray-500
               "
             >
               Fresh and beautiful flowers crafted with
@@ -91,9 +115,36 @@ export const Footer = () => {
               memorable.
             </p>
 
-            {/* Social */}
+            {/* Highlight */}
+
+            <div
+              className="
+                mt-4
+                sm:mt-5
+                inline-flex
+                items-center
+                gap-2
+                rounded-full
+                bg-white
+                border
+                border-pink-100
+                px-3
+                py-2
+                shadow-sm
+              "
+            >
+              <span className="w-2 h-2 rounded-full bg-pink-500" />
+
+              <span className="text-[10px] sm:text-xs font-medium text-gray-500">
+                Made with love for flower lovers
+              </span>
+            </div>
+
+            {/* ================= SOCIAL ================= */}
 
             <div className="flex items-center gap-2.5 sm:gap-3 mt-5 sm:mt-6">
+
+              {/* Instagram */}
 
               <a
                 href="#"
@@ -103,24 +154,30 @@ export const Footer = () => {
                   h-9
                   sm:w-10
                   sm:h-10
-                  rounded-full
-                  bg-gray-900
+                  rounded-xl
+                  bg-white
                   border
-                  border-gray-800
+                  border-pink-100
                   flex
                   items-center
                   justify-center
-                  text-[10px]
-                  sm:text-xs
+                  text-pink-500
+                  text-xs
                   font-bold
+                  shadow-sm
                   hover:bg-pink-500
                   hover:border-pink-500
+                  hover:text-white
+                  hover:-translate-y-1
+                  hover:shadow-md
                   transition-all
                   duration-300
                 "
               >
                 IG
               </a>
+
+              {/* Facebook */}
 
               <a
                 href="#"
@@ -130,45 +187,55 @@ export const Footer = () => {
                   h-9
                   sm:w-10
                   sm:h-10
-                  rounded-full
-                  bg-gray-900
+                  rounded-xl
+                  bg-white
                   border
-                  border-gray-800
+                  border-pink-100
                   flex
                   items-center
                   justify-center
-                  text-[10px]
-                  sm:text-xs
+                  text-pink-500
+                  text-lg
                   font-bold
+                  shadow-sm
                   hover:bg-pink-500
                   hover:border-pink-500
+                  hover:text-white
+                  hover:-translate-y-1
+                  hover:shadow-md
                   transition-all
                   duration-300
                 "
               >
-                FB
+                f
               </a>
+
+              {/* X */}
 
               <a
                 href="#"
-                aria-label="Twitter"
+                aria-label="X"
                 className="
                   w-9
                   h-9
                   sm:w-10
                   sm:h-10
-                  rounded-full
-                  bg-gray-900
+                  rounded-xl
+                  bg-white
                   border
-                  border-gray-800
+                  border-pink-100
                   flex
                   items-center
                   justify-center
-                  text-[10px]
-                  sm:text-xs
+                  text-pink-500
+                  text-sm
                   font-bold
+                  shadow-sm
                   hover:bg-pink-500
                   hover:border-pink-500
+                  hover:text-white
+                  hover:-translate-y-1
+                  hover:shadow-md
                   transition-all
                   duration-300
                 "
@@ -180,266 +247,334 @@ export const Footer = () => {
 
           </div>
 
-          {/* ================= QUICK LINKS ================= */}
+          {/* ================================================= */}
+          {/* QUICK LINKS */}
+          {/* ================================================= */}
 
           <div className="min-w-0">
 
-            <h3 className="text-base sm:text-lg font-bold">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900">
               Quick Links
             </h3>
 
-            <div className="w-7 sm:w-8 h-[2px] bg-pink-500 mt-2 sm:mt-3 mb-4 sm:mb-5" />
+            <div className="flex items-center gap-1.5 mt-2.5 sm:mt-3 mb-4 sm:mb-5">
 
-            <ul className="space-y-2.5 sm:space-y-3">
+              <span className="w-7 sm:w-8 h-[2px] bg-pink-500 rounded-full" />
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  Home
-                </a>
-              </li>
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-300" />
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  Flowers
-                </a>
-              </li>
+            </div>
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  Bouquets
-                </a>
-              </li>
+            <ul className="space-y-3 sm:space-y-3.5">
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  About Us
-                </a>
-              </li>
+              {[
+                "Home",
+                "Flowers",
+                "Bouquets",
+                "About Us",
+                "Contact Us",
+              ].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#"
+                    className="
+                      group
+                      flex
+                      items-center
+                      gap-2
+                      w-fit
+                      text-xs
+                      sm:text-sm
+                      text-gray-500
+                      hover:text-pink-500
+                      transition-all
+                      duration-200
+                    "
+                  >
+                    <ArrowRight
+                      size={13}
+                      className="
+                        text-pink-400
+                        opacity-0
+                        -translate-x-2
+                        group-hover:opacity-100
+                        group-hover:translate-x-0
+                        transition-all
+                      "
+                    />
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  Contact Us
-                </a>
-              </li>
+                    {item}
+                  </a>
+                </li>
+              ))}
 
             </ul>
 
           </div>
 
-          {/* ================= CUSTOMER SERVICE ================= */}
+          {/* ================================================= */}
+          {/* CUSTOMER CARE */}
+          {/* ================================================= */}
 
           <div className="min-w-0">
 
-            <h3 className="text-base sm:text-lg font-bold">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900">
               Customer Care
             </h3>
 
-            <div className="w-7 sm:w-8 h-[2px] bg-pink-500 mt-2 sm:mt-3 mb-4 sm:mb-5" />
+            <div className="flex items-center gap-1.5 mt-2.5 sm:mt-3 mb-4 sm:mb-5">
 
-            <ul className="space-y-2.5 sm:space-y-3">
+              <span className="w-7 sm:w-8 h-[2px] bg-pink-500 rounded-full" />
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  My Account
-                </a>
-              </li>
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-300" />
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  Track Order
-                </a>
-              </li>
+            </div>
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  Wishlist
-                </a>
-              </li>
+            <ul className="space-y-3 sm:space-y-3.5">
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  Privacy Policy
-                </a>
-              </li>
+              {[
+                "My Account",
+                "Track Order",
+                "Wishlist",
+                "Privacy Policy",
+                "Terms & Conditions",
+              ].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#"
+                    className="
+                      group
+                      flex
+                      items-center
+                      gap-2
+                      w-fit
+                      text-xs
+                      sm:text-sm
+                      text-gray-500
+                      hover:text-pink-500
+                      transition-all
+                      duration-200
+                    "
+                  >
+                    <ArrowRight
+                      size={13}
+                      className="
+                        text-pink-400
+                        opacity-0
+                        -translate-x-2
+                        group-hover:opacity-100
+                        group-hover:translate-x-0
+                        transition-all
+                      "
+                    />
 
-              <li>
-                <a
-                  href="#"
-                  className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                  "
-                >
-                  Terms & Conditions
-                </a>
-              </li>
+                    {item}
+                  </a>
+                </li>
+              ))}
 
             </ul>
 
           </div>
 
-          {/* ================= CONTACT ================= */}
+          {/* ================================================= */}
+          {/* CONTACT */}
+          {/* ================================================= */}
 
           <div className="min-w-0">
 
-            <h3 className="text-base sm:text-lg font-bold">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900">
               Get In Touch
             </h3>
 
-            <div className="w-7 sm:w-8 h-[2px] bg-pink-500 mt-2 sm:mt-3 mb-4 sm:mb-5" />
+            <div className="flex items-center gap-1.5 mt-2.5 sm:mt-3 mb-4 sm:mb-5">
 
-            <div className="space-y-3 sm:space-y-4">
+              <span className="w-7 sm:w-8 h-[2px] bg-pink-500 rounded-full" />
+
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-300" />
+
+            </div>
+
+            <div className="space-y-2.5 sm:space-y-3">
 
               {/* Location */}
 
-              <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-3
+                  p-3
+                  rounded-xl
+                  bg-white
+                  border
+                  border-pink-100
+                  shadow-[0_5px_20px_rgba(0,0,0,0.04)]
+                  hover:border-pink-300
+                  hover:shadow-[0_8px_25px_rgba(236,72,153,0.10)]
+                  transition-all
+                  duration-300
+                "
+              >
 
-                <MapPin
-                  size={17}
-                  className="sm:w-[18px] sm:h-[18px] text-pink-500 mt-1 shrink-0"
-                />
+                <div
+                  className="
+                    w-9
+                    h-9
+                    shrink-0
+                    rounded-lg
+                    bg-pink-50
+                    flex
+                    items-center
+                    justify-center
+                  "
+                >
+                  <MapPin
+                    size={17}
+                    className="text-pink-500"
+                  />
+                </div>
 
-                <p className="
-                  text-xs
-                  sm:text-sm
-                  text-gray-400
-                  leading-5
-                ">
-                  Mumbai, Maharashtra, India
-                </p>
+                <div className="min-w-0">
+
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400">
+                    Location
+                  </p>
+
+                  <p className="text-xs sm:text-sm font-semibold text-gray-700 mt-0.5 truncate">
+                    Mumbai, Maharashtra
+                  </p>
+
+                </div>
 
               </div>
 
               {/* Email */}
 
-              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-3
+                  p-3
+                  rounded-xl
+                  bg-white
+                  border
+                  border-pink-100
+                  shadow-[0_5px_20px_rgba(0,0,0,0.04)]
+                  hover:border-pink-300
+                  hover:shadow-[0_8px_25px_rgba(236,72,153,0.10)]
+                  transition-all
+                  duration-300
+                "
+              >
 
-                <Mail
-                  size={17}
-                  className="sm:w-[18px] sm:h-[18px] text-pink-500 shrink-0"
-                />
-
-                <a
-                  href="mailto:support@bloomnest.com"
+                <div
                   className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
-                    truncate
+                    w-9
+                    h-9
+                    shrink-0
+                    rounded-lg
+                    bg-pink-50
+                    flex
+                    items-center
+                    justify-center
                   "
                 >
-                  support@bloomnest.com
-                </a>
+                  <Mail
+                    size={17}
+                    className="text-pink-500"
+                  />
+                </div>
+
+                <div className="min-w-0">
+
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400">
+                    Email Us
+                  </p>
+
+                  <a
+                    href="mailto:support@bloomnest.com"
+                    className="
+                      block
+                      text-xs
+                      sm:text-sm
+                      font-semibold
+                      text-gray-700
+                      mt-0.5
+                      truncate
+                      hover:text-pink-500
+                      transition-colors
+                    "
+                  >
+                    support@bloomnest.com
+                  </a>
+
+                </div>
 
               </div>
 
               {/* Phone */}
 
-              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-3
+                  p-3
+                  rounded-xl
+                  bg-white
+                  border
+                  border-pink-100
+                  shadow-[0_5px_20px_rgba(0,0,0,0.04)]
+                  hover:border-pink-300
+                  hover:shadow-[0_8px_25px_rgba(236,72,153,0.10)]
+                  transition-all
+                  duration-300
+                "
+              >
 
-                <Phone
-                  size={17}
-                  className="sm:w-[18px] sm:h-[18px] text-pink-500 shrink-0"
-                />
-
-                <a
-                  href="tel:+919999999999"
+                <div
                   className="
-                    text-xs
-                    sm:text-sm
-                    text-gray-400
-                    hover:text-pink-500
-                    transition-colors
+                    w-9
+                    h-9
+                    shrink-0
+                    rounded-lg
+                    bg-pink-50
+                    flex
+                    items-center
+                    justify-center
                   "
                 >
-                  +91 99999 99999
-                </a>
+                  <Phone
+                    size={17}
+                    className="text-pink-500"
+                  />
+                </div>
+
+                <div className="min-w-0">
+
+                  <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400">
+                    Call Us
+                  </p>
+
+                  <a
+                    href="tel:+919999999999"
+                    className="
+                      block
+                      text-xs
+                      sm:text-sm
+                      font-semibold
+                      text-gray-700
+                      mt-0.5
+                      hover:text-pink-500
+                      transition-colors
+                    "
+                  >
+                    +91 99999 99999
+                  </a>
+
+                </div>
 
               </div>
 
@@ -449,11 +584,23 @@ export const Footer = () => {
 
             <div className="mt-5 sm:mt-6">
 
-              <p className="text-xs sm:text-sm font-semibold mb-2.5 sm:mb-3">
+              <p className="text-xs sm:text-sm font-semibold text-gray-800 mb-2.5 sm:mb-3">
                 Stay updated with us
               </p>
 
-              <div className="flex w-full min-w-0">
+              <div
+                className="
+                  flex
+                  w-full
+                  min-w-0
+                  p-1
+                  rounded-xl
+                  bg-white
+                  border
+                  border-pink-100
+                  shadow-sm
+                "
+              >
 
                 <input
                   type="email"
@@ -461,43 +608,45 @@ export const Footer = () => {
                   className="
                     min-w-0
                     flex-1
-                    h-9
-                    sm:h-10
+                    h-8
+                    sm:h-9
                     px-2.5
                     sm:px-3
-                    rounded-l-lg
-                    bg-gray-900
-                    border
-                    border-gray-800
+                    rounded-lg
+                    bg-transparent
                     text-xs
                     sm:text-sm
-                    text-white
-                    placeholder:text-gray-500
+                    text-gray-800
+                    placeholder:text-gray-400
                     outline-none
-                    focus:border-pink-500
                   "
                 />
 
                 <button
                   type="button"
                   className="
-                    w-10
-                    sm:w-11
-                    h-9
-                    sm:h-10
+                    w-9
+                    sm:w-10
+                    h-8
+                    sm:h-9
                     shrink-0
-                    rounded-r-lg
+                    rounded-lg
                     bg-pink-500
+                    text-white
                     flex
                     items-center
                     justify-center
                     hover:bg-pink-600
-                    transition-colors
+                    hover:shadow-md
+                    active:scale-95
+                    transition-all
+                    duration-200
+                    cursor-pointer
                   "
                 >
                   <ArrowRight
-                    size={17}
-                    className="sm:w-[18px] sm:h-[18px]"
+                    size={16}
+                    className="sm:w-[17px] sm:h-[17px]"
                   />
                 </button>
 
@@ -508,12 +657,13 @@ export const Footer = () => {
           </div>
 
         </div>
-
       </div>
 
-      {/* ================= BOTTOM ================= */}
+      {/* ================================================= */}
+      {/* BOTTOM FOOTER */}
+      {/* ================================================= */}
 
-      <div className="border-t border-gray-800">
+      <div className="border-t border-pink-100 bg-white">
 
         <div
           className="
@@ -536,13 +686,15 @@ export const Footer = () => {
           "
         >
 
-          <p className="
-            text-[10px]
-            min-[380px]:text-xs
-            sm:text-sm
-            text-gray-500
-            text-center
-          ">
+          <p
+            className="
+              text-[10px]
+              min-[380px]:text-xs
+              sm:text-sm
+              text-gray-500
+              text-center
+            "
+          >
             © 2026 BloomNest. All rights reserved.
           </p>
 
@@ -550,7 +702,7 @@ export const Footer = () => {
             className="
               flex
               items-center
-              gap-1
+              gap-1.5
               text-[10px]
               min-[380px]:text-xs
               sm:text-sm
@@ -559,10 +711,18 @@ export const Footer = () => {
             "
           >
             Made with
+
             <Heart
               size={12}
-              className="sm:w-[14px] sm:h-[14px] text-pink-500 fill-pink-500 shrink-0"
+              className="
+                sm:w-[14px]
+                sm:h-[14px]
+                text-pink-500
+                fill-pink-500
+                shrink-0
+              "
             />
+
             for flower lovers
           </p>
 

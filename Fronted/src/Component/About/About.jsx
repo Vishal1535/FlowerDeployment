@@ -50,24 +50,24 @@ export const About = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
           {/* Back */}
 
-          <button
-            type="button"
-            onClick={() => navigate('/')}
-            className="
-              inline-flex
-              items-center
-              gap-2
-              text-sm
-              font-medium
-              text-gray-500
-              hover:text-pink-600
-              transition-colors
-              cursor-pointer
-            "
-          >
-            <ArrowLeft size={17} />
-            Back
-          </button>
+         <button
+  type="button"
+  onClick={() => navigate('/')}
+  className="
+    inline-flex
+    items-center
+    gap-2
+    text-sm
+    font-medium
+    text-gray-500
+    hover:text-pink-600
+    transition-colors
+    cursor-pointer
+  "
+>
+  <ArrowLeft size={17} />
+  Back
+</button>
 
           {/* Hero Content */}
 
