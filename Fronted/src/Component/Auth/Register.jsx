@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { Link, useNavigate } from "react-router-dom";
 
-import { Eye, EyeOff, Flower2, ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Flower2,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
 
 import toast from "react-hot-toast";
 
@@ -12,7 +16,6 @@ import { registerThunks } from "../../Store/AuthSlice/authApi";
 
 export const Register = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const { loading, error } = useSelector((state) => state.user);
@@ -58,7 +61,6 @@ export const Register = () => {
     const confirmPassword = formData.confirmPassword;
 
     // Name
-
     if (!name) {
       toast.error("Please enter your full name");
       return false;
@@ -75,7 +77,6 @@ export const Register = () => {
     }
 
     // Phone
-
     if (!phone) {
       toast.error("Please enter your phone number");
       return false;
@@ -87,7 +88,6 @@ export const Register = () => {
     }
 
     // Email
-
     if (!email) {
       toast.error("Please enter your email");
       return false;
@@ -101,7 +101,6 @@ export const Register = () => {
     }
 
     // Password
-
     if (!password) {
       toast.error("Please enter a password");
       return false;
@@ -113,7 +112,6 @@ export const Register = () => {
     }
 
     // Confirm password
-
     if (!confirmPassword) {
       toast.error("Please confirm your password");
       return false;
@@ -176,19 +174,44 @@ export const Register = () => {
   // =====================================================
 
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-[#fafafa] flex items-center justify-center px-3 sm:px-4 py-5 sm:py-8">
+    <div
+      className="
+        min-h-screen
+        w-full
+        flex
+        items-center
+        justify-center
+
+        bg-gradient-to-br
+        from-[#fffafa]
+        via-white
+        to-[#fff5f7]
+
+        px-3
+        sm:px-5
+        py-6
+        sm:py-10
+      "
+    >
       <div
         className="
+          relative
           w-full
           max-w-5xl
-          bg-white
-          rounded-2xl
-          sm:rounded-[28px]
-          shadow-[0_20px_60px_rgba(0,0,0,0.08)]
-          overflow-hidden
+
           grid
           md:grid-cols-2
-          relative
+
+          overflow-hidden
+
+          rounded-3xl
+
+          bg-white
+
+          border
+          border-gray-100
+
+          shadow-[0_20px_60px_rgba(0,0,0,0.08)]
         "
       >
         {/* =================================================
@@ -198,40 +221,52 @@ export const Register = () => {
         <button
           type="button"
           onClick={() => navigate(-1)}
+          aria-label="Go back"
           className="
             absolute
-            top-3
-            left-3
+            top-4
+            left-4
             sm:top-5
             sm:left-5
+
             z-30
-            w-9
-            h-9
-            sm:w-10
-            sm:h-10
+
+            w-10
+            h-10
+            sm:w-11
+            sm:h-11
+
             rounded-full
-            bg-white/90
-            backdrop-blur-sm
+
+            bg-white
+
             border
             border-gray-200
-            shadow-sm
+
+            text-gray-600
+
             flex
             items-center
             justify-center
-            text-gray-600
+
+            shadow-sm
+
+            hover:bg-gray-50
             hover:text-gray-900
-            hover:bg-white
-            hover:scale-105
+            hover:border-gray-300
+            hover:shadow-md
+
             active:scale-95
+
             transition-all
             duration-200
+
             cursor-pointer
           "
-          aria-label="Go back"
         >
           <ArrowLeft
-            size={17}
-            className="sm:w-[19px] sm:h-[19px]"
+            size={19}
+            strokeWidth={2}
           />
         </button>
 
@@ -243,10 +278,14 @@ export const Register = () => {
           className="
             hidden
             md:flex
+
             relative
             overflow-hidden
-            bg-[#f5eee8]
-            min-h-[600px]
+
+            bg-[#fff3f4]
+
+            min-h-[610px]
+
             items-center
             justify-center
           "
@@ -256,79 +295,179 @@ export const Register = () => {
           <div
             className="
               absolute
-              -top-20
-              -left-20
-              w-64
-              h-64
+              -top-24
+              -left-24
+
+              w-72
+              h-72
+
               rounded-full
-              bg-white/50
+
+              bg-white/70
             "
           />
 
           <div
             className="
               absolute
-              -bottom-24
-              -right-20
-              w-72
-              h-72
+              -bottom-28
+              -right-24
+
+              w-80
+              h-80
+
               rounded-full
-              bg-white/40
+
+              bg-white/60
             "
           />
 
-          {/* Flower Animation */}
+          <div
+            className="
+              absolute
+              top-1/2
+              left-1/2
 
-          <div className="relative z-10 text-center px-8 lg:px-10">
+              -translate-x-1/2
+              -translate-y-1/2
+
+              w-80
+              h-80
+
+              rounded-full
+
+              border
+              border-white/70
+            "
+          />
+
+          {/* Left Content */}
+
+          <div
+            className="
+              relative
+              z-10
+
+              text-center
+
+              px-8
+              lg:px-12
+            "
+          >
+            {/* Flower */}
+
             <div
               className="
                 text-[90px]
-                lg:text-[120px]
+                lg:text-[110px]
+
                 leading-none
-                animate-bounce
+
+                animate-[float_3s_ease-in-out_infinite]
               "
             >
               💐
             </div>
 
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mt-5">
+            {/* Heading */}
+
+            <h2
+              className="
+                text-3xl
+                lg:text-4xl
+
+                font-bold
+
+                text-gray-900
+
+                mt-6
+              "
+            >
               Welcome to Flower
             </h2>
 
-            <p className="text-gray-600 mt-4 leading-7 max-w-sm mx-auto">
-              Discover beautiful bouquets and make every special moment a little
-              more memorable.
+            {/* Description */}
+
+            <p
+              className="
+                text-gray-600
+
+                text-sm
+                lg:text-base
+
+                mt-4
+
+                leading-6
+                lg:leading-7
+
+                max-w-sm
+
+                mx-auto
+              "
+            >
+              Discover beautiful bouquets and make every special
+              moment a little more memorable.
             </p>
 
-            <div className="flex justify-center gap-2 lg:gap-3 mt-7 flex-wrap">
+            {/* Features */}
+
+            <div
+              className="
+                flex
+                flex-wrap
+
+                justify-center
+
+                gap-2
+                lg:gap-3
+
+                mt-8
+              "
+            >
               <span
                 className="
-                  px-3
-                  lg:px-4
+                  px-4
                   py-2
+
                   rounded-full
-                  bg-white/70
+
+                  bg-white
+
+                  border
+                  border-white
+
+                  shadow-sm
+
                   text-xs
                   lg:text-sm
+
                   text-gray-600
                 "
               >
-                Fresh Flowers
+                🌸 Fresh Flowers
               </span>
 
               <span
                 className="
-                  px-3
-                  lg:px-4
+                  px-4
                   py-2
+
                   rounded-full
-                  bg-white/70
+
+                  bg-white
+
+                  border
+                  border-white
+
+                  shadow-sm
+
                   text-xs
                   lg:text-sm
+
                   text-gray-600
                 "
               >
-                Easy Shopping
+                ✨ Easy Shopping
               </span>
             </div>
           </div>
@@ -338,51 +477,108 @@ export const Register = () => {
             RIGHT SIDE
         ================================================= */}
 
-        <div className="p-5 sm:p-7 md:p-9 lg:p-10">
-          {/* Heading */}
+        <div
+          className="
+            w-full
 
-          <div className="mb-5 sm:mb-6">
+            bg-white
+
+            px-5
+            py-16
+
+            sm:px-8
+            sm:py-12
+
+            md:px-10
+
+            lg:px-14
+            xl:px-16
+          "
+        >
+          {/* ================= LOGO ================= */}
+
+          <div
+            className="
+              flex
+              items-center
+
+              gap-2.5
+
+              text-gray-900
+
+              mb-6
+              sm:mb-7
+            "
+          >
             <div
               className="
+                w-10
+                h-10
+
+                rounded-xl
+
+                bg-pink-50
+
+                border
+                border-pink-100
+
                 flex
                 items-center
-                gap-2
-                text-gray-800
-                mb-2.5
-                sm:mb-3
+                justify-center
+
+                shrink-0
               "
             >
-              <div
-                className="
-                  w-8
-                  h-8
-                  sm:w-9
-                  sm:h-9
-                  rounded-lg
-                  sm:rounded-xl
-                  bg-gray-100
-                  flex
-                  items-center
-                  justify-center
-                  shrink-0
-                "
-              >
-                <Flower2
-                  size={18}
-                  className="sm:w-5 sm:h-5"
-                />
-              </div>
-
-              <span className="font-semibold text-sm sm:text-base">
-                Flower
-              </span>
+              <Flower2
+                size={21}
+                className="text-pink-500"
+                strokeWidth={2}
+              />
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
+            <span
+              className="
+                font-bold
+                text-lg
+
+                text-gray-900
+              "
+            >
+              Flower
+            </span>
+          </div>
+
+          {/* ================= HEADING ================= */}
+
+          <div className="mb-7 sm:mb-8">
+            <h1
+              className="
+                text-[28px]
+                sm:text-3xl
+                lg:text-4xl
+
+                font-bold
+
+                tracking-tight
+
+                text-gray-900
+
+                leading-tight
+              "
+            >
               Create your account
             </h1>
 
-            <p className="text-xs sm:text-sm text-gray-500 mt-2 leading-5 sm:leading-normal">
+            <p
+              className="
+                text-sm
+                sm:text-base
+
+                text-gray-500
+
+                mt-2
+              "
+            >
               Start your beautiful journey with us.
             </p>
           </div>
@@ -393,245 +589,550 @@ export const Register = () => {
 
           <form
             onSubmit={handleSubmit}
-            className="space-y-3 sm:space-y-3.5"
+            className="space-y-4 sm:space-y-5"
           >
-            {/* Name + Phone */}
+            {/* ================= NAME + PHONE ================= */}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={(e) => {
-                  const value = e.target.value;
-
-                  if (/^[A-Za-z ]*$/.test(value)) {
-                    handleChange(e);
-                  }
-                }}
-                className="
-                  input
-                  input-bordered
-                  w-full
-                  h-11
-                  sm:h-12
-                  rounded-xl
-                  text-sm
-                  sm:text-base
-                  focus:outline-none
-                  focus:border-gray-500
-                  transition
-                "
-                required
-              />
-
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={(e) => {
-                  const value = e.target.value;
-
-                  if (/^\d*$/.test(value)) {
-                    handleChange(e);
-                  }
-                }}
-                maxLength={10}
-                className="
-                  input
-                  input-bordered
-                  w-full
-                  h-11
-                  sm:h-12
-                  rounded-xl
-                  text-sm
-                  sm:text-base
-                  focus:outline-none
-                  focus:border-gray-500
-                  transition
-                "
-                required
-              />
-            </div>
-
-            {/* Email */}
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={handleChange}
+            <div
               className="
-                input
-                input-bordered
-                w-full
-                h-11
-                sm:h-12
-                rounded-xl
-                text-sm
-                sm:text-base
-                focus:outline-none
-                focus:border-gray-500
-                transition
+                grid
+                grid-cols-1
+                min-[430px]:grid-cols-2
+
+                gap-3
               "
-              required
-            />
+            >
+              {/* Name */}
 
-            {/* Password */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="
+                    block
 
-            <div className="relative">
+                    text-sm
+                    font-semibold
+
+                    text-gray-700
+
+                    mb-2
+                  "
+                >
+                  Full Name
+                </label>
+
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  value={formData.name}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    if (/^[A-Za-z ]*$/.test(value)) {
+                      handleChange(e);
+                    }
+                  }}
+                  className="
+                    w-full
+
+                    h-12
+                    sm:h-[52px]
+
+                    px-4
+
+                    rounded-xl
+
+                    bg-white
+
+                    text-gray-900
+
+                    border
+                    border-gray-200
+
+                    placeholder:text-gray-400
+
+                    text-sm
+                    sm:text-base
+
+                    shadow-sm
+
+                    outline-none
+
+                    focus:border-pink-400
+                    focus:ring-4
+                    focus:ring-pink-50
+
+                    hover:border-gray-300
+
+                    transition-all
+                    duration-200
+                  "
+                  required
+                />
+              </div>
+
+              {/* Phone */}
+
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="
+                    block
+
+                    text-sm
+                    font-semibold
+
+                    text-gray-700
+
+                    mb-2
+                  "
+                >
+                  Phone Number
+                </label>
+
+                <input
+                  id="phone"
+                  type="tel"
+                  name="phone"
+                  placeholder="Enter phone number"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    if (/^\d*$/.test(value)) {
+                      handleChange(e);
+                    }
+                  }}
+                  maxLength={10}
+                  className="
+                    w-full
+
+                    h-12
+                    sm:h-[52px]
+
+                    px-4
+
+                    rounded-xl
+
+                    bg-white
+
+                    text-gray-900
+
+                    border
+                    border-gray-200
+
+                    placeholder:text-gray-400
+
+                    text-sm
+                    sm:text-base
+
+                    shadow-sm
+
+                    outline-none
+
+                    focus:border-pink-400
+                    focus:ring-4
+                    focus:ring-pink-50
+
+                    hover:border-gray-300
+
+                    transition-all
+                    duration-200
+                  "
+                  required
+                />
+              </div>
+            </div>
+
+            {/* ================= EMAIL ================= */}
+
+            <div>
+              <label
+                htmlFor="email"
+                className="
+                  block
+
+                  text-sm
+                  font-semibold
+
+                  text-gray-700
+
+                  mb-2
+                "
+              >
+                Email Address
+              </label>
+
               <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="Password"
-                value={formData.password}
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={formData.email}
                 onChange={handleChange}
                 className="
-                  input
-                  input-bordered
                   w-full
-                  h-11
-                  sm:h-12
-                  pr-11
-                  sm:pr-12
+
+                  h-12
+                  sm:h-[52px]
+
+                  px-4
+
                   rounded-xl
+
+                  bg-white
+
+                  text-gray-900
+
+                  border
+                  border-gray-200
+
+                  placeholder:text-gray-400
+
                   text-sm
                   sm:text-base
-                  focus:outline-none
-                  focus:border-gray-500
-                  transition
+
+                  shadow-sm
+
+                  outline-none
+
+                  focus:border-pink-400
+                  focus:ring-4
+                  focus:ring-pink-50
+
+                  hover:border-gray-300
+
+                  transition-all
+                  duration-200
                 "
                 required
               />
-
-              <button
-                type="button"
-                onClick={() =>
-                  setShowPassword((prev) => !prev)
-                }
-                className="
-                  absolute
-                  right-2.5
-                  sm:right-3
-                  top-1/2
-                  -translate-y-1/2
-                  p-1
-                  text-gray-400
-                  hover:text-gray-700
-                  transition
-                  cursor-pointer
-                "
-              >
-                {showPassword ? (
-                  <EyeOff
-                    size={17}
-                    className="sm:w-[18px] sm:h-[18px]"
-                  />
-                ) : (
-                  <Eye
-                    size={17}
-                    className="sm:w-[18px] sm:h-[18px]"
-                  />
-                )}
-              </button>
             </div>
 
-            {/* Confirm Password */}
+            {/* ================= PASSWORD ================= */}
 
-            <div className="relative">
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
+            <div>
+              <label
+                htmlFor="password"
                 className="
-                  input
-                  input-bordered
-                  w-full
-                  h-11
-                  sm:h-12
-                  pr-11
-                  sm:pr-12
-                  rounded-xl
+                  block
+
                   text-sm
-                  sm:text-base
-                  focus:outline-none
-                  focus:border-gray-500
-                  transition
-                "
-                required
-              />
+                  font-semibold
 
-              <button
-                type="button"
-                onClick={() =>
-                  setShowConfirmPassword((prev) => !prev)
-                }
-                className="
-                  absolute
-                  right-2.5
-                  sm:right-3
-                  top-1/2
-                  -translate-y-1/2
-                  p-1
-                  text-gray-400
-                  hover:text-gray-700
-                  transition
-                  cursor-pointer
+                  text-gray-700
+
+                  mb-2
                 "
               >
-                {showConfirmPassword ? (
-                  <EyeOff
-                    size={17}
-                    className="sm:w-[18px] sm:h-[18px]"
-                  />
-                ) : (
-                  <Eye
-                    size={17}
-                    className="sm:w-[18px] sm:h-[18px]"
-                  />
-                )}
-              </button>
+                Password
+              </label>
+
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="
+                    w-full
+
+                    h-12
+                    sm:h-[52px]
+
+                    px-4
+                    pr-12
+
+                    rounded-xl
+
+                    bg-white
+
+                    text-gray-900
+
+                    border
+                    border-gray-200
+
+                    placeholder:text-gray-400
+
+                    text-sm
+                    sm:text-base
+
+                    shadow-sm
+
+                    outline-none
+
+                    focus:border-pink-400
+                    focus:ring-4
+                    focus:ring-pink-50
+
+                    hover:border-gray-300
+
+                    transition-all
+                    duration-200
+                  "
+                  required
+                />
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowPassword((prev) => !prev)
+                  }
+                  aria-label={
+                    showPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                  className="
+                    absolute
+
+                    right-3
+
+                    top-1/2
+                    -translate-y-1/2
+
+                    w-9
+                    h-9
+
+                    rounded-lg
+
+                    flex
+                    items-center
+                    justify-center
+
+                    text-gray-400
+
+                    hover:bg-gray-50
+                    hover:text-gray-700
+
+                    transition
+
+                    cursor-pointer
+                  "
+                >
+                  {showPassword ? (
+                    <EyeOff
+                      size={19}
+                      strokeWidth={2}
+                    />
+                  ) : (
+                    <Eye
+                      size={19}
+                      strokeWidth={2}
+                    />
+                  )}
+                </button>
+              </div>
             </div>
 
-            {/* Backend Error */}
+            {/* ================= CONFIRM PASSWORD ================= */}
+
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="
+                  block
+
+                  text-sm
+                  font-semibold
+
+                  text-gray-700
+
+                  mb-2
+                "
+              >
+                Confirm Password
+              </label>
+
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  type={
+                    showConfirmPassword
+                      ? "text"
+                      : "password"
+                  }
+                  name="confirmPassword"
+                  placeholder="Confirm your password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="
+                    w-full
+
+                    h-12
+                    sm:h-[52px]
+
+                    px-4
+                    pr-12
+
+                    rounded-xl
+
+                    bg-white
+
+                    text-gray-900
+
+                    border
+                    border-gray-200
+
+                    placeholder:text-gray-400
+
+                    text-sm
+                    sm:text-base
+
+                    shadow-sm
+
+                    outline-none
+
+                    focus:border-pink-400
+                    focus:ring-4
+                    focus:ring-pink-50
+
+                    hover:border-gray-300
+
+                    transition-all
+                    duration-200
+                  "
+                  required
+                />
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowConfirmPassword(
+                      (prev) => !prev
+                    )
+                  }
+                  aria-label={
+                    showConfirmPassword
+                      ? "Hide confirm password"
+                      : "Show confirm password"
+                  }
+                  className="
+                    absolute
+
+                    right-3
+
+                    top-1/2
+                    -translate-y-1/2
+
+                    w-9
+                    h-9
+
+                    rounded-lg
+
+                    flex
+                    items-center
+                    justify-center
+
+                    text-gray-400
+
+                    hover:bg-gray-50
+                    hover:text-gray-700
+
+                    transition
+
+                    cursor-pointer
+                  "
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff
+                      size={19}
+                      strokeWidth={2}
+                    />
+                  ) : (
+                    <Eye
+                      size={19}
+                      strokeWidth={2}
+                    />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* ================= BACKEND ERROR ================= */}
 
             {error && (
-              <p className="text-red-500 text-xs break-words">
-                {error}
-              </p>
+              <div
+                className="
+                  rounded-xl
+
+                  border
+                  border-red-100
+
+                  bg-red-50
+
+                  px-3
+                  py-2.5
+                "
+              >
+                <p
+                  className="
+                    text-red-500
+
+                    text-xs
+                    sm:text-sm
+
+                    break-words
+                  "
+                >
+                  {error}
+                </p>
+              </div>
             )}
 
-            {/* Submit */}
+            {/* ================= SUBMIT ================= */}
 
             <button
               type="submit"
               disabled={loading}
               className="
                 w-full
-                h-11
-                sm:h-12
+
+                h-12
+                sm:h-[52px]
+
                 rounded-xl
-                bg-gray-900
+
+                bg-pink-500
+                hover:bg-pink-600
+
                 text-white
+
                 text-sm
                 sm:text-base
-                font-semibold
+
+                font-bold
+
                 flex
                 items-center
                 justify-center
-                gap-1.5
-                sm:gap-2
-                hover:bg-gray-800
+
+                gap-2
+
+                shadow-sm
+
+                hover:shadow-lg
+                hover:shadow-pink-100
+
                 hover:-translate-y-0.5
+
                 active:translate-y-0
+                active:scale-[0.99]
+
                 transition-all
                 duration-200
-                disabled:opacity-60
+
+                disabled:bg-gray-300
+                disabled:text-gray-500
+                disabled:shadow-none
+                disabled:translate-y-0
+
+                disabled:cursor-not-allowed
+
                 cursor-pointer
               "
             >
@@ -639,11 +1140,11 @@ export const Register = () => {
                 "Sending OTP..."
               ) : (
                 <>
-                  Create Account
+                  <span>Create Account</span>
 
                   <ArrowRight
-                    size={17}
-                    className="sm:w-[18px] sm:h-[18px]"
+                    size={18}
+                    strokeWidth={2.2}
                   />
                 </>
               )}
@@ -654,15 +1155,26 @@ export const Register = () => {
               LOGIN
           ================================================= */}
 
-          <div className="text-center mt-5 sm:mt-6">
-            <p className="text-xs sm:text-sm text-gray-500">
+          <div className="text-center mt-7 sm:mt-8">
+            <p
+              className="
+                text-xs
+                sm:text-sm
+
+                text-gray-500
+              "
+            >
               Already have an account?{" "}
               <Link
                 to="/login"
                 className="
-                  font-semibold
+                  font-bold
+
                   text-gray-900
-                  hover:underline
+
+                  hover:text-pink-500
+
+                  transition-colors
                 "
               >
                 Login

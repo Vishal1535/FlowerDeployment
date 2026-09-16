@@ -641,128 +641,150 @@ export const WoolenBouquetItem = ({ woolen }) => {
         </div>
 
         {/* ================= ACTION BUTTONS ================= */}
+{/* ================= ACTION BUTTONS ================= */}
 
-        <div
-          className="
-            grid
-            grid-cols-1
-            min-[420px]:grid-cols-2
-            gap-2.5
-            sm:gap-3
-            mt-5
-            sm:mt-6
-          "
-        >
+<div
+  className="
+    grid
+    grid-cols-1
+    min-[420px]:grid-cols-2
+    gap-2.5
+    sm:gap-3
+    mt-5
+    sm:mt-6
+  "
+>
+  {/* ================= VIEW DETAILS ================= */}
 
-          {/* ================= VIEW DETAILS ================= */}
+  <button
+    type="button"
+    onClick={() =>
+      navigate(
+        `/woolen-bouquet/${woolen?._id}`
+      )
+    }
+    className="
+      w-full
+      h-11
+      sm:h-12
+      px-3
+      sm:px-4
 
-          <button
-            type="button"
-            onClick={() =>
-              navigate(
-                `/woolen-bouquet/${woolen?._id}`
-              )
-            }
-            className="
-              w-full
-              h-11
-              sm:h-12
-              px-3
-              sm:px-4
-              rounded-xl
-              border
-              border-purple-200
-              bg-purple-50
-              text-purple-600
-              text-xs
-              sm:text-sm
-              font-semibold
-              flex
-              items-center
-              justify-center
-              gap-2
-              whitespace-nowrap
-              hover:bg-purple-500
-              hover:border-purple-500
-              hover:text-white
-              hover:shadow-md
-              hover:shadow-purple-100
-              active:scale-[0.97]
-              cursor-pointer
-              transition-all
-              duration-300
-            "
-          >
-            <Eye
-              size={16}
-              className="shrink-0"
-              strokeWidth={2.2}
-            />
+      rounded-xl
 
-            <span>
-              View Details
-            </span>
-          </button>
+      bg-white
+      border
+      border-gray-900
 
-          {/* ================= ADD TO CART ================= */}
+      text-gray-900
 
-          <button
-            type="button"
-            disabled={
-              !isAvailable ||
-              isInCart
-            }
-            onClick={() =>
-              HandleAddToCart(
-                woolen?._id
-              )
-            }
-            className="
-              w-full
-              h-11
-              sm:h-12
-              px-3
-              sm:px-4
-              rounded-xl
-              bg-purple-500
-              text-white
-              text-xs
-              sm:text-sm
-              font-bold
-              flex
-              items-center
-              justify-center
-              gap-2
-              whitespace-nowrap
-              hover:bg-purple-600
-              hover:shadow-md
-              hover:shadow-purple-200
-              active:scale-[0.97]
-              cursor-pointer
-              disabled:bg-gray-100
-              disabled:text-gray-400
-              disabled:shadow-none
-              disabled:cursor-not-allowed
-              transition-all
-              duration-300
-            "
-          >
-            <ShoppingCart
-              size={16}
-              className="shrink-0"
-              strokeWidth={2.2}
-            />
+      text-xs
+      sm:text-sm
 
-            <span>
-              {isInCart
-                ? "Added to Cart"
-                : isAvailable
-                  ? "Add to Cart"
-                  : "Unavailable"}
-            </span>
-          </button>
+      font-semibold
 
-        </div>
+      flex
+      items-center
+      justify-center
+      gap-2
+
+      whitespace-nowrap
+
+      hover:bg-gray-900
+      hover:text-white
+
+      hover:shadow-md
+      hover:shadow-gray-200
+
+      active:scale-[0.97]
+
+      cursor-pointer
+
+      transition-all
+      duration-300
+    "
+  >
+    <Eye
+      size={16}
+      className="shrink-0"
+      strokeWidth={2.2}
+    />
+
+    <span>
+      View Details
+    </span>
+  </button>
+
+  {/* ================= ADD TO CART ================= */}
+
+  <button
+    type="button"
+    disabled={!isAvailable || isInCart}
+    onClick={() =>
+      HandleAddToCart(woolen?._id)
+    }
+    className="
+      w-full
+      h-11
+      sm:h-12
+      px-3
+      sm:px-4
+
+      rounded-xl
+
+      bg-gray-900
+      text-white
+
+      border
+      border-gray-900
+
+      text-xs
+      sm:text-sm
+
+      font-bold
+
+      flex
+      items-center
+      justify-center
+      gap-2
+
+      whitespace-nowrap
+
+      hover:bg-black
+      hover:border-black
+
+      hover:shadow-md
+      hover:shadow-gray-300
+
+      active:scale-[0.97]
+
+      cursor-pointer
+
+      disabled:bg-gray-100
+      disabled:text-gray-400
+      disabled:border-gray-200
+      disabled:shadow-none
+      disabled:cursor-not-allowed
+
+      transition-all
+      duration-300
+    "
+  >
+    <ShoppingCart
+      size={16}
+      className="shrink-0"
+      strokeWidth={2.2}
+    />
+
+    <span>
+      {isInCart
+        ? "Added to Cart"
+        : isAvailable
+          ? "Add to Cart"
+          : "Unavailable"}
+    </span>
+  </button>
+</div>
 
       </div>
     </div>
