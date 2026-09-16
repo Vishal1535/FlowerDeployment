@@ -253,19 +253,45 @@ export const FlowerCarousel = () => {
   }
 
   return (
-    <section className="w-full max-w-full overflow-hidden px-3 sm:px-6 lg:px-10 py-7 sm:py-10">
+    <section
+      className="
+        w-full
+        max-w-full
+        overflow-hidden
+        bg-white
+        text-gray-900
+        px-3
+        min-[380px]:px-4
+        sm:px-6
+        lg:px-10
+        py-7
+        sm:py-10
+      "
+    >
 
       {/* ================================= */}
       {/* HEADER */}
       {/* ================================= */}
 
-      <div className="mb-7 sm:mb-10">
+      <div className="mb-6 sm:mb-10">
 
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 sm:gap-8">
+        <div
+          className="
+            flex
+            flex-col
+            sm:flex-row
+            sm:items-end
+            sm:justify-between
+            gap-4
+            sm:gap-8
+          "
+        >
 
           {/* ================= LEFT ================= */}
 
           <div className="min-w-0">
+
+            {/* SMALL HEADING */}
 
             <div className="flex items-center gap-2 mb-2.5 sm:mb-3">
 
@@ -296,6 +322,8 @@ export const FlowerCarousel = () => {
 
             </div>
 
+            {/* MAIN HEADING */}
+
             <h2
               className="
                 text-[28px]
@@ -313,6 +341,8 @@ export const FlowerCarousel = () => {
                 Flowers
               </span>
             </h2>
+
+            {/* DESCRIPTION */}
 
             <p
               className="
@@ -333,34 +363,9 @@ export const FlowerCarousel = () => {
 
           </div>
 
-          {/* ================= RIGHT ================= */}
+          {/* ================= RIGHT SEARCH ================= */}
 
           <div className="hidden sm:flex items-center gap-3 pb-2 shrink-0">
-
-            {/* ORIGINAL TEXT — NOT REMOVED */}
-
-            {/* <span className="text-xs font-medium text-gray-400">
-              Freshly picked for you
-            </span> */}
-
-            {/* <div
-              className="
-                w-10
-                h-10
-                rounded-full
-                bg-pink-50
-                flex
-                items-center
-                justify-center
-                shrink-0
-              "
-            >
-              <span className="text-lg">
-                🌸
-              </span>
-            </div> */}
-
-            {/* ================= SEARCH ================= */}
 
             <div
               className={`
@@ -517,6 +522,7 @@ export const FlowerCarousel = () => {
             />
 
             {searchText && (
+
               <button
                 type="button"
                 onClick={handleCloseSearch}
@@ -530,6 +536,7 @@ export const FlowerCarousel = () => {
               >
                 <X size={16} />
               </button>
+
             )}
 
           </div>
@@ -553,13 +560,119 @@ export const FlowerCarousel = () => {
       </div>
 
       {/* ================================= */}
-      {/* CAROUSEL */}
+      {/* MOBILE ARROWS */}
       {/* ================================= */}
 
-      <div className="flex items-center gap-1.5 min-[380px]:gap-2 sm:gap-4 w-full">
+      <div
+        className="
+          flex
+          sm:hidden
+          justify-end
+          items-center
+          gap-2
+          mb-3
+        "
+      >
+
+        {/* MOBILE LEFT */}
+
+        <button
+          type="button"
+          onClick={handlePrevious}
+          disabled={
+            startIndex === 0 ||
+            loading ||
+            filteredFlowers.length === 0
+          }
+          aria-label="Previous flowers"
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
+            flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
+            active:scale-90
+            disabled:opacity-30
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronLeft
+            size={18}
+            strokeWidth={2}
+          />
+        </button>
+
+        {/* MOBILE RIGHT */}
+
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={
+            loading ||
+            filteredFlowers.length === 0 ||
+            startIndex >=
+              filteredFlowers.length - visibleCount
+          }
+          aria-label="Next flowers"
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-white
+            border
+            border-gray-200
+            shadow-md
+            flex
+            items-center
+            justify-center
+            text-gray-700
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
+            active:scale-90
+            disabled:opacity-30
+            disabled:cursor-not-allowed
+            transition-all
+            duration-200
+          "
+        >
+          <ChevronRight
+            size={18}
+            strokeWidth={2}
+          />
+        </button>
+
+      </div>
+
+      {/* ================================= */}
+      {/* DESKTOP / TABLET CAROUSEL */}
+      {/* ================================= */}
+
+      <div
+        className="
+          relative
+          flex
+          items-center
+          gap-1.5
+          min-[380px]:gap-2
+          sm:gap-4
+          w-full
+        "
+      >
 
         {/* ================================= */}
-        {/* LEFT BUTTON */}
+        {/* DESKTOP LEFT BUTTON */}
         {/* ================================= */}
 
         <button
@@ -572,25 +685,22 @@ export const FlowerCarousel = () => {
           }
           aria-label="Previous flowers"
           className="
+            hidden
+            sm:flex
             shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
-            sm:w-12
-            sm:h-12
+            w-12
+            h-12
             rounded-full
             bg-white
             border
             border-gray-200
             shadow-md
-            flex
             items-center
             justify-center
             text-gray-700
-            hover:bg-pink-50
-            hover:text-pink-600
-            hover:border-pink-200
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
             hover:shadow-lg
             active:scale-90
             disabled:opacity-30
@@ -600,14 +710,7 @@ export const FlowerCarousel = () => {
           "
         >
           <ChevronLeft
-            size={18}
-            className="sm:hidden"
-            strokeWidth={2}
-          />
-
-          <ChevronLeft
             size={22}
-            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>
@@ -620,6 +723,7 @@ export const FlowerCarousel = () => {
           className={`
             flex-1
             min-w-0
+            max-w-full
             overflow-hidden
             select-none
             touch-pan-y
@@ -653,6 +757,7 @@ export const FlowerCarousel = () => {
               "
             >
               {[1, 2, 3, 4].map((item) => (
+
                 <div
                   key={item}
                   className="
@@ -665,6 +770,7 @@ export const FlowerCarousel = () => {
                     animate-pulse
                   "
                 />
+
               ))}
             </div>
 
@@ -680,22 +786,38 @@ export const FlowerCarousel = () => {
                 text-center
                 rounded-2xl
                 sm:rounded-3xl
-                bg-pink-50/50
+                bg-pink-50
                 border
                 border-pink-100
               "
             >
+
               <div className="text-3xl sm:text-4xl mb-3">
                 🌸
               </div>
 
-              <p className="text-sm sm:text-base text-gray-600 font-medium">
+              <p
+                className="
+                  text-sm
+                  sm:text-base
+                  text-gray-700
+                  font-medium
+                "
+              >
                 No flowers found
               </p>
 
-              <p className="text-xs sm:text-sm text-gray-400 mt-1">
+              <p
+                className="
+                  text-xs
+                  sm:text-sm
+                  text-gray-500
+                  mt-1
+                "
+              >
                 Try searching for another flower.
               </p>
+
             </div>
 
           ) : (
@@ -721,12 +843,16 @@ export const FlowerCarousel = () => {
                 }
               `}
             >
+
               {visibleFlowers.map((flower) => (
+
                 <FlowerCard
                   key={flower._id}
                   flower={flower}
                 />
+
               ))}
+
             </div>
 
           )}
@@ -734,7 +860,7 @@ export const FlowerCarousel = () => {
         </div>
 
         {/* ================================= */}
-        {/* RIGHT BUTTON */}
+        {/* DESKTOP RIGHT BUTTON */}
         {/* ================================= */}
 
         <button
@@ -748,25 +874,22 @@ export const FlowerCarousel = () => {
           }
           aria-label="Next flowers"
           className="
+            hidden
+            sm:flex
             shrink-0
-            w-8
-            h-8
-            min-[380px]:w-9
-            min-[380px]:h-9
-            sm:w-12
-            sm:h-12
+            w-12
+            h-12
             rounded-full
             bg-white
             border
             border-gray-200
             shadow-md
-            flex
             items-center
             justify-center
             text-gray-700
-            hover:bg-pink-50
-            hover:text-pink-600
-            hover:border-pink-200
+            hover:bg-pink-500
+            hover:text-white
+            hover:border-pink-500
             hover:shadow-lg
             active:scale-90
             disabled:opacity-30
@@ -776,14 +899,7 @@ export const FlowerCarousel = () => {
           "
         >
           <ChevronRight
-            size={18}
-            className="sm:hidden"
-            strokeWidth={2}
-          />
-
-          <ChevronRight
             size={22}
-            className="hidden sm:block"
             strokeWidth={2}
           />
         </button>

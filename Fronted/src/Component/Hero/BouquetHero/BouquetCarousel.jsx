@@ -250,11 +250,19 @@ export const BouquetCarousel = () => {
         w-full
         max-w-full
         overflow-hidden
+
         px-3
         sm:px-6
         lg:px-10
+
         py-8
         sm:py-12
+
+        max-sm:bg-gradient-to-b
+        max-sm:from-slate-900
+        max-sm:via-slate-800
+        max-sm:to-slate-900
+        max-sm:rounded-3xl
       "
     >
 
@@ -321,6 +329,7 @@ export const BouquetCarousel = () => {
               font-extrabold
               tracking-tight
               text-gray-900
+              max-sm:text-white
               leading-tight
             "
           >
@@ -339,6 +348,7 @@ export const BouquetCarousel = () => {
               text-xs
               sm:text-base
               text-gray-500
+              max-sm:text-gray-300
               max-w-xl
               leading-5
             "
@@ -542,9 +552,12 @@ export const BouquetCarousel = () => {
           sm:mb-7
           h-px
           bg-gradient-to-r
-          from-pink-200
-          via-gray-100
+          from-pink-300
+          via-gray-200
           to-transparent
+          max-sm:from-pink-500
+          max-sm:via-gray-500
+          max-sm:to-transparent
         "
       />
 
@@ -554,6 +567,7 @@ export const BouquetCarousel = () => {
 
       <div
         className="
+          relative
           flex
           items-center
           gap-1.5
@@ -575,32 +589,49 @@ export const BouquetCarousel = () => {
           aria-label="Previous bouquets"
           className="
             shrink-0
-            w-8
-            h-8
+
+            w-10
+            h-10
+
             sm:w-12
             sm:h-12
+
             rounded-full
+
             bg-white
             border
-            border-gray-200
-            shadow-md
+            border-gray-300
+
+            shadow-[0_5px_18px_rgba(0,0,0,0.25)]
+
             flex
             items-center
             justify-center
-            text-gray-700
+
+            text-gray-800
+
             hover:bg-pink-500
             hover:text-white
             hover:border-pink-500
+
             active:scale-90
-            disabled:opacity-25
+
+            disabled:opacity-60
             disabled:cursor-not-allowed
+
             transition-all
             duration-300
+
+            max-sm:absolute
+            max-sm:left-2
+            max-sm:top-3
+            max-sm:z-40
           "
         >
           <ChevronLeft
-            size={17}
+            size={21}
             className="sm:w-[21px] sm:h-[21px]"
+            strokeWidth={2.7}
           />
         </button>
 
@@ -614,6 +645,7 @@ export const BouquetCarousel = () => {
             overflow-hidden
             select-none
             touch-pan-y
+
             ${
               isDragging
                 ? "cursor-grabbing"
@@ -735,6 +767,7 @@ export const BouquetCarousel = () => {
                   sm:text-lg
                   font-bold
                   text-gray-800
+                  max-sm:text-white
                 "
               >
                 No bouquets found
@@ -745,6 +778,7 @@ export const BouquetCarousel = () => {
                   text-xs
                   sm:text-sm
                   text-gray-500
+                  max-sm:text-gray-300
                   mt-1
                   max-w-xs
                 "
@@ -773,32 +807,49 @@ export const BouquetCarousel = () => {
           aria-label="Next bouquets"
           className="
             shrink-0
-            w-8
-            h-8
+
+            w-10
+            h-10
+
             sm:w-12
             sm:h-12
+
             rounded-full
+
             bg-white
             border
-            border-gray-200
-            shadow-md
+            border-gray-300
+
+            shadow-[0_5px_18px_rgba(0,0,0,0.25)]
+
             flex
             items-center
             justify-center
-            text-gray-700
+
+            text-gray-800
+
             hover:bg-pink-500
             hover:text-white
             hover:border-pink-500
+
             active:scale-90
-            disabled:opacity-25
+
+            disabled:opacity-60
             disabled:cursor-not-allowed
+
             transition-all
             duration-300
+
+            max-sm:absolute
+            max-sm:right-2
+            max-sm:top-3
+            max-sm:z-40
           "
         >
           <ChevronRight
-            size={17}
+            size={21}
             className="sm:w-[21px] sm:h-[21px]"
+            strokeWidth={2.7}
           />
         </button>
 
