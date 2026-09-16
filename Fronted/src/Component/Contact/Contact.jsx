@@ -1,16 +1,6 @@
 import React, { useState } from "react";
-import {
-  ArrowLeft,
-  Flower2,
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  Send,
-  Heart,
-} from "lucide-react";
+import { ArrowLeft, Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 
 export const Contact = () => {
   const navigate = useNavigate();
@@ -23,10 +13,6 @@ export const Contact = () => {
     message: "",
   });
 
-  // =====================================================
-  // BACK BUTTON
-  // =====================================================
-
   const handleBack = () => {
     if (location.key !== "default") {
       navigate(-1);
@@ -34,10 +20,6 @@ export const Contact = () => {
       navigate("/");
     }
   };
-
-  // =====================================================
-  // INPUT CHANGE
-  // =====================================================
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,14 +30,10 @@ export const Contact = () => {
     }));
   };
 
-  // =====================================================
-  // FORM SUBMIT
-  // =====================================================
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    toast.success("Thank you! Your message has been sent.");
+    alert("Thank you! Your message has been submitted.");
 
     setFormData({
       name: "",
@@ -66,816 +44,249 @@ export const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#fffafa] text-gray-800">
-
-      {/* =====================================================
-          HERO
-      ===================================================== */}
-
-      <section className="relative overflow-hidden">
-
-        {/* Decorative circles */}
-
-        <div
-          className="
-            absolute
-            -top-16
-            -left-20
-            sm:-top-24
-            sm:-left-24
-            w-48
-            h-48
-            sm:w-72
-            sm:h-72
-            rounded-full
-            bg-pink-100/60
-            blur-2xl
-          "
-        />
-
-        <div
-          className="
-            absolute
-            -bottom-20
-            -right-20
-            sm:-bottom-28
-            sm:-right-24
-            w-56
-            h-56
-            sm:w-80
-            sm:h-80
-            rounded-full
-            bg-rose-100/50
-            blur-2xl
-          "
-        />
-
-        <div
-          className="
-            max-w-6xl
-            mx-auto
-            px-3
-            min-[380px]:px-4
-            sm:px-6
-            py-5
-            sm:py-8
-          "
-        >
-
-          {/* =================================================
-              BACK BUTTON
-          ================================================= */}
-
+    <div className="min-h-screen overflow-x-hidden bg-white text-gray-900">
+      {/* Top Bar */}
+      <div className="border-b border-gray-100 bg-white">
+        <div className="mx-auto flex max-w-7xl items-center px-4 py-3 sm:px-6 lg:px-8">
           <button
             type="button"
             onClick={handleBack}
-            className="
-              inline-flex
-              items-center
-              gap-1.5
-              sm:gap-2
-              text-xs
-              sm:text-sm
-              font-medium
-              text-gray-500
-              hover:text-pink-600
-              active:text-pink-600
-              transition-colors
-              cursor-pointer
-              touch-manipulation
-            "
+            className="flex h-10 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-sm font-medium text-gray-700 shadow-sm transition hover:border-pink-300 hover:text-pink-600 active:scale-95"
           >
-            <ArrowLeft
-              size={15}
-              className="sm:w-[17px] sm:h-[17px]"
-            />
-
-            Back
+            <ArrowLeft size={18} />
+            <span>Back</span>
           </button>
-
-          {/* =================================================
-              HERO CONTENT
-          ================================================= */}
-
-          <div
-            className="
-              text-center
-              py-8
-              min-[380px]:py-10
-              sm:py-12
-            "
-          >
-
-            <div
-              className="
-                inline-flex
-                items-center
-                gap-1.5
-                sm:gap-2
-                px-3
-                sm:px-4
-                py-1.5
-                sm:py-2
-                rounded-full
-                bg-pink-50
-                border
-                border-pink-100
-                text-pink-600
-                text-xs
-                sm:text-sm
-                font-semibold
-                max-w-full
-              "
-            >
-              <Flower2
-                size={14}
-                className="sm:w-4 sm:h-4 shrink-0"
-              />
-
-              <span className="truncate">
-                Contact Flower
-              </span>
-            </div>
-
-            <h1
-              className="
-                text-3xl
-                min-[380px]:text-4xl
-                sm:text-5xl
-                font-extrabold
-                text-gray-900
-                mt-4
-                sm:mt-5
-                leading-tight
-              "
-            >
-              We'd love to hear
-              <span className="text-pink-500">
-                {" "}from you.
-              </span>
-            </h1>
-
-            <p
-              className="
-                max-w-2xl
-                mx-auto
-                mt-3
-                sm:mt-4
-                text-xs
-                min-[380px]:text-sm
-                sm:text-base
-                text-gray-500
-                leading-6
-                sm:leading-7
-                px-1
-              "
-            >
-              Have a question about an order, flowers, delivery,
-              or anything else? Send us a message and we'll be
-              happy to help.
-            </p>
-
-          </div>
-
         </div>
+      </div>
 
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-pink-50 via-white to-rose-50">
+        <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-pink-600 sm:text-sm">
+            Get in Touch
+          </p>
+
+          <h1 className="mt-3 text-3xl font-bold leading-tight text-gray-900 sm:text-5xl">
+            We'd love to hear
+            <span className="block text-pink-600">from you.</span>
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-gray-600 sm:text-base sm:leading-7 lg:text-lg">
+            Have a question about our bouquets, orders or delivery? Send us a
+            message and we'll be happy to help.
+          </p>
+        </div>
       </section>
 
-      {/* =====================================================
-          CONTACT SECTION
-      ===================================================== */}
+      {/* Main Contact Section */}
+      <section className="px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+          
+          {/* Contact Information */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-pink-600 sm:text-sm">
+              Contact Information
+            </p>
 
-      <section
-        className="
-          max-w-6xl
-          mx-auto
-          px-3
-          min-[380px]:px-4
-          sm:px-6
-          pb-10
-          sm:pb-16
-        "
-      >
+            <h2 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl">
+              Let's talk about flowers.
+            </h2>
 
-        <div
-          className="
-            grid
-            lg:grid-cols-[0.85fr_1.15fr]
-            gap-4
-            sm:gap-6
-            items-start
-          "
-        >
+            <p className="mt-4 text-sm leading-6 text-gray-600 sm:text-base">
+              Whether you need help choosing a bouquet or have a question
+              about your order, we're here to help.
+            </p>
 
-          {/* =================================================
-              LEFT INFORMATION
-          ================================================= */}
-
-          <div className="space-y-3 sm:space-y-4">
-
-            {/* EMAIL */}
-
-            <div
-              className="
-                bg-white
-                rounded-2xl
-                sm:rounded-3xl
-                border
-                border-gray-100
-                shadow-sm
-                p-4
-                sm:p-6
-                hover:shadow-md
-                hover:-translate-y-1
-                transition-all
-                duration-300
-              "
-            >
-
-              <div
-                className="
-                  w-10
-                  h-10
-                  sm:w-12
-                  sm:h-12
-                  rounded-xl
-                  sm:rounded-2xl
-                  bg-pink-50
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <Mail
-                  size={18}
-                  className="sm:w-[21px] sm:h-[21px] text-pink-500"
-                />
-              </div>
-
-              <h3 className="font-bold text-sm sm:text-base text-gray-900 mt-3 sm:mt-4">
-                Email Us
-              </h3>
-
-              <p className="text-xs sm:text-sm text-gray-400 mt-1">
-                Have a question? Drop us an email.
-              </p>
-
-              <p
-                className="
-                  text-xs
-                  sm:text-sm
-                  font-medium
-                  text-gray-700
-                  mt-2
-                  sm:mt-3
-                  break-all
-                "
-              >
-                support@flower.com
-              </p>
-
-            </div>
-
-            {/* PHONE */}
-
-            <div
-              className="
-                bg-white
-                rounded-2xl
-                sm:rounded-3xl
-                border
-                border-gray-100
-                shadow-sm
-                p-4
-                sm:p-6
-                hover:shadow-md
-                hover:-translate-y-1
-                transition-all
-                duration-300
-              "
-            >
-
-              <div
-                className="
-                  w-10
-                  h-10
-                  sm:w-12
-                  sm:h-12
-                  rounded-xl
-                  sm:rounded-2xl
-                  bg-purple-50
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <Phone
-                  size={18}
-                  className="sm:w-[21px] sm:h-[21px] text-purple-500"
-                />
-              </div>
-
-              <h3 className="font-bold text-sm sm:text-base text-gray-900 mt-3 sm:mt-4">
-                Call Us
-              </h3>
-
-              <p className="text-xs sm:text-sm text-gray-400 mt-1">
-                We're happy to help with your queries.
-              </p>
-
-              <p
-                className="
-                  text-xs
-                  sm:text-sm
-                  font-medium
-                  text-gray-700
-                  mt-2
-                  sm:mt-3
-                "
-              >
-                +91 98765 43210
-              </p>
-
-            </div>
-
-            {/* LOCATION */}
-
-            <div
-              className="
-                bg-white
-                rounded-2xl
-                sm:rounded-3xl
-                border
-                border-gray-100
-                shadow-sm
-                p-4
-                sm:p-6
-                hover:shadow-md
-                hover:-translate-y-1
-                transition-all
-                duration-300
-              "
-            >
-
-              <div
-                className="
-                  w-10
-                  h-10
-                  sm:w-12
-                  sm:h-12
-                  rounded-xl
-                  sm:rounded-2xl
-                  bg-rose-50
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <MapPin
-                  size={18}
-                  className="sm:w-[21px] sm:h-[21px] text-rose-500"
-                />
-              </div>
-
-              <h3 className="font-bold text-sm sm:text-base text-gray-900 mt-3 sm:mt-4">
-                Our Location
-              </h3>
-
-              <p className="text-xs sm:text-sm text-gray-400 mt-1">
-                Come say hello to us.
-              </p>
-
-              <p
-                className="
-                  text-xs
-                  sm:text-sm
-                  font-medium
-                  text-gray-700
-                  mt-2
-                  sm:mt-3
-                "
-              >
-                Mumbai, Maharashtra, India
-              </p>
-
-            </div>
-
-            {/* HOURS */}
-
-            <div
-              className="
-                bg-gradient-to-br
-                from-pink-50
-                to-rose-50
-                rounded-2xl
-                sm:rounded-3xl
-                border
-                border-pink-100
-                p-4
-                sm:p-6
-              "
-            >
-
-              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-
-                <div
-                  className="
-                    w-10
-                    h-10
-                    sm:w-11
-                    sm:h-11
-                    shrink-0
-                    rounded-xl
-                    sm:rounded-2xl
-                    bg-white
-                    flex
-                    items-center
-                    justify-center
-                  "
-                >
-                  <Clock
-                    size={18}
-                    className="sm:w-5 sm:h-5 text-pink-500"
-                  />
+            <div className="mt-7 space-y-3 sm:mt-8 sm:space-y-4">
+              
+              {/* Email */}
+              <div className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-pink-50 text-pink-600">
+                  <Mail size={20} />
                 </div>
 
                 <div className="min-w-0">
-
-                  <h3 className="font-bold text-sm sm:text-base text-gray-900">
-                    Support Hours
-                  </h3>
-
-                  <p
-                    className="
-                      text-[10px]
-                      min-[380px]:text-xs
-                      text-gray-500
-                      mt-1
-                      truncate
-                    "
-                  >
-                    Monday – Saturday · 9:00 AM – 7:00 PM
+                  <p className="text-xs font-medium text-gray-500">
+                    Email
                   </p>
-
+                  <p className="mt-1 break-all text-sm font-semibold text-gray-900">
+                    support@flower.com
+                  </p>
                 </div>
-
               </div>
 
-            </div>
-
-          </div>
-
-          {/* =================================================
-              RIGHT CONTACT FORM
-          ================================================= */}
-
-          <div
-            className="
-              bg-white
-              rounded-2xl
-              sm:rounded-[28px]
-              border
-              border-gray-100
-              shadow-sm
-              p-4
-              min-[380px]:p-5
-              sm:p-8
-            "
-          >
-
-            {/* FORM HEADER */}
-
-            <div className="mb-5 sm:mb-7">
-
-              <div className="flex items-center gap-2 min-w-0">
-
-                <div
-                  className="
-                    w-9
-                    h-9
-                    sm:w-10
-                    sm:h-10
-                    shrink-0
-                    rounded-xl
-                    bg-gray-100
-                    flex
-                    items-center
-                    justify-center
-                  "
-                >
-                  <Heart
-                    size={17}
-                    className="sm:w-[19px] sm:h-[19px] text-pink-500"
-                    fill="currentColor"
-                  />
+              {/* Phone */}
+              <div className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-pink-600">
+                  <Phone size={20} />
                 </div>
-
-                <div className="min-w-0">
-
-                  <h2
-                    className="
-                      text-lg
-                      min-[380px]:text-xl
-                      font-bold
-                      text-gray-900
-                      truncate
-                    "
-                  >
-                    Send us a message
-                  </h2>
-
-                  <p className="text-[10px] min-[380px]:text-xs text-gray-400">
-                    We'll get back to you soon.
-                  </p>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            {/* FORM */}
-
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-3 sm:space-y-4"
-            >
-
-              {/* NAME + EMAIL */}
-
-              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
 
                 <div>
+                  <p className="text-xs font-medium text-gray-500">
+                    Phone
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-gray-900">
+                    +91 98765 43210
+                  </p>
+                </div>
+              </div>
 
-                  <label
-                    className="
-                      block
-                      text-xs
-                      sm:text-sm
-                      font-medium
-                      text-gray-700
-                      mb-1.5
-                      sm:mb-2
-                    "
-                  >
+              {/* Location */}
+              <div className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-pink-50 text-pink-600">
+                  <MapPin size={20} />
+                </div>
+
+                <div>
+                  <p className="text-xs font-medium text-gray-500">
+                    Location
+                  </p>
+                  <p className="mt-1 text-sm font-semibold leading-5 text-gray-900">
+                    Mumbai, Maharashtra, India
+                  </p>
+                </div>
+              </div>
+
+              {/* Hours */}
+              <div className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-pink-600">
+                  <Clock size={20} />
+                </div>
+
+                <div>
+                  <p className="text-xs font-medium text-gray-500">
+                    Working Hours
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-gray-900">
+                    Monday - Saturday
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    10:00 AM - 7:00 PM
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="rounded-3xl border border-gray-100 bg-white p-5 shadow-lg shadow-gray-100 sm:p-7 lg:p-9">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-pink-600">
+                Send a Message
+              </p>
+
+              <h2 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl">
+                How can we help?
+              </h2>
+            </div>
+
+            <form onSubmit={handleSubmit} className="mt-7 space-y-4">
+              
+              {/* Name + Email */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-700">
                     Your Name
                   </label>
 
                   <input
                     type="text"
                     name="name"
-                    placeholder="Enter your name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="
-                      input
-                      input-bordered
-                      w-full
-                      h-10
-                      sm:h-11
-                      rounded-xl
-                      text-sm
-                      focus:outline-none
-                      focus:border-pink-400
-                      focus:ring-2
-                      focus:ring-pink-50
-                      transition
-                    "
+                    placeholder="Enter your name"
                     required
+                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-pink-400 focus:bg-white focus:ring-2 focus:ring-pink-100"
                   />
-
                 </div>
 
                 <div>
-
-                  <label
-                    className="
-                      block
-                      text-xs
-                      sm:text-sm
-                      font-medium
-                      text-gray-700
-                      mb-1.5
-                      sm:mb-2
-                    "
-                  >
+                  <label className="mb-2 block text-sm font-semibold text-gray-700">
                     Email Address
                   </label>
 
                   <input
                     type="email"
                     name="email"
-                    placeholder="Enter your email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="
-                      input
-                      input-bordered
-                      w-full
-                      h-10
-                      sm:h-11
-                      rounded-xl
-                      text-sm
-                      focus:outline-none
-                      focus:border-pink-400
-                      focus:ring-2
-                      focus:ring-pink-50
-                      transition
-                    "
+                    placeholder="Enter your email"
                     required
+                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-pink-400 focus:bg-white focus:ring-2 focus:ring-pink-100"
                   />
-
                 </div>
-
               </div>
 
-              {/* SUBJECT */}
-
+              {/* Subject */}
               <div>
-
-                <label
-                  className="
-                    block
-                    text-xs
-                    sm:text-sm
-                    font-medium
-                    text-gray-700
-                    mb-1.5
-                    sm:mb-2
-                  "
-                >
+                <label className="mb-2 block text-sm font-semibold text-gray-700">
                   Subject
                 </label>
 
                 <input
                   type="text"
                   name="subject"
-                  placeholder="What would you like to ask?"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="
-                    input
-                    input-bordered
-                    w-full
-                    h-10
-                    sm:h-11
-                    rounded-xl
-                    text-sm
-                    focus:outline-none
-                    focus:border-pink-400
-                    focus:ring-2
-                    focus:ring-pink-50
-                    transition
-                  "
+                  placeholder="What is this about?"
                   required
+                  className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-pink-400 focus:bg-white focus:ring-2 focus:ring-pink-100"
                 />
-
               </div>
 
-              {/* MESSAGE */}
-
+              {/* Message */}
               <div>
-
-                <label
-                  className="
-                    block
-                    text-xs
-                    sm:text-sm
-                    font-medium
-                    text-gray-700
-                    mb-1.5
-                    sm:mb-2
-                  "
-                >
+                <label className="mb-2 block text-sm font-semibold text-gray-700">
                   Message
                 </label>
 
                 <textarea
                   name="message"
-                  placeholder="Write your message..."
                   value={formData.message}
                   onChange={handleChange}
-                  rows={6}
-                  className="
-                    textarea
-                    textarea-bordered
-                    w-full
-                    min-h-32
-                    sm:min-h-0
-                    rounded-xl
-                    resize-none
-                    text-sm
-                    focus:outline-none
-                    focus:border-pink-400
-                    focus:ring-2
-                    focus:ring-pink-50
-                    transition
-                  "
+                  placeholder="Write your message..."
                   required
+                  rows={5}
+                  className="w-full resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-pink-400 focus:bg-white focus:ring-2 focus:ring-pink-100"
                 />
-
               </div>
 
-              {/* SUBMIT */}
-
+              {/* Submit */}
               <button
                 type="submit"
-                className="
-                  w-full
-                  h-11
-                  sm:h-12
-                  rounded-xl
-                  bg-gray-900
-                  text-white
-                  text-sm
-                  font-semibold
-                  flex
-                  items-center
-                  justify-center
-                  gap-2
-                  hover:bg-pink-600
-                  hover:-translate-y-0.5
-                  hover:shadow-lg
-                  active:translate-y-0
-                  transition-all
-                  duration-200
-                  cursor-pointer
-                "
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-pink-600 px-5 text-sm font-semibold text-white transition hover:bg-pink-700 active:scale-[0.98]"
               >
+                <Send size={18} />
                 Send Message
-
-                <Send
-                  size={16}
-                  className="sm:w-[17px] sm:h-[17px]"
-                />
               </button>
-
             </form>
-
           </div>
-
         </div>
-
       </section>
 
-      {/* =====================================================
-          BOTTOM
-      ===================================================== */}
+      {/* Bottom CTA */}
+      <section className="px-4 pb-12 sm:px-6 sm:pb-16 lg:px-8">
+        <div className="mx-auto max-w-5xl rounded-3xl bg-gradient-to-r from-pink-600 to-rose-500 px-5 py-10 text-center shadow-xl shadow-pink-100 sm:px-10 sm:py-14">
+          <div className="text-3xl">💐</div>
 
-      <section
-        className="
-          max-w-6xl
-          mx-auto
-          px-3
-          min-[380px]:px-4
-          sm:px-6
-          pb-8
-          sm:pb-14
-        "
-      >
-
-        <div
-          className="
-            text-center
-            rounded-2xl
-            sm:rounded-3xl
-            bg-gradient-to-r
-            from-pink-50
-            to-rose-50
-            border
-            border-pink-100
-            p-5
-            min-[380px]:p-6
-            sm:p-8
-          "
-        >
-
-          <div className="text-2xl sm:text-3xl">
-            🌷
-          </div>
-
-          <h2
-            className="
-              text-lg
-              min-[380px]:text-xl
-              sm:text-2xl
-              font-bold
-              text-gray-900
-              mt-2
-              sm:mt-3
-            "
-          >
-            We're here to make your day brighter.
+          <h2 className="mt-3 text-2xl font-bold text-white sm:text-4xl">
+            We're always happy to help.
           </h2>
 
-          <p className="text-xs sm:text-sm text-gray-500 mt-1.5 sm:mt-2">
-            Thank you for choosing Flower.
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-pink-50 sm:text-base">
+            Your special moments matter to us. Let us help you find the
+            perfect bouquet.
           </p>
 
+          <a
+            href="/"
+            className="mt-7 inline-flex h-11 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-pink-600 transition hover:bg-pink-50 active:scale-[0.98] sm:h-12 sm:px-7"
+          >
+            Explore Bouquets
+          </a>
         </div>
-
       </section>
-
     </div>
   );
 };

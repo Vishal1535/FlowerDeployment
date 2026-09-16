@@ -1,19 +1,11 @@
 import React from "react";
-import {
-  ArrowLeft,
-  Flower2,
-  Heart,
-  Sparkles,
-  Truck,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const About = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Back button handler
   const handleBack = () => {
     if (location.key !== "default") {
       navigate(-1);
@@ -23,726 +15,309 @@ export const About = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fffafa] text-gray-800">
-
-      {/* =====================================================
-          HERO
-      ===================================================== */}
-
-      <section className="relative overflow-hidden">
-
-        {/* Decorative Background */}
-
-        <div
-          className="
-            absolute
-            -top-24
-            -left-24
-            w-72
-            h-72
-            rounded-full
-            bg-pink-100/60
-            blur-2xl
-          "
-        />
-
-        <div
-          className="
-            absolute
-            -bottom-28
-            -right-24
-            w-80
-            h-80
-            rounded-full
-            bg-rose-100/50
-            blur-2xl
-          "
-        />
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-
-          {/* BACK BUTTON */}
-
+    <div className="min-h-screen overflow-x-hidden bg-white text-gray-900">
+      {/* Top Bar */}
+      <div className="border-b border-gray-100 bg-white">
+        <div className="mx-auto flex max-w-7xl items-center px-4 py-3 sm:px-6 lg:px-8">
           <button
             type="button"
             onClick={handleBack}
-            className="
-              inline-flex
-              items-center
-              gap-2
-              text-sm
-              font-medium
-              text-gray-500
-              hover:text-pink-600
-              transition-colors
-              cursor-pointer
-            "
+            className="flex h-10 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-sm font-medium text-gray-700 shadow-sm transition active:scale-95 hover:border-pink-300 hover:text-pink-600"
           >
-            <ArrowLeft size={17} />
-            Back
+            <ArrowLeft size={18} />
+            <span>Back</span>
           </button>
+        </div>
+      </div>
 
-          {/* Hero Content */}
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-pink-50 via-white to-rose-50">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            
+            {/* Text */}
+            <div className="text-center lg:text-left">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-pink-600 sm:text-sm">
+                About Us
+              </p>
 
-          <div
-            className="
-              grid
-              lg:grid-cols-2
-              gap-10
-              items-center
-              min-h-[480px]
-              py-10
-            "
-          >
-
-            {/* LEFT */}
-
-            <div>
-
-              <div
-                className="
-                  inline-flex
-                  items-center
-                  gap-2
-                  px-4
-                  py-2
-                  rounded-full
-                  bg-pink-50
-                  border
-                  border-pink-100
-                  text-pink-600
-                  text-sm
-                  font-semibold
-                  mb-5
-                "
-              >
-                <Flower2 size={16} />
-                About Flower
-              </div>
-
-              <h1
-                className="
-                  text-4xl
-                  sm:text-5xl
-                  lg:text-6xl
-                  font-extrabold
-                  leading-tight
-                  text-gray-900
-                "
-              >
-                Flowers that make
-                <span className="block text-pink-500">
-                  moments beautiful.
+              <h1 className="mt-3 text-3xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
+                Flowers that speak
+                <span className="block text-pink-600">
+                  from the heart.
                 </span>
               </h1>
 
-              <p
-                className="
-                  mt-5
-                  text-gray-500
-                  leading-7
-                  max-w-xl
-                  text-sm
-                  sm:text-base
-                "
-              >
-                At Flower, we believe that every special moment deserves
-                something beautiful. We bring together fresh flowers,
-                thoughtful bouquets and elegant gifts to make your
-                celebrations more memorable.
+              <p className="mx-auto mt-5 max-w-xl text-sm leading-6 text-gray-600 sm:text-base sm:leading-7 lg:mx-0 lg:text-lg">
+                We believe every flower carries an emotion. Our goal is to
+                make it easy for you to share love, happiness, gratitude and
+                beautiful memories through thoughtful bouquets.
               </p>
 
-              <div className="flex flex-wrap gap-3 mt-7">
-
-                <button
-                  type="button"
-                  onClick={() => navigate("/")}
-                  className="
-                    px-6
-                    h-11
-                    rounded-xl
-                    bg-gray-900
-                    text-white
-                    text-sm
-                    font-semibold
-                    hover:bg-pink-600
-                    hover:-translate-y-0.5
-                    transition-all
-                    duration-200
-                    cursor-pointer
-                  "
+              <div className="mt-7 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:mt-8">
+                <a
+                  href="/"
+                  className="flex h-11 w-full items-center justify-center rounded-xl bg-pink-600 px-4 text-sm font-semibold text-white transition hover:bg-pink-700 active:scale-[0.98] sm:h-12"
                 >
-                  Explore Flowers
-                </button>
+                  Explore Bouquets
+                </a>
 
-                <div
-                  className="
-                    flex
-                    items-center
-                    gap-2
-                    px-5
-                    h-11
-                    rounded-xl
-                    bg-white
-                    border
-                    border-gray-200
-                    text-sm
-                    text-gray-600
-                  "
+                <a
+                  href="/contact"
+                  className="flex h-11 w-full items-center justify-center rounded-xl border border-gray-300 bg-white px-4 text-sm font-semibold text-gray-800 transition hover:border-pink-300 hover:text-pink-600 active:scale-[0.98] sm:h-12"
                 >
-                  <Heart
-                    size={16}
-                    className="text-pink-500"
-                    fill="currentColor"
-                  />
-                  Made with love
-                </div>
-
+                  Contact Us
+                </a>
               </div>
-
             </div>
 
-            {/* RIGHT */}
+            {/* Visual */}
+            <div className="mx-auto w-full max-w-sm lg:max-w-md">
+              <div className="rounded-[2rem] border border-pink-100 bg-white p-3 shadow-lg shadow-pink-100/50 sm:p-4">
+                <div className="flex min-h-[300px] flex-col items-center justify-center rounded-[1.5rem] bg-gradient-to-br from-pink-100 via-rose-50 to-white px-5 py-8 text-center sm:min-h-[400px]">
+                  
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-4xl shadow-md sm:h-24 sm:w-24 sm:text-5xl">
+                    💐
+                  </div>
 
-            <div className="relative">
+                  <h2 className="mt-5 text-2xl font-bold text-gray-900 sm:text-3xl">
+                    Made with Love
+                  </h2>
 
-              <div
-                className="
-                  relative
-                  h-[360px]
-                  sm:h-[420px]
-                  rounded-[32px]
-                  bg-gradient-to-br
-                  from-pink-50
-                  via-rose-50
-                  to-white
-                  border
-                  border-pink-100
-                  overflow-hidden
-                  flex
-                  items-center
-                  justify-center
-                  shadow-sm
-                "
-              >
-
-                {/* Decorative circles */}
-
-                <div
-                  className="
-                    absolute
-                    -top-16
-                    -right-16
-                    w-48
-                    h-48
-                    rounded-full
-                    bg-white/70
-                  "
-                />
-
-                <div
-                  className="
-                    absolute
-                    -bottom-20
-                    -left-16
-                    w-56
-                    h-56
-                    rounded-full
-                    bg-pink-100/50
-                  "
-                />
-
-                {/* Flower */}
-
-                <div
-                  className="
-                    relative
-                    z-10
-                    text-[145px]
-                    sm:text-[175px]
-                    leading-none
-                    animate-[float_3s_ease-in-out_infinite]
-                  "
-                >
-                  💐
-                </div>
-
-                {/* Small floating card */}
-
-                <div
-                  className="
-                    absolute
-                    bottom-6
-                    left-6
-                    z-20
-                    bg-white/90
-                    backdrop-blur
-                    rounded-2xl
-                    px-4
-                    py-3
-                    shadow-lg
-                    border
-                    border-white
-                  "
-                >
-                  <p className="text-xs text-gray-400">
-                    Our promise
+                  <p className="mt-3 max-w-xs text-sm leading-6 text-gray-600 sm:text-base">
+                    Beautiful bouquets created to make your special moments
+                    even more memorable.
                   </p>
 
-                  <p className="text-sm font-bold text-gray-800">
-                    Fresh • Beautiful • Thoughtful
-                  </p>
+                  <div className="mt-6 flex flex-wrap justify-center gap-x-2 gap-y-1 text-xs font-semibold text-pink-600 sm:text-sm">
+                    <span>Fresh</span>
+                    <span>•</span>
+                    <span>Beautiful</span>
+                    <span>•</span>
+                    <span>Thoughtful</span>
+                  </div>
                 </div>
-
               </div>
-
             </div>
 
           </div>
-
         </div>
-
       </section>
 
-      {/* =====================================================
-          OUR STORY
-      ===================================================== */}
-
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-
-          {/* Story */}
-
-          <div>
-
-            <p
-              className="
-                text-xs
-                uppercase
-                tracking-[0.2em]
-                font-bold
-                text-pink-500
-                mb-3
-              "
-            >
+      {/* Story */}
+      <section className="bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-pink-600 sm:text-sm">
               Our Story
             </p>
 
-            <h2
-              className="
-                text-3xl
-                sm:text-4xl
-                font-extrabold
-                text-gray-900
-              "
-            >
-              More than just flowers.
+            <h2 className="mt-2 text-2xl font-bold text-gray-900 sm:text-4xl">
+              More than just a bouquet
             </h2>
 
-            <p
-              className="
-                mt-5
-                text-sm
-                leading-7
-                text-gray-500
-              "
-            >
-              Flower was created with a simple idea — gifting should feel
-              personal, beautiful and effortless. Whether it is a birthday,
-              anniversary, celebration or simply a way to say thank you, we
-              help you find something that expresses your feelings.
+            <p className="mt-4 text-sm leading-6 text-gray-600 sm:text-base sm:leading-7">
+              Flowers have a beautiful way of expressing emotions without
+              needing many words. We created our store to help people find
+              something meaningful for every occasion.
             </p>
-
-            <p
-              className="
-                mt-4
-                text-sm
-                leading-7
-                text-gray-500
-              "
-            >
-              From carefully selected flowers to thoughtfully designed
-              bouquets and gifts, every product is chosen with attention to
-              quality and presentation.
-            </p>
-
           </div>
 
-          {/* Highlight */}
-
-          <div
-            className="
-              rounded-3xl
-              bg-white
-              border
-              border-gray-100
-              shadow-sm
-              p-6
-              sm:p-8
-            "
-          >
-
-            <div
-              className="
-                w-12
-                h-12
-                rounded-2xl
-                bg-pink-50
-                flex
-                items-center
-                justify-center
-                mb-5
-              "
-            >
-              <Sparkles
-                size={23}
-                className="text-pink-500"
-              />
-            </div>
-
-            <h3 className="text-xl font-bold text-gray-900">
-              Every bouquet tells a story.
-            </h3>
-
-            <p className="text-sm text-gray-500 leading-6 mt-3">
-              We focus on making your gifting experience simple from choosing
-              your flowers to receiving them at your doorstep.
-            </p>
-
-            <div className="mt-6 h-px bg-gray-100" />
-
-            <div className="flex items-center gap-3 mt-5">
-
-              <div
-                className="
-                  w-10
-                  h-10
-                  rounded-full
-                  bg-pink-50
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
+          {/* Cards */}
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
+            
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-7">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pink-50 text-2xl">
                 🌸
               </div>
 
-              <div>
+              <h3 className="mt-4 text-lg font-bold text-gray-900 sm:text-xl">
+                Beautiful Designs
+              </h3>
 
-                <p className="text-sm font-bold text-gray-800">
-                  Thoughtful gifting
-                </p>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                Elegant flower arrangements designed for different occasions
+                and special moments.
+              </p>
+            </div>
 
-                <p className="text-xs text-gray-400">
-                  Made for every special moment
-                </p>
-
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-7">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-rose-50 text-2xl">
+                🎁
               </div>
 
+              <h3 className="mt-4 text-lg font-bold text-gray-900 sm:text-xl">
+                Perfect Gifts
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                Find something special for birthdays, anniversaries,
+                celebrations and surprises.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-7 sm:col-span-2 lg:col-span-1">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pink-50 text-2xl">
+                ❤️
+              </div>
+
+              <h3 className="mt-4 text-lg font-bold text-gray-900 sm:text-xl">
+                Made with Care
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                Every order is prepared with attention to detail and
+                thoughtful presentation.
+              </p>
             </div>
 
           </div>
-
         </div>
-
       </section>
 
-      {/* =====================================================
-          FEATURES
-      ===================================================== */}
-
-      <section className="bg-white border-y border-gray-100">
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-
-          <div className="text-center mb-10">
-
-            <p
-              className="
-                text-xs
-                uppercase
-                tracking-[0.2em]
-                font-bold
-                text-pink-500
-              "
-            >
-              Why Choose Us
-            </p>
-
-            <h2
-              className="
-                text-3xl
-                sm:text-4xl
-                font-extrabold
-                text-gray-900
-                mt-2
-              "
-            >
-              Made with care
-            </h2>
-
-          </div>
-
-          <div
-            className="
-              grid
-              grid-cols-1
-              sm:grid-cols-2
-              lg:grid-cols-4
-              gap-4
-            "
-          >
-
-            {/* Fresh */}
-
-            <div
-              className="
-                p-5
-                rounded-2xl
-                border
-                border-gray-100
-                bg-white
-                shadow-sm
-                hover:-translate-y-1
-                hover:shadow-md
-                transition-all
-                duration-300
-              "
-            >
-
-              <div
-                className="
-                  w-11
-                  h-11
-                  rounded-xl
-                  bg-pink-50
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <Flower2
-                  size={20}
-                  className="text-pink-500"
-                />
-              </div>
-
-              <h3 className="font-bold text-gray-800 mt-4">
-                Fresh Flowers
-              </h3>
-
-              <p className="text-xs text-gray-400 mt-2 leading-5">
-                Carefully selected flowers for beautiful arrangements.
+      {/* Why Us */}
+      <section className="bg-gray-50 px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+            
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-pink-600 sm:text-sm">
+                Why Choose Us
               </p>
 
+              <h2 className="mt-2 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl">
+                A little beauty can make a big difference.
+              </h2>
+
+              <p className="mt-4 text-sm leading-6 text-gray-600 sm:text-base sm:leading-7">
+                We focus on giving you a simple and enjoyable flower shopping
+                experience from choosing your bouquet to receiving it.
+              </p>
+
+              <div className="mt-7 space-y-5">
+                <div className="flex gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white font-bold text-pink-600 shadow-sm">
+                    ✓
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-900 sm:text-base">
+                      Thoughtful Collections
+                    </h3>
+                    <p className="mt-1 text-xs leading-5 text-gray-600 sm:text-sm">
+                      Different bouquets and gifting options for every
+                      occasion.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white font-bold text-pink-600 shadow-sm">
+                    ✓
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-900 sm:text-base">
+                      Easy Shopping
+                    </h3>
+                    <p className="mt-1 text-xs leading-5 text-gray-600 sm:text-sm">
+                      Browse and choose your favourite bouquet with ease.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white font-bold text-pink-600 shadow-sm">
+                    ✓
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-900 sm:text-base">
+                      Special Moments
+                    </h3>
+                    <p className="mt-1 text-xs leading-5 text-gray-600 sm:text-sm">
+                      Helping you make ordinary days a little more special.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Delivery */}
-
-            <div
-              className="
-                p-5
-                rounded-2xl
-                border
-                border-gray-100
-                bg-white
-                shadow-sm
-                hover:-translate-y-1
-                hover:shadow-md
-                transition-all
-                duration-300
-              "
-            >
-
-              <div
-                className="
-                  w-11
-                  h-11
-                  rounded-xl
-                  bg-purple-50
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <Truck
-                  size={20}
-                  className="text-purple-500"
-                />
+            {/* Stats */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="rounded-2xl bg-white p-5 shadow-sm sm:rounded-3xl sm:p-7">
+                <p className="text-3xl font-bold text-pink-600 sm:text-4xl">
+                  💐
+                </p>
+                <p className="mt-3 text-sm font-semibold text-gray-900">
+                  Beautiful
+                </p>
+                <p className="mt-1 text-xs text-gray-500">
+                  Flower Designs
+                </p>
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">
-                Easy Delivery
-              </h3>
-
-              <p className="text-xs text-gray-400 mt-2 leading-5">
-                Convenient delivery designed to make gifting easier.
-              </p>
-
-            </div>
-
-            {/* Quality */}
-
-            <div
-              className="
-                p-5
-                rounded-2xl
-                border
-                border-gray-100
-                bg-white
-                shadow-sm
-                hover:-translate-y-1
-                hover:shadow-md
-                transition-all
-                duration-300
-              "
-            >
-
-              <div
-                className="
-                  w-11
-                  h-11
-                  rounded-xl
-                  bg-green-50
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <ShieldCheck
-                  size={20}
-                  className="text-green-500"
-                />
+              <div className="mt-5 rounded-2xl bg-pink-600 p-5 text-white shadow-sm sm:mt-8 sm:rounded-3xl sm:p-7">
+                <p className="text-3xl font-bold sm:text-4xl">❤️</p>
+                <p className="mt-3 text-sm font-semibold">
+                  Made with Love
+                </p>
+                <p className="mt-1 text-xs text-pink-100">
+                  For Every Moment
+                </p>
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">
-                Quality Assured
-              </h3>
-
-              <p className="text-xs text-gray-400 mt-2 leading-5">
-                Quality products selected with care and attention.
-              </p>
-
-            </div>
-
-            {/* Love */}
-
-            <div
-              className="
-                p-5
-                rounded-2xl
-                border
-                border-gray-100
-                bg-white
-                shadow-sm
-                hover:-translate-y-1
-                hover:shadow-md
-                transition-all
-                duration-300
-              "
-            >
-
-              <div
-                className="
-                  w-11
-                  h-11
-                  rounded-xl
-                  bg-rose-50
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <Heart
-                  size={20}
-                  className="text-rose-500"
-                  fill="currentColor"
-                />
+              <div className="-mt-2 rounded-2xl bg-gray-900 p-5 text-white shadow-sm sm:-mt-4 sm:rounded-3xl sm:p-7">
+                <p className="text-3xl font-bold sm:text-4xl">🎁</p>
+                <p className="mt-3 text-sm font-semibold">
+                  Perfect Gifts
+                </p>
+                <p className="mt-1 text-xs text-gray-300">
+                  For Special People
+                </p>
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">
-                Made with Love
-              </h3>
-
-              <p className="text-xs text-gray-400 mt-2 leading-5">
-                Every order is prepared with care for your special moments.
-              </p>
-
+              <div className="rounded-2xl bg-white p-5 shadow-sm sm:rounded-3xl sm:p-7">
+                <p className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                  ✨
+                </p>
+                <p className="mt-3 text-sm font-semibold text-gray-900">
+                  Special Moments
+                </p>
+                <p className="mt-1 text-xs text-gray-500">
+                  Worth Remembering
+                </p>
+              </div>
             </div>
 
           </div>
-
         </div>
-
       </section>
 
-      {/* =====================================================
-          BOTTOM CTA
-      ===================================================== */}
-
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-
-        <div
-          className="
-            rounded-3xl
-            bg-gradient-to-r
-            from-pink-50
-            to-rose-50
-            border
-            border-pink-100
-            p-8
-            sm:p-10
-            text-center
-          "
-        >
-
-          <div className="text-4xl">
-            🌷
-          </div>
-
-          <h2
-            className="
-              text-2xl
-              sm:text-3xl
-              font-extrabold
-              text-gray-900
-              mt-3
-            "
-          >
-            Make someone's day beautiful.
-          </h2>
-
-          <p className="text-sm text-gray-500 mt-2">
-            Explore our flowers and find something special.
+      {/* Bottom CTA */}
+      <section className="bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <div className="mx-auto max-w-5xl rounded-3xl bg-gradient-to-r from-pink-600 to-rose-500 px-5 py-10 text-center shadow-xl shadow-pink-100 sm:px-10 sm:py-14">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-pink-100 sm:text-sm">
+            Make Someone Smile
           </p>
 
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="
-              mt-6
-              px-7
-              h-11
-              rounded-xl
-              bg-gray-900
-              text-white
-              text-sm
-              font-semibold
-              hover:bg-pink-600
-              hover:-translate-y-0.5
-              transition-all
-              duration-200
-              cursor-pointer
-            "
+          <h2 className="mt-3 text-2xl font-bold text-white sm:text-4xl">
+            Find something beautiful today.
+          </h2>
+
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-pink-50 sm:text-base">
+            Choose a beautiful bouquet and turn your feelings into a gift
+            they'll remember.
+          </p>
+
+          <a
+            href="/"
+            className="mt-7 inline-flex h-11 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-pink-600 transition hover:bg-pink-50 active:scale-[0.98] sm:h-12 sm:px-7"
           >
-            Start Shopping
-          </button>
-
+            Shop Bouquets
+          </a>
         </div>
-
       </section>
-
     </div>
   );
 };
