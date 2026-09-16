@@ -51,12 +51,16 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
 
   const HandleIncrement = async () => {
     if (quantity >= stock) {
-      toast.error("Maximum available quantity reached");
+      toast.error(
+        "Maximum available quantity reached"
+      );
       return;
     }
 
     const result = await dispatch(
-      IncrementFlowerInSleeveCartThunk(item?._id)
+      IncrementFlowerInSleeveCartThunk(
+        item?._id
+      )
     );
 
     if (
@@ -81,7 +85,9 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
     }
 
     const result = await dispatch(
-      DecrementFlowerInSleeveCartThunk(item?._id)
+      DecrementFlowerInSleeveCartThunk(
+        item?._id
+      )
     );
 
     if (
@@ -101,11 +107,13 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
   // ==============================
 
   const HandleDelete = () => {
-    dispatch(showDeletePopup(item?._id));
+    dispatch(
+      showDeletePopup(item?._id)
+    );
   };
 
   // ==============================
-  // SINGLE FLOWER IN SLEEVE
+  // VIEW DETAILS
   // ==============================
 
   const HandleViewDetails = () => {
@@ -115,16 +123,35 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
   };
 
   return (
-    <div className="bg-white">
-
+    <div
+      className="
+        w-full
+        min-w-0
+        bg-white
+        border-b
+        border-gray-100
+      "
+    >
       {/* ==============================
           MAIN PRODUCT
       ============================== */}
 
-      <div className="p-4 sm:p-5">
-
-        <div className="flex gap-4">
-
+      <div
+        className="
+          p-3
+          sm:p-4
+          md:p-5
+        "
+      >
+        <div
+          className="
+            flex
+            gap-3
+            sm:gap-4
+            md:gap-5
+            items-start
+          "
+        >
           {/* ==============================
               PRODUCT IMAGE
           ============================== */}
@@ -132,20 +159,26 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
           <div
             onClick={HandleViewDetails}
             className="
-              w-24
-              h-24
-              sm:w-28
-              sm:h-28
-              md:w-32
-              md:h-32
+              w-[76px]
+              h-[76px]
+              min-[400px]:w-[84px]
+              min-[400px]:h-[84px]
+              sm:w-24
+              sm:h-24
+              md:w-28
+              md:h-28
               shrink-0
               bg-gray-50
-              rounded-md
+              rounded-xl
               overflow-hidden
               flex
               items-center
               justify-center
               cursor-pointer
+              border
+              border-gray-100
+              hover:border-pink-200
+              transition
             "
           >
             <img
@@ -170,20 +203,29 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
               PRODUCT DETAILS
           ============================== */}
 
-          <div className="flex-1 min-w-0">
-
+          <div
+            className="
+              flex-1
+              min-w-0
+            "
+          >
             {/* PRODUCT NAME */}
 
             <h2
               onClick={HandleViewDetails}
               className="
-                text-base
-                sm:text-lg
-                font-medium
+                text-sm
+                min-[400px]:text-[15px]
+                sm:text-base
+                md:text-lg
+                font-semibold
                 text-gray-800
                 hover:text-pink-600
                 cursor-pointer
                 line-clamp-2
+                break-words
+                leading-5
+                sm:leading-6
               "
             >
               {flowerInSleeve?.name ||
@@ -192,28 +234,33 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
 
             {/* PRICE */}
 
-            <div className="mt-1 flex items-center gap-2">
-
-              {/* DISCOUNT PRICE */}
-
+            <div
+              className="
+                mt-1.5
+                flex
+                flex-wrap
+                items-center
+                gap-x-2
+                gap-y-0.5
+              "
+            >
               <span
                 className="
-                  text-lg
-                  sm:text-xl
-                  font-semibold
+                  text-base
+                  sm:text-lg
+                  md:text-xl
+                  font-bold
                   text-gray-900
                 "
               >
                 ₹{finalPrice}
               </span>
 
-              {/* ORIGINAL PRICE */}
-
               {hasDiscount && (
                 <span
                   className="
-                    text-sm
-                    sm:text-base
+                    text-xs
+                    sm:text-sm
                     text-gray-400
                     line-through
                   "
@@ -221,13 +268,20 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
                   ₹{price}
                 </span>
               )}
-
             </div>
 
             {/* STOCK */}
 
             {stock > 0 && (
-              <p className="text-xs text-green-600 mt-1">
+              <p
+                className="
+                  text-[11px]
+                  sm:text-xs
+                  text-green-600
+                  font-medium
+                  mt-1
+                "
+              >
                 In Stock
               </p>
             )}
@@ -241,152 +295,223 @@ export const FlowerInSleeveAddToCartItem = ({ item }) => {
                 flex
                 flex-wrap
                 items-center
-                gap-3
-                mt-4
+                gap-x-3
+                gap-y-2
+                mt-3
+                sm:mt-4
               "
             >
-
-              {/* QUANTITY */}
+              {/* ==============================
+                  QUANTITY
+              ============================== */}
 
               <div
                 className="
                   flex
                   items-center
+                  h-9
+                  sm:h-10
                   border
-                  border-gray-400
-                  rounded-sm
+                  border-gray-300
+                  rounded-lg
                   overflow-hidden
+                  shrink-0
+                  bg-white
                 "
               >
+                {/* MINUS */}
 
                 <button
                   type="button"
                   onClick={HandleDecrement}
                   disabled={quantity <= 1}
+                  aria-label="Decrease quantity"
                   className="
                     w-8
-                    h-8
+                    sm:w-9
+                    h-full
                     flex
                     items-center
                     justify-center
+                    text-gray-700
                     bg-gray-50
                     hover:bg-gray-100
                     disabled:opacity-40
                     disabled:cursor-not-allowed
+                    transition
                   "
                 >
-                  <Minus size={14} />
+                  <Minus
+                    size={14}
+                    strokeWidth={2.3}
+                  />
                 </button>
+
+                {/* QUANTITY */}
 
                 <span
                   className="
                     w-9
-                    h-8
+                    sm:w-10
+                    h-full
                     flex
                     items-center
                     justify-center
                     border-x
-                    border-gray-400
-                    text-sm
+                    border-gray-300
+                    text-xs
+                    sm:text-sm
                     font-semibold
+                    text-gray-800
                   "
                 >
                   {quantity}
                 </span>
 
+                {/* PLUS */}
+
                 <button
                   type="button"
                   onClick={HandleIncrement}
                   disabled={quantity >= stock}
+                  aria-label="Increase quantity"
                   className="
                     w-8
-                    h-8
+                    sm:w-9
+                    h-full
                     flex
                     items-center
                     justify-center
+                    text-gray-700
                     bg-gray-50
                     hover:bg-gray-100
                     disabled:opacity-40
                     disabled:cursor-not-allowed
+                    transition
                   "
                 >
-                  <Plus size={14} />
+                  <Plus
+                    size={14}
+                    strokeWidth={2.3}
+                  />
                 </button>
-
               </div>
 
-              {/* REMOVE */}
+              {/* ==============================
+                  REMOVE
+              ============================== */}
 
               <button
                 type="button"
                 onClick={HandleDelete}
                 className="
+                  h-9
+                  sm:h-10
+                  px-2
+                  sm:px-3
+                  rounded-lg
                   flex
                   items-center
+                  justify-center
                   gap-1.5
-                  text-sm
+                  text-xs
+                  sm:text-sm
                   text-gray-600
                   hover:text-red-600
+                  hover:bg-red-50
                   font-medium
                   cursor-pointer
+                  transition
                 "
               >
-                <Trash2 size={15} />
-                Remove
+                <Trash2
+                  size={14}
+                  className="sm:w-4 sm:h-4"
+                />
+
+                <span>
+                  Remove
+                </span>
               </button>
 
-              {/* VIEW DETAILS */}
+              {/* ==============================
+                  VIEW DETAILS
+              ============================== */}
 
               <button
                 type="button"
                 onClick={HandleViewDetails}
                 className="
-                  hidden
-                  sm:flex
+                  h-9
+                  sm:h-10
+                  px-2
+                  sm:px-3
+                  rounded-lg
+                  flex
                   items-center
-                  gap-1
-                  text-sm
-                  text-pink-600
-                  hover:text-pink-700
+                  justify-center
+                  gap-1.5
+                  text-xs
+                  sm:text-sm
+                  text-gray-700
+                  hover:text-pink-600
+                  hover:bg-pink-50
                   font-medium
                   cursor-pointer
+                  transition
                 "
               >
-                View Details
-                <ArrowRight size={14} />
+                <span>
+                  View Details
+                </span>
+
+                <ArrowRight
+                  size={14}
+                  className="sm:w-4 sm:h-4"
+                />
               </button>
-
             </div>
-
           </div>
 
           {/* ==============================
               TOTAL PRICE
           ============================== */}
 
-          <div className="text-right shrink-0">
-
-            <p className="text-xs text-gray-400">
+          <div
+            className="
+              shrink-0
+              text-right
+              pt-0.5
+              sm:pt-1
+            "
+          >
+            <p
+              className="
+                text-[10px]
+                sm:text-xs
+                text-gray-400
+                mb-0.5
+              "
+            >
               Total
             </p>
 
             <p
               className="
-                text-base
+                text-sm
+                min-[400px]:text-base
                 sm:text-lg
-                font-semibold
+                md:text-xl
+                font-bold
                 text-gray-900
+                whitespace-nowrap
               "
             >
               ₹{totalPrice}
             </p>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 };

@@ -27,10 +27,6 @@ export const ChocolateAddToItem = ({ item }) => {
 
   const stock = chocolate?.stock || 0;
 
-  // ==============================
-  // TOTAL PRICE
-  // ==============================
-
   const totalPrice = price * quantity;
 
   // ==============================
@@ -91,46 +87,66 @@ export const ChocolateAddToItem = ({ item }) => {
   // ==============================
 
   const HandleDelete = () => {
-    dispatch(showDeletePopup(item?._id));
+    dispatch(
+      showDeletePopup(item?._id)
+    );
   };
 
   return (
-    <div className="bg-white">
-
+    <div
+      className="
+        w-full
+        min-w-0
+        bg-white
+        border-b
+        border-gray-100
+      "
+    >
       {/* ==============================
           MAIN CHOCOLATE
       ============================== */}
 
-      <div className="p-4 sm:p-5">
-
-        <div className="flex gap-4">
-
+      <div
+        className="
+          p-3
+          sm:p-4
+          md:p-5
+        "
+      >
+        <div
+          className="
+            flex
+            gap-3
+            sm:gap-4
+            md:gap-5
+            items-start
+          "
+        >
           {/* ==============================
               CHOCOLATE IMAGE
           ============================== */}
 
           <div
             className="
-              w-24
-              h-24
-              sm:w-28
-              sm:h-28
-              md:w-32
-              md:h-32
+              w-[76px]
+              h-[76px]
+              min-[400px]:w-[84px]
+              min-[400px]:h-[84px]
+              sm:w-24
+              sm:h-24
+              md:w-28
+              md:h-28
               shrink-0
-              rounded-2xl
+              rounded-xl
               overflow-hidden
-              bg-gradient-to-br
-              from-rose-50
-              to-stone-100
+              bg-gray-50
               border
-              border-rose-100/70
+              border-gray-100
               flex
               items-center
               justify-center
             "
           >
-
             {chocolate?.image ? (
               <img
                 src={chocolate.image}
@@ -150,28 +166,41 @@ export const ChocolateAddToItem = ({ item }) => {
                 }}
               />
             ) : (
-              <span className="text-3xl">
+              <span
+                className="
+                  text-2xl
+                  sm:text-3xl
+                "
+              >
                 🍫
               </span>
             )}
-
           </div>
 
           {/* ==============================
               CHOCOLATE DETAILS
           ============================== */}
 
-          <div className="flex-1 min-w-0">
-
+          <div
+            className="
+              flex-1
+              min-w-0
+            "
+          >
             {/* NAME */}
 
             <h2
               className="
-                text-base
-                sm:text-lg
-                font-bold
-                text-gray-700
+                text-sm
+                min-[400px]:text-[15px]
+                sm:text-base
+                md:text-lg
+                font-semibold
+                text-gray-800
                 line-clamp-2
+                break-words
+                leading-5
+                sm:leading-6
               "
             >
               {chocolate?.name ||
@@ -188,9 +217,10 @@ export const ChocolateAddToItem = ({ item }) => {
                   px-2.5
                   py-1
                   rounded-full
-                  bg-stone-100
-                  text-stone-500
-                  text-[11px]
+                  bg-gray-100
+                  text-gray-600
+                  text-[10px]
+                  sm:text-[11px]
                   font-semibold
                 "
               >
@@ -200,29 +230,50 @@ export const ChocolateAddToItem = ({ item }) => {
 
             {/* PRICE */}
 
-            <div className="mt-2">
-
+            <div
+              className="
+                mt-1.5
+                flex
+                flex-wrap
+                items-center
+                gap-x-2
+              "
+            >
               <span
                 className="
-                  text-lg
-                  sm:text-xl
-                  font-extrabold
-                  text-gray-800
+                  text-base
+                  sm:text-lg
+                  md:text-xl
+                  font-bold
+                  text-gray-900
                 "
               >
                 ₹{price}
               </span>
 
-              <span className="ml-2 text-xs text-gray-400">
+              <span
+                className="
+                  text-[10px]
+                  sm:text-xs
+                  text-gray-400
+                "
+              >
                 per chocolate
               </span>
-
             </div>
 
             {/* STOCK */}
 
             {stock > 0 && (
-              <p className="text-xs text-teal-400 mt-1 font-medium">
+              <p
+                className="
+                  text-[11px]
+                  sm:text-xs
+                  text-green-600
+                  font-medium
+                  mt-1
+                "
+              >
                 In Stock
               </p>
             )}
@@ -236,111 +287,151 @@ export const ChocolateAddToItem = ({ item }) => {
                 flex
                 flex-wrap
                 items-center
-                gap-3
-                mt-4
+                gap-x-3
+                gap-y-2
+                mt-3
+                sm:mt-4
               "
             >
-
               {/* QUANTITY */}
 
               <div
                 className="
                   flex
                   items-center
-                  rounded-xl
+                  h-9
+                  sm:h-10
                   border
-                  border-rose-100
+                  border-gray-300
+                  rounded-lg
                   overflow-hidden
+                  shrink-0
                   bg-white
                 "
               >
+                {/* MINUS */}
 
                 <button
                   type="button"
-                  onClick={HandleDecrement}
-                  disabled={quantity <= 1}
+                  onClick={
+                    HandleDecrement
+                  }
+                  disabled={
+                    quantity <= 1
+                  }
+                  aria-label="Decrease quantity"
                   className="
                     w-8
-                    h-8
+                    sm:w-9
+                    h-full
                     flex
                     items-center
                     justify-center
-                    bg-rose-50/70
-                    text-rose-400
-                    hover:bg-rose-100
+                    text-gray-700
+                    bg-gray-50
+                    hover:bg-gray-100
                     disabled:opacity-40
                     disabled:cursor-not-allowed
                     transition
-                    cursor-pointer
                   "
                 >
-                  <Minus size={14} />
+                  <Minus
+                    size={14}
+                    strokeWidth={2.3}
+                  />
                 </button>
+
+                {/* QUANTITY */}
 
                 <span
                   className="
                     w-9
-                    h-8
+                    sm:w-10
+                    h-full
                     flex
                     items-center
                     justify-center
                     border-x
-                    border-rose-100
-                    text-sm
-                    font-bold
-                    text-gray-700
+                    border-gray-300
+                    text-xs
+                    sm:text-sm
+                    font-semibold
+                    text-gray-800
                   "
                 >
                   {quantity}
                 </span>
 
+                {/* PLUS */}
+
                 <button
                   type="button"
-                  onClick={HandleIncrement}
-                  disabled={quantity >= stock}
+                  onClick={
+                    HandleIncrement
+                  }
+                  disabled={
+                    quantity >= stock
+                  }
+                  aria-label="Increase quantity"
                   className="
                     w-8
-                    h-8
+                    sm:w-9
+                    h-full
                     flex
                     items-center
                     justify-center
-                    bg-rose-50/70
-                    text-rose-400
-                    hover:bg-rose-100
+                    text-gray-700
+                    bg-gray-50
+                    hover:bg-gray-100
                     disabled:opacity-40
                     disabled:cursor-not-allowed
                     transition
-                    cursor-pointer
                   "
                 >
-                  <Plus size={14} />
+                  <Plus
+                    size={14}
+                    strokeWidth={2.3}
+                  />
                 </button>
-
               </div>
 
               {/* REMOVE */}
 
               <button
                 type="button"
-                onClick={HandleDelete}
+                onClick={
+                  HandleDelete
+                }
                 className="
+                  h-9
+                  sm:h-10
+                  px-2
+                  sm:px-3
+                  rounded-lg
                   flex
                   items-center
+                  justify-center
                   gap-1.5
-                  text-sm
-                  text-gray-400
-                  hover:text-red-400
+                  text-xs
+                  sm:text-sm
+                  text-gray-600
+                  hover:text-red-600
+                  hover:bg-red-50
                   font-medium
                   cursor-pointer
                   transition
                 "
               >
-                <Trash2 size={15} />
-                Remove
+                <Trash2
+                  size={14}
+                  className="sm:w-4 sm:h-4"
+                />
+
+                <span>
+                  Remove
+                </span>
               </button>
-
             </div>
-
           </div>
 
           {/* ==============================
@@ -349,19 +440,18 @@ export const ChocolateAddToItem = ({ item }) => {
 
           <div
             className="
-              text-right
               shrink-0
-              hidden
-              sm:block
+              text-right
+              pt-0.5
+              sm:pt-1
             "
           >
-
             <p
               className="
-                text-[11px]
+                text-[10px]
+                sm:text-xs
                 text-gray-400
-                uppercase
-                tracking-wide
+                mb-0.5
               "
             >
               Total
@@ -369,48 +459,20 @@ export const ChocolateAddToItem = ({ item }) => {
 
             <p
               className="
-                text-lg
-                font-extrabold
-                text-rose-400
-                mt-1
+                text-sm
+                min-[400px]:text-base
+                sm:text-lg
+                md:text-xl
+                font-bold
+                text-gray-900
+                whitespace-nowrap
               "
             >
               ₹{totalPrice}
             </p>
-
           </div>
-
         </div>
-
-        {/* ==============================
-            MOBILE TOTAL
-        ============================== */}
-
-        <div
-          className="
-            sm:hidden
-            mt-4
-            pt-3
-            border-t
-            border-rose-50
-            flex
-            items-center
-            justify-between
-          "
-        >
-
-          <span className="text-xs text-gray-400">
-            Total
-          </span>
-
-          <span className="text-base font-extrabold text-rose-400">
-            ₹{totalPrice}
-          </span>
-
-        </div>
-
       </div>
-
     </div>
   );
 };

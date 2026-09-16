@@ -27,6 +27,10 @@ export const CardAddToCartItem = ({ item }) => {
 
   const totalPrice = price * quantity;
 
+  // ==============================
+  // INCREMENT
+  // ==============================
+
   const HandleIncrement = async () => {
     if (quantity >= stock) {
       toast.error(
@@ -40,7 +44,9 @@ export const CardAddToCartItem = ({ item }) => {
     );
 
     if (
-      IncrementCardCartThunk.rejected.match(result)
+      IncrementCardCartThunk.rejected.match(
+        result
+      )
     ) {
       toast.error(
         result.payload ||
@@ -48,6 +54,10 @@ export const CardAddToCartItem = ({ item }) => {
       );
     }
   };
+
+  // ==============================
+  // DECREMENT
+  // ==============================
 
   const HandleDecrement = async () => {
     if (quantity <= 1) {
@@ -59,7 +69,9 @@ export const CardAddToCartItem = ({ item }) => {
     );
 
     if (
-      DecrementCardCartThunk.rejected.match(result)
+      DecrementCardCartThunk.rejected.match(
+        result
+      )
     ) {
       toast.error(
         result.payload ||
@@ -68,6 +80,10 @@ export const CardAddToCartItem = ({ item }) => {
     }
   };
 
+  // ==============================
+  // DELETE
+  // ==============================
+
   const HandleDelete = () => {
     dispatch(
       showDeletePopup(item?._id)
@@ -75,29 +91,55 @@ export const CardAddToCartItem = ({ item }) => {
   };
 
   return (
-    <div className="bg-white">
+    <div
+      className="
+        w-full
+        min-w-0
+        bg-white
+        border-b
+        border-gray-100
+      "
+    >
+      {/* ==============================
+          MAIN PRODUCT
+      ============================== */}
 
-      <div className="p-4 sm:p-5">
+      <div
+        className="
+          p-3
+          sm:p-4
+          md:p-5
+        "
+      >
+        <div
+          className="
+            flex
+            gap-3
+            sm:gap-4
+            md:gap-5
+            items-start
+          "
+        >
+          {/* ==============================
+              CARD IMAGE
+          ============================== */}
 
-        <div className="flex gap-4">
-
-          {/* CARD IMAGE */}
           <div
             className="
-              w-24
-              h-24
-              sm:w-28
-              sm:h-28
-              md:w-32
-              md:h-32
+              w-[76px]
+              h-[76px]
+              min-[400px]:w-[84px]
+              min-[400px]:h-[84px]
+              sm:w-24
+              sm:h-24
+              md:w-28
+              md:h-28
               shrink-0
-              rounded-2xl
+              rounded-xl
               overflow-hidden
-              bg-gradient-to-br
-              from-pink-50
-              to-violet-50
+              bg-gray-50
               border
-              border-pink-100/70
+              border-gray-100
               flex
               items-center
               justify-center
@@ -122,27 +164,48 @@ export const CardAddToCartItem = ({ item }) => {
                 }}
               />
             ) : (
-              <span className="text-3xl">
+              <span
+                className="
+                  text-2xl
+                  sm:text-3xl
+                "
+              >
                 💌
               </span>
             )}
           </div>
 
-          {/* CARD DETAILS */}
-          <div className="flex-1 min-w-0">
+          {/* ==============================
+              CARD DETAILS
+          ============================== */}
+
+          <div
+            className="
+              flex-1
+              min-w-0
+            "
+          >
+            {/* CARD NAME */}
 
             <h2
               className="
-                text-base
-                sm:text-lg
-                font-bold
-                text-gray-700
+                text-sm
+                min-[400px]:text-[15px]
+                sm:text-base
+                md:text-lg
+                font-semibold
+                text-gray-800
                 line-clamp-2
+                break-words
+                leading-5
+                sm:leading-6
               "
             >
               {card?.name ||
                 "Beautiful Greeting Card"}
             </h2>
+
+            {/* OCCASION */}
 
             {card?.occasion && (
               <span
@@ -152,9 +215,10 @@ export const CardAddToCartItem = ({ item }) => {
                   px-2.5
                   py-1
                   rounded-full
-                  bg-violet-50
-                  text-violet-400
-                  text-[11px]
+                  bg-pink-50
+                  text-pink-600
+                  text-[10px]
+                  sm:text-[11px]
                   font-semibold
                 "
               >
@@ -162,13 +226,24 @@ export const CardAddToCartItem = ({ item }) => {
               </span>
             )}
 
-            <div className="mt-2">
+            {/* PRICE */}
+
+            <div
+              className="
+                mt-1.5
+                flex
+                flex-wrap
+                items-center
+                gap-x-2
+              "
+            >
               <span
                 className="
-                  text-lg
-                  sm:text-xl
-                  font-extrabold
-                  text-gray-800
+                  text-base
+                  sm:text-lg
+                  md:text-xl
+                  font-bold
+                  text-gray-900
                 "
               >
                 ₹{price}
@@ -176,8 +251,8 @@ export const CardAddToCartItem = ({ item }) => {
 
               <span
                 className="
-                  ml-2
-                  text-xs
+                  text-[10px]
+                  sm:text-xs
                   text-gray-400
                 "
               >
@@ -185,141 +260,196 @@ export const CardAddToCartItem = ({ item }) => {
               </span>
             </div>
 
+            {/* STOCK */}
+
             {stock > 0 && (
               <p
                 className="
-                  text-xs
-                  text-teal-400
-                  mt-1
+                  text-[11px]
+                  sm:text-xs
+                  text-green-600
                   font-medium
+                  mt-1
                 "
               >
                 In Stock
               </p>
             )}
 
-            {/* QUANTITY + REMOVE */}
+            {/* ==============================
+                QUANTITY + REMOVE
+            ============================== */}
+
             <div
               className="
                 flex
                 flex-wrap
                 items-center
-                gap-3
-                mt-4
+                gap-x-3
+                gap-y-2
+                mt-3
+                sm:mt-4
               "
             >
+              {/* QUANTITY */}
 
               <div
                 className="
                   flex
                   items-center
-                  rounded-xl
+                  h-9
+                  sm:h-10
                   border
-                  border-pink-100
+                  border-gray-300
+                  rounded-lg
                   overflow-hidden
+                  shrink-0
                   bg-white
                 "
               >
+                {/* MINUS */}
+
                 <button
                   type="button"
-                  onClick={HandleDecrement}
-                  disabled={quantity <= 1}
+                  onClick={
+                    HandleDecrement
+                  }
+                  disabled={
+                    quantity <= 1
+                  }
+                  aria-label="Decrease quantity"
                   className="
                     w-8
-                    h-8
+                    sm:w-9
+                    h-full
                     flex
                     items-center
                     justify-center
-                    bg-pink-50/70
-                    text-pink-400
-                    hover:bg-pink-100
+                    text-gray-700
+                    bg-gray-50
+                    hover:bg-gray-100
                     disabled:opacity-40
                     disabled:cursor-not-allowed
                     transition
-                    cursor-pointer
                   "
                 >
-                  <Minus size={14} />
+                  <Minus
+                    size={14}
+                    strokeWidth={2.3}
+                  />
                 </button>
+
+                {/* QUANTITY */}
 
                 <span
                   className="
                     w-9
-                    h-8
+                    sm:w-10
+                    h-full
                     flex
                     items-center
                     justify-center
                     border-x
-                    border-pink-100
-                    text-sm
-                    font-bold
-                    text-gray-700
+                    border-gray-300
+                    text-xs
+                    sm:text-sm
+                    font-semibold
+                    text-gray-800
                   "
                 >
                   {quantity}
                 </span>
 
+                {/* PLUS */}
+
                 <button
                   type="button"
-                  onClick={HandleIncrement}
-                  disabled={quantity >= stock}
+                  onClick={
+                    HandleIncrement
+                  }
+                  disabled={
+                    quantity >= stock
+                  }
+                  aria-label="Increase quantity"
                   className="
                     w-8
-                    h-8
+                    sm:w-9
+                    h-full
                     flex
                     items-center
                     justify-center
-                    bg-pink-50/70
-                    text-pink-400
-                    hover:bg-pink-100
+                    text-gray-700
+                    bg-gray-50
+                    hover:bg-gray-100
                     disabled:opacity-40
                     disabled:cursor-not-allowed
                     transition
-                    cursor-pointer
                   "
                 >
-                  <Plus size={14} />
+                  <Plus
+                    size={14}
+                    strokeWidth={2.3}
+                  />
                 </button>
               </div>
 
+              {/* REMOVE */}
+
               <button
                 type="button"
-                onClick={HandleDelete}
+                onClick={
+                  HandleDelete
+                }
                 className="
+                  h-9
+                  sm:h-10
+                  px-2
+                  sm:px-3
+                  rounded-lg
                   flex
                   items-center
+                  justify-center
                   gap-1.5
-                  text-sm
-                  text-gray-400
-                  hover:text-rose-400
+                  text-xs
+                  sm:text-sm
+                  text-gray-600
+                  hover:text-red-600
+                  hover:bg-red-50
                   font-medium
                   cursor-pointer
                   transition
                 "
               >
-                <Trash2 size={15} />
-                Remove
+                <Trash2
+                  size={14}
+                  className="sm:w-4 sm:h-4"
+                />
+
+                <span>
+                  Remove
+                </span>
               </button>
-
             </div>
-
           </div>
 
-          {/* TOTAL PRICE */}
+          {/* ==============================
+              TOTAL PRICE
+          ============================== */}
+
           <div
             className="
-              text-right
               shrink-0
-              hidden
-              sm:block
+              text-right
+              pt-0.5
+              sm:pt-1
             "
           >
             <p
               className="
-                text-[11px]
+                text-[10px]
+                sm:text-xs
                 text-gray-400
-                uppercase
-                tracking-wide
+                mb-0.5
               "
             >
               Total
@@ -327,48 +457,20 @@ export const CardAddToCartItem = ({ item }) => {
 
             <p
               className="
-                text-lg
-                font-extrabold
-                text-violet-400
-                mt-1
+                text-sm
+                min-[400px]:text-base
+                sm:text-lg
+                md:text-xl
+                font-bold
+                text-gray-900
+                whitespace-nowrap
               "
             >
               ₹{totalPrice}
             </p>
           </div>
-
         </div>
-
-        {/* MOBILE TOTAL */}
-        <div
-          className="
-            sm:hidden
-            mt-4
-            pt-3
-            border-t
-            border-pink-50
-            flex
-            items-center
-            justify-between
-          "
-        >
-          <span className="text-xs text-gray-400">
-            Total
-          </span>
-
-          <span
-            className="
-              text-base
-              font-extrabold
-              text-violet-400
-            "
-          >
-            ₹{totalPrice}
-          </span>
-        </div>
-
       </div>
-
     </div>
   );
 };
