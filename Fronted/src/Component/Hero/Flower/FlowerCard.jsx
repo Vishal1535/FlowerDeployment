@@ -12,22 +12,35 @@ import {
 export const FlowerCard = ({ flower }) => {
   const stock = flower?.stock ?? 0;
   const isAvailable = stock > 0;
-  const { flowerWishlist } = useSelector((state) => state.wishlist);
-  const { isAuthorized } = useSelector((state) => state.user);
+
+  const { flowerWishlist } = useSelector(
+    (state) => state.wishlist
+  );
+
+  const { isAuthorized } = useSelector(
+    (state) => state.user
+  );
+
   const { flowerFromCart = [] } = useSelector(
     (state) => state.FlowerAddToCart
   );
 
   const isInCart = flowerFromCart.some(
-    (item) => item?.flower?._id?.toString() === flower?._id?.toString(),
+    (item) =>
+      item?.flower?._id?.toString() ===
+      flower?._id?.toString()
   );
 
   const isWishlisted = flowerWishlist?.some(
-    (flowerId) => flowerId?._id === flower?._id || flowerId === flower?._id,
+    (flowerId) =>
+      flowerId?._id === flower?._id ||
+      flowerId === flower?._id
   );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // ================= WISHLIST =================
 
   const HandleWishList = () => {
     if (!isAuthorized) {
@@ -38,7 +51,7 @@ export const FlowerCard = ({ flower }) => {
     dispatch(FlowerWishlistThunk(flower?._id));
   };
 
-  // Component ke andar, HandleAddToCart ke bahar
+  // ================= GET CART =================
 
   useEffect(() => {
     if (isAuthorized) {
@@ -46,7 +59,7 @@ export const FlowerCard = ({ flower }) => {
     }
   }, [isAuthorized, dispatch]);
 
-  // Add To Cart Handler
+  // ================= ADD TO CART =================
 
   const HandleAddToCart = async (id) => {
     if (!isAuthorized) {
@@ -55,12 +68,19 @@ export const FlowerCard = ({ flower }) => {
     }
 
     try {
-      const result = await dispatch(AddFlowerToCartThunk(id));
+      const result = await dispatch(
+        AddFlowerToCartThunk(id)
+      );
 
-      if (AddFlowerToCartThunk.fulfilled.match(result)) {
+      if (
+        AddFlowerToCartThunk.fulfilled.match(result)
+      ) {
         toast.success("Flower added to cart");
       } else {
-        toast.error(result.payload || "Failed to add flower to cart");
+        toast.error(
+          result.payload ||
+            "Failed to add flower to cart"
+        );
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -223,7 +243,9 @@ export const FlowerCard = ({ flower }) => {
           type="button"
           onClick={HandleWishList}
           aria-label={
-            isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+            isWishlisted
+              ? "Remove from wishlist"
+              : "Add to wishlist"
           }
           className={`
             absolute
@@ -258,7 +280,11 @@ export const FlowerCard = ({ flower }) => {
           <Heart
             size={17}
             className="sm:w-[18px] sm:h-[18px]"
-            fill={isWishlisted ? "currentColor" : "none"}
+            fill={
+              isWishlisted
+                ? "currentColor"
+                : "none"
+            }
           />
         </button>
 
@@ -295,7 +321,12 @@ export const FlowerCard = ({ flower }) => {
         >
           <Flower2
             size={12}
-            className="sm:w-[13px] sm:h-[13px] text-pink-500 shrink-0"
+            className="
+              sm:w-[13px]
+              sm:h-[13px]
+              text-pink-500
+              shrink-0
+            "
           />
 
           <span className="truncate">
@@ -307,6 +338,7 @@ export const FlowerCard = ({ flower }) => {
       {/* ================= CONTENT ================= */}
 
       <div className="p-4 sm:p-5">
+
         {/* ================= NAME ================= */}
 
         <div className="flex items-center justify-between gap-2">
@@ -327,7 +359,16 @@ export const FlowerCard = ({ flower }) => {
 
         {/* ================= SMALL INFO ================= */}
 
-        <div className="flex items-center gap-2 sm:gap-3 mt-2 min-w-0">
+        <div
+          className="
+            flex
+            items-center
+            gap-2
+            sm:gap-3
+            mt-2
+            min-w-0
+          "
+        >
           {/* Color */}
 
           <div className="flex items-center gap-1 min-w-0">
@@ -335,16 +376,33 @@ export const FlowerCard = ({ flower }) => {
               Color
             </span>
 
-            <span className="text-[11px] sm:text-xs font-semibold text-gray-700 truncate">
+            <span
+              className="
+                text-[11px]
+                sm:text-xs
+                font-semibold
+                text-gray-700
+                truncate
+              "
+            >
               {flower?.color || "—"}
             </span>
           </div>
 
-          <span className="text-gray-200 shrink-0">•</span>
+          <span className="text-gray-200 shrink-0">
+            •
+          </span>
 
           {/* Category */}
 
-          <span className="text-[11px] sm:text-xs text-gray-500 truncate">
+          <span
+            className="
+              text-[11px]
+              sm:text-xs
+              text-gray-500
+              truncate
+            "
+          >
             {flower?.category || "Flower"}
           </span>
         </div>
@@ -356,9 +414,11 @@ export const FlowerCard = ({ flower }) => {
         {/* ================= PRICE + STOCK ================= */}
 
         <div className="flex items-end justify-between gap-3">
+
           {/* PRICE */}
 
           <div className="min-w-0">
+
             <p
               className="
                 text-[9px]
@@ -374,6 +434,7 @@ export const FlowerCard = ({ flower }) => {
             </p>
 
             <div className="flex items-baseline mt-1">
+
               <span
                 className="
                   text-xs
@@ -396,12 +457,15 @@ export const FlowerCard = ({ flower }) => {
               >
                 {flower?.price ?? 0}
               </span>
+
             </div>
+
           </div>
 
           {/* STOCK */}
 
           <div className="text-right min-w-0">
+
             <p
               className="
                 text-[9px]
@@ -423,17 +487,36 @@ export const FlowerCard = ({ flower }) => {
                 sm:text-sm
                 font-bold
                 truncate
-                ${isAvailable ? "text-gray-800" : "text-red-500"}
+                ${
+                  isAvailable
+                    ? "text-gray-800"
+                    : "text-red-500"
+                }
               `}
             >
-              {isAvailable ? `${stock} pieces` : "Unavailable"}
+              {isAvailable
+                ? `${stock} pieces`
+                : "Unavailable"}
             </p>
+
           </div>
+
         </div>
 
-        {/* ================= ACTION BUTTONS ================= */}
+        {/* ================================================= */}
+        {/* ACTION BUTTONS */}
+        {/* ================================================= */}
 
-        <div className="flex flex-col min-[380px]:flex-row gap-2 mt-4 sm:mt-5">
+        <div
+          className="
+            flex
+            flex-col
+            gap-2.5
+            mt-5
+            sm:mt-6
+          "
+        >
+
           {/* ================= VIEW DETAILS ================= */}
 
           <button
@@ -442,38 +525,55 @@ export const FlowerCard = ({ flower }) => {
               navigate(`flower/${flower._id}`);
             }}
             className="
-              flex-1
-              min-w-0
-              h-10
-              sm:h-11
+              w-full
+              h-11
+              sm:h-12
+
+              px-4
+              sm:px-5
+
               rounded-xl
+              sm:rounded-2xl
+
               border
               border-gray-200
+
               bg-white
+
               text-gray-700
-              text-xs
-              sm:text-sm
+
+              text-sm
+              sm:text-[15px]
+
               font-semibold
+
               flex
               items-center
               justify-center
-              gap-1.5
-              sm:gap-2
+
+              gap-2
+
+              shadow-sm
+
               hover:bg-pink-50
-              hover:border-pink-200
+              hover:border-pink-300
               hover:text-pink-600
+
               active:scale-[0.98]
+
               cursor-pointer
+
               transition-all
               duration-300
             "
           >
             <Eye
-              size={15}
-              className="sm:w-4 sm:h-4 shrink-0"
+              size={18}
+              className="shrink-0"
+              strokeWidth={2}
             />
 
-            <span className="truncate">
+            <span>
               View Details
             </span>
           </button>
@@ -484,30 +584,46 @@ export const FlowerCard = ({ flower }) => {
             type="button"
             disabled={!isAvailable || isInCart}
             className="
-              flex-1
-              min-w-0
-              h-10
-              sm:h-11
+              w-full
+              h-11
+              sm:h-12
+
+              px-4
+              sm:px-5
+
               rounded-xl
+              sm:rounded-2xl
+
               bg-gray-900
+
               text-white
-              text-xs
-              sm:text-sm
+
+              text-sm
+              sm:text-[15px]
+
               font-bold
+
               flex
               items-center
               justify-center
-              gap-1.5
-              sm:gap-2
+
+              gap-2
+
+              shadow-sm
+
               hover:bg-pink-600
               hover:shadow-lg
               hover:shadow-pink-200
+
               active:scale-[0.98]
+
               cursor-pointer
+
               disabled:bg-gray-100
               disabled:text-gray-400
               disabled:shadow-none
               disabled:cursor-not-allowed
+
               transition-all
               duration-300
             "
@@ -516,11 +632,12 @@ export const FlowerCard = ({ flower }) => {
             }}
           >
             <ShoppingCart
-              size={15}
-              className="sm:w-4 sm:h-4 shrink-0"
+              size={18}
+              className="shrink-0"
+              strokeWidth={2.2}
             />
 
-            <span className="truncate">
+            <span>
               {isInCart
                 ? "Added to Cart"
                 : isAvailable
@@ -528,7 +645,9 @@ export const FlowerCard = ({ flower }) => {
                   : "Unavailable"}
             </span>
           </button>
+
         </div>
+
       </div>
     </div>
   );

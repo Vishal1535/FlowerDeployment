@@ -37,8 +37,6 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
   const { isAuthorized } = useSelector(
     (state) => state.user
   );
-  
-  
 
   // ================= AVAILABILITY =================
 
@@ -102,7 +100,9 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
     }
 
     if (isInCart) {
-      toast.error("Combo bouquet already added to cart");
+      toast.error(
+        "Combo bouquet already added to cart"
+      );
       return;
     }
 
@@ -379,7 +379,7 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
       <div className="p-4 sm:p-5">
 
-        {/* NAME */}
+        {/* ================= NAME ================= */}
 
         <div className="flex items-center justify-between gap-2">
 
@@ -401,7 +401,7 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
         </div>
 
-        {/* DESCRIPTION */}
+        {/* ================= DESCRIPTION ================= */}
 
         <p
           className="
@@ -419,7 +419,7 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
             "A beautiful combination of fresh flowers made specially for you."}
         </p>
 
-        {/* DETAILS */}
+        {/* ================= DETAILS ================= */}
 
         <div
           className="
@@ -469,11 +469,11 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
         </div>
 
-        {/* DIVIDER */}
+        {/* ================= DIVIDER ================= */}
 
         <div className="border-t border-gray-100 my-3 sm:my-4" />
 
-        {/* PRICE + AVAILABILITY */}
+        {/* ================= PRICE + AVAILABILITY ================= */}
 
         <div
           className="
@@ -571,20 +571,23 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
 
         </div>
 
-        {/* ================= ACTION BUTTONS ================= */}
+        {/* ================================================= */}
+        {/* ACTION BUTTONS */}
+        {/* ================================================= */}
 
         <div
           className="
-            flex
-            flex-col
-            min-[380px]:flex-row
-            gap-2
-            mt-4
-            sm:mt-5
+            grid
+            grid-cols-1
+            min-[420px]:grid-cols-2
+            gap-2.5
+            sm:gap-3
+            mt-5
+            sm:mt-6
           "
         >
 
-          {/* VIEW DETAILS */}
+          {/* ================= VIEW DETAILS ================= */}
 
           <button
             type="button"
@@ -594,11 +597,11 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
               )
             }
             className="
-              flex-1
-              min-w-0
-              h-10
-              sm:h-11
-              px-2
+              w-full
+              h-11
+              sm:h-12
+              px-3
+              sm:px-4
               rounded-xl
               border
               border-pink-200
@@ -610,45 +613,51 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
               flex
               items-center
               justify-center
-              gap-1.5
-              sm:gap-2
+              gap-2
+              whitespace-nowrap
               hover:bg-pink-500
               hover:border-pink-500
               hover:text-white
-              active:scale-[0.98]
+              hover:shadow-md
+              hover:shadow-pink-100
+              active:scale-[0.97]
               cursor-pointer
               transition-all
               duration-300
             "
           >
             <ArrowRight
-              size={15}
-              className="sm:w-4 sm:h-4 shrink-0"
+              size={16}
+              className="shrink-0"
+              strokeWidth={2.2}
             />
 
-            <span className="truncate">
+            <span>
               View Details
             </span>
           </button>
 
-          {/* ADD TO CART */}
+          {/* ================= ADD TO CART ================= */}
 
           <button
             type="button"
-            disabled={!isAvailable || isInCart}
+            disabled={
+              !isAvailable ||
+              isInCart
+            }
             onClick={() =>
               HandleAddToCart(
                 comboBouquet?._id
               )
             }
             className="
-              flex-1
-              min-w-0
-              h-10
-              sm:h-11
-              px-2
+              w-full
+              h-11
+              sm:h-12
+              px-3
+              sm:px-4
               rounded-xl
-              bg-gray-900
+              bg-pink-500
               text-white
               text-xs
               sm:text-sm
@@ -656,12 +665,12 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
               flex
               items-center
               justify-center
-              gap-1.5
-              sm:gap-2
+              gap-2
+              whitespace-nowrap
               hover:bg-pink-600
-              hover:shadow-lg
+              hover:shadow-md
               hover:shadow-pink-200
-              active:scale-[0.98]
+              active:scale-[0.97]
               cursor-pointer
               disabled:bg-gray-100
               disabled:text-gray-400
@@ -672,11 +681,12 @@ export const ComboBouquetItem = ({ comboBouquet }) => {
             "
           >
             <ShoppingBag
-              size={15}
-              className="sm:w-4 sm:h-4 shrink-0"
+              size={16}
+              className="shrink-0"
+              strokeWidth={2.2}
             />
 
-            <span className="truncate">
+            <span>
               {isInCart
                 ? "Added to Cart"
                 : isAvailable

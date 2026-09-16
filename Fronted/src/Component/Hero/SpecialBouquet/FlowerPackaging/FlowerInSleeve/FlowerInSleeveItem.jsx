@@ -560,13 +560,24 @@ export const FlowerInSleeveItem = ({ flower }) => {
 
         {/* ================= DIVIDER ================= */}
 
-        <div className="border-t border-gray-100 my-3" />
+        <div className="border-t border-gray-100 my-3 sm:my-4" />
 
-        {/* ================= BUTTONS ================= */}
+        {/* ================================================= */}
+        {/* ACTION BUTTONS */}
+        {/* ================================================= */}
 
-        <div className="flex flex-col min-[380px]:flex-row gap-2">
+        <div
+          className="
+            grid
+            grid-cols-1
+            min-[420px]:grid-cols-2
+            gap-2.5
+            sm:gap-3
+            mt-1
+          "
+        >
 
-          {/* ================= VIEW ================= */}
+          {/* ================= VIEW DETAILS ================= */}
 
           <button
             type="button"
@@ -577,34 +588,46 @@ export const FlowerInSleeveItem = ({ flower }) => {
             }
             className="
               w-full
-              min-[380px]:flex-1
-              h-9
-              sm:h-10
-              rounded-lg
+              h-11
+              sm:h-12
+              px-3
+              sm:px-4
+              rounded-xl
               border
-              border-gray-200
-              bg-white
-              text-gray-600
-              text-[11px]
-              sm:text-xs
+              border-pink-200
+              bg-pink-50
+              text-pink-600
+              text-xs
+              sm:text-sm
               font-semibold
               flex
               items-center
               justify-center
-              gap-1.5
-              hover:bg-pink-50
-              hover:text-pink-600
-              hover:border-pink-200
-              transition
+              gap-2
+              whitespace-nowrap
+              hover:bg-pink-500
+              hover:border-pink-500
+              hover:text-white
+              hover:shadow-md
+              hover:shadow-pink-100
+              active:scale-[0.97]
               cursor-pointer
+              transition-all
+              duration-300
             "
           >
-            <Eye size={14} className="sm:hidden" />
-            <Eye size={15} className="hidden sm:block" />
-            View
+            <Eye
+              size={16}
+              className="shrink-0"
+              strokeWidth={2.2}
+            />
+
+            <span>
+              View Details
+            </span>
           </button>
 
-          {/* ================= CART ================= */}
+          {/* ================= ADD TO CART ================= */}
 
           <button
             type="button"
@@ -619,42 +642,47 @@ export const FlowerInSleeveItem = ({ flower }) => {
             }
             className="
               w-full
-              min-[380px]:flex-1
-              h-9
-              sm:h-10
-              rounded-lg
-              bg-gray-900
+              h-11
+              sm:h-12
+              px-3
+              sm:px-4
+              rounded-xl
+              bg-pink-500
               text-white
-              text-[11px]
-              sm:text-xs
-              font-semibold
+              text-xs
+              sm:text-sm
+              font-bold
               flex
               items-center
               justify-center
-              gap-1.5
+              gap-2
+              whitespace-nowrap
               hover:bg-pink-600
-              transition
+              hover:shadow-md
+              hover:shadow-pink-200
+              active:scale-[0.97]
               cursor-pointer
               disabled:bg-gray-100
               disabled:text-gray-400
+              disabled:shadow-none
               disabled:cursor-not-allowed
+              transition-all
+              duration-300
             "
           >
             <ShoppingCart
-              size={14}
-              className="sm:hidden"
+              size={16}
+              className="shrink-0"
+              strokeWidth={2.2}
             />
 
-            <ShoppingCart
-              size={15}
-              className="hidden sm:block"
-            />
-
-            {isInCart
-              ? "Added to Cart"
-              : isAvailable
-                ? "Add to Cart"
-                : "Unavailable"}
+            <span>
+              {isInCart
+                ? "Added to Cart"
+                : isAvailable
+                  ? "Add to Cart"
+                  : "Unavailable"}
+            </span>
           </button>
 
         </div>

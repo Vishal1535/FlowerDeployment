@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {
   Heart,
   ShoppingBag,
-  ArrowRight,
+  Eye,
 } from "lucide-react";
 import {
   useDispatch,
@@ -33,9 +33,6 @@ export const BouquetCard = ({ bouquet }) => {
   const { isAuthorized } = useSelector(
     (state) => state.user
   );
-  
-  
-  
 
   const isAvailable = bouquet?.isAvailable;
 
@@ -529,20 +526,21 @@ export const BouquetCard = ({ bouquet }) => {
 
         </div>
 
-        {/* ================= ACTION BUTTONS ================= */}
+        {/* ================================================= */}
+        {/* ACTION BUTTONS */}
+        {/* ================================================= */}
 
         <div
           className="
             flex
             flex-col
-            min-[380px]:flex-row
-            gap-2
-            mt-4
-            sm:mt-5
+            gap-2.5
+            mt-5
+            sm:mt-6
           "
         >
 
-          {/* VIEW DETAILS */}
+          {/* ================= VIEW DETAILS ================= */}
 
           <button
             type="button"
@@ -550,45 +548,59 @@ export const BouquetCard = ({ bouquet }) => {
               navigate(`/bouquet/${bouquet._id}`)
             }
             className="
-              flex-1
-              min-w-0
-              h-10
-              sm:h-11
-              px-2
-              sm:px-3
+              w-full
+              h-11
+              sm:h-12
+
+              px-4
+              sm:px-5
+
               rounded-xl
+              sm:rounded-2xl
+
               border
-              border-pink-200
-              bg-pink-50
-              text-pink-600
-              text-xs
-              sm:text-sm
+              border-gray-200
+
+              bg-white
+
+              text-gray-700
+
+              text-sm
+              sm:text-[15px]
+
               font-semibold
+
               flex
               items-center
               justify-center
-              gap-1.5
-              sm:gap-2
-              hover:bg-pink-500
-              hover:border-pink-500
-              hover:text-white
+              gap-2
+
+              shadow-sm
+
+              hover:border-pink-300
+              hover:bg-pink-50
+              hover:text-pink-600
+
               active:scale-[0.98]
+
               cursor-pointer
+
               transition-all
               duration-300
             "
           >
-            <ArrowRight
-              size={15}
-              className="sm:w-4 sm:h-4 shrink-0"
+            <Eye
+              size={18}
+              className="shrink-0"
+              strokeWidth={2}
             />
 
-            <span className="truncate">
+            <span>
               View Details
             </span>
           </button>
 
-          {/* ADD TO CART */}
+          {/* ================= ADD TO CART ================= */}
 
           <button
             type="button"
@@ -597,42 +609,56 @@ export const BouquetCard = ({ bouquet }) => {
               HandleAddToCart(bouquet?._id)
             }
             className="
-              flex-1
-              min-w-0
-              h-10
-              sm:h-11
-              px-2
-              sm:px-3
+              w-full
+              h-11
+              sm:h-12
+
+              px-4
+              sm:px-5
+
               rounded-xl
+              sm:rounded-2xl
+
               bg-gray-900
+
               text-white
-              text-xs
-              sm:text-sm
+
+              text-sm
+              sm:text-[15px]
+
               font-bold
+
               flex
               items-center
               justify-center
-              gap-1.5
-              sm:gap-2
+              gap-2
+
+              shadow-sm
+
               hover:bg-pink-600
               hover:shadow-lg
               hover:shadow-pink-200
+
               active:scale-[0.98]
+
               cursor-pointer
+
               disabled:bg-gray-100
               disabled:text-gray-400
               disabled:shadow-none
               disabled:cursor-not-allowed
+
               transition-all
               duration-300
             "
           >
             <ShoppingBag
-              size={15}
-              className="sm:w-4 sm:h-4 shrink-0"
+              size={18}
+              className="shrink-0"
+              strokeWidth={2.2}
             />
 
-            <span className="truncate">
+            <span>
               {isInCart
                 ? "Added to Cart"
                 : isAvailable

@@ -430,6 +430,7 @@ export const WoolenBouquetItem = ({ woolen }) => {
               "Woolen Bouquet"}
           </span>
         </div>
+
       </div>
 
       {/* ================= CONTENT ================= */}
@@ -505,6 +506,7 @@ export const WoolenBouquetItem = ({ woolen }) => {
             </span>
 
           </div>
+
         </div>
 
         {/* ================= OCCASION ================= */}
@@ -642,92 +644,100 @@ export const WoolenBouquetItem = ({ woolen }) => {
 
         <div
           className="
-            flex
-            flex-col
-            min-[380px]:flex-row
-            gap-2
-            mt-4
-            min-[380px]:mt-5
+            grid
+            grid-cols-1
+            min-[420px]:grid-cols-2
+            gap-2.5
+            sm:gap-3
+            mt-5
+            sm:mt-6
           "
         >
 
-          {/* VIEW DETAILS */}
+          {/* ================= VIEW DETAILS ================= */}
 
           <button
             type="button"
-            onClick={() => {
+            onClick={() =>
               navigate(
                 `/woolen-bouquet/${woolen?._id}`
-              );
-            }}
+              )
+            }
             className="
-              flex-1
-              min-w-0
-              h-10
-              min-[380px]:h-11
+              w-full
+              h-11
+              sm:h-12
+              px-3
+              sm:px-4
               rounded-xl
               border
-              border-gray-200
-              bg-white
-              text-gray-700
+              border-purple-200
+              bg-purple-50
+              text-purple-600
               text-xs
-              min-[380px]:text-sm
+              sm:text-sm
               font-semibold
               flex
               items-center
               justify-center
-              gap-1.5
-              min-[380px]:gap-2
-              hover:bg-purple-50
-              hover:border-purple-200
-              hover:text-purple-600
-              active:scale-[0.98]
+              gap-2
+              whitespace-nowrap
+              hover:bg-purple-500
+              hover:border-purple-500
+              hover:text-white
+              hover:shadow-md
+              hover:shadow-purple-100
+              active:scale-[0.97]
               cursor-pointer
               transition-all
               duration-300
-              px-2
             "
           >
             <Eye
-              size={15}
+              size={16}
               className="shrink-0"
+              strokeWidth={2.2}
             />
 
-            <span className="truncate">
+            <span>
               View Details
             </span>
           </button>
 
-          {/* ADD TO CART */}
+          {/* ================= ADD TO CART ================= */}
 
           <button
             type="button"
-            disabled={!isAvailable || isInCart}
+            disabled={
+              !isAvailable ||
+              isInCart
+            }
             onClick={() =>
               HandleAddToCart(
                 woolen?._id
               )
             }
             className="
-              flex-1
-              min-w-0
-              h-10
-              min-[380px]:h-11
+              w-full
+              h-11
+              sm:h-12
+              px-3
+              sm:px-4
               rounded-xl
-              bg-gray-900
+              bg-purple-500
               text-white
               text-xs
-              min-[380px]:text-sm
+              sm:text-sm
               font-bold
               flex
               items-center
               justify-center
-              gap-1.5
-              min-[380px]:gap-2
+              gap-2
+              whitespace-nowrap
               hover:bg-purple-600
-              hover:shadow-lg
+              hover:shadow-md
               hover:shadow-purple-200
-              active:scale-[0.98]
+              active:scale-[0.97]
               cursor-pointer
               disabled:bg-gray-100
               disabled:text-gray-400
@@ -735,15 +745,15 @@ export const WoolenBouquetItem = ({ woolen }) => {
               disabled:cursor-not-allowed
               transition-all
               duration-300
-              px-2
             "
           >
             <ShoppingCart
-              size={15}
+              size={16}
               className="shrink-0"
+              strokeWidth={2.2}
             />
 
-            <span className="truncate">
+            <span>
               {isInCart
                 ? "Added to Cart"
                 : isAvailable
@@ -753,6 +763,7 @@ export const WoolenBouquetItem = ({ woolen }) => {
           </button>
 
         </div>
+
       </div>
     </div>
   );
