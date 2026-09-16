@@ -251,21 +251,17 @@ export const BouquetCarousel = () => {
         max-w-full
         overflow-hidden
 
+        bg-white
+        text-gray-900
+
         px-3
         sm:px-6
         lg:px-10
 
         py-8
         sm:py-12
-
-        max-sm:bg-gradient-to-b
-        max-sm:from-slate-900
-        max-sm:via-slate-800
-        max-sm:to-slate-900
-        max-sm:rounded-3xl
       "
     >
-
       {/* ================================================= */}
       {/* HEADER */}
       {/* ================================================= */}
@@ -283,15 +279,12 @@ export const BouquetCarousel = () => {
           sm:mb-8
         "
       >
-
         {/* ================= LEFT CONTENT ================= */}
 
         <div className="min-w-0">
-
           {/* Small Heading */}
 
           <div className="flex items-center gap-2 mb-2 sm:mb-3">
-
             <span
               className="
                 w-6
@@ -316,7 +309,6 @@ export const BouquetCarousel = () => {
             >
               Handcrafted Collection
             </span>
-
           </div>
 
           {/* Main Heading */}
@@ -329,7 +321,6 @@ export const BouquetCarousel = () => {
               font-extrabold
               tracking-tight
               text-gray-900
-              max-sm:text-white
               leading-tight
             "
           >
@@ -348,7 +339,6 @@ export const BouquetCarousel = () => {
               text-xs
               sm:text-base
               text-gray-500
-              max-sm:text-gray-300
               max-w-xl
               leading-5
             "
@@ -356,7 +346,6 @@ export const BouquetCarousel = () => {
             Thoughtfully arranged bouquets for every
             beautiful moment.
           </p>
-
         </div>
 
         {/* ================= RIGHT SIDE ================= */}
@@ -371,11 +360,9 @@ export const BouquetCarousel = () => {
             sm:w-auto
           "
         >
-
           {/* ================= SEARCH ================= */}
 
           {isSearchOpen ? (
-
             <div
               className="
                 hidden
@@ -392,7 +379,6 @@ export const BouquetCarousel = () => {
                 px-4
               "
             >
-
               <Search
                 size={18}
                 className="text-gray-400 shrink-0"
@@ -432,11 +418,8 @@ export const BouquetCarousel = () => {
               >
                 <X size={17} />
               </button>
-
             </div>
-
           ) : (
-
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
@@ -468,11 +451,8 @@ export const BouquetCarousel = () => {
                 className="sm:w-[19px] sm:h-[19px]"
               />
             </button>
-
           )}
-
         </div>
-
       </div>
 
       {/* ================================================= */}
@@ -496,7 +476,6 @@ export const BouquetCarousel = () => {
             px-3
           "
         >
-
           <Search
             size={17}
             className="
@@ -538,7 +517,6 @@ export const BouquetCarousel = () => {
           >
             <X size={17} />
           </button>
-
         </div>
       )}
 
@@ -555,11 +533,111 @@ export const BouquetCarousel = () => {
           from-pink-300
           via-gray-200
           to-transparent
-          max-sm:from-pink-500
-          max-sm:via-gray-500
-          max-sm:to-transparent
         "
       />
+
+      {/* ================================================= */}
+      {/* MOBILE ARROWS */}
+      {/* ================================================= */}
+
+      {!loading && visibleBouquets.length > 0 && (
+        <div
+          className="
+            flex
+            sm:hidden
+            justify-end
+            items-center
+            gap-2
+            mb-3
+          "
+        >
+          {/* Previous */}
+
+          <button
+            type="button"
+            onClick={handlePrevious}
+            disabled={
+              startIndex === 0 ||
+              loading
+            }
+            aria-label="Previous bouquets"
+            className="
+              w-9
+              h-9
+              rounded-full
+              bg-white
+              border
+              border-gray-200
+              shadow-sm
+              flex
+              items-center
+              justify-center
+              text-gray-700
+
+              hover:bg-pink-500
+              hover:text-white
+              hover:border-pink-500
+
+              active:scale-90
+
+              disabled:opacity-40
+              disabled:cursor-not-allowed
+
+              transition-all
+              duration-300
+            "
+          >
+            <ChevronLeft
+              size={19}
+              strokeWidth={2.7}
+            />
+          </button>
+
+          {/* Next */}
+
+          <button
+            type="button"
+            onClick={handleNext}
+            disabled={
+              loading ||
+              startIndex >=
+                filteredBouquets.length -
+                  visibleCount
+            }
+            aria-label="Next bouquets"
+            className="
+              w-9
+              h-9
+              rounded-full
+              bg-white
+              border
+              border-gray-200
+              shadow-sm
+              flex
+              items-center
+              justify-center
+              text-gray-700
+
+              hover:bg-pink-500
+              hover:text-white
+              hover:border-pink-500
+
+              active:scale-90
+
+              disabled:opacity-40
+              disabled:cursor-not-allowed
+
+              transition-all
+              duration-300
+            "
+          >
+            <ChevronRight
+              size={19}
+              strokeWidth={2.7}
+            />
+          </button>
+        </div>
+      )}
 
       {/* ================================================= */}
       {/* CAROUSEL */}
@@ -570,14 +648,12 @@ export const BouquetCarousel = () => {
           relative
           flex
           items-center
-          gap-1.5
-          sm:gap-5
+          gap-5
           w-full
           min-w-0
         "
       >
-
-        {/* ================= LEFT ARROW ================= */}
+        {/* ================= DESKTOP LEFT ARROW ================= */}
 
         <button
           type="button"
@@ -588,13 +664,13 @@ export const BouquetCarousel = () => {
           }
           aria-label="Previous bouquets"
           className="
+            hidden
+            sm:flex
+
             shrink-0
 
-            w-10
-            h-10
-
-            sm:w-12
-            sm:h-12
+            w-12
+            h-12
 
             rounded-full
 
@@ -602,9 +678,8 @@ export const BouquetCarousel = () => {
             border
             border-gray-300
 
-            shadow-[0_5px_18px_rgba(0,0,0,0.25)]
+            shadow-[0_5px_18px_rgba(0,0,0,0.18)]
 
-            flex
             items-center
             justify-center
 
@@ -621,16 +696,10 @@ export const BouquetCarousel = () => {
 
             transition-all
             duration-300
-
-            max-sm:absolute
-            max-sm:left-2
-            max-sm:top-3
-            max-sm:z-40
           "
         >
           <ChevronLeft
             size={21}
-            className="sm:w-[21px] sm:h-[21px]"
             strokeWidth={2.7}
           />
         </button>
@@ -658,11 +727,9 @@ export const BouquetCarousel = () => {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-
           {/* ================= LOADING ================= */}
 
           {loading ? (
-
             <div
               className="
                 grid
@@ -688,9 +755,7 @@ export const BouquetCarousel = () => {
                 />
               ))}
             </div>
-
           ) : visibleBouquets.length > 0 ? (
-
             /* ================= CARDS ================= */
 
             <div
@@ -711,18 +776,14 @@ export const BouquetCarousel = () => {
                 }
               `}
             >
-
               {visibleBouquets.map((bouquet) => (
                 <BouquetCard
                   key={bouquet._id}
                   bouquet={bouquet}
                 />
               ))}
-
             </div>
-
           ) : (
-
             /* ================= NO SEARCH RESULT ================= */
 
             <div
@@ -738,7 +799,6 @@ export const BouquetCarousel = () => {
                 text-center
               "
             >
-
               <div
                 className="
                   w-14
@@ -767,7 +827,6 @@ export const BouquetCarousel = () => {
                   sm:text-lg
                   font-bold
                   text-gray-800
-                  max-sm:text-white
                 "
               >
                 No bouquets found
@@ -778,7 +837,6 @@ export const BouquetCarousel = () => {
                   text-xs
                   sm:text-sm
                   text-gray-500
-                  max-sm:text-gray-300
                   mt-1
                   max-w-xs
                 "
@@ -786,14 +844,11 @@ export const BouquetCarousel = () => {
                 Try searching with another name,
                 category or occasion.
               </p>
-
             </div>
-
           )}
-
         </div>
 
-        {/* ================= RIGHT ARROW ================= */}
+        {/* ================= DESKTOP RIGHT ARROW ================= */}
 
         <button
           type="button"
@@ -806,13 +861,13 @@ export const BouquetCarousel = () => {
           }
           aria-label="Next bouquets"
           className="
+            hidden
+            sm:flex
+
             shrink-0
 
-            w-10
-            h-10
-
-            sm:w-12
-            sm:h-12
+            w-12
+            h-12
 
             rounded-full
 
@@ -820,9 +875,8 @@ export const BouquetCarousel = () => {
             border
             border-gray-300
 
-            shadow-[0_5px_18px_rgba(0,0,0,0.25)]
+            shadow-[0_5px_18px_rgba(0,0,0,0.18)]
 
-            flex
             items-center
             justify-center
 
@@ -839,20 +893,13 @@ export const BouquetCarousel = () => {
 
             transition-all
             duration-300
-
-            max-sm:absolute
-            max-sm:right-2
-            max-sm:top-3
-            max-sm:z-40
           "
         >
           <ChevronRight
             size={21}
-            className="sm:w-[21px] sm:h-[21px]"
             strokeWidth={2.7}
           />
         </button>
-
       </div>
 
       {/* ================================================= */}
@@ -861,7 +908,6 @@ export const BouquetCarousel = () => {
 
       {!loading &&
         filteredBouquets.length > visibleCount && (
-
           <div
             className="
               flex
@@ -872,14 +918,12 @@ export const BouquetCarousel = () => {
               overflow-hidden
             "
           >
-
             {Array.from({
               length:
                 filteredBouquets.length -
                 visibleCount +
                 1,
             }).map((_, index) => (
-
               <button
                 key={index}
                 type="button"
@@ -908,11 +952,8 @@ export const BouquetCarousel = () => {
                   index + 1
                 }`}
               />
-
             ))}
-
           </div>
-
         )}
 
       {/* ================================================= */}
@@ -960,7 +1001,6 @@ export const BouquetCarousel = () => {
           }
         `}
       </style>
-
     </section>
   );
 };

@@ -61,12 +61,10 @@ export const BouquetSlider = () => {
       ];
     }
 
-    // Pick random 4
     setRandomBouquets(
       shuffled.slice(0, 4)
     );
 
-    // Reset slider
     setCurrentIndex(0);
     setDirection("right");
   }, [heroBouquets]);
@@ -78,7 +76,6 @@ export const BouquetSlider = () => {
   // ==============================
 
   const HandleClick = (id) => {
-    // Swipe ke baad click nahi hona chahiye
     if (hasSwiped.current) {
       hasSwiped.current = false;
       return;
@@ -165,20 +162,15 @@ export const BouquetSlider = () => {
 
     isDragging.current = false;
 
-    // Minimum swipe distance
     if (Math.abs(difference) < 50) {
       return;
     }
 
     hasSwiped.current = true;
 
-    // Mouse LEFT → NEXT
     if (difference > 0) {
       handleNext();
-    }
-
-    // Mouse RIGHT → PREVIOUS
-    else {
+    } else {
       handlePrevious();
     }
   };
@@ -237,20 +229,15 @@ export const BouquetSlider = () => {
 
     isDragging.current = false;
 
-    // Minimum swipe
     if (Math.abs(difference) < 50) {
       return;
     }
 
     hasSwiped.current = true;
 
-    // Swipe LEFT → NEXT
     if (difference > 0) {
       handleNext();
-    }
-
-    // Swipe RIGHT → PREVIOUS
-    else {
+    } else {
       handlePrevious();
     }
   };
@@ -272,7 +259,9 @@ export const BouquetSlider = () => {
         w-full
         max-w-full
         overflow-hidden
+        bg-white
         px-2.5
+        min-[380px]:px-3
         sm:px-6
         lg:px-10
         py-4
@@ -341,13 +330,14 @@ export const BouquetSlider = () => {
                 "
               />
 
-              {/* Soft Layer */}
+              {/* SOFT LAYER */}
 
               <div
                 className="
                   absolute
                   inset-0
-                  bg-white/30
+                  bg-white/20
+                  sm:bg-white/30
                   pointer-events-none
                 "
               />
@@ -379,8 +369,6 @@ export const BouquetSlider = () => {
                     min-[380px]:p-3
                     sm:p-5
                     lg:p-7
-                    transition-transform
-                    duration-700
                   "
                 />
 
@@ -415,8 +403,8 @@ export const BouquetSlider = () => {
               inset-0
               z-10
               bg-gradient-to-r
-              from-black/60
-              via-black/20
+              from-black/70
+              via-black/30
               to-transparent
               pointer-events-none
             "
@@ -428,11 +416,12 @@ export const BouquetSlider = () => {
             className="
               absolute
               left-4
-              right-4
+              right-12
               sm:left-8
               sm:right-auto
               lg:left-14
-              bottom-12
+              bottom-10
+              min-[380px]:bottom-12
               sm:bottom-16
               max-w-xl
               text-white
@@ -441,11 +430,12 @@ export const BouquetSlider = () => {
             "
           >
 
-            {/* Occasion */}
+            {/* OCCASION */}
 
             <p
               className="
                 text-[10px]
+                min-[380px]:text-xs
                 sm:text-sm
                 uppercase
                 tracking-[0.14em]
@@ -459,7 +449,7 @@ export const BouquetSlider = () => {
                 "Special Collection"}
             </p>
 
-            {/* Name */}
+            {/* NAME */}
 
             <h1
               className="
@@ -478,7 +468,7 @@ export const BouquetSlider = () => {
               {currentBouquet.name}
             </h1>
 
-            {/* Description */}
+            {/* DESCRIPTION */}
 
             <p
               className="
@@ -486,10 +476,11 @@ export const BouquetSlider = () => {
                 sm:mt-3
                 max-w-lg
                 text-xs
+                min-[380px]:text-sm
                 sm:text-base
                 leading-5
                 sm:leading-6
-                text-white/85
+                text-white/90
                 line-clamp-2
                 drop-shadow
               "
@@ -512,7 +503,7 @@ export const BouquetSlider = () => {
               "
             >
 
-              {/* Price */}
+              {/* PRICE */}
 
               <span
                 className="
@@ -534,7 +525,7 @@ export const BouquetSlider = () => {
                 ₹{currentBouquet.price}
               </span>
 
-              {/* Size */}
+              {/* SIZE */}
 
               {currentBouquet.size && (
                 <span
@@ -545,10 +536,10 @@ export const BouquetSlider = () => {
                     sm:py-2
                     rounded-lg
                     sm:rounded-xl
-                    bg-black/20
+                    bg-black/30
                     backdrop-blur-sm
                     border
-                    border-white/20
+                    border-white/30
                     text-white
                     text-xs
                     sm:text-sm
@@ -560,7 +551,7 @@ export const BouquetSlider = () => {
                 </span>
               )}
 
-              {/* Flower Count */}
+              {/* FLOWER COUNT */}
 
               {currentBouquet.flowerCount && (
                 <span
@@ -570,7 +561,7 @@ export const BouquetSlider = () => {
                     px-3
                     py-2
                     rounded-xl
-                    bg-black/20
+                    bg-black/30
                     backdrop-blur-sm
                     border
                     border-white/20
@@ -584,7 +575,7 @@ export const BouquetSlider = () => {
                 </span>
               )}
 
-              {/* View Details */}
+              {/* VIEW DETAILS */}
 
               <span
                 onClick={(e) => {
@@ -644,19 +635,24 @@ export const BouquetSlider = () => {
           className="
             absolute
             left-2
+            min-[380px]:left-2.5
             sm:left-6
             top-1/2
             -translate-y-1/2
             z-30
             w-8
             h-8
+            min-[380px]:w-9
+            min-[380px]:h-9
             sm:w-12
             sm:h-12
             rounded-full
-            bg-white/90
+            bg-white/95
             backdrop-blur-sm
             text-gray-800
-            shadow-lg
+            shadow-xl
+            border
+            border-white/60
             flex
             items-center
             justify-center
@@ -671,7 +667,12 @@ export const BouquetSlider = () => {
         >
           <ChevronLeft
             size={18}
-            className="sm:w-[22px] sm:h-[22px]"
+            className="sm:hidden"
+          />
+
+          <ChevronLeft
+            size={22}
+            className="hidden sm:block"
           />
         </button>
 
@@ -688,19 +689,24 @@ export const BouquetSlider = () => {
           className="
             absolute
             right-2
+            min-[380px]:right-2.5
             sm:right-6
             top-1/2
             -translate-y-1/2
             z-30
             w-8
             h-8
+            min-[380px]:w-9
+            min-[380px]:h-9
             sm:w-12
             sm:h-12
             rounded-full
-            bg-white/90
+            bg-white/95
             backdrop-blur-sm
             text-gray-800
-            shadow-lg
+            shadow-xl
+            border
+            border-white/60
             flex
             items-center
             justify-center
@@ -715,7 +721,12 @@ export const BouquetSlider = () => {
         >
           <ChevronRight
             size={18}
-            className="sm:w-[22px] sm:h-[22px]"
+            className="sm:hidden"
+          />
+
+          <ChevronRight
+            size={22}
+            className="hidden sm:block"
           />
         </button>
 
@@ -738,7 +749,7 @@ export const BouquetSlider = () => {
             py-1.5
             sm:py-2
             rounded-full
-            bg-black/20
+            bg-black/25
             backdrop-blur-sm
           "
         >
@@ -797,12 +808,14 @@ export const BouquetSlider = () => {
             py-1
             sm:py-1.5
             rounded-full
-            bg-black/20
+            bg-black/30
             backdrop-blur-sm
             text-white
             text-[10px]
             sm:text-xs
             font-semibold
+            border
+            border-white/10
           "
         >
           {currentIndex + 1} / {bouquets.length}
