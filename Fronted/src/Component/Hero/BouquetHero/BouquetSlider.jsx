@@ -609,6 +609,7 @@ export const BouquetSlider = () => {
         </div>
 
         {/* ================= LEFT ARROW ================= */}
+        {/* MOBILE PAR HIDDEN, SM+ PAR VISIBLE */}
 
         <button
           type="button"
@@ -619,23 +620,15 @@ export const BouquetSlider = () => {
           }}
           aria-label="Previous bouquet"
           className="
+            hidden
+            sm:flex
             absolute
             z-30
-
-            /* MOBILE */
-            top-3
-            right-[112px]
-            w-8
-            h-8
-
-            /* TABLET / DESKTOP */
-            sm:left-6
-            sm:right-auto
-            sm:top-1/2
-            sm:-translate-y-1/2
-            sm:w-12
-            sm:h-12
-
+            left-6
+            top-1/2
+            -translate-y-1/2
+            w-12
+            h-12
             rounded-full
             bg-white/95
             backdrop-blur-sm
@@ -643,7 +636,6 @@ export const BouquetSlider = () => {
             shadow-xl
             border
             border-white/60
-            flex
             items-center
             justify-center
             hover:bg-pink-500
@@ -659,6 +651,7 @@ export const BouquetSlider = () => {
         </button>
 
         {/* ================= RIGHT ARROW ================= */}
+        {/* MOBILE PAR HIDDEN, SM+ PAR VISIBLE */}
 
         <button
           type="button"
@@ -669,22 +662,15 @@ export const BouquetSlider = () => {
           }}
           aria-label="Next bouquet"
           className="
+            hidden
+            sm:flex
             absolute
             z-30
-
-            /* MOBILE */
-            top-3
-            right-[72px]
-            w-8
-            h-8
-
-            /* TABLET / DESKTOP */
-            sm:right-6
-            sm:top-1/2
-            sm:-translate-y-1/2
-            sm:w-12
-            sm:h-12
-
+            right-6
+            top-1/2
+            -translate-y-1/2
+            w-12
+            h-12
             rounded-full
             bg-white/95
             backdrop-blur-sm
@@ -692,7 +678,6 @@ export const BouquetSlider = () => {
             shadow-xl
             border
             border-white/60
-            flex
             items-center
             justify-center
             hover:bg-pink-500
