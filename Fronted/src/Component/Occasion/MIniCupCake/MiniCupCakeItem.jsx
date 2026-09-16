@@ -21,15 +21,21 @@ export const MiniCupCakeItem = ({ miniCupCake }) => {
     (state) => state.user
   );
 
-  // ================= CART =================
+  // ==============================
+  // GET CART
+  // ==============================
 
   useEffect(() => {
     if (isAuthorized) {
-      dispatch(GetAllMiniCupcakeFromCartThunk());
+      dispatch(
+        GetAllMiniCupcakeFromCartThunk()
+      );
     }
   }, [isAuthorized, dispatch]);
 
-  // ================= CHECK ALREADY IN CART =================
+  // ==============================
+  // CHECK ALREADY IN CART
+  // ==============================
 
   const isInCart = miniCupCakeFromCart.some(
     (item) =>
@@ -37,7 +43,9 @@ export const MiniCupCakeItem = ({ miniCupCake }) => {
       miniCupCake?._id?.toString()
   );
 
-  // ================= ADD TO CART =================
+  // ==============================
+  // ADD TO CART
+  // ==============================
 
   const HandleAddToCart = async (id) => {
     if (!isAuthorized) {
@@ -51,9 +59,13 @@ export const MiniCupCakeItem = ({ miniCupCake }) => {
       );
 
       if (
-        AddMiniCupcakeToCartThunk.fulfilled.match(result)
+        AddMiniCupcakeToCartThunk.fulfilled.match(
+          result
+        )
       ) {
-        toast.success("Mini Cupcake added to cart");
+        toast.success(
+          "Mini Cupcake added to cart"
+        );
       } else {
         toast.error(
           result.payload ||
@@ -61,46 +73,53 @@ export const MiniCupCakeItem = ({ miniCupCake }) => {
         );
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error(
+        "Something went wrong"
+      );
     }
   };
 
   return (
-    <div className="
-      group
-      w-full
-      min-w-0
-      bg-white
-      rounded-xl
-      sm:rounded-2xl
-      border
-      border-gray-100
-      overflow-hidden
-      shadow-sm
-      hover:shadow-md
-      hover:-translate-y-0.5
-      transition-all
-      duration-200
-    ">
-
-      {/* IMAGE */}
-
-      <div className="
+    <div
+      className="
+        group
         w-full
-        h-28
-        min-[380px]:h-32
-        sm:h-36
-        bg-pink-50
+        min-w-0
+        bg-white
+        rounded-xl
+        border
+        border-gray-100
         overflow-hidden
-      ">
+        shadow-sm
+        hover:shadow-md
+        hover:-translate-y-0.5
+        transition-all
+        duration-200
+      "
+    >
+      {/* ==============================
+          IMAGE
+      ============================== */}
 
+      <div
+        className="
+          relative
+          h-28
+          min-[380px]:h-32
+          sm:h-36
+          md:h-40
+          bg-gray-50
+          overflow-hidden
+        "
+      >
         {miniCupCake?.image ? (
           <img
             src={miniCupCake.image}
             alt={
               miniCupCake?.name ||
-              "Mini CupCake"
+              "Mini Cupcake"
             }
+            draggable="false"
             className="
               w-full
               h-full
@@ -109,58 +128,82 @@ export const MiniCupCakeItem = ({ miniCupCake }) => {
               transition-transform
               duration-300
             "
+            onError={(e) => {
+              e.currentTarget.style.display =
+                "none";
+            }}
           />
         ) : (
-          <div className="
-            w-full
-            h-full
-            flex
-            items-center
-            justify-center
-            text-3xl
-            min-[380px]:text-4xl
-          ">
+          <div
+            className="
+              w-full
+              h-full
+              flex
+              items-center
+              justify-center
+              text-3xl
+              min-[380px]:text-4xl
+            "
+          >
             🧁
           </div>
         )}
-
       </div>
 
-      {/* CONTENT */}
+      {/* ==============================
+          CONTENT
+      ============================== */}
 
-      <div className="
-        p-2.5
-        min-[380px]:p-3
-        min-w-0
-      ">
-
+      <div
+        className="
+          p-2.5
+          min-[380px]:p-3
+          sm:p-3.5
+          md:p-4
+          min-w-0
+        "
+      >
         {/* NAME */}
 
-        <h3 className="
-          text-xs
-          min-[380px]:text-sm
-          font-bold
-          text-gray-800
-          truncate
-        ">
+        <h3
+          className="
+            text-xs
+            min-[380px]:text-sm
+            sm:text-[15px]
+            md:text-base
+            font-semibold
+            text-gray-800
+            line-clamp-2
+            break-words
+            leading-4
+            sm:leading-5
+            min-h-[32px]
+            sm:min-h-[40px]
+          "
+        >
           {miniCupCake?.name ||
-            "Delicious Mini CupCake"}
+            "Delicious Mini Cupcake"}
         </h3>
 
         {/* PRICE */}
 
-        <p className="
-          text-sm
-          min-[380px]:text-base
-          font-extrabold
-          text-gray-900
-          mt-0.5
-          min-[380px]:mt-1
-        ">
+        <p
+          className="
+            text-sm
+            min-[380px]:text-base
+            sm:text-lg
+            font-bold
+            text-gray-900
+            mt-1.5
+            sm:mt-2
+          "
+        >
           ₹{miniCupCake?.price ?? 0}
         </p>
 
-        {/* ADD TO CART */}
+        {/* ==============================
+            ADD TO CART
+        ============================== */}
 
         <button
           type="button"
@@ -169,49 +212,61 @@ export const MiniCupCakeItem = ({ miniCupCake }) => {
             isInCart
           }
           onClick={() =>
-            HandleAddToCart(miniCupCake?._id)
+            HandleAddToCart(
+              miniCupCake?._id
+            )
           }
           className="
             w-full
-            h-8
-            min-[380px]:h-9
-            mt-2
-            min-[380px]:mt-2.5
+            h-9
+            min-[380px]:h-10
+            sm:h-11
+            mt-2.5
+            sm:mt-3
+            px-2
+            sm:px-3
             rounded-lg
             bg-gray-900
             text-white
             flex
             items-center
             justify-center
-            gap-1
-            min-[380px]:gap-1.5
+            gap-1.5
+            sm:gap-2
             text-[10px]
             min-[380px]:text-xs
+            sm:text-sm
             font-semibold
-            hover:bg-pink-500
+            whitespace-nowrap
+            hover:bg-gray-800
             active:scale-[0.98]
             disabled:bg-gray-200
             disabled:text-gray-400
             disabled:cursor-not-allowed
             transition-all
             cursor-pointer
-            whitespace-nowrap
           "
         >
           <ShoppingBag
-            size={13}
-            className="min-[380px]:w-3.5 min-[380px]:h-3.5"
+            size={14}
+            className="
+              shrink-0
+              min-[380px]:w-[15px]
+              min-[380px]:h-[15px]
+              sm:w-4
+              sm:h-4
+            "
           />
 
-          {isInCart
-            ? "Added to Cart"
-            : miniCupCake?.isAvailable
-              ? "Add to Cart"
-              : "Unavailable"}
+          <span className="truncate">
+            {isInCart
+              ? "Added to Cart"
+              : miniCupCake?.isAvailable
+                ? "Add to Cart"
+                : "Unavailable"}
+          </span>
         </button>
-
       </div>
-
     </div>
   );
 };

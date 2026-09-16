@@ -21,15 +21,21 @@ export const ChocolateItem = ({ chocolate }) => {
     (state) => state.user
   );
 
-  // ================= CART =================
+  // ==============================
+  // GET CART
+  // ==============================
 
   useEffect(() => {
     if (isAuthorized) {
-      dispatch(GetAllChocolateFromCartThunk());
+      dispatch(
+        GetAllChocolateFromCartThunk()
+      );
     }
   }, [isAuthorized, dispatch]);
 
-  // ================= CHECK ALREADY IN CART =================
+  // ==============================
+  // CHECK ALREADY IN CART
+  // ==============================
 
   const isInCart = chocolateFromCart.some(
     (item) =>
@@ -37,7 +43,9 @@ export const ChocolateItem = ({ chocolate }) => {
       chocolate?._id?.toString()
   );
 
-  // ================= ADD TO CART =================
+  // ==============================
+  // ADD TO CART
+  // ==============================
 
   const HandleAddToCart = async (id) => {
     if (!isAuthorized) {
@@ -51,9 +59,13 @@ export const ChocolateItem = ({ chocolate }) => {
       );
 
       if (
-        AddChocolateToCartThunk.fulfilled.match(result)
+        AddChocolateToCartThunk.fulfilled.match(
+          result
+        )
       ) {
-        toast.success("Chocolate added to cart");
+        toast.success(
+          "Chocolate added to cart"
+        );
       } else {
         toast.error(
           result.payload ||
@@ -61,7 +73,9 @@ export const ChocolateItem = ({ chocolate }) => {
         );
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error(
+        "Something went wrong"
+      );
     }
   };
 
@@ -83,22 +97,21 @@ export const ChocolateItem = ({ chocolate }) => {
         duration-200
       "
     >
-
       {/* ==============================
           IMAGE
       ============================== */}
 
       <div
         className="
-          w-full
+          relative
           h-28
           min-[380px]:h-32
           sm:h-36
-          bg-amber-50
+          md:h-40
+          bg-gray-50
           overflow-hidden
         "
       >
-
         {chocolate?.image ? (
           <img
             src={chocolate.image}
@@ -106,6 +119,7 @@ export const ChocolateItem = ({ chocolate }) => {
               chocolate?.name ||
               "Chocolate"
             }
+            draggable="false"
             className="
               w-full
               h-full
@@ -114,6 +128,10 @@ export const ChocolateItem = ({ chocolate }) => {
               transition-transform
               duration-300
             "
+            onError={(e) => {
+              e.currentTarget.style.display =
+                "none";
+            }}
           />
         ) : (
           <div
@@ -130,7 +148,6 @@ export const ChocolateItem = ({ chocolate }) => {
             🍫
           </div>
         )}
-
       </div>
 
       {/* ==============================
@@ -141,19 +158,27 @@ export const ChocolateItem = ({ chocolate }) => {
         className="
           p-2.5
           min-[380px]:p-3
+          sm:p-3.5
+          md:p-4
           min-w-0
         "
       >
-
         {/* NAME */}
 
         <h3
           className="
             text-xs
             min-[380px]:text-sm
-            font-bold
+            sm:text-[15px]
+            md:text-base
+            font-semibold
             text-gray-800
-            truncate
+            line-clamp-2
+            break-words
+            leading-4
+            sm:leading-5
+            min-h-[32px]
+            sm:min-h-[40px]
           "
         >
           {chocolate?.name ||
@@ -166,9 +191,11 @@ export const ChocolateItem = ({ chocolate }) => {
           className="
             text-sm
             min-[380px]:text-base
-            font-extrabold
+            sm:text-lg
+            font-bold
             text-gray-900
-            mt-1
+            mt-1.5
+            sm:mt-2
           "
         >
           ₹{chocolate?.price ?? 0}
@@ -185,39 +212,50 @@ export const ChocolateItem = ({ chocolate }) => {
             isInCart
           }
           onClick={() =>
-            HandleAddToCart(chocolate?._id)
+            HandleAddToCart(
+              chocolate?._id
+            )
           }
           className="
             w-full
-            h-8
-            min-[380px]:h-9
-            mt-2
-            min-[380px]:mt-2.5
+            h-9
+            min-[380px]:h-10
+            sm:h-11
+            mt-2.5
+            sm:mt-3
+            px-2
+            sm:px-3
             rounded-lg
             bg-gray-900
             text-white
             flex
             items-center
             justify-center
-            gap-1
-            min-[380px]:gap-1.5
+            gap-1.5
+            sm:gap-2
             text-[10px]
             min-[380px]:text-xs
+            sm:text-sm
             font-semibold
-            hover:bg-pink-500
+            whitespace-nowrap
+            hover:bg-gray-800
             active:scale-[0.98]
             disabled:bg-gray-200
             disabled:text-gray-400
             disabled:cursor-not-allowed
             transition-all
             cursor-pointer
-            px-1.5
           "
         >
-
           <ShoppingBag
-            size={13}
-            className="shrink-0 min-[380px]:w-[14px] min-[380px]:h-[14px]"
+            size={14}
+            className="
+              shrink-0
+              min-[380px]:w-[15px]
+              min-[380px]:h-[15px]
+              sm:w-4
+              sm:h-4
+            "
           />
 
           <span className="truncate">
@@ -227,11 +265,8 @@ export const ChocolateItem = ({ chocolate }) => {
                 ? "Add to Cart"
                 : "Unavailable"}
           </span>
-
         </button>
-
       </div>
-
     </div>
   );
 };

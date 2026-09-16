@@ -12,6 +12,15 @@ import { useNavigate } from "react-router-dom";
 export const About = () => {
   const navigate = useNavigate();
 
+  // Back button handler
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#fffafa] text-gray-800">
       {/* =====================================================
@@ -48,26 +57,26 @@ export const About = () => {
         />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-          {/* Back */}
+          {/* BACK BUTTON */}
 
-         <button
-  type="button"
-  onClick={() => navigate('/')}
-  className="
-    inline-flex
-    items-center
-    gap-2
-    text-sm
-    font-medium
-    text-gray-500
-    hover:text-pink-600
-    transition-colors
-    cursor-pointer
-  "
->
-  <ArrowLeft size={17} />
-  Back
-</button>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="
+              inline-flex
+              items-center
+              gap-2
+              text-sm
+              font-medium
+              text-gray-500
+              hover:text-pink-600
+              transition-colors
+              cursor-pointer
+            "
+          >
+            <ArrowLeft size={17} />
+            Back
+          </button>
 
           {/* Hero Content */}
 
@@ -116,7 +125,9 @@ export const About = () => {
                 "
               >
                 Flowers that make
-                <span className="block text-pink-500">moments beautiful.</span>
+                <span className="block text-pink-500">
+                  moments beautiful.
+                </span>
               </h1>
 
               <p
@@ -130,9 +141,9 @@ export const About = () => {
                 "
               >
                 At Flower, we believe that every special moment deserves
-                something beautiful. We bring together fresh flowers, thoughtful
-                bouquets and elegant gifts to make your celebrations more
-                memorable.
+                something beautiful. We bring together fresh flowers,
+                thoughtful bouquets and elegant gifts to make your
+                celebrations more memorable.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-7">
@@ -318,8 +329,8 @@ export const About = () => {
             >
               Flower was created with a simple idea — gifting should feel
               personal, beautiful and effortless. Whether it is a birthday,
-              anniversary, celebration or simply a way to say thank you, we help
-              you find something that expresses your feelings.
+              anniversary, celebration or simply a way to say thank you, we
+              help you find something that expresses your feelings.
             </p>
 
             <p
@@ -330,9 +341,9 @@ export const About = () => {
                 text-gray-500
               "
             >
-              From carefully selected flowers to thoughtfully designed bouquets
-              and gifts, every product is chosen with attention to quality and
-              presentation.
+              From carefully selected flowers to thoughtfully designed
+              bouquets and gifts, every product is chosen with attention to
+              quality and presentation.
             </p>
           </div>
 
@@ -373,13 +384,7 @@ export const About = () => {
               your flowers to receiving them at your doorstep.
             </p>
 
-            <div
-              className="
-                mt-6
-                h-px
-                bg-gray-100
-              "
-            />
+            <div className="mt-6 h-px bg-gray-100" />
 
             <div className="flex items-center gap-3 mt-5">
               <div
@@ -481,7 +486,9 @@ export const About = () => {
                 <Flower2 size={20} className="text-pink-500" />
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">Fresh Flowers</h3>
+              <h3 className="font-bold text-gray-800 mt-4">
+                Fresh Flowers
+              </h3>
 
               <p className="text-xs text-gray-400 mt-2 leading-5">
                 Carefully selected flowers for beautiful arrangements.
@@ -518,7 +525,9 @@ export const About = () => {
                 <Truck size={20} className="text-purple-500" />
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">Easy Delivery</h3>
+              <h3 className="font-bold text-gray-800 mt-4">
+                Easy Delivery
+              </h3>
 
               <p className="text-xs text-gray-400 mt-2 leading-5">
                 Convenient delivery designed to make gifting easier.
@@ -555,7 +564,9 @@ export const About = () => {
                 <ShieldCheck size={20} className="text-green-500" />
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">Quality Assured</h3>
+              <h3 className="font-bold text-gray-800 mt-4">
+                Quality Assured
+              </h3>
 
               <p className="text-xs text-gray-400 mt-2 leading-5">
                 Quality products selected with care and attention.
@@ -596,7 +607,9 @@ export const About = () => {
                 />
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">Made with Love</h3>
+              <h3 className="font-bold text-gray-800 mt-4">
+                Made with Love
+              </h3>
 
               <p className="text-xs text-gray-400 mt-2 leading-5">
                 Every order is prepared with care for your special moments.

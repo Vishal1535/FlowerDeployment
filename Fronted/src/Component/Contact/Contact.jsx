@@ -22,6 +22,15 @@ export const Contact = () => {
     message: "",
   });
 
+  // Back button
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -89,21 +98,23 @@ export const Contact = () => {
           "
         />
 
-        <div className="
-          max-w-6xl
-          mx-auto
-          px-3
-          min-[380px]:px-4
-          sm:px-6
-          py-5
-          sm:py-8
-        ">
+        <div
+          className="
+            max-w-6xl
+            mx-auto
+            px-3
+            min-[380px]:px-4
+            sm:px-6
+            py-5
+            sm:py-8
+          "
+        >
 
           {/* BACK BUTTON */}
 
           <button
             type="button"
-            onClick={() => navigate('/')}
+            onClick={handleBack}
             className="
               inline-flex
               items-center
@@ -127,12 +138,14 @@ export const Contact = () => {
 
           {/* HERO CONTENT */}
 
-          <div className="
-            text-center
-            py-8
-            min-[380px]:py-10
-            sm:py-12
-          ">
+          <div
+            className="
+              text-center
+              py-8
+              min-[380px]:py-10
+              sm:py-12
+            "
+          >
 
             <div
               className="
@@ -159,6 +172,7 @@ export const Contact = () => {
                 size={14}
                 className="sm:w-4 sm:h-4 shrink-0"
               />
+
               <span className="truncate">
                 Contact Flower
               </span>
@@ -211,15 +225,17 @@ export const Contact = () => {
           CONTACT SECTION
       ===================================================== */}
 
-      <section className="
-        max-w-6xl
-        mx-auto
-        px-3
-        min-[380px]:px-4
-        sm:px-6
-        pb-10
-        sm:pb-16
-      ">
+      <section
+        className="
+          max-w-6xl
+          mx-auto
+          px-3
+          min-[380px]:px-4
+          sm:px-6
+          pb-10
+          sm:pb-16
+        "
+      >
 
         <div
           className="
@@ -284,15 +300,17 @@ export const Contact = () => {
                 Have a question? Drop us an email.
               </p>
 
-              <p className="
-                text-xs
-                sm:text-sm
-                font-medium
-                text-gray-700
-                mt-2
-                sm:mt-3
-                break-all
-              ">
+              <p
+                className="
+                  text-xs
+                  sm:text-sm
+                  font-medium
+                  text-gray-700
+                  mt-2
+                  sm:mt-3
+                  break-all
+                "
+              >
                 support@flower.com
               </p>
 
@@ -345,14 +363,16 @@ export const Contact = () => {
                 We're happy to help with your queries.
               </p>
 
-              <p className="
-                text-xs
-                sm:text-sm
-                font-medium
-                text-gray-700
-                mt-2
-                sm:mt-3
-              ">
+              <p
+                className="
+                  text-xs
+                  sm:text-sm
+                  font-medium
+                  text-gray-700
+                  mt-2
+                  sm:mt-3
+                "
+              >
                 +91 98765 43210
               </p>
 
@@ -405,14 +425,16 @@ export const Contact = () => {
                 Come say hello to us.
               </p>
 
-              <p className="
-                text-xs
-                sm:text-sm
-                font-medium
-                text-gray-700
-                mt-2
-                sm:mt-3
-              ">
+              <p
+                className="
+                  text-xs
+                  sm:text-sm
+                  font-medium
+                  text-gray-700
+                  mt-2
+                  sm:mt-3
+                "
+              >
                 Mumbai, Maharashtra, India
               </p>
 
@@ -463,13 +485,15 @@ export const Contact = () => {
                     Support Hours
                   </h3>
 
-                  <p className="
-                    text-[10px]
-                    min-[380px]:text-xs
-                    text-gray-500
-                    mt-1
-                    truncate
-                  ">
+                  <p
+                    className="
+                      text-[10px]
+                      min-[380px]:text-xs
+                      text-gray-500
+                      mt-1
+                      truncate
+                    "
+                  >
                     Monday – Saturday · 9:00 AM – 7:00 PM
                   </p>
 
@@ -501,10 +525,7 @@ export const Contact = () => {
 
             {/* FORM HEADER */}
 
-            <div className="
-              mb-5
-              sm:mb-7
-            ">
+            <div className="mb-5 sm:mb-7">
 
               <div className="flex items-center gap-2 min-w-0">
 
@@ -531,13 +552,15 @@ export const Contact = () => {
 
                 <div className="min-w-0">
 
-                  <h2 className="
-                    text-lg
-                    min-[380px]:text-xl
-                    font-bold
-                    text-gray-900
-                    truncate
-                  ">
+                  <h2
+                    className="
+                      text-lg
+                      min-[380px]:text-xl
+                      font-bold
+                      text-gray-900
+                      truncate
+                    "
+                  >
                     Send us a message
                   </h2>
 
@@ -760,6 +783,7 @@ export const Contact = () => {
                 "
               >
                 Send Message
+
                 <Send
                   size={16}
                   className="sm:w-[17px] sm:h-[17px]"
@@ -778,15 +802,17 @@ export const Contact = () => {
           BOTTOM
       ===================================================== */}
 
-      <section className="
-        max-w-6xl
-        mx-auto
-        px-3
-        min-[380px]:px-4
-        sm:px-6
-        pb-8
-        sm:pb-14
-      ">
+      <section
+        className="
+          max-w-6xl
+          mx-auto
+          px-3
+          min-[380px]:px-4
+          sm:px-6
+          pb-8
+          sm:pb-14
+        "
+      >
 
         <div
           className="

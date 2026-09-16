@@ -19,7 +19,9 @@ export const CardItem = ({ card }) => {
     (state) => state.user
   );
 
-  // ================= CART =================
+  // ==============================
+  // GET CART
+  // ==============================
 
   useEffect(() => {
     if (isAuthorized) {
@@ -27,7 +29,9 @@ export const CardItem = ({ card }) => {
     }
   }, [isAuthorized, dispatch]);
 
-  // Check whether card is already in cart
+  // ==============================
+  // CHECK ALREADY IN CART
+  // ==============================
 
   const isInCart = cardFromCart.some(
     (item) =>
@@ -35,7 +39,9 @@ export const CardItem = ({ card }) => {
       card?._id?.toString()
   );
 
-  // ================= ADD TO CART =================
+  // ==============================
+  // ADD TO CART
+  // ==============================
 
   const HandleAddToCart = async (id) => {
     if (!isAuthorized) {
@@ -48,7 +54,11 @@ export const CardItem = ({ card }) => {
         AddCardToCartThunk(id)
       );
 
-      if (AddCardToCartThunk.fulfilled.match(result)) {
+      if (
+        AddCardToCartThunk.fulfilled.match(
+          result
+        )
+      ) {
         toast.success("Card added to cart");
       } else {
         toast.error(
@@ -79,8 +89,9 @@ export const CardItem = ({ card }) => {
         duration-200
       "
     >
-
-      {/* IMAGE */}
+      {/* ==============================
+          IMAGE
+      ============================== */}
 
       <div
         className="
@@ -88,46 +99,82 @@ export const CardItem = ({ card }) => {
           h-28
           min-[380px]:h-32
           sm:h-36
-          bg-pink-50
+          md:h-40
+          bg-gray-50
           overflow-hidden
         "
       >
-        <img
-          src={card?.image}
-          alt={card?.name || "Greeting Card"}
-          className="
-            w-full
-            h-full
-            object-cover
-            group-hover:scale-105
-            transition-transform
-            duration-300
-          "
-        />
+        {card?.image ? (
+          <img
+            src={card.image}
+            alt={
+              card?.name ||
+              "Greeting Card"
+            }
+            draggable="false"
+            className="
+              w-full
+              h-full
+              object-cover
+              group-hover:scale-105
+              transition-transform
+              duration-300
+            "
+            onError={(e) => {
+              e.currentTarget.style.display =
+                "none";
+            }}
+          />
+        ) : (
+          <div
+            className="
+              w-full
+              h-full
+              flex
+              items-center
+              justify-center
+              text-3xl
+              min-[380px]:text-4xl
+            "
+          >
+            💌
+          </div>
+        )}
       </div>
 
-      {/* CONTENT */}
+      {/* ==============================
+          CONTENT
+      ============================== */}
 
       <div
         className="
           p-2.5
           min-[380px]:p-3
+          sm:p-3.5
+          md:p-4
           min-w-0
         "
       >
-
         {/* NAME */}
 
         <h3
           className="
             text-xs
             min-[380px]:text-sm
-            font-bold
+            sm:text-[15px]
+            md:text-base
+            font-semibold
             text-gray-800
-            truncate
+            line-clamp-2
+            break-words
+            leading-4
+            sm:leading-5
+            min-h-[32px]
+            sm:min-h-[40px]
           "
         >
-          {card?.name || "Beautiful Card"}
+          {card?.name ||
+            "Beautiful Card"}
         </h3>
 
         {/* PRICE */}
@@ -136,52 +183,71 @@ export const CardItem = ({ card }) => {
           className="
             text-sm
             min-[380px]:text-base
-            font-extrabold
+            sm:text-lg
+            font-bold
             text-gray-900
-            mt-1
+            mt-1.5
+            sm:mt-2
           "
         >
           ₹{card?.price ?? 0}
         </p>
 
-        {/* ADD TO CART */}
+        {/* ==============================
+            ADD TO CART
+        ============================== */}
 
         <button
           type="button"
-          disabled={!card?.isAvailable || isInCart}
+          disabled={
+            !card?.isAvailable ||
+            isInCart
+          }
           onClick={() =>
-            HandleAddToCart(card?._id)
+            HandleAddToCart(
+              card?._id
+            )
           }
           className="
             w-full
-            h-8
-            min-[380px]:h-9
-            mt-2
-            min-[380px]:mt-2.5
+            h-9
+            min-[380px]:h-10
+            sm:h-11
+            mt-2.5
+            sm:mt-3
+            px-2
+            sm:px-3
             rounded-lg
             bg-gray-900
             text-white
             flex
             items-center
             justify-center
-            gap-1
-            min-[380px]:gap-1.5
+            gap-1.5
+            sm:gap-2
             text-[10px]
             min-[380px]:text-xs
+            sm:text-sm
             font-semibold
-            hover:bg-pink-500
+            whitespace-nowrap
+            hover:bg-gray-800
             active:scale-[0.98]
             disabled:bg-gray-200
             disabled:text-gray-400
             disabled:cursor-not-allowed
             transition-all
             cursor-pointer
-            px-1.5
           "
         >
           <ShoppingBag
-            size={13}
-            className="shrink-0 min-[380px]:w-[14px] min-[380px]:h-[14px]"
+            size={14}
+            className="
+              shrink-0
+              min-[380px]:w-[15px]
+              min-[380px]:h-[15px]
+              sm:w-4
+              sm:h-4
+            "
           />
 
           <span className="truncate">
@@ -192,9 +258,7 @@ export const CardItem = ({ card }) => {
                 : "Unavailable"}
           </span>
         </button>
-
       </div>
-
     </div>
   );
 };
