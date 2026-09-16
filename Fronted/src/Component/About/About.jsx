@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   ArrowLeft,
@@ -15,13 +14,11 @@ export const About = () => {
 
   return (
     <div className="min-h-screen bg-[#fffafa] text-gray-800">
-
       {/* =====================================================
           HERO
       ===================================================== */}
 
       <section className="relative overflow-hidden">
-
         {/* Decorative Background */}
 
         <div
@@ -51,12 +48,11 @@ export const About = () => {
         />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-
           {/* Back */}
 
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/')}
             className="
               inline-flex
               items-center
@@ -85,11 +81,9 @@ export const About = () => {
               py-10
             "
           >
-
             {/* LEFT */}
 
             <div>
-
               <div
                 className="
                   inline-flex
@@ -122,9 +116,7 @@ export const About = () => {
                 "
               >
                 Flowers that make
-                <span className="block text-pink-500">
-                  moments beautiful.
-                </span>
+                <span className="block text-pink-500">moments beautiful.</span>
               </h1>
 
               <p
@@ -137,14 +129,13 @@ export const About = () => {
                   sm:text-base
                 "
               >
-                At Flower, we believe that every special moment
-                deserves something beautiful. We bring together
-                fresh flowers, thoughtful bouquets and elegant
-                gifts to make your celebrations more memorable.
+                At Flower, we believe that every special moment deserves
+                something beautiful. We bring together fresh flowers, thoughtful
+                bouquets and elegant gifts to make your celebrations more
+                memorable.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-7">
-
                 <button
                   type="button"
                   onClick={() => navigate("/")}
@@ -188,15 +179,12 @@ export const About = () => {
                   />
                   Made with love
                 </div>
-
               </div>
-
             </div>
 
             {/* RIGHT */}
 
             <div className="relative">
-
               <div
                 className="
                   relative
@@ -216,7 +204,6 @@ export const About = () => {
                   shadow-sm
                 "
               >
-
                 {/* Decorative circles */}
 
                 <div
@@ -276,19 +263,14 @@ export const About = () => {
                     border-white
                   "
                 >
-                  <p className="text-xs text-gray-400">
-                    Our promise
-                  </p>
+                  <p className="text-xs text-gray-400">Our promise</p>
 
                   <p className="text-sm font-bold text-gray-800">
                     Fresh • Beautiful • Thoughtful
                   </p>
                 </div>
-
               </div>
-
             </div>
-
           </div>
         </div>
       </section>
@@ -298,13 +280,10 @@ export const About = () => {
       ===================================================== */}
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-
         <div className="grid lg:grid-cols-2 gap-10 items-center">
-
           {/* Story */}
 
           <div>
-
             <p
               className="
                 text-xs
@@ -337,11 +316,10 @@ export const About = () => {
                 text-gray-500
               "
             >
-              Flower was created with a simple idea — gifting
-              should feel personal, beautiful and effortless.
-              Whether it is a birthday, anniversary, celebration
-              or simply a way to say thank you, we help you find
-              something that expresses your feelings.
+              Flower was created with a simple idea — gifting should feel
+              personal, beautiful and effortless. Whether it is a birthday,
+              anniversary, celebration or simply a way to say thank you, we help
+              you find something that expresses your feelings.
             </p>
 
             <p
@@ -352,11 +330,10 @@ export const About = () => {
                 text-gray-500
               "
             >
-              From carefully selected flowers to thoughtfully
-              designed bouquets and gifts, every product is
-              chosen with attention to quality and presentation.
+              From carefully selected flowers to thoughtfully designed bouquets
+              and gifts, every product is chosen with attention to quality and
+              presentation.
             </p>
-
           </div>
 
           {/* Highlight */}
@@ -372,7 +349,6 @@ export const About = () => {
               sm:p-8
             "
           >
-
             <div
               className="
                 w-12
@@ -385,10 +361,7 @@ export const About = () => {
                 mb-5
               "
             >
-              <Sparkles
-                size={23}
-                className="text-pink-500"
-              />
+              <Sparkles size={23} className="text-pink-500" />
             </div>
 
             <h3 className="text-xl font-bold text-gray-900">
@@ -396,9 +369,8 @@ export const About = () => {
             </h3>
 
             <p className="text-sm text-gray-500 leading-6 mt-3">
-              We focus on making your gifting experience
-              simple from choosing your flowers to receiving
-              them at your doorstep.
+              We focus on making your gifting experience simple from choosing
+              your flowers to receiving them at your doorstep.
             </p>
 
             <div
@@ -410,7 +382,6 @@ export const About = () => {
             />
 
             <div className="flex items-center gap-3 mt-5">
-
               <div
                 className="
                   w-10
@@ -434,13 +405,9 @@ export const About = () => {
                   Made for every special moment
                 </p>
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* =====================================================
@@ -448,11 +415,8 @@ export const About = () => {
       ===================================================== */}
 
       <section className="bg-white border-y border-gray-100">
-
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-
           <div className="text-center mb-10">
-
             <p
               className="
                 text-xs
@@ -476,7 +440,6 @@ export const About = () => {
             >
               Made with care
             </h2>
-
           </div>
 
           <div
@@ -488,7 +451,6 @@ export const About = () => {
               gap-4
             "
           >
-
             {/* Fresh */}
 
             <div
@@ -505,7 +467,6 @@ export const About = () => {
                 duration-300
               "
             >
-
               <div
                 className="
                   w-11
@@ -517,21 +478,14 @@ export const About = () => {
                   justify-center
                 "
               >
-                <Flower2
-                  size={20}
-                  className="text-pink-500"
-                />
+                <Flower2 size={20} className="text-pink-500" />
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">
-                Fresh Flowers
-              </h3>
+              <h3 className="font-bold text-gray-800 mt-4">Fresh Flowers</h3>
 
               <p className="text-xs text-gray-400 mt-2 leading-5">
-                Carefully selected flowers for beautiful
-                arrangements.
+                Carefully selected flowers for beautiful arrangements.
               </p>
-
             </div>
 
             {/* Delivery */}
@@ -550,7 +504,6 @@ export const About = () => {
                 duration-300
               "
             >
-
               <div
                 className="
                   w-11
@@ -562,21 +515,14 @@ export const About = () => {
                   justify-center
                 "
               >
-                <Truck
-                  size={20}
-                  className="text-purple-500"
-                />
+                <Truck size={20} className="text-purple-500" />
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">
-                Easy Delivery
-              </h3>
+              <h3 className="font-bold text-gray-800 mt-4">Easy Delivery</h3>
 
               <p className="text-xs text-gray-400 mt-2 leading-5">
-                Convenient delivery designed to make gifting
-                easier.
+                Convenient delivery designed to make gifting easier.
               </p>
-
             </div>
 
             {/* Quality */}
@@ -595,7 +541,6 @@ export const About = () => {
                 duration-300
               "
             >
-
               <div
                 className="
                   w-11
@@ -607,21 +552,14 @@ export const About = () => {
                   justify-center
                 "
               >
-                <ShieldCheck
-                  size={20}
-                  className="text-green-500"
-                />
+                <ShieldCheck size={20} className="text-green-500" />
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">
-                Quality Assured
-              </h3>
+              <h3 className="font-bold text-gray-800 mt-4">Quality Assured</h3>
 
               <p className="text-xs text-gray-400 mt-2 leading-5">
-                Quality products selected with care and
-                attention.
+                Quality products selected with care and attention.
               </p>
-
             </div>
 
             {/* Love */}
@@ -640,7 +578,6 @@ export const About = () => {
                 duration-300
               "
             >
-
               <div
                 className="
                   w-11
@@ -659,21 +596,14 @@ export const About = () => {
                 />
               </div>
 
-              <h3 className="font-bold text-gray-800 mt-4">
-                Made with Love
-              </h3>
+              <h3 className="font-bold text-gray-800 mt-4">Made with Love</h3>
 
               <p className="text-xs text-gray-400 mt-2 leading-5">
-                Every order is prepared with care for your
-                special moments.
+                Every order is prepared with care for your special moments.
               </p>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* =====================================================
@@ -681,7 +611,6 @@ export const About = () => {
       ===================================================== */}
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-
         <div
           className="
             rounded-3xl
@@ -695,10 +624,7 @@ export const About = () => {
             text-center
           "
         >
-
-          <div className="text-4xl">
-            🌷
-          </div>
+          <div className="text-4xl">🌷</div>
 
           <h2
             className="
@@ -737,12 +663,8 @@ export const About = () => {
           >
             Start Shopping
           </button>
-
         </div>
-
       </section>
-
     </div>
   );
 };
-

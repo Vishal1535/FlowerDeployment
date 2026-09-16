@@ -103,7 +103,7 @@ export const Contact = () => {
 
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/')}
             className="
               inline-flex
               items-center
