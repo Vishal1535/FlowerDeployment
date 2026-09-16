@@ -7,14 +7,15 @@ import {
   Truck,
   ShieldCheck,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const About = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Back button handler
   const handleBack = () => {
-    if (window.history.length > 1) {
+    if (location.key !== "default") {
       navigate(-1);
     } else {
       navigate("/");
@@ -23,11 +24,13 @@ export const About = () => {
 
   return (
     <div className="min-h-screen bg-[#fffafa] text-gray-800">
+
       {/* =====================================================
           HERO
       ===================================================== */}
 
       <section className="relative overflow-hidden">
+
         {/* Decorative Background */}
 
         <div
@@ -57,6 +60,7 @@ export const About = () => {
         />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+
           {/* BACK BUTTON */}
 
           <button
@@ -90,9 +94,11 @@ export const About = () => {
               py-10
             "
           >
+
             {/* LEFT */}
 
             <div>
+
               <div
                 className="
                   inline-flex
@@ -147,6 +153,7 @@ export const About = () => {
               </p>
 
               <div className="flex flex-wrap gap-3 mt-7">
+
                 <button
                   type="button"
                   onClick={() => navigate("/")}
@@ -190,12 +197,15 @@ export const About = () => {
                   />
                   Made with love
                 </div>
+
               </div>
+
             </div>
 
             {/* RIGHT */}
 
             <div className="relative">
+
               <div
                 className="
                   relative
@@ -215,6 +225,7 @@ export const About = () => {
                   shadow-sm
                 "
               >
+
                 {/* Decorative circles */}
 
                 <div
@@ -274,16 +285,23 @@ export const About = () => {
                     border-white
                   "
                 >
-                  <p className="text-xs text-gray-400">Our promise</p>
+                  <p className="text-xs text-gray-400">
+                    Our promise
+                  </p>
 
                   <p className="text-sm font-bold text-gray-800">
                     Fresh • Beautiful • Thoughtful
                   </p>
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
 
       {/* =====================================================
@@ -291,10 +309,13 @@ export const About = () => {
       ===================================================== */}
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+
         <div className="grid lg:grid-cols-2 gap-10 items-center">
+
           {/* Story */}
 
           <div>
+
             <p
               className="
                 text-xs
@@ -345,6 +366,7 @@ export const About = () => {
               bouquets and gifts, every product is chosen with attention to
               quality and presentation.
             </p>
+
           </div>
 
           {/* Highlight */}
@@ -360,6 +382,7 @@ export const About = () => {
               sm:p-8
             "
           >
+
             <div
               className="
                 w-12
@@ -372,7 +395,10 @@ export const About = () => {
                 mb-5
               "
             >
-              <Sparkles size={23} className="text-pink-500" />
+              <Sparkles
+                size={23}
+                className="text-pink-500"
+              />
             </div>
 
             <h3 className="text-xl font-bold text-gray-900">
@@ -387,6 +413,7 @@ export const About = () => {
             <div className="mt-6 h-px bg-gray-100" />
 
             <div className="flex items-center gap-3 mt-5">
+
               <div
                 className="
                   w-10
@@ -402,6 +429,7 @@ export const About = () => {
               </div>
 
               <div>
+
                 <p className="text-sm font-bold text-gray-800">
                   Thoughtful gifting
                 </p>
@@ -409,10 +437,15 @@ export const About = () => {
                 <p className="text-xs text-gray-400">
                   Made for every special moment
                 </p>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
 
       {/* =====================================================
@@ -420,8 +453,11 @@ export const About = () => {
       ===================================================== */}
 
       <section className="bg-white border-y border-gray-100">
+
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+
           <div className="text-center mb-10">
+
             <p
               className="
                 text-xs
@@ -445,6 +481,7 @@ export const About = () => {
             >
               Made with care
             </h2>
+
           </div>
 
           <div
@@ -456,6 +493,7 @@ export const About = () => {
               gap-4
             "
           >
+
             {/* Fresh */}
 
             <div
@@ -472,6 +510,7 @@ export const About = () => {
                 duration-300
               "
             >
+
               <div
                 className="
                   w-11
@@ -483,7 +522,10 @@ export const About = () => {
                   justify-center
                 "
               >
-                <Flower2 size={20} className="text-pink-500" />
+                <Flower2
+                  size={20}
+                  className="text-pink-500"
+                />
               </div>
 
               <h3 className="font-bold text-gray-800 mt-4">
@@ -493,6 +535,7 @@ export const About = () => {
               <p className="text-xs text-gray-400 mt-2 leading-5">
                 Carefully selected flowers for beautiful arrangements.
               </p>
+
             </div>
 
             {/* Delivery */}
@@ -511,6 +554,7 @@ export const About = () => {
                 duration-300
               "
             >
+
               <div
                 className="
                   w-11
@@ -522,7 +566,10 @@ export const About = () => {
                   justify-center
                 "
               >
-                <Truck size={20} className="text-purple-500" />
+                <Truck
+                  size={20}
+                  className="text-purple-500"
+                />
               </div>
 
               <h3 className="font-bold text-gray-800 mt-4">
@@ -532,6 +579,7 @@ export const About = () => {
               <p className="text-xs text-gray-400 mt-2 leading-5">
                 Convenient delivery designed to make gifting easier.
               </p>
+
             </div>
 
             {/* Quality */}
@@ -550,6 +598,7 @@ export const About = () => {
                 duration-300
               "
             >
+
               <div
                 className="
                   w-11
@@ -561,7 +610,10 @@ export const About = () => {
                   justify-center
                 "
               >
-                <ShieldCheck size={20} className="text-green-500" />
+                <ShieldCheck
+                  size={20}
+                  className="text-green-500"
+                />
               </div>
 
               <h3 className="font-bold text-gray-800 mt-4">
@@ -571,6 +623,7 @@ export const About = () => {
               <p className="text-xs text-gray-400 mt-2 leading-5">
                 Quality products selected with care and attention.
               </p>
+
             </div>
 
             {/* Love */}
@@ -589,6 +642,7 @@ export const About = () => {
                 duration-300
               "
             >
+
               <div
                 className="
                   w-11
@@ -614,9 +668,13 @@ export const About = () => {
               <p className="text-xs text-gray-400 mt-2 leading-5">
                 Every order is prepared with care for your special moments.
               </p>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
 
       {/* =====================================================
@@ -624,6 +682,7 @@ export const About = () => {
       ===================================================== */}
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+
         <div
           className="
             rounded-3xl
@@ -637,7 +696,10 @@ export const About = () => {
             text-center
           "
         >
-          <div className="text-4xl">🌷</div>
+
+          <div className="text-4xl">
+            🌷
+          </div>
 
           <h2
             className="
@@ -676,8 +738,11 @@ export const About = () => {
           >
             Start Shopping
           </button>
+
         </div>
+
       </section>
+
     </div>
   );
 };

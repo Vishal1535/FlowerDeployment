@@ -9,11 +9,12 @@ import {
   Send,
   Heart,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export const Contact = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,14 +23,21 @@ export const Contact = () => {
     message: "",
   });
 
-  // Back button
+  // =====================================================
+  // BACK BUTTON
+  // =====================================================
+
   const handleBack = () => {
-    if (window.history.length > 1) {
+    if (location.key !== "default") {
       navigate(-1);
     } else {
       navigate("/");
     }
   };
+
+  // =====================================================
+  // INPUT CHANGE
+  // =====================================================
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +47,10 @@ export const Contact = () => {
       [name]: value,
     }));
   };
+
+  // =====================================================
+  // FORM SUBMIT
+  // =====================================================
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -110,7 +122,9 @@ export const Contact = () => {
           "
         >
 
-          {/* BACK BUTTON */}
+          {/* =================================================
+              BACK BUTTON
+          ================================================= */}
 
           <button
             type="button"
@@ -125,18 +139,23 @@ export const Contact = () => {
               font-medium
               text-gray-500
               hover:text-pink-600
-              transition
+              active:text-pink-600
+              transition-colors
               cursor-pointer
+              touch-manipulation
             "
           >
             <ArrowLeft
               size={15}
               className="sm:w-[17px] sm:h-[17px]"
             />
+
             Back
           </button>
 
-          {/* HERO CONTENT */}
+          {/* =================================================
+              HERO CONTENT
+          ================================================= */}
 
           <div
             className="
@@ -219,6 +238,7 @@ export const Contact = () => {
           </div>
 
         </div>
+
       </section>
 
       {/* =====================================================
