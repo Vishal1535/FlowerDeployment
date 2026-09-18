@@ -4,7 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
-import { forgotPasswordOtpThunks } from "../../Store/AuthSlice/authApi.js";
+import {
+  forgotPasswordOtpThunks,
+  forgetPasswordThunks,
+} from "../../Store/AuthSlice/authApi.js";
 
 export const ForgetOtpPassword = () => {
   const { loading, emailStoreForOtp } = useSelector(
@@ -12,6 +15,7 @@ export const ForgetOtpPassword = () => {
   );
 
   const [otp, setOtp] = useState("");
+  const [resendTimer, setResendTimer] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,6 +28,17 @@ export const ForgetOtpPassword = () => {
       });
     }
   }, [isAuthorized, navigate]);
+
+  // Resend OTP Timer
+  useEffect(() => {
+    if (resendTimer <= 0) return;
+
+    const timer = setInterval(() => {
+      setResendTimer((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [resendTimer]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,6 +70,36 @@ export const ForgetOtpPassword = () => {
       }
     } catch (error) {
       toast.error(error || "OTP verification failed");
+    }
+  };
+
+  // Resend OTP
+  const handleResendOtp = async () => {
+    if (resendTimer > 0) return;
+
+    if (!emailStoreForOtp) {
+      toast.error("Email not found. Please restart the process.");
+      navigate("/forget-password");
+      return;
+    }
+
+    const data = {
+      email: emailStoreForOtp,
+    };
+
+    try {
+      const response = await dispatch(
+        forgetPasswordThunks(data)
+      ).unwrap();
+
+      if (response?.success) {
+        toast.success("OTP resent successfully");
+
+        setResendTimer(10);
+        setOtp("");
+      }
+    } catch (error) {
+      toast.error(error || "Failed to resend OTP");
     }
   };
 
@@ -198,11 +243,26 @@ export const ForgetOtpPassword = () => {
 
             <button
               type="button"
-              className="font-semibold text-gray-900 hover:underline"
+              onClick={handleResendOtp}
+              disabled={resendTimer > 0}
+              className={`font-semibold transition-all ${
+                resendTimer > 0
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "text-gray-900 hover:underline"
+              }`}
             >
-              Resend OTP
+              {resendTimer > 0
+                ? `Resend OTP in ${resendTimer}s`
+                : "Resend OTP"}
             </button>
           </p>
+
+          {/* Timer */}
+          {resendTimer > 0 && (
+            <p className="text-xs text-gray-400 mt-2">
+              You can request a new OTP after {resendTimer} seconds.
+            </p>
+          )}
 
         </div>
 
