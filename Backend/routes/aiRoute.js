@@ -3,9 +3,6 @@ import { getAIRecommendation } from "../controllers/aiController.js";
 
 const Airouter = express.Router();
 
-Airouter.post(
-  "/recommend",
-  getAIRecommendation
-);
+Airouter.post("/recommend", getAIRecommendation);
 
 export default Airouter;
