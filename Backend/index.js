@@ -32,6 +32,7 @@ import PaymentRoute from "./routes/PaymentRoute.js";
 import AdminRoute from "./DeliveryBoy/Route/AdminRoute.js";
 import DeliveryBoyRoute from "./DeliveryBoy/Route/DeliveryBoyRoute.js";
 import OrderAssignmentRoute from "./DeliveryBoy/Route/OrderAssignmentRoute.js";
+import Airouter from "./routes/aiRoute.js";
 
 
 const app = express();
@@ -82,6 +83,7 @@ app.use('/',PaymentRoute)
 app.use('/',AdminRoute)
 app.use('/',DeliveryBoyRoute)
 app.use('/',OrderAssignmentRoute)
+app.use('/',Airouter)
 // Server
 connectDB().then(() => {
   app.listen(process.env.PORT, () => {

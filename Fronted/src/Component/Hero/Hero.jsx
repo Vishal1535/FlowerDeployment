@@ -7,7 +7,7 @@ import { ComboBouquetCarousel } from './SpecialBouquet/ComboBouquet/ComboBouquet
 import { WoolenBouquetCarousel } from './SpecialBouquet/Woolen/WoolenBouquetCarousel'
 import { FlowerPackaging } from './SpecialBouquet/FlowerPackaging/FlowerPackaging'
 
-
+import { AIGiftAssistant } from '../Ai/AIGiftAssistant'
 
 export const Hero = () => {
  
@@ -21,6 +21,7 @@ export const Hero = () => {
   <ComboBouquetCarousel/>
   <WoolenBouquetCarousel/>
   <FlowerPackaging/>
+  <AIGiftAssistant/>
   
   </>
   )

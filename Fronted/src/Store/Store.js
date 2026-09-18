@@ -27,6 +27,7 @@ import DeliveryBoyManagementReducer from "./Admin/DeliveryBoy/DeliverySlice";
 import AssignOrderReducer from "./Admin/AssignmentOrder/AssignOrderSlice";
 import DeliveryBoyReducer from "./DeliveryBoy/DeliveryBoySlice";
 import BuySingleProductReducer from "./BuySingleProduct/ButSingleProductSlice";
+import AiReducer from "./Ai/AiSlice";
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -56,7 +57,8 @@ export const store = configureStore({
     DeliveryBoyManagement:DeliveryBoyManagementReducer,
     AssignOrder:AssignOrderReducer,
     DeliveryBoy:DeliveryBoyReducer,
-    BuySingleProduct:BuySingleProductReducer
+    BuySingleProduct:BuySingleProductReducer,
+    Ai:AiReducer
 
 
   },
