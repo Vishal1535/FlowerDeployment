@@ -441,7 +441,7 @@ export const AIGiftAssistant = () => {
                 onKeyDown={handleKeyDown}
                 placeholder="Ask for a gift..."
                 disabled={loading}
-                className="min-w-0 flex-1 bg-transparent py-2 text-xs text-gray-800 caret-pink-500 outline-none placeholder:text-gray-400 sm:text-sm"
+                className="min-w-0 flex-1 bg-transparent py-2 text-base text-gray-800 caret-pink-500 outline-none placeholder:text-gray-400 sm:text-sm"
               />
 
               <button
