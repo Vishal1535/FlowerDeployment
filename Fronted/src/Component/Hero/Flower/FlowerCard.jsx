@@ -522,7 +522,7 @@ export const FlowerCard = ({ flower }) => {
           <button
             type="button"
             onClick={() => {
-              navigate(`flower/${flower._id}`);
+              navigate(`/flower/${flower._id}`);
             }}
             className="
               w-full

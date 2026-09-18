@@ -1,30 +1,17 @@
 import React, { useState } from "react";
 
-import {
-  useDispatch,
-  useSelector,
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import {
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-import {
-  Search,
-  Bell,
-  Menu,
-} from "lucide-react";
+import { Search, Bell, Menu } from "lucide-react";
 
 import { ProfileDropdown } from "./ProfileDropdown";
 import { Sidebar } from "./Sidebar";
 
-import {
-  globalSearchThunk,
-} from "../../Store/ProductData/ProductApi";
+import { globalSearchThunk } from "../../Store/ProductData/ProductApi";
 
 export const Auth = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -33,39 +20,29 @@ export const Auth = () => {
   // =====================================================
 
   const [query, setQuery] = useState("");
-  const [searching, setSearching] =
-    useState(false);
+  const [searching, setSearching] = useState(false);
 
   // =====================================================
   // SIDEBAR
   // =====================================================
 
-  const [showSidebar, setShowSidebar] =
-    useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   // =====================================================
   // USER
   // =====================================================
 
-  const {
-    isAuthorized,
-    userInfo,
-  } = useSelector(
-    (state) => state.user
-  );
+  const { isAuthorized, userInfo } = useSelector((state) => state.user);
 
   // =====================================================
   // ROLE
   // =====================================================
 
-  const isAdmin =
-    userInfo?.role === "admin";
+  const isAdmin = userInfo?.role === "admin";
 
-  const isDeliveryBoy =
-    userInfo?.role === "deliveryBoy";
+  const isDeliveryBoy = userInfo?.role === "deliveryBoy";
 
-  const isStaff =
-    isAdmin || isDeliveryBoy;
+  const isStaff = isAdmin || isDeliveryBoy;
 
   // =====================================================
   // NAV CLASS
@@ -98,7 +75,6 @@ export const Auth = () => {
   // =====================================================
 
   const handleSearch = async () => {
-
     const value = query.trim();
 
     if (!value || searching) {
@@ -108,26 +84,13 @@ export const Auth = () => {
     setSearching(true);
 
     try {
+      await dispatch(globalSearchThunk(value)).unwrap();
 
-      await dispatch(
-        globalSearchThunk(value)
-      ).unwrap();
-
-      navigate(
-        `/search?q=${encodeURIComponent(value)}`
-      );
-
+      navigate(`/search?q=${encodeURIComponent(value)}`);
     } catch (error) {
-
-      console.error(
-        "Search Error:",
-        error
-      );
-
+      console.error("Search Error:", error);
     } finally {
-
       setSearching(false);
-
     }
   };
 
@@ -136,15 +99,11 @@ export const Auth = () => {
   // =====================================================
 
   const handleKeyDown = (e) => {
-
     if (e.key === "Enter") {
-
       e.preventDefault();
 
       handleSearch();
-
     }
-
   };
 
   return (
@@ -154,13 +113,11 @@ export const Auth = () => {
       ===================================================== */}
 
       {isAuthorized && isStaff && (
-
         <Sidebar
           userInfo={userInfo}
           showSidebar={showSidebar}
           setShowSidebar={setShowSidebar}
         />
-
       )}
 
       {/* =====================================================
@@ -179,7 +136,6 @@ export const Auth = () => {
           shadow-sm
         "
       >
-
         <div
           className="
             max-w-7xl
@@ -191,7 +147,6 @@ export const Auth = () => {
             sm:py-3
           "
         >
-
           {/* =================================================
               TOP ROW
           ================================================= */}
@@ -205,18 +160,14 @@ export const Auth = () => {
               min-w-0
             "
           >
-
             {/* =================================================
                 STAFF MENU
             ================================================= */}
 
             {isAuthorized && isStaff && (
-
               <button
                 type="button"
-                onClick={() =>
-                  setShowSidebar(true)
-                }
+                onClick={() => setShowSidebar(true)}
                 className="
                   w-8
                   h-8
@@ -237,14 +188,8 @@ export const Auth = () => {
                 "
                 aria-label="Open sidebar"
               >
-
-                <Menu
-                  size={18}
-                  className="sm:w-[21px] sm:h-[21px]"
-                />
-
+                <Menu size={18} className="sm:w-[21px] sm:h-[21px]" />
               </button>
-
             )}
 
             {/* =================================================
@@ -254,13 +199,7 @@ export const Auth = () => {
             <button
               type="button"
               onClick={() =>
-                navigate(
-                  isAdmin
-                    ? "/admin/dashboard"
-                    : isDeliveryBoy
-                    ? "/delivery-boy/dashboard"
-                    : "/"
-                )
+                navigate(isAdmin ? "/" : isDeliveryBoy ? "/" : "/")
               }
               className="
                 flex
@@ -272,13 +211,9 @@ export const Auth = () => {
                 min-w-0
               "
             >
-
-              <span className="text-xl sm:text-3xl">
-                🌸
-              </span>
+              <span className="text-xl sm:text-3xl">🌸</span>
 
               <div className="text-left min-w-0">
-
                 <span
                   className="
                     text-lg
@@ -291,7 +226,6 @@ export const Auth = () => {
                 </span>
 
                 {isAdmin && (
-
                   <p
                     className="
                       text-[7px]
@@ -303,11 +237,9 @@ export const Auth = () => {
                   >
                     Admin Panel
                   </p>
-
                 )}
 
                 {isDeliveryBoy && (
-
                   <p
                     className="
                       text-[7px]
@@ -319,11 +251,8 @@ export const Auth = () => {
                   >
                     Delivery Panel
                   </p>
-
                 )}
-
               </div>
-
             </button>
 
             {/* =================================================
@@ -340,7 +269,6 @@ export const Auth = () => {
                 px-2
               "
             >
-
               <div
                 className="
                   flex
@@ -363,7 +291,6 @@ export const Auth = () => {
                   transition-all
                 "
               >
-
                 <Search
                   size={18}
                   className="
@@ -376,9 +303,7 @@ export const Auth = () => {
                 <input
                   type="text"
                   value={query}
-                  onChange={(e) =>
-                    setQuery(e.target.value)
-                  }
+                  onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={
                     isStaff
@@ -398,7 +323,6 @@ export const Auth = () => {
                 />
 
                 {searching ? (
-
                   <span
                     className="
                       loading
@@ -407,9 +331,7 @@ export const Auth = () => {
                       mr-4
                     "
                   />
-
                 ) : (
-
                   <button
                     type="button"
                     onClick={handleSearch}
@@ -430,15 +352,10 @@ export const Auth = () => {
                     "
                     aria-label="Search"
                   >
-
                     <Search size={18} />
-
                   </button>
-
                 )}
-
               </div>
-
             </div>
 
             {/* =================================================
@@ -456,13 +373,11 @@ export const Auth = () => {
                 min-w-0
               "
             >
-
               {/* =================================================
                   STAFF NOTIFICATION
               ================================================= */}
 
               {isAuthorized && isStaff && (
-
                 <button
                   type="button"
                   className="
@@ -482,11 +397,7 @@ export const Auth = () => {
                     shrink-0
                   "
                 >
-
-                  <Bell
-                    size={17}
-                    className="sm:w-[19px] sm:h-[19px]"
-                  />
+                  <Bell size={17} className="sm:w-[19px] sm:h-[19px]" />
 
                   <span
                     className="
@@ -501,9 +412,7 @@ export const Auth = () => {
                       rounded-full
                     "
                   />
-
                 </button>
-
               )}
 
               {/* =================================================
@@ -511,34 +420,20 @@ export const Auth = () => {
               ================================================= */}
 
               {!isAuthorized && (
-
                 <>
-
-                  <NavLink
-                    to="/"
-                    className={navClass}
-                  >
+                  <NavLink to="/" className={navClass}>
                     Home
                   </NavLink>
 
-                  <NavLink
-                    to="/about"
-                    className={navClass}
-                  >
+                  <NavLink to="/about" className={navClass}>
                     About
                   </NavLink>
 
-                  <NavLink
-                    to="/contact"
-                    className={navClass}
-                  >
+                  <NavLink to="/contact" className={navClass}>
                     Contact
                   </NavLink>
 
-                  <NavLink
-                    to="/login"
-                    className={navClass}
-                  >
+                  <NavLink to="/login" className={navClass}>
                     Login
                   </NavLink>
 
@@ -564,9 +459,7 @@ export const Auth = () => {
                   >
                     Register
                   </NavLink>
-
                 </>
-
               )}
 
               {/* =================================================
@@ -574,43 +467,25 @@ export const Auth = () => {
               ================================================= */}
 
               {isAuthorized && !isStaff && (
-
                 <>
-
-                  <NavLink
-                    to="/"
-                    className={navClass}
-                  >
+                  <NavLink to="/" className={navClass}>
                     Home
                   </NavLink>
 
-                  <NavLink
-                    to="/about"
-                    className={navClass}
-                  >
+                  <NavLink to="/about" className={navClass}>
                     About
                   </NavLink>
 
-                  <NavLink
-                    to="/contact"
-                    className={navClass}
-                  >
+                  <NavLink to="/contact" className={navClass}>
                     Contact
                   </NavLink>
 
-                  <NavLink
-                    to="/wishlist"
-                    className={navClass}
-                  >
+                  <NavLink to="/wishlist" className={navClass}>
                     ❤️ Wishlist
                   </NavLink>
 
-                  <ProfileDropdown
-                    userInfo={userInfo}
-                  />
-
+                  <ProfileDropdown userInfo={userInfo} />
                 </>
-
               )}
 
               {/* =================================================
@@ -618,15 +493,9 @@ export const Auth = () => {
               ================================================= */}
 
               {isAuthorized && isStaff && (
-
-                <ProfileDropdown
-                  userInfo={userInfo}
-                />
-
+                <ProfileDropdown userInfo={userInfo} />
               )}
-
             </div>
-
           </div>
 
           {/* =================================================
@@ -641,7 +510,6 @@ export const Auth = () => {
               mt-2
             "
           >
-
             <div
               className="
                 flex
@@ -663,7 +531,6 @@ export const Auth = () => {
                 transition-all
               "
             >
-
               <Search
                 size={17}
                 className="
@@ -677,9 +544,7 @@ export const Auth = () => {
               <input
                 type="text"
                 value={query}
-                onChange={(e) =>
-                  setQuery(e.target.value)
-                }
+                onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={
                   isStaff
@@ -701,7 +566,6 @@ export const Auth = () => {
               />
 
               {searching ? (
-
                 <span
                   className="
                     loading
@@ -711,9 +575,7 @@ export const Auth = () => {
                     shrink-0
                   "
                 />
-
               ) : (
-
                 <button
                   type="button"
                   onClick={handleSearch}
@@ -734,19 +596,12 @@ export const Auth = () => {
                   "
                   aria-label="Search"
                 >
-
                   <Search size={17} />
-
                 </button>
-
               )}
-
             </div>
-
           </div>
-
         </div>
-
       </nav>
     </>
   );

@@ -59,24 +59,28 @@ export const ForgetOtpPassword = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center px-3 sm:px-4 py-6 sm:py-8">
+    <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center px-4 py-6 sm:px-6 sm:py-8">
 
-      <div className="w-full max-w-md shadow-xl rounded-2xl p-5 sm:p-7 md:p-9 lg:p-12 bg-white">
+      <div className="w-full max-w-md bg-white border border-gray-200 shadow-lg rounded-2xl p-5 sm:p-7 md:p-9 lg:p-10">
 
         {/* Logo */}
-        <div className="flex items-center gap-2 text-gray-800 mb-6 sm:mb-8">
+        <div className="flex items-center gap-3 text-gray-900 mb-6 sm:mb-8">
 
           <div
-            className="w-9 h-9 sm:w-10 sm:h-10
+            className="w-10 h-10 sm:w-11 sm:h-11
                        rounded-xl
                        bg-gray-100
+                       border border-gray-200
                        flex items-center justify-center
                        shrink-0"
           >
-            <Flower2 size={20} className="sm:w-[21px] sm:h-[21px]" />
+            <Flower2
+              size={21}
+              className="text-gray-800"
+            />
           </div>
 
-          <span className="font-semibold text-base sm:text-lg">
+          <span className="font-semibold text-lg sm:text-xl text-gray-900">
             Flower
           </span>
 
@@ -85,19 +89,19 @@ export const ForgetOtpPassword = () => {
         {/* Heading */}
         <div className="mb-6 sm:mb-7">
 
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
             Verify OTP
           </h1>
 
-          <p className="text-sm text-gray-500 mt-2 leading-5 sm:leading-6">
+          <p className="text-sm sm:text-[15px] text-gray-600 mt-2 leading-6">
             Enter the OTP sent to your registered email address
             to reset your password.
           </p>
 
           {emailStoreForOtp && (
-            <p className="text-xs text-gray-400 mt-3 break-all leading-5">
+            <p className="text-xs sm:text-sm text-gray-500 mt-3 break-all leading-5">
               OTP sent to{" "}
-              <span className="font-semibold text-gray-600">
+              <span className="font-semibold text-gray-800">
                 {emailStoreForOtp}
               </span>
             </p>
@@ -107,14 +111,14 @@ export const ForgetOtpPassword = () => {
 
         {/* Form */}
         <form
-          className="space-y-4 sm:space-y-5"
+          className="space-y-5"
           onSubmit={handleSubmit}
         >
 
           {/* OTP */}
           <div>
 
-            <label className="text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-800 mb-2">
               Enter OTP
             </label>
 
@@ -126,14 +130,20 @@ export const ForgetOtpPassword = () => {
               onChange={(e) => setOtp(e.target.value)}
               maxLength={6}
               inputMode="numeric"
-              className="input input-bordered w-full mt-2
-                         h-12 sm:h-13
-                         rounded-xl text-center
+              className="w-full h-12 sm:h-13
+                         rounded-xl
+                         border border-gray-300
+                         bg-white
+                         text-gray-900
+                         placeholder:text-gray-400
+                         text-center
                          tracking-[6px] sm:tracking-[8px]
-                         text-base sm:text-lg font-semibold
-                         focus:outline-none
+                         text-base sm:text-lg
+                         font-semibold
+                         outline-none
                          focus:border-gray-500
-                         focus:ring-2 focus:ring-gray-100
+                         focus:ring-2
+                         focus:ring-gray-100
                          transition-all"
               required
             />
@@ -144,14 +154,20 @@ export const ForgetOtpPassword = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-11 sm:h-12 rounded-xl
-                       bg-gray-900 hover:bg-gray-800
+            className="w-full h-12 sm:h-[50px]
+                       rounded-xl
+                       bg-gray-900
+                       hover:bg-gray-800
+                       active:bg-gray-950
                        disabled:bg-gray-400
                        disabled:cursor-not-allowed
-                       text-white font-semibold
+                       text-white
+                       font-semibold
                        text-sm sm:text-base
-                       flex items-center justify-center gap-2
-                       shadow-md hover:shadow-lg
+                       flex items-center justify-center
+                       gap-2
+                       shadow-md
+                       hover:shadow-lg
                        transition-all"
           >
 
@@ -163,7 +179,10 @@ export const ForgetOtpPassword = () => {
             ) : (
               <>
                 Verify OTP
-                <ArrowRight size={17} className="sm:w-[18px] sm:h-[18px]" />
+                <ArrowRight
+                  size={18}
+                  className="shrink-0"
+                />
               </>
             )}
 
@@ -172,9 +191,9 @@ export const ForgetOtpPassword = () => {
         </form>
 
         {/* Resend OTP */}
-        <div className="text-center mt-5 sm:mt-6">
+        <div className="text-center mt-6">
 
-          <p className="text-xs sm:text-sm text-gray-500 leading-5">
+          <p className="text-xs sm:text-sm text-gray-600 leading-5">
             Didn't receive the OTP?{" "}
 
             <button
@@ -188,11 +207,11 @@ export const ForgetOtpPassword = () => {
         </div>
 
         {/* Back to Login */}
-        <div className="text-center mt-4 sm:mt-5">
+        <div className="text-center mt-5">
 
           <Link
             to="/login"
-            className="text-xs sm:text-sm font-semibold text-gray-900 hover:underline"
+            className="inline-block text-xs sm:text-sm font-semibold text-gray-800 hover:text-gray-950 hover:underline"
           >
             ← Back to Login
           </Link>

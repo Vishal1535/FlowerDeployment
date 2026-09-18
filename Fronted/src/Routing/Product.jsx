@@ -6,7 +6,7 @@ import { Search } from "../User/Product/Search/Search"
         element:<OccasionProducts/>
     },
     {
-        path:"//search",
+        path:"/search",
         element:<Search/>
     }
 ]
