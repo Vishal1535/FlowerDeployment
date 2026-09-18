@@ -104,12 +104,15 @@ export const ChocolateItem = ({ chocolate }) => {
       <div
         className="
           relative
-          h-28
-          min-[380px]:h-32
-          sm:h-36
-          md:h-40
+          h-36
+          min-[380px]:h-40
+          sm:h-44
+          md:h-48
           bg-gray-50
           overflow-hidden
+          flex
+          items-center
+          justify-center
         "
       >
         {chocolate?.image ? (
@@ -123,8 +126,8 @@ export const ChocolateItem = ({ chocolate }) => {
             className="
               w-full
               h-full
-              object-cover
-              group-hover:scale-105
+              object-contain
+              group-hover:scale-[1.03]
               transition-transform
               duration-300
             "
@@ -156,10 +159,10 @@ export const ChocolateItem = ({ chocolate }) => {
 
       <div
         className="
-          p-2.5
-          min-[380px]:p-3
-          sm:p-3.5
-          md:p-4
+          p-3
+          min-[380px]:p-3.5
+          sm:p-4
+          md:p-5
           min-w-0
         "
       >
@@ -167,18 +170,18 @@ export const ChocolateItem = ({ chocolate }) => {
 
         <h3
           className="
-            text-xs
-            min-[380px]:text-sm
-            sm:text-[15px]
-            md:text-base
+            text-sm
+            min-[380px]:text-[15px]
+            sm:text-base
+            md:text-lg
             font-semibold
             text-gray-800
             line-clamp-2
             break-words
-            leading-4
-            sm:leading-5
-            min-h-[32px]
-            sm:min-h-[40px]
+            leading-5
+            sm:leading-6
+            min-h-[40px]
+            sm:min-h-[48px]
           "
         >
           {chocolate?.name ||
@@ -189,13 +192,13 @@ export const ChocolateItem = ({ chocolate }) => {
 
         <p
           className="
-            text-sm
-            min-[380px]:text-base
-            sm:text-lg
+            text-base
+            min-[380px]:text-lg
+            sm:text-xl
             font-bold
             text-gray-900
-            mt-1.5
-            sm:mt-2
+            mt-2
+            sm:mt-2.5
           "
         >
           ₹{chocolate?.price ?? 0}
@@ -218,23 +221,22 @@ export const ChocolateItem = ({ chocolate }) => {
           }
           className="
             w-full
-            h-9
-            min-[380px]:h-10
-            sm:h-11
-            mt-2.5
-            sm:mt-3
-            px-2
-            sm:px-3
-            rounded-lg
+            h-11
+            min-[380px]:h-12
+            sm:h-12
+            mt-3
+            sm:mt-4
+            px-3
+            sm:px-4
+            rounded-xl
             bg-gray-900
             text-white
             flex
             items-center
             justify-center
-            gap-1.5
-            sm:gap-2
-            text-[10px]
-            min-[380px]:text-xs
+            gap-2
+            text-xs
+            min-[380px]:text-sm
             sm:text-sm
             font-semibold
             whitespace-nowrap
@@ -248,13 +250,13 @@ export const ChocolateItem = ({ chocolate }) => {
           "
         >
           <ShoppingBag
-            size={14}
+            size={16}
             className="
               shrink-0
-              min-[380px]:w-[15px]
-              min-[380px]:h-[15px]
-              sm:w-4
-              sm:h-4
+              min-[380px]:w-[17px]
+              min-[380px]:h-[17px]
+              sm:w-[18px]
+              sm:h-[18px]
             "
           />
 
