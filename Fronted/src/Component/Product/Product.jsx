@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Flower2, Package, Plus, Search } from "lucide-react";
+import {
+  Flower2,
+  Package,
+  Plus,
+  Search,
+  ArrowLeft,
+} from "lucide-react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,20 +24,20 @@ import { useNavigate } from "react-router-dom";
 
 export const Product = () => {
   const dispatch = useDispatch();
-  const [search,setSearch]=useState("")
-  const navigate=useNavigate()
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
   const { isAuthorized, userInfo } = useSelector((state) => state.user);
 
-useEffect(() => {
-  // User login nahi hai
-  // Ya user admin nahi hai
-  if (!isAuthorized || userInfo?.role !== "admin") {
-    navigate("/", {
-      replace: true,
-    });
-  }
-}, [isAuthorized, userInfo, navigate]);
-
+  useEffect(() => {
+    // User login nahi hai
+    // Ya user admin nahi hai
+    if (!isAuthorized || userInfo?.role !== "admin") {
+      navigate("/", {
+        replace: true,
+      });
+    }
+  }, [isAuthorized, userInfo, navigate]);
 
   // ================= ACTIVE PRODUCT TYPE =================
 
@@ -49,9 +55,7 @@ useEffect(() => {
   // ================= FLOWER REDUX DATA =================
 
   const { loading, flowers } = useSelector((state) => state.flower);
-  const {bouquets}=useSelector((state)=>state.bouquet)
-  
-  
+  const { bouquets } = useSelector((state) => state.bouquet);
 
   // ================= GET FLOWERS =================
 
@@ -63,7 +67,7 @@ useEffect(() => {
 
     dispatch(GetAllFlowersThunk(data));
 
-    dispatch(AllBouquetsThunk(data))
+    dispatch(AllBouquetsThunk(data));
   }, [page, dispatch]);
 
   // ================= ADD PRODUCT =================
@@ -74,7 +78,7 @@ useEffect(() => {
     } else {
       // Bouquet slice banne ke baad
       // yahan openCreateBouquetPopup() kar dena
-      dispatch(openCreateBouquetPopup())
+      dispatch(openCreateBouquetPopup());
       // alert("Bouquet feature will be added soon");
     }
   };
@@ -82,41 +86,70 @@ useEffect(() => {
   // ================= CURRENT PRODUCTS =================
 
   const products =
-  activeType === "flower"
-    ? (flowers || []).filter((flower) => {
-        const query = search.toLowerCase().trim();
+    activeType === "flower"
+      ? (flowers || []).filter((flower) => {
+          const query = search.toLowerCase().trim();
 
-        if (!query) return true;
+          if (!query) return true;
 
-        return (
-          flower.name?.toLowerCase().includes(query) ||
-          flower.description?.toLowerCase().includes(query) ||
-          flower.category?.toLowerCase().includes(query) ||
-          flower.color?.toLowerCase().includes(query)
-        );
-      })
-    : (bouquets || []).filter((bouquet) => {
-        const query = search.toLowerCase().trim();
+          return (
+            flower.name?.toLowerCase().includes(query) ||
+            flower.description?.toLowerCase().includes(query) ||
+            flower.category?.toLowerCase().includes(query) ||
+            flower.color?.toLowerCase().includes(query)
+          );
+        })
+      : (bouquets || []).filter((bouquet) => {
+          const query = search.toLowerCase().trim();
 
-        if (!query) return true;
+          if (!query) return true;
 
-        return (
-          bouquet.name?.toLowerCase().includes(query) ||
-          bouquet.description?.toLowerCase().includes(query) ||
-          bouquet.category?.toLowerCase().includes(query) ||
-          bouquet.occasion?.toLowerCase().includes(query) ||
-          bouquet.bouquetType?.toLowerCase().includes(query)
-        );
-      });
+          return (
+            bouquet.name?.toLowerCase().includes(query) ||
+            bouquet.description?.toLowerCase().includes(query) ||
+            bouquet.category?.toLowerCase().includes(query) ||
+            bouquet.occasion?.toLowerCase().includes(query) ||
+            bouquet.bouquetType?.toLowerCase().includes(query)
+          );
+        });
 
   return (
     <div className="min-h-screen w-full min-w-0 overflow-x-hidden bg-gray-50 px-3 py-4 min-[380px]:px-4 sm:px-6 lg:px-8 sm:py-6">
+
+      {/* ================= BACK BUTTON ================= */}
+
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="
+          mb-4
+          flex
+          items-center
+          justify-center
+          w-10
+          h-10
+          rounded-xl
+          bg-white
+          border
+          border-gray-200
+          text-gray-700
+          shadow-sm
+          hover:bg-gray-50
+          hover:text-gray-900
+          transition
+        "
+        title="Go Back"
+      >
+        <ArrowLeft size={20} />
+      </button>
+
       {/* ================= CREATE FLOWER POPUP ================= */}
 
       <CreateFlower />
-      <CreateBouquet/>
+      <CreateBouquet />
 
       <div className="max-w-7xl mx-auto min-w-0">
+
         {/* ================= HEADER ================= */}
 
         <div
@@ -205,6 +238,7 @@ useEffect(() => {
         "
         >
           <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+
             {/* ================= FLOWERS ================= */}
 
             <button
@@ -212,7 +246,7 @@ useEffect(() => {
               onClick={() => {
                 setActiveType("flower");
                 setPage(1);
-                setSearch("")
+                setSearch("");
               }}
               className={`
                 flex
@@ -246,7 +280,7 @@ useEffect(() => {
               onClick={() => {
                 setActiveType("bouquet");
                 setPage(1);
-                setSearch("")
+                setSearch("");
               }}
               className={`
                 flex
@@ -272,6 +306,7 @@ useEffect(() => {
               <Package size={17} className="sm:w-[19px] sm:h-[19px]" />
               Bouquets
             </button>
+
           </div>
         </div>
 
@@ -291,6 +326,7 @@ useEffect(() => {
         "
         >
           <div className="relative">
+
             <Search
               size={18}
               className="
@@ -311,8 +347,8 @@ useEffect(() => {
                   : "Search bouquets..."
               }
               value={search}
-              onChange={(e)=>{
-                setSearch(e.target.value)
+              onChange={(e) => {
+                setSearch(e.target.value);
               }}
               className="
                 w-full
@@ -332,6 +368,7 @@ useEffect(() => {
                 focus:ring-gray-100
               "
             />
+
           </div>
         </div>
 
@@ -348,6 +385,7 @@ useEffect(() => {
           overflow-hidden
         "
         >
+
           {/* ================= SECTION HEADER ================= */}
 
           <div
@@ -366,7 +404,9 @@ useEffect(() => {
               gap-3
             "
             >
+
               <div className="min-w-0">
+
                 <h2
                   className="
                   text-base
@@ -391,6 +431,7 @@ useEffect(() => {
                     ? "Manage your flower products"
                     : "Manage your bouquet products"}
                 </p>
+
               </div>
 
               {/* Product Count */}
@@ -411,12 +452,14 @@ useEffect(() => {
               >
                 {products.length} Products
               </span>
+
             </div>
           </div>
 
           {/* ================= PRODUCTS ================= */}
 
           {loading && products.length === 0 ? (
+
             /* ================= LOADING ================= */
 
             <div
@@ -426,6 +469,7 @@ useEffect(() => {
               text-center
             "
             >
+
               <span
                 className="
                 loading
@@ -445,11 +489,15 @@ useEffect(() => {
               >
                 Loading products...
               </p>
+
             </div>
+
           ) : products.length > 0 ? (
+
             /* ================= PRODUCT GRID ================= */
 
             <div className="p-3 min-[380px]:p-4 sm:p-5">
+
               <div
                 className="
                 grid
@@ -461,8 +509,10 @@ useEffect(() => {
                 sm:gap-5
               "
               >
+
                 {products.map((product) =>
                   activeType === "flower" ? (
+
                     /* ================= FLOWER CARD ================= */
 
                     <ProductCard
@@ -470,100 +520,112 @@ useEffect(() => {
                       product={product}
                       type="flower"
                     />
+
                   ) : (
+
                     /* ================= BOUQUET CARD ================= */
 
-                    <BoquetProduct key={product._id} product={product} />
-                  ),
+                    <BoquetProduct
+                      key={product._id}
+                      product={product}
+                    />
+
+                  )
                 )}
+
               </div>
 
               {/* ================= FLOWER PAGINATION ================= */}
 
-           {products.length > 0 && (
-  <div
-    className="
-      flex
-      items-center
-      justify-center
-      gap-2
-      sm:gap-3
-      mt-6
-      sm:mt-8
-      flex-wrap
-    "
-  >
-    {/* Previous */}
+              {products.length > 0 && (
+                <div
+                  className="
+                  flex
+                  items-center
+                  justify-center
+                  gap-2
+                  sm:gap-3
+                  mt-6
+                  sm:mt-8
+                  flex-wrap
+                "
+                >
 
-    <button
-      type="button"
-      disabled={page === 1}
-      onClick={() => setPage((prev) => prev - 1)}
-      className="
-        px-3
-        sm:px-4
-        py-2
-        rounded-xl
-        border
-        border-gray-200
-        text-xs
-        sm:text-sm
-        font-semibold
-        disabled:opacity-40
-        disabled:cursor-not-allowed
-        hover:bg-gray-50
-        transition
-      "
-    >
-      Previous
-    </button>
+                  {/* Previous */}
 
-    {/* Current Page */}
+                  <button
+                    type="button"
+                    disabled={page === 1}
+                    onClick={() => setPage((prev) => prev - 1)}
+                    className="
+                      px-3
+                      sm:px-4
+                      py-2
+                      rounded-xl
+                      border
+                      border-gray-200
+                      text-xs
+                      sm:text-sm
+                      font-semibold
+                      disabled:opacity-40
+                      disabled:cursor-not-allowed
+                      hover:bg-gray-50
+                      transition
+                    "
+                  >
+                    Previous
+                  </button>
 
-    <span
-      className="
-        px-3
-        sm:px-4
-        py-2
-        rounded-xl
-        bg-gray-900
-        text-white
-        text-xs
-        sm:text-sm
-        font-semibold
-      "
-    >
-      {page}
-    </span>
+                  {/* Current Page */}
 
-    {/* Next */}
+                  <span
+                    className="
+                    px-3
+                    sm:px-4
+                    py-2
+                    rounded-xl
+                    bg-gray-900
+                    text-white
+                    text-xs
+                    sm:text-sm
+                    font-semibold
+                  "
+                  >
+                    {page}
+                  </span>
 
-    <button
-      type="button"
-      onClick={() => setPage((prev) => prev + 1)}
-      disabled={products.length < 10}
-      className="
-        px-3
-        sm:px-4
-        py-2
-        rounded-xl
-        border
-        border-gray-200
-        text-xs
-        sm:text-sm
-        font-semibold
-        disabled:opacity-40
-        disabled:cursor-not-allowed
-        hover:bg-gray-50
-        transition
-      "
-    >
-      Next
-    </button>
-  </div>
-)}
+                  {/* Next */}
+
+                  <button
+                    type="button"
+                    onClick={() => setPage((prev) => prev + 1)}
+                    disabled={products.length < 10}
+                    className="
+                      px-3
+                      sm:px-4
+                      py-2
+                      rounded-xl
+                      border
+                      border-gray-200
+                      text-xs
+                      sm:text-sm
+                      font-semibold
+                      disabled:opacity-40
+                      disabled:cursor-not-allowed
+                      hover:bg-gray-50
+                      transition
+                    "
+                  >
+                    Next
+                  </button>
+
+                </div>
+              )}
+
             </div>
+
           ) : (
+
             /* ================= EMPTY STATE ================= */
 
             <div
@@ -575,6 +637,7 @@ useEffect(() => {
               text-center
             "
             >
+
               <div
                 className="
                 w-14
@@ -591,11 +654,23 @@ useEffect(() => {
                 sm:mb-4
               "
               >
+
                 {activeType === "flower" ? (
-                  <Flower2 size={25} className="sm:w-[28px] sm:h-[28px] text-gray-500" />
+
+                  <Flower2
+                    size={25}
+                    className="sm:w-[28px] sm:h-[28px] text-gray-500"
+                  />
+
                 ) : (
-                  <Package size={25} className="sm:w-[28px] sm:h-[28px] text-gray-500" />
+
+                  <Package
+                    size={25}
+                    className="sm:w-[28px] sm:h-[28px] text-gray-500"
+                  />
+
                 )}
+
               </div>
 
               <h3
@@ -620,8 +695,11 @@ useEffect(() => {
                 Start by adding your first{" "}
                 {activeType === "flower" ? "flower" : "bouquet"}.
               </p>
+
             </div>
+
           )}
+
         </div>
       </div>
     </div>
