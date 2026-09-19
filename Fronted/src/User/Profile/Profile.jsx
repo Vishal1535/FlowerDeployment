@@ -16,7 +16,7 @@ import {
   Sparkles,
   ShoppingBag,
   Truck,
-  Bike 
+  Bike,
 } from "lucide-react";
 import { logoutThunks } from "../../Store/AuthSlice/authApi";
 
@@ -47,12 +47,12 @@ export const Profile = () => {
   if (!isAuthorized || !userInfo) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white rounded-3xl border border-pink-100 shadow-xl p-8 text-center">
-          <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-pink-500 to-rose-400 flex items-center justify-center shadow-lg shadow-pink-200">
-            <User size={34} className="text-white" />
+        <div className="w-full max-w-md bg-white rounded-3xl border border-pink-100 shadow-xl p-6 sm:p-8 text-center">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl sm:rounded-3xl bg-gradient-to-br from-pink-500 to-rose-400 flex items-center justify-center shadow-lg shadow-pink-200">
+            <User size={30} className="text-white" />
           </div>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mt-5">
             Welcome Back
           </h2>
 
@@ -62,7 +62,7 @@ export const Profile = () => {
 
           <button
             onClick={() => navigate("/login")}
-            className="mt-7 w-full h-12 rounded-2xl bg-pink-600 hover:bg-pink-700 text-white font-semibold transition shadow-md shadow-pink-200"
+            className="mt-6 w-full h-11 sm:h-12 rounded-xl sm:rounded-2xl bg-pink-600 hover:bg-pink-700 text-white font-semibold transition shadow-md shadow-pink-200"
           >
             Login to Continue
           </button>
@@ -123,8 +123,8 @@ export const Profile = () => {
       actions: [
         {
           title: "Manage Delivery boy",
-          description: "Add and manage products",
-          icon: Bike ,
+          description: "Add and manage delivery boys",
+          icon: Bike,
           path: "/admin/delivery-boys",
         },
         {
@@ -142,33 +142,32 @@ export const Profile = () => {
       ],
     },
 
-  deliveryBoy: {
-  label: "Delivery Account",
-  description: "Manage your delivery work",
-  badge: "Delivery Partner",
-  icon: Truck,
-
-  actions: [
-    {
-      title: "Dashboard",
-      description: "View your delivery dashboard",
+    deliveryBoy: {
+      label: "Delivery Account",
+      description: "Manage your delivery work",
+      badge: "Delivery Partner",
       icon: Truck,
-      path: "/delivery-boy/dashboard",
+      actions: [
+        {
+          title: "Dashboard",
+          description: "View your delivery dashboard",
+          icon: Truck,
+          path: "/delivery-boy/dashboard",
+        },
+        {
+          title: "My Orders",
+          description: "View your assigned delivery orders",
+          icon: Package,
+          path: "/delivery-boy/MyOrder",
+        },
+        {
+          title: "Account Settings",
+          description: "Manage your account",
+          icon: Settings,
+          path: "/settings",
+        },
+      ],
     },
-    {
-      title: "My Orders",
-      description: "View your assigned delivery orders",
-      icon: Package,
-      path: "/delivery-boy/MyOrder",
-    },
-    {
-      title: "Account Settings",
-      description: "Manage your account",
-      icon: Settings,
-      path: "/settings",
-    },
-  ],
-},
   };
 
   const currentRoleData =
@@ -180,14 +179,15 @@ export const Profile = () => {
     userInfo?.name?.charAt(0)?.toUpperCase() || "U";
 
   return (
-    <div className="min-h-screen bg-[#fafafa] px-4 py-5 sm:px-6 sm:py-8">
+    <div className="min-h-screen bg-[#fafafa] px-3 py-3 sm:px-6 sm:py-8">
       <div className="max-w-6xl mx-auto">
 
         {/* =================================================
             TOP BAR
         ================================================= */}
 
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between mb-3 sm:mb-5">
+
           <button
             onClick={() => navigate(-1)}
             className="group flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-pink-600 transition"
@@ -201,9 +201,9 @@ export const Profile = () => {
             </span>
           </button>
 
-          <div className="flex items-center gap-2 text-xs font-semibold text-gray-400">
+          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-gray-400">
             <Sparkles
-              size={14}
+              size={13}
               className="text-pink-500"
             />
 
@@ -215,35 +215,37 @@ export const Profile = () => {
             PROFILE HERO
         ================================================= */}
 
-        <div className="relative overflow-hidden rounded-[28px] bg-white border border-gray-200 shadow-sm">
+        <div className="relative overflow-hidden rounded-2xl sm:rounded-[28px] bg-white border border-gray-200 shadow-sm">
 
           {/* Decorative Background */}
 
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute -top-20 -right-16 w-64 h-64 rounded-full bg-pink-100/70 blur-2xl" />
+            <div className="absolute -top-16 -right-12 w-40 h-40 sm:w-64 sm:h-64 rounded-full bg-pink-100/70 blur-2xl" />
 
-            <div className="absolute -bottom-32 -left-16 w-72 h-72 rounded-full bg-rose-100/60 blur-3xl" />
+            <div className="absolute -bottom-20 -left-12 w-48 h-48 sm:w-72 sm:h-72 rounded-full bg-rose-100/60 blur-3xl" />
           </div>
 
-          <div className="relative p-5 sm:p-7 lg:p-8">
+          <div className="relative p-4 sm:p-7 lg:p-8">
 
             {/* Top Label */}
 
             <div className="flex items-center justify-between">
 
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.18em] font-bold text-pink-500">
+              <div className="min-w-0">
+
+                <p className="text-[9px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.18em] font-bold text-pink-500">
                   {currentRoleData.label}
                 </p>
 
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5 sm:mt-1 truncate">
                   {currentRoleData.description}
                 </p>
+
               </div>
 
-              <div className="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
                 <RoleIcon
-                  size={18}
+                  size={16}
                   className="text-pink-600"
                 />
               </div>
@@ -252,19 +254,19 @@ export const Profile = () => {
 
             {/* Profile Information */}
 
-            <div className="mt-7 flex flex-col md:flex-row md:items-center gap-5">
+            <div className="mt-4 sm:mt-7 flex flex-col md:flex-row md:items-center gap-3 sm:gap-5">
 
               {/* Avatar */}
 
               <div className="relative shrink-0">
 
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-[28px] bg-gradient-to-br from-pink-500 to-rose-400 p-[3px] shadow-lg shadow-pink-200">
+                <div className="w-[72px] h-[72px] sm:w-28 sm:h-28 rounded-2xl sm:rounded-[28px] bg-gradient-to-br from-pink-500 to-rose-400 p-[2px] sm:p-[3px] shadow-md sm:shadow-lg shadow-pink-200">
 
-                  <div className="w-full h-full rounded-[25px] bg-white flex items-center justify-center">
+                  <div className="w-full h-full rounded-[14px] sm:rounded-[25px] bg-white flex items-center justify-center">
 
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-[22px] bg-pink-50 flex items-center justify-center">
+                    <div className="w-[58px] h-[58px] sm:w-24 sm:h-24 rounded-xl sm:rounded-[22px] bg-pink-50 flex items-center justify-center">
 
-                      <span className="text-4xl sm:text-5xl font-bold text-pink-600">
+                      <span className="text-2xl sm:text-5xl font-bold text-pink-600">
                         {firstLetter}
                       </span>
 
@@ -276,7 +278,7 @@ export const Profile = () => {
 
                 {/* Active Indicator */}
 
-                <div className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-green-500 border-4 border-white" />
+                <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-green-500 border-2 sm:border-4 border-white" />
 
               </div>
 
@@ -284,13 +286,13 @@ export const Profile = () => {
 
               <div className="flex-1 min-w-0">
 
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
 
-                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                  <h1 className="text-xl sm:text-3xl font-bold text-gray-900 truncate max-w-full">
                     {userInfo?.name}
                   </h1>
 
-                  <span className="px-3 py-1 rounded-full bg-pink-50 text-pink-600 text-[10px] font-bold uppercase tracking-wide">
+                  <span className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-pink-50 text-pink-600 text-[8px] sm:text-[10px] font-bold uppercase tracking-wide">
                     {currentRoleData.badge}
                   </span>
 
@@ -298,10 +300,10 @@ export const Profile = () => {
 
                 {/* Email */}
 
-                <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
+                <div className="flex items-center gap-1.5 sm:gap-2 mt-1.5 sm:mt-2 text-xs sm:text-sm text-gray-500 min-w-0">
 
                   <Mail
-                    size={15}
+                    size={14}
                     className="text-pink-500 shrink-0"
                   />
 
@@ -313,11 +315,11 @@ export const Profile = () => {
 
                 {/* Active */}
 
-                <div className="flex items-center gap-2 mt-3">
+                <div className="flex items-center gap-1.5 sm:gap-2 mt-2 sm:mt-3">
 
-                  <span className="w-2 h-2 rounded-full bg-green-500" />
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500" />
 
-                  <span className="text-xs font-medium text-green-600">
+                  <span className="text-[10px] sm:text-xs font-medium text-green-600">
                     Account Active
                   </span>
 
@@ -329,9 +331,9 @@ export const Profile = () => {
 
               <button
                 onClick={() => navigate("/settings")}
-                className="flex items-center justify-center gap-2 px-5 h-11 rounded-xl bg-gray-900 hover:bg-pink-600 text-white text-sm font-semibold transition shadow-sm"
+                className="w-full md:w-auto flex items-center justify-center gap-2 px-4 sm:px-5 h-10 sm:h-11 rounded-xl bg-gray-900 hover:bg-pink-600 text-white text-xs sm:text-sm font-semibold transition shadow-sm"
               >
-                <Pencil size={15} />
+                <Pencil size={14} />
 
                 Edit Profile
               </button>
@@ -344,30 +346,30 @@ export const Profile = () => {
             CONTENT
         ================================================= */}
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mt-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-5 mt-3 sm:mt-5">
 
           {/* =================================================
               PERSONAL INFORMATION
           ================================================= */}
 
-          <div className="lg:col-span-4 bg-white rounded-[24px] border border-gray-200 shadow-sm p-5 sm:p-6">
+          <div className="lg:col-span-4 bg-white rounded-2xl sm:rounded-[24px] border border-gray-200 shadow-sm p-4 sm:p-6">
 
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
 
-              <div className="w-11 h-11 rounded-2xl bg-pink-50 flex items-center justify-center">
+              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-pink-50 flex items-center justify-center shrink-0">
                 <User
-                  size={20}
+                  size={18}
                   className="text-pink-600"
                 />
               </div>
 
               <div>
 
-                <h2 className="font-bold text-gray-900">
+                <h2 className="text-sm sm:text-base font-bold text-gray-900">
                   Personal Details
                 </h2>
 
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5">
                   Your account information
                 </p>
 
@@ -375,26 +377,26 @@ export const Profile = () => {
 
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
 
               {/* Name */}
 
-              <div className="group p-4 rounded-2xl bg-gray-50 hover:bg-pink-50/70 transition">
+              <div className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gray-50 hover:bg-pink-50/70 transition">
 
-                <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400">
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-gray-400">
                   Full Name
                 </p>
 
-                <div className="flex items-center gap-3 mt-2">
+                <div className="flex items-center gap-2 sm:gap-3 mt-1.5 sm:mt-2">
 
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white flex items-center justify-center shrink-0">
                     <User
-                      size={15}
+                      size={14}
                       className="text-pink-500"
                     />
                   </div>
 
-                  <p className="text-sm font-semibold text-gray-800">
+                  <p className="text-xs sm:text-sm font-semibold text-gray-800 truncate">
                     {userInfo?.name || "Not available"}
                   </p>
 
@@ -403,22 +405,22 @@ export const Profile = () => {
 
               {/* Email */}
 
-              <div className="group p-4 rounded-2xl bg-gray-50 hover:bg-pink-50/70 transition">
+              <div className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gray-50 hover:bg-pink-50/70 transition">
 
-                <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400">
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-gray-400">
                   Email Address
                 </p>
 
-                <div className="flex items-center gap-3 mt-2 min-w-0">
+                <div className="flex items-center gap-2 sm:gap-3 mt-1.5 sm:mt-2 min-w-0">
 
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shrink-0">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white flex items-center justify-center shrink-0">
                     <Mail
-                      size={15}
+                      size={14}
                       className="text-pink-500"
                     />
                   </div>
 
-                  <p className="text-sm font-semibold text-gray-800 truncate">
+                  <p className="text-xs sm:text-sm font-semibold text-gray-800 truncate">
                     {userInfo?.email || "Not available"}
                   </p>
 
@@ -427,22 +429,22 @@ export const Profile = () => {
 
               {/* Role */}
 
-              <div className="group p-4 rounded-2xl bg-gray-50 hover:bg-pink-50/70 transition">
+              <div className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gray-50 hover:bg-pink-50/70 transition">
 
-                <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400">
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-gray-400">
                   Account Type
                 </p>
 
-                <div className="flex items-center gap-3 mt-2">
+                <div className="flex items-center gap-2 sm:gap-3 mt-1.5 sm:mt-2">
 
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white flex items-center justify-center shrink-0">
                     <ShieldCheck
-                      size={15}
+                      size={14}
                       className="text-pink-500"
                     />
                   </div>
 
-                  <p className="text-sm font-semibold text-gray-800">
+                  <p className="text-xs sm:text-sm font-semibold text-gray-800">
                     {currentRoleData.badge}
                   </p>
 
@@ -453,13 +455,13 @@ export const Profile = () => {
 
             {/* Account ID */}
 
-            <div className="mt-4 pt-4 border-t border-gray-100">
+            <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
 
-              <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400">
+              <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-gray-400">
                 Account ID
               </p>
 
-              <p className="text-[11px] font-mono text-gray-500 mt-2 break-all">
+              <p className="text-[9px] sm:text-[11px] font-mono text-gray-500 mt-1.5 sm:mt-2 break-all">
                 {userInfo?.id}
               </p>
 
@@ -470,17 +472,17 @@ export const Profile = () => {
               QUICK ACCESS
           ================================================= */}
 
-          <div className="lg:col-span-8 bg-white rounded-[24px] border border-gray-200 shadow-sm p-5 sm:p-6">
+          <div className="lg:col-span-8 bg-white rounded-2xl sm:rounded-[24px] border border-gray-200 shadow-sm p-4 sm:p-6">
 
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
 
               <div>
 
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900">
                   Quick Access
                 </h2>
 
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-[10px] sm:text-xs text-gray-400 mt-1">
                   {role === "user"
                     ? "Everything you need for your shopping experience"
                     : role === "admin"
@@ -499,7 +501,7 @@ export const Profile = () => {
 
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
 
               {currentRoleData.actions.map((item) => {
 
@@ -509,7 +511,7 @@ export const Profile = () => {
                   <button
                     key={item.title}
                     onClick={() => navigate(item.path)}
-                    className="group relative overflow-hidden flex items-center gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50/70 hover:bg-white hover:border-pink-200 hover:shadow-md hover:shadow-pink-100/50 transition-all duration-300 text-left"
+                    className="group relative overflow-hidden flex items-center gap-2 sm:gap-4 p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-gray-100 bg-gray-50/70 hover:bg-white hover:border-pink-200 hover:shadow-md hover:shadow-pink-100/50 transition-all duration-300 text-left min-w-0"
                   >
 
                     {/* Hover Decoration */}
@@ -518,11 +520,11 @@ export const Profile = () => {
 
                     {/* Icon */}
 
-                    <div className="relative w-12 h-12 shrink-0 rounded-2xl bg-white border border-gray-100 flex items-center justify-center group-hover:bg-pink-50 group-hover:border-pink-100 transition">
+                    <div className="relative w-9 h-9 sm:w-12 sm:h-12 shrink-0 rounded-xl sm:rounded-2xl bg-white border border-gray-100 flex items-center justify-center group-hover:bg-pink-50 group-hover:border-pink-100 transition">
 
                       <Icon
-                        size={21}
-                        className="text-pink-600"
+                        size={17}
+                        className="text-pink-600 sm:w-[21px] sm:h-[21px]"
                       />
 
                     </div>
@@ -531,11 +533,11 @@ export const Profile = () => {
 
                     <div className="relative flex-1 min-w-0">
 
-                      <p className="text-sm font-bold text-gray-900">
+                      <p className="text-[11px] sm:text-sm font-bold text-gray-900 truncate">
                         {item.title}
                       </p>
 
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-[9px] sm:text-xs text-gray-400 mt-0.5 sm:mt-1 line-clamp-2">
                         {item.description}
                       </p>
 
@@ -543,11 +545,11 @@ export const Profile = () => {
 
                     {/* Arrow */}
 
-                    <div className="relative w-8 h-8 rounded-lg bg-white flex items-center justify-center group-hover:bg-pink-50 transition">
+                    <div className="relative w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-white flex items-center justify-center group-hover:bg-pink-50 transition shrink-0">
 
                       <ChevronRight
-                        size={17}
-                        className="text-gray-300 group-hover:text-pink-500 group-hover:translate-x-0.5 transition"
+                        size={14}
+                        className="text-gray-300 group-hover:text-pink-500 group-hover:translate-x-0.5 transition sm:w-[17px] sm:h-[17px]"
                       />
 
                     </div>
@@ -560,22 +562,22 @@ export const Profile = () => {
 
             {/* Bottom Info */}
 
-            <div className="mt-5 p-4 rounded-2xl bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-100">
+            <div className="mt-3 sm:mt-5 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-100">
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3">
 
-                <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white flex items-center justify-center shrink-0">
 
                   <Sparkles
-                    size={16}
+                    size={14}
                     className="text-pink-500"
                   />
 
                 </div>
 
-                <div>
+                <div className="min-w-0">
 
-                  <p className="text-xs font-bold text-gray-800">
+                  <p className="text-[10px] sm:text-xs font-bold text-gray-800">
 
                     {role === "user"
                       ? "Enjoy your Flower experience"
@@ -585,7 +587,7 @@ export const Profile = () => {
 
                   </p>
 
-                  <p className="text-[11px] text-gray-500 mt-0.5">
+                  <p className="text-[9px] sm:text-[11px] text-gray-500 mt-0.5">
 
                     {role === "user"
                       ? "Explore bouquets, gifts and beautiful flowers."
@@ -609,13 +611,13 @@ export const Profile = () => {
 
         <button
           onClick={handleLogout}
-          className="w-full mt-5 h-12 rounded-2xl bg-white border border-red-100 hover:bg-red-50 hover:border-red-200 flex items-center justify-center gap-2 text-red-500 hover:text-red-600 font-semibold text-sm transition"
+          className="w-full mt-3 sm:mt-5 h-11 sm:h-12 rounded-xl sm:rounded-2xl bg-white border border-red-100 hover:bg-red-50 hover:border-red-200 flex items-center justify-center gap-2 text-red-500 hover:text-red-600 font-semibold text-xs sm:text-sm transition"
         >
-          <LogOut size={17} />
+          <LogOut size={16} />
           Logout
         </button>
 
-        <p className="text-center text-[11px] text-gray-400 mt-4">
+        <p className="text-center text-[9px] sm:text-[11px] text-gray-400 mt-3 sm:mt-4 pb-2">
           Your account information is securely managed.
         </p>
 

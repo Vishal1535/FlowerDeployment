@@ -118,3 +118,20 @@ export const updateProfileThunks = createAsyncThunk(
     }
   },
 );
+export const updateProfilePasswordThunks = createAsyncThunk(
+  "user/updateProfilePassword",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(
+        "/update-profile-password",
+        data,
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update profile password",
+      );
+    }
+  },
+);

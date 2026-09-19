@@ -501,6 +501,7 @@ export const login = async (req, res) => {
         name: userExist.name,
         email: userExist.email,
         role: userExist.role,
+        phone:userExist.phone
       },
     });
   } catch (error) {
@@ -896,6 +897,59 @@ export const updateProfile = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Failed to update profile",
+    });
+  }
+};
+export const updateProfilePassword = async (req, res) => {
+  try {
+    const { password } = req.body;
+
+    if (!password) {
+      return res.status(400).json({
+        success: false,
+        message: "Password is required",
+      });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 6 characters",
+      });
+    }
+
+    // Logged-in user ko req.id se find karenge
+    const user = await userModel.findById(req.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Update password
+    user.password = hashedPassword;
+    user.isVerified = true;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Password updated successfully",
+    });
+  } catch (error) {
+    console.error(
+      "Update Profile Password Error:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update password",
     });
   }
 };

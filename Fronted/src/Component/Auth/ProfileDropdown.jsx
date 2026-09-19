@@ -358,43 +358,12 @@ export const ProfileDropdown = ({
 
               </div>
 
-              <button
-                onClick={() =>
-                  handleNavigate(
-                    "/admin/dashboard"
-                  )
-                }
-                className="
-                  w-full
-                  text-left
-                  px-3
-                  sm:px-4
-                  py-2.5
-                  rounded-lg
-                  sm:rounded-xl
-                  hover:bg-pink-50
-                  text-gray-700
-                  flex
-                  items-center
-                  gap-2.5
-                  sm:gap-3
-                  text-sm
-                  sm:text-base
-                "
-              >
-
-                <span>📊</span>
-
-                <span>
-                  Dashboard
-                </span>
-
-              </button>
+             
 
               <button
                 onClick={() =>
                   handleNavigate(
-                    "/admin/settings"
+                    "/settings"
                   )
                 }
                 className="
@@ -501,7 +470,7 @@ export const ProfileDropdown = ({
               <button
                 onClick={() =>
                   handleNavigate(
-                    "/delivery-boy/profile"
+                    "/profile"
                   )
                 }
                 className="
@@ -537,7 +506,7 @@ export const ProfileDropdown = ({
               <button
                 onClick={() =>
                   handleNavigate(
-                    "/delivery-boy/settings"
+                    "/settings"
                   )
                 }
                 className="

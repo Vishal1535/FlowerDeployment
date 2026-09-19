@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ArrowLeft,
   User,
@@ -22,7 +22,7 @@ import toast from "react-hot-toast";
 import {
   updateProfileThunks,
   logoutThunks,
-  updatePasswordThunks,
+  updateProfilePasswordThunks,
 } from "../../Store/AuthSlice/authApi";
 
 export const Setting = () => {
@@ -30,8 +30,10 @@ export const Setting = () => {
   const navigate = useNavigate();
 
   const { isAuthorized, userInfo, loading } = useSelector(
-    (state) => state.user
+    (state) => state.user,
   );
+  
+  
 
   const [activeSection, setActiveSection] = useState(null);
 
@@ -42,6 +44,18 @@ export const Setting = () => {
     phone: userInfo?.phone || "",
   });
 
+  // IMPORTANT:
+  // Redux userInfo update hone ke baad
+  // profileData bhi update hoga.
+  useEffect(() => {
+    if (userInfo) {
+      setProfileData({
+        name: userInfo?.name || "",
+        phone: userInfo?.phone || "",
+      });
+    }
+  }, [userInfo]);
+
   // ================= PASSWORD DATA =================
 
   const [passwordData, setPasswordData] = useState({
@@ -50,8 +64,7 @@ export const Setting = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // =================================================
   // PROFILE VALIDATION
@@ -64,22 +77,18 @@ export const Setting = () => {
     profileData.name.trim().length > 0 &&
     nameRegex.test(profileData.name.trim());
 
-  const isPhoneValid =
-    phoneRegex.test(profileData.phone.trim());
+  const isPhoneValid = phoneRegex.test(profileData.phone.trim());
 
   // =================================================
-  // PROFILE
+  // PROFILE CHANGE
   // =================================================
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
 
+    // NAME
     if (name === "name") {
-      // Only letters and spaces
-      const cleanedValue = value.replace(
-        /[^A-Za-z\s]/g,
-        ""
-      );
+      const cleanedValue = value.replace(/[^A-Za-z\s]/g, "");
 
       setProfileData((prev) => ({
         ...prev,
@@ -89,11 +98,9 @@ export const Setting = () => {
       return;
     }
 
+    // PHONE
     if (name === "phone") {
-      // Only numbers and maximum 10 digits
-      const cleanedValue = value
-        .replace(/\D/g, "")
-        .slice(0, 10);
+      const cleanedValue = value.replace(/\D/g, "").slice(0, 10);
 
       setProfileData((prev) => ({
         ...prev,
@@ -109,6 +116,10 @@ export const Setting = () => {
     }));
   };
 
+  // =================================================
+  // UPDATE PROFILE
+  // =================================================
+
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
 
@@ -118,9 +129,7 @@ export const Setting = () => {
     }
 
     if (!isNameValid) {
-      toast.error(
-        "Name should contain only letters and spaces"
-      );
+      toast.error("Name should contain only letters and spaces");
       return;
     }
 
@@ -130,28 +139,36 @@ export const Setting = () => {
     }
 
     if (!isPhoneValid) {
-      toast.error(
-        "Phone number must contain exactly 10 digits"
-      );
+      toast.error("Phone number must contain exactly 10 digits");
       return;
     }
 
-    const result = await dispatch(
-      updateProfileThunks({
-        name: profileData.name.trim(),
-        phone: profileData.phone.trim(),
-      })
-    );
+    const updateData = {
+      name: profileData.name.trim(),
+      phone: profileData.phone.trim(),
+    };
+
+    console.log("Updating profile:", updateData);
+
+    const result = await dispatch(updateProfileThunks(updateData));
 
     if (updateProfileThunks.fulfilled.match(result)) {
       toast.success("Profile updated successfully");
 
-      // Close profile section
+      // Backend response se latest user data
+      // Redux mein already update ho raha hai.
+      const updatedUser = result.payload?.user;
+
+      if (updatedUser) {
+        setProfileData({
+          name: updatedUser.name || "",
+          phone: updatedUser.phone || "",
+        });
+      }
+
       setActiveSection(null);
     } else {
-      toast.error(
-        result.payload || "Failed to update profile"
-      );
+      toast.error(result.payload || "Failed to update profile");
     }
   };
 
@@ -185,35 +202,28 @@ export const Setting = () => {
 
   const passwordsMatch =
     passwordData.confirmPassword.length > 0 &&
-    passwordData.password ===
-      passwordData.confirmPassword;
+    passwordData.password === passwordData.confirmPassword;
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
 
     if (!isPasswordValid) {
-      toast.error(
-        "Please complete all password requirements"
-      );
+      toast.error("Please complete all password requirements");
       return;
     }
 
-    if (
-      passwordData.password !==
-      passwordData.confirmPassword
-    ) {
+    if (passwordData.password !== passwordData.confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
 
     const result = await dispatch(
-      updatePasswordThunks({
-        email: userInfo?.email,
+      updateProfilePasswordThunks({
         password: passwordData.password,
-      })
+      }),
     );
 
-    if (updatePasswordThunks.fulfilled.match(result)) {
+    if (updateProfilePasswordThunks.fulfilled.match(result)) {
       toast.success("Password updated successfully");
 
       setPasswordData({
@@ -224,12 +234,9 @@ export const Setting = () => {
       setShowPassword(false);
       setShowConfirmPassword(false);
 
-      // Close password section
       setActiveSection(null);
     } else {
-      toast.error(
-        result.payload || "Failed to update password"
-      );
+      toast.error(result.payload || "Failed to update password");
     }
   };
 
@@ -252,12 +259,9 @@ export const Setting = () => {
   if (!isAuthorized || !userInfo) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 flex items-center justify-center px-4">
-        <div className="w-full max-w-sm bg-white border border-pink-100 rounded-3xl p-7 text-center shadow-lg">
+        <div className="w-full max-w-sm bg-white border border-pink-100 rounded-3xl p-6 sm:p-7 text-center shadow-lg">
           <div className="w-16 h-16 mx-auto rounded-2xl bg-pink-50 flex items-center justify-center">
-            <User
-              size={28}
-              className="text-pink-600"
-            />
+            <User size={28} className="text-pink-600" />
           </div>
 
           <h2 className="text-xl font-bold text-gray-900 mt-5">
@@ -285,11 +289,11 @@ export const Setting = () => {
 
   if (!activeSection) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 px-4 py-6 sm:py-10">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 px-3 sm:px-4 py-5 sm:py-10">
         <div className="max-w-3xl mx-auto">
 
           {/* Header */}
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-5 sm:mb-6">
             <button
               onClick={() => navigate(-1)}
               className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-pink-600 hover:border-pink-200 transition shadow-sm shrink-0"
@@ -309,23 +313,21 @@ export const Setting = () => {
           </div>
 
           {/* Account Card */}
-          <div className="bg-white rounded-3xl border border-pink-100 shadow-sm p-5 sm:p-6 mb-5">
-            <div className="flex items-center gap-4">
+          <div className="bg-white rounded-3xl border border-pink-100 shadow-sm p-4 sm:p-6 mb-4 sm:mb-5">
+            <div className="flex items-center gap-3 sm:gap-4">
 
               {/* Avatar */}
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-400 flex items-center justify-center text-white text-xl font-bold shadow-md shrink-0">
-                {userInfo?.name
-                  ?.charAt(0)
-                  ?.toUpperCase() || "U"}
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-400 flex items-center justify-center text-white text-lg sm:text-xl font-bold shadow-md shrink-0">
+                {userInfo?.name?.charAt(0)?.toUpperCase() || "U"}
               </div>
 
               {/* User Info */}
               <div className="min-w-0 flex-1">
-                <h2 className="font-bold text-gray-900 truncate">
+                <h2 className="font-bold text-gray-900 truncate text-sm sm:text-base">
                   {userInfo?.name}
                 </h2>
 
-                <p className="text-sm text-gray-500 truncate mt-1">
+                <p className="text-xs sm:text-sm text-gray-500 truncate mt-1">
                   {userInfo?.email}
                 </p>
               </div>
@@ -348,20 +350,15 @@ export const Setting = () => {
 
             {/* Profile */}
             <button
-              onClick={() =>
-                setActiveSection("profile")
-              }
-              className="group w-full bg-white border border-gray-200 hover:border-pink-200 rounded-2xl p-4 sm:p-5 flex items-center gap-4 text-left shadow-sm hover:shadow-md transition"
+              onClick={() => setActiveSection("profile")}
+              className="group w-full bg-white border border-gray-200 hover:border-pink-200 rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 text-left shadow-sm hover:shadow-md transition"
             >
-              <div className="w-12 h-12 rounded-xl bg-pink-50 group-hover:bg-pink-100 flex items-center justify-center shrink-0 transition">
-                <User
-                  size={21}
-                  className="text-pink-600"
-                />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-pink-50 group-hover:bg-pink-100 flex items-center justify-center shrink-0 transition">
+                <User size={21} className="text-pink-600" />
               </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-gray-900">
+                <h3 className="font-bold text-gray-900 text-sm sm:text-base">
                   Profile Information
                 </h3>
 
@@ -378,20 +375,15 @@ export const Setting = () => {
 
             {/* Password */}
             <button
-              onClick={() =>
-                setActiveSection("password")
-              }
-              className="group w-full bg-white border border-gray-200 hover:border-purple-200 rounded-2xl p-4 sm:p-5 flex items-center gap-4 text-left shadow-sm hover:shadow-md transition"
+              onClick={() => setActiveSection("password")}
+              className="group w-full bg-white border border-gray-200 hover:border-purple-200 rounded-2xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 text-left shadow-sm hover:shadow-md transition"
             >
-              <div className="w-12 h-12 rounded-xl bg-purple-50 group-hover:bg-purple-100 flex items-center justify-center shrink-0 transition">
-                <KeyRound
-                  size={21}
-                  className="text-purple-600"
-                />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-purple-50 group-hover:bg-purple-100 flex items-center justify-center shrink-0 transition">
+                <KeyRound size={21} className="text-purple-600" />
               </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-gray-900">
+                <h3 className="font-bold text-gray-900 text-sm sm:text-base">
                   Password & Security
                 </h3>
 
@@ -405,18 +397,16 @@ export const Setting = () => {
                 className="text-gray-400 group-hover:text-purple-600 transition shrink-0"
               />
             </button>
-
           </div>
 
           {/* Logout */}
           <button
             onClick={handleLogout}
-            className="w-full mt-6 h-12 rounded-2xl bg-white border border-red-100 hover:bg-red-50 hover:border-red-200 text-red-500 font-semibold flex items-center justify-center gap-2 transition"
+            className="w-full mt-5 h-11 sm:h-12 rounded-2xl bg-white border border-red-100 hover:bg-red-50 hover:border-red-200 text-red-500 font-semibold flex items-center justify-center gap-2 transition text-sm"
           >
             <LogOut size={18} />
             Logout
           </button>
-
         </div>
       </div>
     );
@@ -428,11 +418,11 @@ export const Setting = () => {
 
   if (activeSection === "profile") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 px-4 py-6 sm:py-10">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 px-3 sm:px-4 py-5 sm:py-10">
         <div className="max-w-2xl mx-auto">
 
           {/* Header */}
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-5 sm:mb-6">
             <button
               onClick={() => setActiveSection(null)}
               className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-pink-600 hover:border-pink-200 transition shadow-sm shrink-0"
@@ -454,20 +444,17 @@ export const Setting = () => {
           {/* Profile Card */}
           <form
             onSubmit={handleUpdateProfile}
-            className="bg-white border border-gray-200 rounded-3xl shadow-sm p-5 sm:p-7"
+            className="bg-white border border-gray-200 rounded-3xl shadow-sm p-4 sm:p-7"
           >
 
             {/* Top */}
-            <div className="flex items-center gap-4 pb-5 mb-5 border-b border-gray-100">
-              <div className="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center shrink-0">
-                <User
-                  size={25}
-                  className="text-pink-600"
-                />
+            <div className="flex items-center gap-3 sm:gap-4 pb-4 sm:pb-5 mb-4 sm:mb-5 border-b border-gray-100">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-pink-100 flex items-center justify-center shrink-0">
+                <User size={23} className="text-pink-600" />
               </div>
 
               <div className="min-w-0">
-                <h2 className="font-bold text-gray-900">
+                <h2 className="font-bold text-gray-900 text-base sm:text-lg">
                   Personal Details
                 </h2>
 
@@ -486,7 +473,7 @@ export const Setting = () => {
               <div className="relative mt-2">
                 <User
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10"
                 />
 
                 <input
@@ -494,7 +481,7 @@ export const Setting = () => {
                   name="name"
                   value={profileData.name}
                   onChange={handleProfileChange}
-                  className={`w-full h-12 rounded-xl border pl-11 pr-4 text-sm outline-none transition ${
+                  className={`w-full h-12 rounded-xl border bg-white pl-11 pr-4 text-sm !text-gray-900 placeholder:!text-gray-400 font-medium outline-none transition ${
                     profileData.name.length > 0
                       ? isNameValid
                         ? "border-green-400 focus:ring-2 focus:ring-green-100"
@@ -505,14 +492,12 @@ export const Setting = () => {
                 />
               </div>
 
-              {/* Name validation */}
-              {profileData.name.length > 0 &&
-                !isNameValid && (
-                  <p className="flex items-center gap-1.5 text-xs text-red-500 mt-2">
-                    <XCircle size={14} />
-                    Name should contain only letters and spaces.
-                  </p>
-                )}
+              {profileData.name.length > 0 && !isNameValid && (
+                <p className="flex items-center gap-1.5 text-xs text-red-500 mt-2">
+                  <XCircle size={14} />
+                  Name should contain only letters and spaces.
+                </p>
+              )}
 
               {isNameValid && (
                 <p className="flex items-center gap-1.5 text-xs text-green-600 mt-2">
@@ -531,14 +516,14 @@ export const Setting = () => {
               <div className="relative mt-2">
                 <Mail
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10"
                 />
 
                 <input
                   type="email"
                   value={userInfo?.email || ""}
                   disabled
-                  className="w-full h-12 rounded-xl border border-gray-200 bg-gray-50 pl-11 pr-4 text-sm text-gray-400 cursor-not-allowed"
+                  className="w-full h-12 rounded-xl border border-gray-200 bg-gray-50 pl-11 pr-4 text-sm !text-gray-600 font-medium cursor-not-allowed"
                 />
               </div>
 
@@ -556,7 +541,7 @@ export const Setting = () => {
               <div className="relative mt-2">
                 <Phone
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10"
                 />
 
                 <input
@@ -566,7 +551,7 @@ export const Setting = () => {
                   value={profileData.phone}
                   onChange={handleProfileChange}
                   maxLength={10}
-                  className={`w-full h-12 rounded-xl border pl-11 pr-4 text-sm outline-none transition ${
+                  className={`w-full h-12 rounded-xl border bg-white pl-11 pr-4 text-sm !text-gray-900 placeholder:!text-gray-400 font-medium outline-none transition ${
                     profileData.phone.length > 0
                       ? isPhoneValid
                         ? "border-green-400 focus:ring-2 focus:ring-green-100"
@@ -577,14 +562,12 @@ export const Setting = () => {
                 />
               </div>
 
-              {/* Phone validation */}
-              {profileData.phone.length > 0 &&
-                !isPhoneValid && (
-                  <p className="flex items-center gap-1.5 text-xs text-red-500 mt-2">
-                    <XCircle size={14} />
-                    Phone number must contain exactly 10 digits.
-                  </p>
-                )}
+              {profileData.phone.length > 0 && !isPhoneValid && (
+                <p className="flex items-center gap-1.5 text-xs text-red-500 mt-2">
+                  <XCircle size={14} />
+                  Phone number must contain exactly 10 digits.
+                </p>
+              )}
 
               {isPhoneValid && (
                 <p className="flex items-center gap-1.5 text-xs text-green-600 mt-2">
@@ -597,20 +580,13 @@ export const Setting = () => {
             {/* Save */}
             <button
               type="submit"
-              disabled={
-                loading ||
-                !isNameValid ||
-                !isPhoneValid
-              }
-              className="w-full mt-7 h-12 rounded-xl bg-pink-600 hover:bg-pink-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white font-semibold flex items-center justify-center gap-2 transition"
+              disabled={loading || !isNameValid || !isPhoneValid}
+              className="w-full mt-6 sm:mt-7 h-12 rounded-xl bg-pink-600 hover:bg-pink-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white font-semibold flex items-center justify-center gap-2 transition"
             >
               <Save size={18} />
 
-              {loading
-                ? "Saving..."
-                : "Save Changes"}
+              {loading ? "Saving..." : "Save Changes"}
             </button>
-
           </form>
         </div>
       </div>
@@ -622,11 +598,11 @@ export const Setting = () => {
   // =================================================
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 px-4 py-6 sm:py-10">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50 px-3 sm:px-4 py-5 sm:py-10">
       <div className="max-w-2xl mx-auto">
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-5 sm:mb-6">
           <button
             onClick={() => setActiveSection(null)}
             className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-purple-600 hover:border-purple-200 transition shadow-sm shrink-0"
@@ -648,16 +624,13 @@ export const Setting = () => {
         {/* Password Card */}
         <form
           onSubmit={handleUpdatePassword}
-          className="bg-white border border-gray-200 rounded-3xl shadow-sm p-5 sm:p-7"
+          className="bg-white border border-gray-200 rounded-3xl shadow-sm p-4 sm:p-7"
         >
 
           {/* Security Header */}
-          <div className="flex items-center gap-3 p-4 rounded-2xl bg-purple-50 border border-purple-100 mb-6">
+          <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl bg-purple-50 border border-purple-100 mb-5 sm:mb-6">
             <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shrink-0">
-              <Lock
-                size={19}
-                className="text-purple-600"
-              />
+              <Lock size={19} className="text-purple-600" />
             </div>
 
             <div className="min-w-0">
@@ -665,7 +638,7 @@ export const Setting = () => {
                 Create New Password
               </p>
 
-              <p className="text-xs text-gray-500 mt-0.5">
+              <p className="text-xs text-gray-500 mt-0.5 leading-5">
                 Use a combination of letters, numbers and symbols.
               </p>
             </div>
@@ -680,7 +653,7 @@ export const Setting = () => {
             <div className="relative mt-2">
               <Lock
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10"
               />
 
               <input
@@ -689,31 +662,25 @@ export const Setting = () => {
                 value={passwordData.password}
                 onChange={handlePasswordChange}
                 placeholder="Enter new password"
-                className="w-full h-12 rounded-xl border border-gray-200 pl-11 pr-12 text-sm outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition"
+                className="w-full h-12 rounded-xl border border-gray-200 bg-white pl-11 pr-12 text-sm !text-gray-900 placeholder:!text-gray-400 font-medium outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition"
               />
 
               <button
                 type="button"
-                onClick={() =>
-                  setShowPassword((prev) => !prev)
-                }
+                onClick={() => setShowPassword((prev) => !prev)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-600 transition"
               >
-                {showPassword ? (
-                  <EyeOff size={19} />
-                ) : (
-                  <Eye size={19} />
-                )}
+                {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
               </button>
             </div>
 
             {/* Password Requirements */}
-            <div className="mt-3 rounded-xl bg-gray-50 border border-gray-100 p-3.5">
+            <div className="mt-3 rounded-xl bg-gray-50 border border-gray-100 p-3 sm:p-3.5">
               <p className="text-xs font-semibold text-gray-600 mb-3">
                 Password must contain:
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <PasswordRule
                   valid={passwordRules.length}
                   text="At least 6 characters"
@@ -746,20 +713,16 @@ export const Setting = () => {
             <div className="relative mt-2">
               <Lock
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10"
               />
 
               <input
-                type={
-                  showConfirmPassword
-                    ? "text"
-                    : "password"
-                }
+                type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 value={passwordData.confirmPassword}
                 onChange={handlePasswordChange}
                 placeholder="Confirm new password"
-                className={`w-full h-12 rounded-xl border pl-11 pr-12 text-sm outline-none transition ${
+                className={`w-full h-12 rounded-xl border bg-white pl-11 pr-12 text-sm !text-gray-900 placeholder:!text-gray-400 font-medium outline-none transition ${
                   passwordData.confirmPassword.length > 0
                     ? passwordsMatch
                       ? "border-green-400 focus:ring-2 focus:ring-green-100"
@@ -771,9 +734,7 @@ export const Setting = () => {
               <button
                 type="button"
                 onClick={() =>
-                  setShowConfirmPassword(
-                    (prev) => !prev
-                  )
+                  setShowConfirmPassword((prev) => !prev)
                 }
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-600 transition"
               >
@@ -810,7 +771,7 @@ export const Setting = () => {
               !isPasswordValid ||
               !passwordsMatch
             }
-            className="w-full mt-7 h-12 rounded-xl bg-purple-600 hover:bg-purple-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white font-semibold flex items-center justify-center gap-2 transition"
+            className="w-full mt-6 sm:mt-7 h-12 rounded-xl bg-purple-600 hover:bg-purple-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white font-semibold flex items-center justify-center gap-2 transition"
           >
             <ShieldCheck size={18} />
 
@@ -818,7 +779,6 @@ export const Setting = () => {
               ? "Updating Password..."
               : "Update Password"}
           </button>
-
         </form>
       </div>
     </div>
@@ -833,9 +793,7 @@ const PasswordRule = ({ valid, text }) => {
   return (
     <div
       className={`flex items-center gap-2 text-xs ${
-        valid
-          ? "text-green-600"
-          : "text-red-500"
+        valid ? "text-green-600" : "text-red-500"
       }`}
     >
       {valid ? (

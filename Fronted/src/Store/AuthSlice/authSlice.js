@@ -9,6 +9,7 @@ import {
   registerVerifyOtpThunks,
   updatePasswordThunks,
   updateProfileThunks,
+  updateProfilePasswordThunks,
 } from "./authApi.js";
 
 // =====================================================
@@ -271,6 +272,25 @@ const userSlice = createSlice({
       })
 
       .addCase(updateProfileThunks.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    // =====================================================
+    // UPDATE PROFILE PASSWORD
+    // =====================================================
+
+    builder
+      .addCase(updateProfilePasswordThunks.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      .addCase(updateProfilePasswordThunks.fulfilled, (state) => {
+        state.loading = false;
+        state.error = null;
+      })
+
+      .addCase(updateProfilePasswordThunks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
