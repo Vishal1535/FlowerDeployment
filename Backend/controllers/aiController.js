@@ -90,7 +90,90 @@ export const getAIRecommendation = async (req, res) => {
     // LANGUAGE DETECTION
     // =========================================================
 
-    const romanHindiWords = new Set([
+    const strongRomanHindiWords = new Set([
+      "mujhe",
+      "mera",
+      "meri",
+      "mere",
+      "mujhko",
+      "mujhse",
+
+      "aap",
+      "aapka",
+      "aapki",
+      "aapke",
+      "aapko",
+
+      "apka",
+      "apki",
+      "apke",
+      "apko",
+
+      "kya",
+      "kaise",
+      "kaunsa",
+      "kaunsi",
+      "kaun",
+      "kis",
+      "kiske",
+
+      "batao",
+      "batana",
+
+      "dikhao",
+      "dikhana",
+      "dikha",
+
+      "chahiye",
+      "lena",
+      "lelo",
+      "lijiye",
+
+      "bhi",
+
+      "nahi",
+      "nahin",
+
+      "hai",
+      "hain",
+
+      "tha",
+      "thi",
+      "the",
+
+      "raha",
+      "rahi",
+      "rahe",
+
+      "hoon",
+      "hu",
+
+      "karna",
+      "karu",
+      "karo",
+
+      "do",
+      "du",
+      "doon",
+
+      "dena",
+      "dunga",
+      "dungi",
+
+      "andar",
+      "tak",
+
+      "kam",
+      "zyada",
+      "thoda",
+      "kuch",
+
+      "acha",
+      "accha",
+      "achha",
+    ]);
+
+    const singleWordHindiWords = new Set([
       "kya",
       "hai",
       "hain",
@@ -102,103 +185,185 @@ export const getAIRecommendation = async (req, res) => {
       "aapka",
       "aapki",
       "aapke",
+      "aapko",
       "apka",
       "apki",
       "apke",
-      "apni",
-      "apne",
-      "aapko",
       "apko",
-      "ke",
-      "ka",
-      "ki",
-      "ko",
-      "se",
-      "mein",
-      "me",
       "batao",
       "batana",
       "dikhao",
       "dikhana",
       "dikha",
       "chahiye",
-      "du",
-      "doon",
-      "lena",
       "lijiye",
+      "lelo",
+      "nahi",
+      "nahin",
+      "kaise",
+      "kaunsa",
+      "kaunsi",
+      "kaun",
+      "kis",
       "bhai",
       "behen",
       "behan",
       "mummy",
       "maa",
       "papa",
-      "birthday",
-      "andar",
-      "tak",
-      "kam",
-      "zyada",
-      "thoda",
-      "kuch",
-      "aur",
       "acha",
       "accha",
       "achha",
-      "nahi",
-      "nahin",
-      "tha",
-      "thi",
-      "wala",
-      "wali",
-      "wale",
-      "kaise",
-      "kaunsa",
-      "kaunsi",
-      "kaun",
-      "kis",
-      "kiske",
-      "baare",
-      "baat",
-      "kar",
-      "karna",
-      "karu",
-      "rahe",
-      "raha",
-      "rahi",
-      "hu",
-      "hoon",
-      "hisab",
-      "sahi",
-      "theek",
-      "dena",
-      "dunga",
-      "dungi",
-      "chota",
-      "bada",
-      "budget",
+      "haan",
+      "ha",
     ]);
 
+    const hinglishPhrasePatterns = [
+      /\bmujhe\b/i,
+      /\bmujhko\b/i,
+      /\bmera\b/i,
+      /\bmeri\b/i,
+      /\bmere\b/i,
+
+      /\baapko\b/i,
+      /\baapka\b/i,
+      /\baapki\b/i,
+      /\baapke\b/i,
+
+      /\bapko\b/i,
+      /\bapka\b/i,
+      /\bapki\b/i,
+      /\bapke\b/i,
+
+      /\bkya\s+(hai|chahiye|du|doon|lena|karu|karo)\b/i,
+
+      /\bkaunsa\b/i,
+      /\bkaunsi\b/i,
+
+      /\bke\s+liye\b/i,
+      /\bke\s+andar\b/i,
+      /\bke\s+baare\b/i,
+
+      /\bkitna\s+budget\b/i,
+      /\bkitne\s+(ka|ke|mein)\b/i,
+
+      /\b\d+\s+(ke|ka)\s+andar\b/i,
+
+      /\b(batao|batana)\b/i,
+      /\b(dikhao|dikhana|dikha)\b/i,
+
+      /\b(karna|karu|karo)\s+(hai|hoga|hogi)\b/i,
+
+      /\b(lena|lelo|lijiye)\s+(hai|chahiye)\b/i,
+
+      /\b(de\s+do|de\s+dona)\b/i,
+
+      /\b(kam|zyada|thoda)\s+budget\b/i,
+
+      /\b(kuch|thoda)\s+(aur|different)\b/i,
+
+      /\b(haan|ha)\s+(dikhao|batao|karo)\b/i,
+    ];
+
     const detectLanguage = (text) => {
-      if (!text) {
+      if (!text || !text.trim()) {
         return "ENGLISH";
       }
 
-      if (/[\u0900-\u097F]/.test(text)) {
+      const cleanText = text.trim();
+
+      // -------------------------------------------------------
+      // HINDI DEVANAGARI
+      // -------------------------------------------------------
+
+      if (/[\u0900-\u097F]/.test(cleanText)) {
         return "HINDI_DEVANAGARI";
       }
 
-      const words = text
+      // -------------------------------------------------------
+      // WORDS
+      // -------------------------------------------------------
+
+      const words = cleanText
         .toLowerCase()
         .replace(/[^a-zA-Z\s]/g, " ")
         .split(/\s+/)
         .filter(Boolean);
 
-      const hindiWordCount = words.filter((word) =>
-        romanHindiWords.has(word)
-      ).length;
+      if (words.length === 0) {
+        return "ENGLISH";
+      }
 
-      if (hindiWordCount >= 1) {
+      // -------------------------------------------------------
+      // SINGLE CLEAR HINDI WORD
+      // -------------------------------------------------------
+
+      if (
+        words.length === 1 &&
+        singleWordHindiWords.has(words[0])
+      ) {
         return "HINGLISH_ROMAN";
       }
+
+      // -------------------------------------------------------
+      // STRONG HINGLISH PHRASE
+      // -------------------------------------------------------
+
+      const hasStrongHinglishPhrase =
+        hinglishPhrasePatterns.some((pattern) =>
+          pattern.test(cleanText)
+        );
+
+      if (hasStrongHinglishPhrase) {
+        return "HINGLISH_ROMAN";
+      }
+
+      // -------------------------------------------------------
+      // ROMAN HINDI WORD COUNT
+      // -------------------------------------------------------
+
+      const hindiWordCount = words.filter((word) =>
+        strongRomanHindiWords.has(word)
+      ).length;
+
+      /*
+        IMPORTANT:
+
+        English words such as:
+        me
+        my
+        can
+        you
+        brother
+        birthday
+        gift
+        budget
+
+        MUST NOT make the sentence Hinglish.
+
+        At least 2 clear Roman-Hindi words are required.
+      */
+
+      if (hindiWordCount >= 2) {
+        return "HINGLISH_ROMAN";
+      }
+
+      // -------------------------------------------------------
+      // CLEAR ENGLISH SENTENCE
+      // -------------------------------------------------------
+
+      const englishSentencePattern =
+        /\b(my|your|the|is|are|am|was|were|be|been|being|can|could|would|should|will|please|suggest|recommend|give|show|find|want|need|looking|for|with|within|under|from|this|that|these|those|some|any|idea|ideas|coming|birthday|brother|sister|mother|father|friend|gift|gifts|budget|option|options|product|products)\b/i;
+
+      if (
+        englishSentencePattern.test(cleanText)
+      ) {
+        return "ENGLISH";
+      }
+
+      // -------------------------------------------------------
+      // DEFAULT
+      // -------------------------------------------------------
 
       return "ENGLISH";
     };
@@ -207,7 +372,12 @@ export const getAIRecommendation = async (req, res) => {
     // LANGUAGE
     // =========================================================
 
-    let language = detectLanguage(latestUserMessage);
+    let language =
+      detectLanguage(latestUserMessage);
+
+    // =========================================================
+    // SHORT FOLLOW-UP
+    // =========================================================
 
     const isShortFollowUp =
       latestUserMessage.trim().length <= 3 ||
@@ -215,10 +385,18 @@ export const getAIRecommendation = async (req, res) => {
         latestUserMessage.trim()
       );
 
+    // =========================================================
+    // ONLY NUMBER
+    // =========================================================
+
     const isOnlyNumber =
       /^(?:₹|rs\.?|rupees?|inr)?\s*\d+(?:\.\d+)?\s*k?\s*$/i.test(
         latestUserMessage.trim()
       );
+
+    // =========================================================
+    // REMEMBER PREVIOUS LANGUAGE
+    // =========================================================
 
     if (
       (isShortFollowUp || isOnlyNumber) &&
@@ -229,10 +407,13 @@ export const getAIRecommendation = async (req, res) => {
         i >= 0;
         i--
       ) {
-        if (previousUserMessages[i].trim().length > 2) {
-          language = detectLanguage(
-            previousUserMessages[i]
-          );
+        const previousMessage =
+          previousUserMessages[i].trim();
+
+        if (previousMessage.length > 2) {
+          language =
+            detectLanguage(previousMessage);
+
           break;
         }
       }
@@ -309,7 +490,9 @@ export const getAIRecommendation = async (req, res) => {
         cleanText.includes("tak");
 
       const isStandaloneAmount =
-        standaloneAmountRegex.test(text.trim());
+        standaloneAmountRegex.test(
+          text.trim()
+        );
 
       if (
         hasBudgetWord ||
@@ -363,6 +546,7 @@ export const getAIRecommendation = async (req, res) => {
       if (match) {
         relationship =
           match[0].toLowerCase();
+
         break;
       }
     }
@@ -377,16 +561,21 @@ export const getAIRecommendation = async (req, res) => {
           return "your recipient";
         }
 
-        if (language === "HINDI_DEVANAGARI") {
+        if (
+          language === "HINDI_DEVANAGARI"
+        ) {
           return "आपके recipient";
         }
 
         return "aapke recipient";
       }
 
-      const value = relationship.toLowerCase();
+      const value =
+        relationship.toLowerCase();
 
-      if (language === "HINGLISH_ROMAN") {
+      if (
+        language === "HINGLISH_ROMAN"
+      ) {
         const labels = {
           bhai: "bhai",
           brother: "bhai",
@@ -417,7 +606,9 @@ export const getAIRecommendation = async (req, res) => {
         return labels[value] || relationship;
       }
 
-      if (language === "HINDI_DEVANAGARI") {
+      if (
+        language === "HINDI_DEVANAGARI"
+      ) {
         const labels = {
           bhai: "भाई",
           brother: "भाई",
@@ -503,6 +694,7 @@ export const getAIRecommendation = async (req, res) => {
       if (match) {
         occasion =
           match[0].toLowerCase();
+
         break;
       }
     }
@@ -569,6 +761,7 @@ export const getAIRecommendation = async (req, res) => {
       if (foundFlower) {
         flowerKeyword =
           normalizeFlower(foundFlower);
+
         break;
       }
     }
@@ -595,6 +788,7 @@ export const getAIRecommendation = async (req, res) => {
       if (match) {
         preferredColor =
           match[0].toLowerCase();
+
         break;
       }
     }
@@ -603,7 +797,9 @@ export const getAIRecommendation = async (req, res) => {
     // PRODUCT TYPE
     // =========================================================
 
-    const getProductTypeFromText = (text) => {
+    const getProductTypeFromText = (
+      text
+    ) => {
       const value =
         text.toLowerCase();
 
@@ -668,8 +864,7 @@ export const getAIRecommendation = async (req, res) => {
     };
 
     // =========================================================
-    // IMPORTANT:
-    // Find latest explicit product type
+    // LATEST EXPLICIT PRODUCT TYPE
     // =========================================================
 
     let preferredType = null;
@@ -687,6 +882,7 @@ export const getAIRecommendation = async (req, res) => {
       if (detectedType) {
         preferredType =
           detectedType;
+
         break;
       }
     }
@@ -700,8 +896,6 @@ export const getAIRecommendation = async (req, res) => {
         lowerLatestMessage
       );
 
-    // If user asks for completely different gift options,
-    // don't force the previous Bouquet type.
     if (isBroadGiftRequest) {
       preferredType = null;
     }
@@ -764,7 +958,7 @@ export const getAIRecommendation = async (req, res) => {
     // =========================================================
 
     const contextQuestionPattern =
-      /(?:kis\s+(?:ke\s+)?baare|kis\s+cheez|what\s+were\s+we\s+talking|what\s+was\s+i\s+talking|what\s+gift\s+were|what\s+are\s+we\s+talking)/i;
+      /\b(kis\s+(ke\s+)?baare|kis\s+cheez|what\s+were\s+we\s+talking|what\s+was\s+i\s+talking|what\s+gift\s+were|what\s+are\s+we\s+talking)\b/i;
 
     const isContextQuestion =
       contextQuestionPattern.test(
@@ -1016,12 +1210,10 @@ Use English alphabet only.
 
 DO NOT use Hindi Devanagari script.
 
-Example style:
-
+Example:
 "Aapka question samajh gaya. Main aapki help kar sakta hoon."
 
 Do NOT write:
-
 "मैं आपकी मदद कर सकता हूँ।"
 `;
         } else if (
@@ -1034,7 +1226,7 @@ Reply ONLY in Hindi Devanagari.
 
 Do NOT switch to Roman Hindi.
 
-Do NOT use English sentences unless an English product/technical name is necessary.
+Do NOT use English sentences unless an English product or technical name is necessary.
 `;
         } else {
           languageInstruction = `
@@ -1042,7 +1234,13 @@ IMPORTANT:
 
 Reply ONLY in English.
 
-Do not switch to Hindi or Hinglish.
+Do NOT use Hindi.
+
+Do NOT use Hinglish.
+
+Do NOT convert the English sentence into Hinglish.
+
+If the user's message is English, your complete response must be English.
 `;
         }
 
@@ -1053,6 +1251,7 @@ Do not switch to Hindi or Hinglish.
             messages: [
               {
                 role: "system",
+
                 content: `
 You are a friendly AI assistant for a flower bouquet e-commerce website.
 
@@ -1093,6 +1292,11 @@ If the user says sister/behen, always refer to sister/behen.
 If the user says mother/mummy, always refer to mother/mummy.
 
 Do not assume a different recipient.
+
+Detected language:
+${language}
+
+Follow the detected language strictly.
 `,
               },
 
@@ -1111,7 +1315,6 @@ Do not assume a different recipient.
 
         return res.status(200).json({
           success: true,
-
           answer:
             aiResponse ||
             (
@@ -1121,7 +1324,6 @@ Do not assume a different recipient.
                   ? "हाँ, मैं यहीं हूँ। 😊"
                   : "Yes, I’m here to help you. 😊"
             ),
-
           products: [],
         });
       } catch (groqError) {
@@ -1386,10 +1588,7 @@ Do not assume a different recipient.
       );
 
     // =========================================================
-    // REMOVE DUPLICATE PRODUCTS
-    //
-    // Same MongoDB ID OR same product name
-    // should not appear twice.
+    // REMOVE DUPLICATES
     // =========================================================
 
     const uniqueProducts = [];
@@ -1424,7 +1623,8 @@ Do not assume a different recipient.
       uniqueProducts.push(product);
     }
 
-    productsForAI = uniqueProducts;
+    productsForAI =
+      uniqueProducts;
 
     // =========================================================
     // RANK PRODUCTS
@@ -1565,7 +1765,7 @@ Do not assume a different recipient.
       productsForAI.slice(0, 2);
 
     // =========================================================
-    // PRODUCT NAMES FOR RESPONSE
+    // PRODUCT NAMES / PRICES
     // =========================================================
 
     const firstProduct =
@@ -1587,7 +1787,9 @@ Do not assume a different recipient.
     // =========================================================
 
     const getProductTypeLabel = () => {
-      if (preferredType === "Bouquet") {
+      if (
+        preferredType === "Bouquet"
+      ) {
         return {
           hinglish: "bouquet",
           hindi: "bouquet",
@@ -1595,7 +1797,9 @@ Do not assume a different recipient.
         };
       }
 
-      if (preferredType === "ComboBouquet") {
+      if (
+        preferredType === "ComboBouquet"
+      ) {
         return {
           hinglish: "combo bouquet",
           hindi: "combo bouquet",
@@ -1603,7 +1807,9 @@ Do not assume a different recipient.
         };
       }
 
-      if (preferredType === "FlowerInBox") {
+      if (
+        preferredType === "FlowerInBox"
+      ) {
         return {
           hinglish: "Flower-in-Box",
           hindi: "Flower-in-Box",
@@ -1611,7 +1817,9 @@ Do not assume a different recipient.
         };
       }
 
-      if (preferredType === "FlowerInSleeve") {
+      if (
+        preferredType === "FlowerInSleeve"
+      ) {
         return {
           hinglish: "Flower-in-Sleeve",
           hindi: "Flower-in-Sleeve",
@@ -1619,7 +1827,9 @@ Do not assume a different recipient.
         };
       }
 
-      if (preferredType === "Woolen") {
+      if (
+        preferredType === "Woolen"
+      ) {
         return {
           hinglish: "woolen bouquet",
           hindi: "woolen bouquet",
@@ -1641,60 +1851,96 @@ Do not assume a different recipient.
     // PRODUCT RESPONSE
     // =========================================================
 
+    /*
+      IMPORTANT:
+
+      Don't use one fixed sentence every time.
+
+      We rotate between different natural response styles
+      based on conversation length.
+
+      This changes the wording while keeping the actual
+      product data exactly the same.
+    */
+
+    const responseStyle =
+      userMessages.length % 4;
+
     let aiResponse = "";
 
     // =========================================================
-    // HINGLISH
+    // HINGLISH RESPONSE
     // =========================================================
 
     if (
       language === "HINGLISH_ROMAN"
     ) {
       if (secondProduct) {
+        const hinglishResponses = [
+          `${relationshipLabel} ke ${occasion || "special occasion"} ke liye ₹${budget} ke andar mujhe ye 2 ${productTypeLabel.hinglish} options suitable lage. 🌸\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `Aapke ₹${budget} budget mein ${relationshipLabel} ke ${occasion || "special occasion"} ke liye ye dono options dekh sakte ho. 🌸\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `₹${budget} ke budget ko dhyan mein rakhte hue, ${relationshipLabel} ke liye ye 2 ${productTypeLabel.hinglish} options mil rahe hain. 😊\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `Agar ${relationshipLabel} ke ${occasion || "special occasion"} ke liye ₹${budget} tak ka gift chahiye, toh in dono options ko consider kar sakte ho. 🌷\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+        ];
+
         aiResponse =
-          `${relationshipLabel} ke ${occasion || "special occasion"} ke liye ye 2 ${productTypeLabel.hinglish} options aapke ₹${budget} budget ke andar hain. 🌸\n\n` +
-          `1. ${firstProduct.name} – ₹${firstPrice}\n` +
-          `2. ${secondProduct.name} – ₹${secondPrice}`;
+          hinglishResponses[responseStyle];
       } else {
         aiResponse =
-          `${relationshipLabel} ke ${occasion || "special occasion"} ke liye aapke ₹${budget} budget ke andar ye ${productTypeLabel.hinglish} option mila hai. 🌸\n\n` +
-          `${firstProduct.name} – ₹${firstPrice}`;
+          `${relationshipLabel} ke ${occasion || "special occasion"} ke liye ₹${budget} ke andar ye ${productTypeLabel.hinglish} option suitable rahega. 🌸\n\n${firstProduct.name} – ₹${firstPrice}`;
       }
     }
 
     // =========================================================
-    // HINDI
+    // HINDI RESPONSE
     // =========================================================
 
     else if (
       language === "HINDI_DEVANAGARI"
     ) {
       if (secondProduct) {
+        const hindiResponses = [
+          `${relationshipLabel} के ${occasion || "खास मौके"} के लिए ₹${budget} के अंदर ये 2 ${productTypeLabel.hindi} options अच्छे रहेंगे। 🌸\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `आपके ₹${budget} के budget में ${relationshipLabel} के लिए ये दोनों options देख सकते हैं। 🌸\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `₹${budget} के budget को ध्यान में रखते हुए, ${relationshipLabel} के लिए ये 2 ${productTypeLabel.hindi} options मिले हैं। 😊\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `अगर ${relationshipLabel} के ${occasion || "खास मौके"} के लिए ₹${budget} तक का gift चाहिए, तो इन दोनों options को देख सकते हैं। 🌷\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+        ];
+
         aiResponse =
-          `${relationshipLabel} के ${occasion || "खास मौके"} के लिए आपके ₹${budget} बजट के अंदर ये 2 ${productTypeLabel.hindi} options मिले हैं। 🌸\n\n` +
-          `1. ${firstProduct.name} – ₹${firstPrice}\n` +
-          `2. ${secondProduct.name} – ₹${secondPrice}`;
+          hindiResponses[responseStyle];
       } else {
         aiResponse =
-          `${relationshipLabel} के ${occasion || "खास मौके"} के लिए आपके ₹${budget} बजट के अंदर यह ${productTypeLabel.hindi} option मिला है। 🌸\n\n` +
-          `${firstProduct.name} – ₹${firstPrice}`;
+          `${relationshipLabel} के ${occasion || "खास मौके"} के लिए ₹${budget} के अंदर यह ${productTypeLabel.hindi} option अच्छा रहेगा। 🌸\n\n${firstProduct.name} – ₹${firstPrice}`;
       }
     }
 
     // =========================================================
-    // ENGLISH
+    // ENGLISH RESPONSE
     // =========================================================
 
     else {
       if (secondProduct) {
+        const englishResponses = [
+          `For your ${relationshipLabel}'s ${occasion || "special occasion"}, these 2 ${productTypeLabel.english} options fit your ₹${budget} budget. 🌸\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `With a ₹${budget} budget, here are two ${productTypeLabel.english} options you can consider for your ${relationshipLabel}'s ${occasion || "special occasion"}. 🌷\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `I found these two ${productTypeLabel.english} options within your ₹${budget} budget for your ${relationshipLabel}'s ${occasion || "special occasion"}. 😊\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+
+          `For a ${occasion || "special occasion"} gift for your ${relationshipLabel}, these two options stay within ₹${budget}. 🌸\n\n1. ${firstProduct.name} – ₹${firstPrice}\n2. ${secondProduct.name} – ₹${secondPrice}`,
+        ];
+
         aiResponse =
-          `For your ${relationshipLabel}'s ${occasion || "special occasion"}, here are 2 suitable ${productTypeLabel.english} options within your ₹${budget} budget. 🌸\n\n` +
-          `1. ${firstProduct.name} – ₹${firstPrice}\n` +
-          `2. ${secondProduct.name} – ₹${secondPrice}`;
+          englishResponses[responseStyle];
       } else {
         aiResponse =
-          `For your ${relationshipLabel}'s ${occasion || "special occasion"}, I found a suitable ${productTypeLabel.english} option within your ₹${budget} budget. 🌸\n\n` +
-          `${firstProduct.name} – ₹${firstPrice}`;
+          `I found a suitable ${productTypeLabel.english} option for your ${relationshipLabel}'s ${occasion || "special occasion"} within your ₹${budget} budget. 🌸\n\n${firstProduct.name} – ₹${firstPrice}`;
       }
     }
 
@@ -1705,12 +1951,8 @@ Do not assume a different recipient.
     const recommendedProducts =
       productsToShow.map(
         (product) => ({
-          // Frontend View Details ke liye
-          // exact ID
           id: product._id,
-
           type: product.type,
-
           name: product.name,
 
           description:
@@ -1722,7 +1964,6 @@ Do not assume a different recipient.
           discountPrice:
             product.discountPrice ?? null,
 
-          // ONLY DATABASE IMAGE
           image:
             product.image,
 
@@ -1758,6 +1999,7 @@ Do not assume a different recipient.
       answer: aiResponse,
       products: recommendedProducts,
     });
+
   } catch (error) {
     console.error(
       "AI Recommendation Error:",

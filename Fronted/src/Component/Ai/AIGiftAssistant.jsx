@@ -134,7 +134,7 @@ export const AIGiftAssistant = () => {
       .filter(Boolean)
       .join("\n");
 
-    console.log("AI Conversation Context:", conversationContext);
+    
 
     // ==================================================
     // CALL AI API
