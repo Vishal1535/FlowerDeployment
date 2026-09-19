@@ -1,22 +1,19 @@
 import groq from "../configs/groq.js";
 
 import bouquetModel from "../models/Bouquet.js";
-import CardModel from "../models/Card.js";
-import ChocolateModel from "../models/Chocolate.js";
 import ComboBouquetModel from "../models/ComboBouquet.js";
 import flowerModel from "../models/Flower.js";
 import FlowerInBoxModel from "../models/FlowerInBoxModel.js";
 import FlowerInSleeveModel from "../models/FlowerInSleeveModel.js";
-import MiniCupcakeModel from "../models/MiniCupCake.js";
 import WoolenModel from "../models/Woolen.js";
 
 export const getAIRecommendation = async (req, res) => {
   try {
     const { question } = req.body;
 
-    // ==================================================
-    // VALIDATE QUESTION
-    // ==================================================
+    // =========================================================
+    // VALIDATE
+    // =========================================================
 
     if (!question || !question.trim()) {
       return res.status(400).json({
@@ -25,61 +22,246 @@ export const getAIRecommendation = async (req, res) => {
       });
     }
 
-    // ==================================================
-    // CONVERSATION PARSING
-    // ==================================================
+    // =========================================================
+    // PARSE COMPLETE CONVERSATION
+    // =========================================================
 
-    const conversationLines = question
+    const lines = question
       .split("\n")
-      .map((line) =>
-        line.replace(/^User:\s*/i, "").trim()
-      )
+      .map((line) => line.trim())
       .filter(Boolean);
 
-    const latestUserMessage =
-      conversationLines[
-        conversationLines.length - 1
-      ] || question;
-
-    const lowerLatestMessage =
-      latestUserMessage.toLowerCase().trim();
-
-    const previousMessages =
-      conversationLines.slice(0, -1);
-
-    // ==================================================
-    // PREVIOUSLY RECOMMENDED PRODUCT IDS
-    // ==================================================
-
+    const userMessages = [];
     const previouslyRecommendedProductIds = [];
 
-    question.split("\n").forEach((line) => {
-      if (
-        line
-          .trim()
-          .startsWith("AI Recommended Product IDs:")
-      ) {
-        const ids = line
-          .replace(
-            "AI Recommended Product IDs:",
-            ""
-          )
+    for (const line of lines) {
+      // -------------------------------------------------------
+      // USER MESSAGE
+      // -------------------------------------------------------
+
+      const userMatch = line.match(/^User:\s*(.*)$/i);
+
+      if (userMatch) {
+        const message = userMatch[1].trim();
+
+        if (message) {
+          userMessages.push(message);
+        }
+
+        continue;
+      }
+
+      // -------------------------------------------------------
+      // PREVIOUS PRODUCT IDS
+      // -------------------------------------------------------
+
+      const idsMatch = line.match(
+        /^AI Recommended Product IDs:\s*(.*)$/i
+      );
+
+      if (idsMatch) {
+        const ids = idsMatch[1]
           .split(",")
           .map((id) => id.trim())
           .filter(Boolean);
 
-        previouslyRecommendedProductIds.push(
-          ...ids
-        );
+        previouslyRecommendedProductIds.push(...ids);
       }
-    });
+    }
 
-    // ==================================================
-    // EXTRACT BUDGET
-    // ==================================================
+    // =========================================================
+    // FALLBACK
+    // =========================================================
+
+    if (userMessages.length === 0) {
+      userMessages.push(question.trim());
+    }
+
+    const latestUserMessage =
+      userMessages[userMessages.length - 1];
+
+    const previousUserMessages =
+      userMessages.slice(0, -1);
+
+    const lowerLatestMessage =
+      latestUserMessage.toLowerCase().trim();
+
+    // =========================================================
+    // LANGUAGE DETECTION
+    // =========================================================
+
+    const romanHindiWords = new Set([
+      "kya",
+      "hai",
+      "hain",
+      "mujhe",
+      "mera",
+      "meri",
+      "mere",
+      "aap",
+      "aapka",
+      "aapki",
+      "aapke",
+      "apka",
+      "apki",
+      "apke",
+      "apni",
+      "apne",
+      "aapko",
+      "apko",
+      "ke",
+      "ka",
+      "ki",
+      "ko",
+      "se",
+      "mein",
+      "me",
+      "batao",
+      "batana",
+      "dikhao",
+      "dikhana",
+      "dikha",
+      "chahiye",
+      "du",
+      "doon",
+      "lena",
+      "lijiye",
+      "bhai",
+      "behen",
+      "behan",
+      "mummy",
+      "maa",
+      "papa",
+      "birthday",
+      "andar",
+      "tak",
+      "kam",
+      "zyada",
+      "thoda",
+      "kuch",
+      "aur",
+      "acha",
+      "accha",
+      "achha",
+      "nahi",
+      "nahin",
+      "tha",
+      "thi",
+      "wala",
+      "wali",
+      "wale",
+      "kaise",
+      "kaunsa",
+      "kaunsi",
+      "kaun",
+      "kis",
+      "kiske",
+      "baare",
+      "baat",
+      "kar",
+      "karna",
+      "karu",
+      "rahe",
+      "raha",
+      "rahi",
+      "hu",
+      "hoon",
+      "hisab",
+      "sahi",
+      "theek",
+      "dena",
+      "dunga",
+      "dungi",
+      "chota",
+      "bada",
+      "budget",
+    ]);
+
+    const detectLanguage = (text) => {
+      if (!text) {
+        return "ENGLISH";
+      }
+
+      if (/[\u0900-\u097F]/.test(text)) {
+        return "HINDI_DEVANAGARI";
+      }
+
+      const words = text
+        .toLowerCase()
+        .replace(/[^a-zA-Z\s]/g, " ")
+        .split(/\s+/)
+        .filter(Boolean);
+
+      const hindiWordCount = words.filter((word) =>
+        romanHindiWords.has(word)
+      ).length;
+
+      if (hindiWordCount >= 1) {
+        return "HINGLISH_ROMAN";
+      }
+
+      return "ENGLISH";
+    };
+
+    // =========================================================
+    // LANGUAGE
+    // =========================================================
+
+    let language = detectLanguage(latestUserMessage);
+
+    const isShortFollowUp =
+      latestUserMessage.trim().length <= 3 ||
+      /^(yes|yeah|yup|ok|okay|ha|haan|hmm|hm|sure)$/i.test(
+        latestUserMessage.trim()
+      );
+
+    const isOnlyNumber =
+      /^(?:₹|rs\.?|rupees?|inr)?\s*\d+(?:\.\d+)?\s*k?\s*$/i.test(
+        latestUserMessage.trim()
+      );
+
+    if (
+      (isShortFollowUp || isOnlyNumber) &&
+      previousUserMessages.length > 0
+    ) {
+      for (
+        let i = previousUserMessages.length - 1;
+        i >= 0;
+        i--
+      ) {
+        if (previousUserMessages[i].trim().length > 2) {
+          language = detectLanguage(
+            previousUserMessages[i]
+          );
+          break;
+        }
+      }
+    }
+
+    // =========================================================
+    // RESPONSE HELPERS
+    // =========================================================
+
+    const getBudgetQuestion = () => {
+      if (language === "HINDI_DEVANAGARI") {
+        return "आप maximum कितना budget रखना चाहते हैं? जैसे ₹500, ₹1000 या ₹1500 बता दीजिए, फिर मैं उसी budget में suitable options दिखाऊँगा। 😊";
+      }
+
+      if (language === "HINGLISH_ROMAN") {
+        return "Aap maximum kitna budget rakhna chahte ho? Jaise ₹500, ₹1000 ya ₹1500 bata do, phir main usi budget mein suitable options dikha dunga. 😊";
+      }
+
+      return "What is your maximum budget? For example ₹500, ₹1000 or ₹1500. Tell me your budget and I’ll show you suitable options. 😊";
+    };
+
+    // =========================================================
+    // BUDGET EXTRACTION
+    // =========================================================
 
     const extractBudget = (text) => {
-      if (!text) return null;
+      if (!text) {
+        return null;
+      }
 
       const cleanText = text
         .toLowerCase()
@@ -90,22 +272,28 @@ export const getAIRecommendation = async (req, res) => {
         /(?:₹|rs\.?|rupees?|inr)?\s*(\d+(?:\.\d+)?)\s*(k)?\b/i
       );
 
-      if (!match) return null;
-
-      let amount = Number(match[1]);
-
-      if (match[2]?.toLowerCase() === "k") {
-        amount = amount * 1000;
-      }
-
-      if (!Number.isFinite(amount) || amount <= 0) {
+      if (!match) {
         return null;
       }
 
-      const isStandaloneAmount =
-        /^[₹\s]*(?:rs\.?\s*)?\d+(?:\.\d+)?\s*k?\s*$/i.test(
-          text.trim()
-        );
+      let amount = Number(match[1]);
+
+      if (
+        match[2] &&
+        match[2].toLowerCase() === "k"
+      ) {
+        amount *= 1000;
+      }
+
+      if (
+        !Number.isFinite(amount) ||
+        amount <= 0
+      ) {
+        return null;
+      }
+
+      const standaloneAmountRegex =
+        /^(?:₹|rs\.?|rupees?|inr)?\s*\d+(?:\.\d+)?\s*k?\s*$/i;
 
       const hasBudgetWord =
         cleanText.includes("budget") ||
@@ -120,351 +308,929 @@ export const getAIRecommendation = async (req, res) => {
         cleanText.includes("ke andar") ||
         cleanText.includes("tak");
 
-      if (hasBudgetWord || isStandaloneAmount) {
+      const isStandaloneAmount =
+        standaloneAmountRegex.test(text.trim());
+
+      if (
+        hasBudgetWord ||
+        isStandaloneAmount
+      ) {
         return amount;
       }
 
       return null;
     };
 
-    // ==================================================
-    // FIND BUDGET FROM COMPLETE CONVERSATION
-    // ==================================================
+    // =========================================================
+    // REMEMBER LATEST BUDGET
+    // =========================================================
 
-    let budget = extractBudget(
-      latestUserMessage
-    );
+    let budget = null;
 
-    if (budget === null) {
-      for (
-        let i = conversationLines.length - 1;
-        i >= 0;
-        i--
-      ) {
-        const detectedBudget =
-          extractBudget(conversationLines[i]);
+    for (
+      let i = userMessages.length - 1;
+      i >= 0;
+      i--
+    ) {
+      const detectedBudget =
+        extractBudget(userMessages[i]);
 
-        if (detectedBudget !== null) {
-          budget = detectedBudget;
-          break;
-        }
+      if (detectedBudget !== null) {
+        budget = detectedBudget;
+        break;
       }
     }
 
-    // ==================================================
-    // DETECT RELATIONSHIP
-    // ==================================================
+    // =========================================================
+    // RELATIONSHIP MEMORY
+    // =========================================================
 
     const relationshipPattern =
-      /\b(bhai|brother|sister|behen|sis|mom|mother|mummy|maa|dad|father|papa|friend|best friend|girlfriend|boyfriend|wife|husband|cousin|uncle|aunty|teacher|colleague)\b/i;
+      /\b(bhai|brother|sister|behen|behan|sis|mom|mother|mummy|maa|dad|father|papa|friend|best friend|girlfriend|boyfriend|wife|husband|cousin|uncle|aunty|teacher|colleague)\b/i;
 
     let relationship = null;
 
-    const relationshipMatch =
-      question.match(relationshipPattern);
+    for (
+      let i = userMessages.length - 1;
+      i >= 0;
+      i--
+    ) {
+      const match =
+        userMessages[i].match(
+          relationshipPattern
+        );
 
-    if (relationshipMatch) {
-      relationship =
-        relationshipMatch[0].toLowerCase();
+      if (match) {
+        relationship =
+          match[0].toLowerCase();
+        break;
+      }
     }
 
-    const hasRelationship =
-      relationship !== null;
+    // =========================================================
+    // RELATIONSHIP LABEL
+    // =========================================================
 
-    // ==================================================
-    // DETECT OCCASION
-    // ==================================================
+    const getRelationshipLabel = () => {
+      if (!relationship) {
+        if (language === "ENGLISH") {
+          return "your recipient";
+        }
+
+        if (language === "HINDI_DEVANAGARI") {
+          return "आपके recipient";
+        }
+
+        return "aapke recipient";
+      }
+
+      const value = relationship.toLowerCase();
+
+      if (language === "HINGLISH_ROMAN") {
+        const labels = {
+          bhai: "bhai",
+          brother: "bhai",
+          sister: "behen",
+          behen: "behen",
+          behan: "behen",
+          sis: "behen",
+          mom: "mummy",
+          mother: "mummy",
+          mummy: "mummy",
+          maa: "mummy",
+          dad: "papa",
+          father: "papa",
+          papa: "papa",
+          friend: "friend",
+          "best friend": "best friend",
+          girlfriend: "girlfriend",
+          boyfriend: "boyfriend",
+          wife: "wife",
+          husband: "husband",
+          cousin: "cousin",
+          uncle: "uncle",
+          aunty: "aunty",
+          teacher: "teacher",
+          colleague: "colleague",
+        };
+
+        return labels[value] || relationship;
+      }
+
+      if (language === "HINDI_DEVANAGARI") {
+        const labels = {
+          bhai: "भाई",
+          brother: "भाई",
+          sister: "बहन",
+          behen: "बहन",
+          behan: "बहन",
+          sis: "बहन",
+          mom: "मम्मी",
+          mother: "मम्मी",
+          mummy: "मम्मी",
+          maa: "मम्मी",
+          dad: "पापा",
+          father: "पापा",
+          papa: "पापा",
+          friend: "दोस्त",
+          "best friend": "सबसे अच्छे दोस्त",
+          girlfriend: "गर्लफ्रेंड",
+          boyfriend: "बॉयफ्रेंड",
+          wife: "पत्नी",
+          husband: "पति",
+          cousin: "कजिन",
+          uncle: "अंकल",
+          aunty: "आंटी",
+          teacher: "टीचर",
+          colleague: "सहकर्मी",
+        };
+
+        return labels[value] || relationship;
+      }
+
+      const labels = {
+        bhai: "brother",
+        brother: "brother",
+        sister: "sister",
+        behen: "sister",
+        behan: "sister",
+        sis: "sister",
+        mom: "mother",
+        mother: "mother",
+        mummy: "mother",
+        maa: "mother",
+        dad: "father",
+        father: "father",
+        papa: "father",
+        friend: "friend",
+        "best friend": "best friend",
+        girlfriend: "girlfriend",
+        boyfriend: "boyfriend",
+        wife: "wife",
+        husband: "husband",
+        cousin: "cousin",
+        uncle: "uncle",
+        aunty: "aunt",
+        teacher: "teacher",
+        colleague: "colleague",
+      };
+
+      return labels[value] || relationship;
+    };
+
+    const relationshipLabel =
+      getRelationshipLabel();
+
+    // =========================================================
+    // OCCASION MEMORY
+    // =========================================================
 
     const occasionPattern =
       /\b(birthday|janamdin|janmadin|anniversary|valentine|valentines|wedding|marriage|farewell|congratulations|congrats|graduation|baby shower|housewarming|festival|rakhi|rakshabandhan|diwali|christmas|new year)\b/i;
 
     let occasion = null;
 
-    const occasionMatch =
-      question.match(occasionPattern);
+    for (
+      let i = userMessages.length - 1;
+      i >= 0;
+      i--
+    ) {
+      const match =
+        userMessages[i].match(
+          occasionPattern
+        );
 
-    if (occasionMatch) {
-      occasion =
-        occasionMatch[0].toLowerCase();
+      if (match) {
+        occasion =
+          match[0].toLowerCase();
+        break;
+      }
     }
 
-    const hasOccasion =
-      occasion !== null;
+    // =========================================================
+    // FLOWER MEMORY
+    // =========================================================
 
-    // ==================================================
-    // DETECT COLOR
-    // ==================================================
+    const flowerKeywords = [
+      "rose",
+      "roses",
+      "lily",
+      "lilies",
+      "tulip",
+      "tulips",
+      "sunflower",
+      "sunflowers",
+      "orchid",
+      "orchids",
+      "carnation",
+      "carnations",
+      "gerbera",
+      "gerberas",
+      "jasmine",
+      "marigold",
+      "lotus",
+      "daisy",
+      "daisies",
+    ];
+
+    const normalizeFlower = (flower) => {
+      const map = {
+        roses: "rose",
+        lilies: "lily",
+        tulips: "tulip",
+        sunflowers: "sunflower",
+        orchids: "orchid",
+        carnations: "carnation",
+        gerberas: "gerbera",
+        daisies: "daisy",
+      };
+
+      return map[flower] || flower;
+    };
+
+    let flowerKeyword = null;
+
+    for (
+      let i = userMessages.length - 1;
+      i >= 0;
+      i--
+    ) {
+      const text =
+        userMessages[i].toLowerCase();
+
+      const foundFlower =
+        flowerKeywords.find((flower) => {
+          const regex =
+            new RegExp(`\\b${flower}\\b`, "i");
+
+          return regex.test(text);
+        });
+
+      if (foundFlower) {
+        flowerKeyword =
+          normalizeFlower(foundFlower);
+        break;
+      }
+    }
+
+    // =========================================================
+    // COLOR MEMORY
+    // =========================================================
 
     const colorPattern =
-      /\b(red|pink|blue|yellow|white|black|purple|violet|orange|green|peach|lavender|maroon|magenta|cream|golden|gold|silver|multicolor|multi color|mixed|pastel)\b/i;
+      /\b(red|pink|blue|yellow|white|black|purple|violet|orange|green|peach|lavender|maroon|magenta|cream|golden|gold|silver|pastel)\b/i;
 
     let preferredColor = null;
 
-    const colorMatch =
-      question.match(colorPattern);
+    for (
+      let i = userMessages.length - 1;
+      i >= 0;
+      i--
+    ) {
+      const match =
+        userMessages[i].match(
+          colorPattern
+        );
 
-    if (colorMatch) {
-      preferredColor =
-        colorMatch[0].toLowerCase();
+      if (match) {
+        preferredColor =
+          match[0].toLowerCase();
+        break;
+      }
     }
 
-    // ==================================================
-    // DETECT SPECIFIC PRODUCT TYPE
-    // ==================================================
+    // =========================================================
+    // PRODUCT TYPE
+    // =========================================================
+
+    const getProductTypeFromText = (text) => {
+      const value =
+        text.toLowerCase();
+
+      if (
+        value.includes("flower in box") ||
+        value.includes("flower box") ||
+        value.includes("boxed flower") ||
+        value.includes("flower-in-box") ||
+        value.includes("flowerinbox")
+      ) {
+        return "FlowerInBox";
+      }
+
+      if (
+        value.includes("flower in sleeve") ||
+        value.includes("flower sleeve") ||
+        value.includes("sleeve flower") ||
+        value.includes("flower-in-sleeve") ||
+        value.includes("flowerinsleeve")
+      ) {
+        return "FlowerInSleeve";
+      }
+
+      if (
+        value.includes("combo bouquet") ||
+        /\bcombo\b/i.test(value)
+      ) {
+        return "ComboBouquet";
+      }
+
+      if (
+        value.includes("woolen bouquet") ||
+        /\bwoolen\b/i.test(value)
+      ) {
+        return "Woolen";
+      }
+
+      if (
+        /\bbouquets?\b/i.test(value)
+      ) {
+        return "Bouquet";
+      }
+
+      if (
+        /\bflowers?\b/i.test(value)
+      ) {
+        return "Flower";
+      }
+
+      if (
+        flowerKeywords.some((flower) =>
+          new RegExp(
+            `\\b${flower}\\b`,
+            "i"
+          ).test(value)
+        )
+      ) {
+        return "Flower";
+      }
+
+      return null;
+    };
+
+    // =========================================================
+    // IMPORTANT:
+    // Find latest explicit product type
+    // =========================================================
 
     let preferredType = null;
 
-    if (
-      lowerLatestMessage.includes(
-        "flower in box"
-      ) ||
-      lowerLatestMessage.includes(
-        "flower box"
-      ) ||
-      lowerLatestMessage.includes(
-        "boxed flower"
-      )
+    for (
+      let i = userMessages.length - 1;
+      i >= 0;
+      i--
     ) {
-      preferredType = "FlowerInBox";
-    } else if (
-      lowerLatestMessage.includes(
-        "flower in sleeve"
-      ) ||
-      lowerLatestMessage.includes(
-        "flower sleeve"
-      ) ||
-      lowerLatestMessage.includes(
-        "sleeve flower"
-      )
-    ) {
-      preferredType = "FlowerInSleeve";
-    } else if (
-      lowerLatestMessage.includes(
-        "combo bouquet"
-      ) ||
-      lowerLatestMessage.includes("combo")
-    ) {
-      preferredType = "ComboBouquet";
-    } else if (
-      lowerLatestMessage.includes(
-        "woolen bouquet"
-      ) ||
-      lowerLatestMessage.includes("woolen")
-    ) {
-      preferredType = "Woolen";
-    } else if (
-      /\bbouquets?\b/i.test(
-        lowerLatestMessage
-      )
-    ) {
-      preferredType = "Bouquet";
-    } else if (
-      /\bflowers?\b/i.test(
-        lowerLatestMessage
-      )
-    ) {
-      preferredType = "Flower";
+      const detectedType =
+        getProductTypeFromText(
+          userMessages[i]
+        );
+
+      if (detectedType) {
+        preferredType =
+          detectedType;
+        break;
+      }
     }
 
-    // ==================================================
-    // DETECT GIFT INTENT
-    // ==================================================
+    // =========================================================
+    // SPECIAL BROAD GIFT REQUEST
+    // =========================================================
 
-    const productActionPattern =
-      /\b(show|suggest|recommend|recommendation|give me|find me|looking for|want|need|buy|purchase|choose|options|products?|gift|gifts|gift ideas?|idea|ideas|what should i give|what can i give|which gift|which one|something|chahiye|batao|batana|suggest karo|dikhao|dikhana|kharidna|lena|de do|de sakte|kya du|kya doon|alag|different|another|more|aur|aur dikhao|kuch aur|different options|aur options|dusra|dusre|naye|new options)\b/i;
-
-    const explicitProductIntent =
-      productActionPattern.test(
+    const isBroadGiftRequest =
+      /\b(aur kya gift|aur kya de|aur kya doon|aur kya du|aur gift|different gift|another gift|other gift|kuch aur gift|kuch aur de|kuch aur dikhao|aur options)\b/i.test(
         lowerLatestMessage
       );
 
-    // ==================================================
-    // NORMAL CONVERSATION
-    // ==================================================
+    // If user asks for completely different gift options,
+    // don't force the previous Bouquet type.
+    if (isBroadGiftRequest) {
+      preferredType = null;
+    }
+
+    // =========================================================
+    // INTENT
+    // =========================================================
+
+    const showPattern =
+      /\b(show|dikhao|dikhana|dikha|display|options|products?|aur|more|another|different|kuch aur|aur dikhao|aur options|new options|naye|dusra|dusre)\b/i;
+
+    const productPattern =
+      /\b(gift|gifts|present|recommend|recommendation|suggest|buy|purchase|want|need|find|give me|looking for|kya du|kya doon|chahiye|lena|kharidna|batao|batana|gift ideas?|idea|ideas)\b/i;
+
+    const explicitShowRequest =
+      showPattern.test(
+        lowerLatestMessage
+      );
+
+    const explicitProductIntent =
+      productPattern.test(
+        lowerLatestMessage
+      );
+
+    // =========================================================
+    // YES / HAAN
+    // =========================================================
+
+    const positiveFollowUp =
+      /^(yes|yeah|yup|ok|okay|ha|haan|hmm|sure|yes please|haan dikhao|ha dikhao)$/i.test(
+        lowerLatestMessage
+      );
+
+    // =========================================================
+    // BUDGET CLARIFICATION
+    // =========================================================
+
+    const budgetClarificationPattern =
+      /\b(budget\s+(?:thoda\s+)?(?:kam|low|tight|small|less)|kam\s+budget|budget\s+kam(?:\s+hai)?|budget\s+thoda\s+kam(?:\s+hai)?|budget\s+thoda\s+low(?:\s+hai)?|budget\s+tight|pocket\s+budget)\b/i;
+
+    const isBudgetClarification =
+      budgetClarificationPattern.test(
+        lowerLatestMessage
+      );
+
+    // =========================================================
+    // NORMAL CHAT
+    // =========================================================
 
     const normalConversationPattern =
-      /^(hi|hello|hey|hii|helo|do you know me|do you know english|can you speak english|what can you do|who are you|how are you|thanks|thank you|okay|ok|good morning|good evening|good night|nice to meet you)\b/i;
+      /^(hi|hii|hello|hey|helo|do you know me|do you know english|can you speak english|what can you do|who are you|how are you|thanks|thank you|okay|ok|good morning|good evening|good night|nice to meet you)$/i;
 
     const isNormalConversation =
       normalConversationPattern.test(
         lowerLatestMessage
       );
 
-    // ==================================================
-    // PREVIOUS GIFT CONVERSATION
-    // ==================================================
+    // =========================================================
+    // CONTEXT QUESTION
+    // =========================================================
 
-    const previousGiftConversation =
-      previousMessages.some((message) =>
-        /\b(gift|gifts|birthday|janamdin|anniversary|occasion|present|give|giving|bhai|brother|sister|behen|mom|mother|mummy|dad|father|papa|friend|girlfriend|boyfriend|wife|husband|chahiye|suggest|recommend|buy|purchase|idea|ideas)\b/i.test(
-          message
-        )
+    const contextQuestionPattern =
+      /(?:kis\s+(?:ke\s+)?baare|kis\s+cheez|what\s+were\s+we\s+talking|what\s+was\s+i\s+talking|what\s+gift\s+were|what\s+are\s+we\s+talking)/i;
+
+    const isContextQuestion =
+      contextQuestionPattern.test(
+        lowerLatestMessage
       );
 
-    // ==================================================
-    // ONLY BUDGET
-    // ==================================================
+    // =========================================================
+    // PREVIOUS GIFT CONTEXT
+    // =========================================================
+
+    const previousGiftConversation =
+      previousUserMessages.some(
+        (message) =>
+          /\b(gift|gifts|present|birthday|janamdin|anniversary|occasion|give|giving|bhai|brother|sister|behen|mom|mother|mummy|dad|father|papa|friend|girlfriend|boyfriend|wife|husband|chahiye|suggest|recommend|buy|purchase|idea|ideas|flower|flowers|bouquet|rose|lily|tulip|box|sleeve|woolen|combo)\b/i.test(
+            message
+          )
+      );
+
+    const hasGiftContext =
+      previousGiftConversation ||
+      Boolean(relationship) ||
+      Boolean(occasion) ||
+      Boolean(preferredType) ||
+      Boolean(flowerKeyword);
+
+    // =========================================================
+    // LATEST IS ONLY BUDGET
+    // =========================================================
+
+    const standaloneBudgetRegex =
+      /^(?:₹|rs\.?|rupees?|inr)?\s*\d+(?:\.\d+)?\s*k?\s*$/i;
 
     const latestIsOnlyBudget =
-      extractBudget(latestUserMessage) !== null &&
-      /^[₹\s]*(?:rs\.?\s*)?\d+(?:\.\d+)?\s*k?\s*$/i.test(
+      budget !== null &&
+      standaloneBudgetRegex.test(
         latestUserMessage.trim()
       );
 
-    // ==================================================
-    // FINAL PRODUCT REQUEST
-    // ==================================================
+    // =========================================================
+    // EXPLICIT PRODUCT TYPE REQUEST
+    // =========================================================
+
+    const explicitProductType =
+      getProductTypeFromText(
+        latestUserMessage
+      );
+
+    // =========================================================
+    // PRODUCT REQUEST
+    // =========================================================
 
     let isProductRequest = false;
 
     if (isNormalConversation) {
       isProductRequest = false;
-    } else if (explicitProductIntent) {
+    } else if (isContextQuestion) {
+      isProductRequest = false;
+    } else if (isBudgetClarification) {
+      isProductRequest = false;
+    } else if (explicitProductType) {
+      isProductRequest = true;
+    } else if (isBroadGiftRequest) {
       isProductRequest = true;
     } else if (
-      latestIsOnlyBudget &&
-      previousGiftConversation
+      explicitShowRequest &&
+      hasGiftContext
     ) {
       isProductRequest = true;
     } else if (
-      (hasOccasion || hasRelationship) &&
-      previousGiftConversation
+      explicitProductIntent &&
+      hasGiftContext
+    ) {
+      isProductRequest = true;
+    } else if (
+      latestIsOnlyBudget &&
+      hasGiftContext
+    ) {
+      isProductRequest = true;
+    } else if (
+      positiveFollowUp &&
+      hasGiftContext
     ) {
       isProductRequest = true;
     }
 
-    // ==================================================
-    // GET PRODUCTS FROM DATABASE
-    // ==================================================
+    // =========================================================
+    // BUDGET CLARIFICATION
+    // =========================================================
+
+    if (
+      isBudgetClarification &&
+      budget === null
+    ) {
+      return res.status(200).json({
+        success: true,
+        answer: getBudgetQuestion(),
+        products: [],
+      });
+    }
+
+    // =========================================================
+    // CONTEXT QUESTION
+    // =========================================================
+
+    if (isContextQuestion) {
+      let contextAnswer = "";
+
+      const typeLabel = {
+        FlowerInBox: "Flower in Box",
+        FlowerInSleeve: "Flower in Sleeve",
+        ComboBouquet: "Combo Bouquet",
+        Woolen: "Woolen Bouquet",
+        Bouquet: "Bouquet",
+        Flower: "Flowers",
+      };
+
+      if (
+        language === "HINDI_DEVANAGARI"
+      ) {
+        if (
+          relationship &&
+          occasion
+        ) {
+          contextAnswer =
+            `आप अपने ${relationshipLabel} के लिए ${occasion} gift की बात कर रहे थे`;
+        } else if (relationship) {
+          contextAnswer =
+            `आप अपने ${relationshipLabel} के लिए gift की बात कर रहे थे`;
+        } else if (occasion) {
+          contextAnswer =
+            `आप ${occasion} के लिए gift की बात कर रहे थे`;
+        } else {
+          contextAnswer =
+            "आप flowers और gift options के बारे में बात कर रहे थे";
+        }
+
+        if (preferredType) {
+          contextAnswer +=
+            ` और अभी ${typeLabel[preferredType]} options देख रहे थे`;
+        }
+
+        if (budget !== null) {
+          contextAnswer +=
+            `, आपका budget ₹${budget} था`;
+        }
+
+        contextAnswer += "।";
+      } else if (
+        language === "HINGLISH_ROMAN"
+      ) {
+        if (
+          relationship &&
+          occasion
+        ) {
+          contextAnswer =
+            `Aap apne ${relationshipLabel} ke liye ${occasion} gift ki baat kar rahe the`;
+        } else if (relationship) {
+          contextAnswer =
+            `Aap apne ${relationshipLabel} ke liye gift ki baat kar rahe the`;
+        } else if (occasion) {
+          contextAnswer =
+            `Aap ${occasion} ke liye gift ki baat kar rahe the`;
+        } else {
+          contextAnswer =
+            "Aap flowers aur gift options ke baare mein baat kar rahe the";
+        }
+
+        if (preferredType) {
+          contextAnswer +=
+            ` aur abhi ${typeLabel[preferredType]} options dekh rahe the`;
+        }
+
+        if (budget !== null) {
+          contextAnswer +=
+            `, aapka budget ₹${budget} tha`;
+        }
+
+        contextAnswer += ". 😊";
+      } else {
+        if (
+          relationship &&
+          occasion
+        ) {
+          contextAnswer =
+            `You were talking about a gift for your ${relationshipLabel} for their ${occasion}`;
+        } else if (relationship) {
+          contextAnswer =
+            `You were talking about a gift for your ${relationshipLabel}`;
+        } else if (occasion) {
+          contextAnswer =
+            `You were talking about a gift for ${occasion}`;
+        } else {
+          contextAnswer =
+            "You were talking about flowers and gift options";
+        }
+
+        if (preferredType) {
+          contextAnswer +=
+            `, and you were looking at ${typeLabel[preferredType]} options`;
+        }
+
+        if (budget !== null) {
+          contextAnswer +=
+            ` with a budget of ₹${budget}`;
+        }
+
+        contextAnswer += ".";
+      }
+
+      return res.status(200).json({
+        success: true,
+        answer: contextAnswer,
+        products: [],
+      });
+    }
+
+    // =========================================================
+    // PRODUCT REQUEST WITHOUT BUDGET
+    // =========================================================
+
+    if (
+      isProductRequest &&
+      budget === null
+    ) {
+      return res.status(200).json({
+        success: true,
+        answer: getBudgetQuestion(),
+        products: [],
+      });
+    }
+
+    // =========================================================
+    // NORMAL CHAT
+    // =========================================================
+
+    if (!isProductRequest) {
+      try {
+        let languageInstruction = "";
+
+        if (
+          language === "HINGLISH_ROMAN"
+        ) {
+          languageInstruction = `
+IMPORTANT:
+
+Reply ONLY in Roman Hinglish.
+
+Use English alphabet only.
+
+DO NOT use Hindi Devanagari script.
+
+Example style:
+
+"Aapka question samajh gaya. Main aapki help kar sakta hoon."
+
+Do NOT write:
+
+"मैं आपकी मदद कर सकता हूँ।"
+`;
+        } else if (
+          language === "HINDI_DEVANAGARI"
+        ) {
+          languageInstruction = `
+IMPORTANT:
+
+Reply ONLY in Hindi Devanagari.
+
+Do NOT switch to Roman Hindi.
+
+Do NOT use English sentences unless an English product/technical name is necessary.
+`;
+        } else {
+          languageInstruction = `
+IMPORTANT:
+
+Reply ONLY in English.
+
+Do not switch to Hindi or Hinglish.
+`;
+        }
+
+        const completion =
+          await groq.chat.completions.create({
+            model: "openai/gpt-oss-120b",
+
+            messages: [
+              {
+                role: "system",
+                content: `
+You are a friendly AI assistant for a flower bouquet e-commerce website.
+
+${languageInstruction}
+
+Keep the response short and natural.
+
+Do not recommend products unless the user asks for products or gifts.
+
+Do not invent product names, prices, images or IDs.
+
+Remember this conversation context:
+
+Relationship:
+${relationshipLabel}
+
+Occasion:
+${occasion || "not specified"}
+
+Budget:
+${budget !== null ? `₹${budget}` : "not specified"}
+
+Product Type:
+${preferredType || "not specified"}
+
+Flower:
+${flowerKeyword || "not specified"}
+
+Color:
+${preferredColor || "not specified"}
+
+IMPORTANT:
+
+Never change the relationship mentioned by the user.
+
+If the user says sister/behen, always refer to sister/behen.
+
+If the user says mother/mummy, always refer to mother/mummy.
+
+Do not assume a different recipient.
+`,
+              },
+
+              {
+                role: "user",
+                content: latestUserMessage,
+              },
+            ],
+
+            max_tokens: 180,
+          });
+
+        const aiResponse =
+          completion.choices[0]?.message?.content?.trim() ||
+          "";
+
+        return res.status(200).json({
+          success: true,
+
+          answer:
+            aiResponse ||
+            (
+              language === "HINGLISH_ROMAN"
+                ? "Haan, main yahin hoon. 😊"
+                : language === "HINDI_DEVANAGARI"
+                  ? "हाँ, मैं यहीं हूँ। 😊"
+                  : "Yes, I’m here to help you. 😊"
+            ),
+
+          products: [],
+        });
+      } catch (groqError) {
+        console.error(
+          "Groq normal conversation error:",
+          groqError
+        );
+
+        const fallback =
+          language === "HINGLISH_ROMAN"
+            ? "Haan, main yahin hoon. 😊"
+            : language === "HINDI_DEVANAGARI"
+              ? "हाँ, मैं यहीं हूँ। 😊"
+              : "Yes, I’m here to help you. 😊";
+
+        return res.status(200).json({
+          success: true,
+          answer: fallback,
+          products: [],
+        });
+      }
+    }
+
+    // =========================================================
+    // FETCH PRODUCTS FROM DATABASE
+    // =========================================================
 
     const [
       bouquets,
-      cards,
-      chocolates,
       comboBouquets,
       flowers,
       flowersInBox,
       flowersInSleeve,
-      miniCupcakes,
       woolens,
     ] = await Promise.all([
       bouquetModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price occasion category size flowers image"
+        .find({
+          isAvailable: true,
+          stock: { $gt: 0 },
+        })
+        .select(
+          "name description price discountPrice occasion category size flowers image stock color"
         )
-        .limit(10)
-        .lean(),
-
-      CardModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price occasion category image"
-        )
-        .limit(3)
-        .lean(),
-
-      ChocolateModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price size category image"
-        )
-        .limit(3)
+        .limit(100)
         .lean(),
 
       ComboBouquetModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price occasion category image"
+        .find({
+          isAvailable: true,
+          stock: { $gt: 0 },
+        })
+        .select(
+          "name description price discountPrice occasion category size image stock color"
         )
-        .limit(10)
+        .limit(100)
         .lean(),
 
       flowerModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price color category image"
+        .find({
+          isAvailable: true,
+          stock: { $gt: 0 },
+        })
+        .select(
+          "name description price discountPrice color category image stock flowerType occasion size flowers"
         )
-        .limit(10)
+        .limit(100)
         .lean(),
 
       FlowerInBoxModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price discountPrice flowerType boxType color occasion size image"
+        .find({
+          isAvailable: true,
+          stock: { $gt: 0 },
+        })
+        .select(
+          "name description price discountPrice flowerType boxType color occasion size image stock category"
         )
-        .limit(10)
+        .limit(100)
         .lean(),
 
       FlowerInSleeveModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price discountPrice flowerType sleeveType color occasion size image"
+        .find({
+          isAvailable: true,
+          stock: { $gt: 0 },
+        })
+        .select(
+          "name description price discountPrice flowerType sleeveType color occasion size image stock category"
         )
-        .limit(10)
-        .lean(),
-
-      MiniCupcakeModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price occasion flavor quantity category image"
-        )
-        .limit(3)
+        .limit(100)
         .lean(),
 
       WoolenModel
-        .find(
-          {
-            isAvailable: true,
-            stock: { $gt: 0 },
-          },
-          "name description price occasion category image"
+        .find({
+          isAvailable: true,
+          stock: { $gt: 0 },
+        })
+        .select(
+          "name description price discountPrice occasion category image stock color"
         )
-        .limit(10)
+        .limit(100)
         .lean(),
     ]);
 
-    // ==================================================
+    // =========================================================
     // COMBINE PRODUCTS
-    // ==================================================
+    // =========================================================
 
     const products = [
       ...bouquets.map((item) => ({
         type: "Bouquet",
-        ...item,
-      })),
-
-      ...cards.map((item) => ({
-        type: "Card",
-        ...item,
-      })),
-
-      ...chocolates.map((item) => ({
-        type: "Chocolate",
         ...item,
       })),
 
@@ -488,572 +1254,459 @@ export const getAIRecommendation = async (req, res) => {
         ...item,
       })),
 
-      ...miniCupcakes.map((item) => ({
-        type: "MiniCupcake",
-        ...item,
-      })),
-
       ...woolens.map((item) => ({
         type: "Woolen",
         ...item,
       })),
     ];
 
-    // ==================================================
-    // ONLY MAIN WEBSITE GIFT PRODUCTS
-    // ==================================================
+    // =========================================================
+    // FINAL PRICE
+    // =========================================================
 
-    const mainProducts = products.filter(
-      (product) =>
-        product.type !== "Chocolate" &&
-        product.type !== "Card" &&
-        product.type !== "MiniCupcake"
-    );
+    const getFinalPrice = (product) => {
+      const price =
+        Number(product.price) || 0;
 
-    // ==================================================
-    // FILTER BY BUDGET
-    // ==================================================
+      const discountPrice =
+        Number(product.discountPrice) || 0;
 
-    let productsForAI = mainProducts;
-
-    if (budget !== null) {
-      productsForAI = productsForAI.filter(
-        (product) => {
-          const finalPrice = Number(
-            product.discountPrice ??
-              product.price
-          );
-
-          return finalPrice <= budget;
-        }
-      );
-    }
-
-    // ==================================================
-    // FILTER BY COLOR
-    // ==================================================
-
-    if (preferredColor) {
-      const colorProducts =
-        productsForAI.filter((product) => {
-          const productColor =
-            product.color?.toString().toLowerCase() ||
-            "";
-
-          const productDescription =
-            product.description
-              ?.toString()
-              .toLowerCase() || "";
-
-          const productName =
-            product.name
-              ?.toString()
-              .toLowerCase() || "";
-
-          return (
-            productColor.includes(preferredColor) ||
-            productDescription.includes(preferredColor) ||
-            productName.includes(preferredColor)
-          );
-        });
-
-      // Agar matching color products hain
-      // toh sirf wahi use honge.
-      if (colorProducts.length > 0) {
-        productsForAI = colorProducts;
+      if (
+        discountPrice > 0 &&
+        discountPrice < price
+      ) {
+        return discountPrice;
       }
-    }
 
-    // ==================================================
-    // FILTER BY SPECIFIC PRODUCT TYPE
-    // ==================================================
+      return price;
+    };
 
-    if (preferredType) {
-      const preferredProducts =
-        productsForAI.filter(
-          (product) =>
-            product.type === preferredType
-        );
+    // =========================================================
+    // PREVIOUSLY SHOWN PRODUCTS
+    // =========================================================
 
-      if (preferredProducts.length > 0) {
-        productsForAI = preferredProducts;
-      } else {
-        productsForAI = [];
-      }
-    }
-
-    // ==================================================
-    // NORMAL CONVERSATION
-    // ==================================================
-
-    if (!isProductRequest) {
-      const completion =
-        await groq.chat.completions.create({
-          model: "openai/gpt-oss-120b",
-
-          messages: [
-            {
-              role: "system",
-
-              content: `
-You are a friendly AI gift assistant for a flower bouquet e-commerce website.
-
-The user is having a normal conversation.
-
-Answer naturally and briefly.
-
-This assistant belongs to a flower bouquet e-commerce website.
-
-If the user asks about gift ideas,
-only suggest things available on this website.
-
-Website categories:
-
-- Bouquet
-- ComboBouquet
-- Flower
-- FlowerInBox
-- FlowerInSleeve
-- Woolen
-
-Do NOT suggest unrelated products such as:
-
-- phones
-- headphones
-- watches
-- gadgets
-- clothes
-- wallets
-- perfumes
-- keychains
-- photo frames
-- trips
-- restaurants
-- adventure activities
-- workshops
-
-Do NOT directly recommend:
-
-- Chocolate
-- Card
-- MiniCupcake
-
-Do NOT create product IDs.
-
-Do NOT invent product names.
-
-Do NOT show product cards.
-
-Use the SAME language and writing style as the user.
-
-English -> English.
-Hindi Roman -> Hindi Roman.
-Hinglish -> natural Hinglish Roman.
-
-Never use Devanagari unless the user uses Devanagari.
-
-Keep the answer short.
-
-Do not ask unnecessary questions.
-`,
-            },
-
-            {
-              role: "user",
-              content: question,
-            },
-          ],
-
-          max_tokens: 250,
-        });
-
-      const aiResponse =
-        completion.choices[0]?.message?.content?.trim() ||
-        "Yes, I’m here to help you. 😊";
-
-      return res.status(200).json({
-        success: true,
-        answer: aiResponse,
-        products: [],
-      });
-    }
-
-    // ==================================================
-    // EXPLICIT SHOW REQUEST
-    // ==================================================
-
-    const explicitShowRequest =
-      /\b(show|dikhao|dikhana|give me|find me|options|products?|dikha|display)\b/i.test(
-        lowerLatestMessage
-      );
-
-    // ==================================================
-    // GIFT IDEA WITHOUT BUDGET
-    // ==================================================
-
-    if (
-      isProductRequest &&
-      budget === null &&
-      !preferredType &&
-      !explicitShowRequest
-    ) {
-      const completion =
-        await groq.chat.completions.create({
-          model: "openai/gpt-oss-120b",
-
-          messages: [
-            {
-              role: "system",
-
-              content: `
-You are a friendly AI gift assistant for a flower bouquet e-commerce website.
-
-The user wants gift ideas.
-
-Only talk about gifts available on this website.
-
-Website categories:
-
-- Bouquet
-- ComboBouquet
-- Flower
-- FlowerInBox
-- FlowerInSleeve
-- Woolen
-
-Do NOT suggest unrelated gifts.
-
-Do NOT directly recommend:
-
-- Chocolate
-- Card
-- MiniCupcake
-
-If the user has already mentioned the occasion
-and relationship, do not ask them again.
-
-Tell them 2-4 suitable types of gifts from the website
-and then ask only for their budget.
-
-Use the SAME language/style as the user.
-
-English -> English.
-Hindi Roman -> Hindi Roman.
-Hinglish -> natural Hinglish Roman.
-
-Never use Devanagari unless the user uses Devanagari.
-
-Keep the response short and natural.
-
-Do not mention product names.
-Do not show product cards.
-`,
-            },
-
-            {
-              role: "user",
-              content: question,
-            },
-          ],
-
-          max_tokens: 200,
-        });
-
-      const aiResponse =
-        completion.choices[0]?.message?.content?.trim() ||
-        "Bhai ke liye bouquet ya flower arrangement ek accha gift ho sakta hai. 🌸 Aapka budget bata do, main suitable options dikha dunga. 😊";
-
-      return res.status(200).json({
-        success: true,
-        answer: aiResponse,
-        products: [],
-      });
-    }
-
-    // ==================================================
-    // REMOVE PREVIOUSLY SHOWN PRODUCTS
-    // ==================================================
-
-    const alreadyShownProductIds =
+    const alreadyShownIds =
       new Set(
         previouslyRecommendedProductIds.map(
           (id) => String(id)
         )
       );
 
-    let productsToShow =
+    // =========================================================
+    // FILTER BY BUDGET
+    // =========================================================
+
+    let productsForAI =
+      products.filter(
+        (product) =>
+          getFinalPrice(product) <= budget
+      );
+
+    // =========================================================
+    // FILTER BY PRODUCT TYPE
+    // =========================================================
+
+    if (preferredType) {
+      productsForAI =
+        productsForAI.filter(
+          (product) =>
+            product.type === preferredType
+        );
+    }
+
+    // =========================================================
+    // FILTER BY FLOWER
+    // =========================================================
+
+    if (flowerKeyword) {
+      productsForAI =
+        productsForAI.filter(
+          (product) => {
+            const searchableText = [
+              product.name,
+              product.description,
+              product.flowerType,
+              product.category,
+              product.occasion,
+
+              Array.isArray(
+                product.flowers
+              )
+                ? product.flowers.join(" ")
+                : product.flowers,
+
+              product.color,
+            ]
+              .filter(Boolean)
+              .join(" ")
+              .toLowerCase();
+
+            return searchableText.includes(
+              flowerKeyword
+            );
+          }
+        );
+    }
+
+    // =========================================================
+    // FILTER BY COLOR
+    // =========================================================
+
+    if (preferredColor) {
+      productsForAI =
+        productsForAI.filter(
+          (product) => {
+            const searchableText = [
+              product.name,
+              product.description,
+              product.color,
+              product.category,
+            ]
+              .filter(Boolean)
+              .join(" ")
+              .toLowerCase();
+
+            return searchableText.includes(
+              preferredColor
+            );
+          }
+        );
+    }
+
+    // =========================================================
+    // REMOVE PREVIOUSLY SHOWN PRODUCTS
+    // =========================================================
+
+    productsForAI =
       productsForAI.filter(
         (product) =>
-          !alreadyShownProductIds.has(
-            product._id.toString()
+          !alreadyShownIds.has(
+            String(product._id)
           )
       );
 
-    // ==================================================
-    // ASKING FOR DIFFERENT / MORE OPTIONS
-    // ==================================================
+    // =========================================================
+    // REMOVE DUPLICATE PRODUCTS
+    //
+    // Same MongoDB ID OR same product name
+    // should not appear twice.
+    // =========================================================
 
-    const askingForDifferent =
-      /\b(alag|different|another|more|aur|aur dikhao|kuch aur|different options|aur options|dusra|dusre|naye|new options)\b/i.test(
-        lowerLatestMessage
-      );
+    const uniqueProducts = [];
+    const seenProductIds = new Set();
+    const seenProductNames = new Set();
 
-    // ==================================================
-    // NO NEW PRODUCTS
-    // ==================================================
+    for (const product of productsForAI) {
+      const productId =
+        String(product._id);
 
-    if (
-      askingForDifferent &&
-      productsToShow.length === 0
-    ) {
-      return res.status(200).json({
-        success: true,
+      const productName =
+        String(product.name || "")
+          .trim()
+          .toLowerCase();
 
-        answer:
-          budget !== null
-            ? `Sorry 😊 abhi ₹${budget} ke andar aur different options available nahi hain.`
-            : "Sorry 😊 abhi aur different options available nahi hain.",
+      if (
+        seenProductIds.has(productId) ||
+        (
+          productName &&
+          seenProductNames.has(productName)
+        )
+      ) {
+        continue;
+      }
 
-        products: [],
-      });
+      seenProductIds.add(productId);
+
+      if (productName) {
+        seenProductNames.add(productName);
+      }
+
+      uniqueProducts.push(product);
     }
 
-    // ==================================================
-    // NO PRODUCTS AVAILABLE
-    // ==================================================
+    productsForAI = uniqueProducts;
+
+    // =========================================================
+    // RANK PRODUCTS
+    // =========================================================
+
+    const scoreProduct = (product) => {
+      let score = 0;
+
+      const searchableText = [
+        product.name,
+        product.description,
+        product.category,
+        product.occasion,
+        product.color,
+        product.flowerType,
+
+        Array.isArray(
+          product.flowers
+        )
+          ? product.flowers.join(" ")
+          : product.flowers,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      // Exact product type
+      if (
+        preferredType &&
+        product.type === preferredType
+      ) {
+        score += 20;
+      }
+
+      // Flower
+      if (
+        flowerKeyword &&
+        searchableText.includes(
+          flowerKeyword
+        )
+      ) {
+        score += 15;
+      }
+
+      // Occasion
+      if (
+        occasion &&
+        searchableText.includes(
+          occasion
+        )
+      ) {
+        score += 8;
+      }
+
+      // Color
+      if (
+        preferredColor &&
+        searchableText.includes(
+          preferredColor
+        )
+      ) {
+        score += 7;
+      }
+
+      return score;
+    };
+
+    productsForAI.sort(
+      (a, b) => {
+        const scoreDifference =
+          scoreProduct(b) -
+          scoreProduct(a);
+
+        if (
+          scoreDifference !== 0
+        ) {
+          return scoreDifference;
+        }
+
+        return (
+          getFinalPrice(a) -
+          getFinalPrice(b)
+        );
+      }
+    );
+
+    // =========================================================
+    // NO PRODUCT
+    // =========================================================
 
     if (
-      isProductRequest &&
-      productsToShow.length === 0
+      productsForAI.length === 0
     ) {
-      let message = "";
+      let noProductMessage = "";
 
-      if (preferredColor && budget !== null) {
-        message =
-          `Aapke ₹${budget} budget mein ${preferredColor} color ka abhi koi suitable product available nahi mila.`;
-      } else if (preferredType && budget !== null) {
-        message =
-          `Aapke ₹${budget} budget mein abhi koi suitable ${preferredType} available nahi mila.`;
-      } else if (preferredType) {
-        message =
-          `Sorry, abhi koi suitable ${preferredType} available nahi mila.`;
-      } else if (budget !== null) {
-        message =
-          `Aapke ₹${budget} budget mein abhi koi suitable product available nahi mila.`;
+      if (
+        language === "HINGLISH_ROMAN"
+      ) {
+        if (preferredType) {
+          noProductMessage =
+            `₹${budget} ke andar ${preferredType} ka koi naya suitable option nahi mila.`;
+        } else {
+          noProductMessage =
+            `₹${budget} ke andar koi naya suitable flower gift nahi mila.`;
+        }
+      } else if (
+        language === "HINDI_DEVANAGARI"
+      ) {
+        if (preferredType) {
+          noProductMessage =
+            `₹${budget} के अंदर ${preferredType} का कोई नया suitable option नहीं मिला।`;
+        } else {
+          noProductMessage =
+            `₹${budget} के अंदर कोई नया suitable flower gift नहीं मिला।`;
+        }
       } else {
-        message =
-          "Sorry, abhi koi suitable product available nahi mila.";
+        if (preferredType) {
+          noProductMessage =
+            `I couldn't find a new suitable ${preferredType} within ₹${budget}.`;
+        } else {
+          noProductMessage =
+            `I couldn't find a new suitable flower gift within ₹${budget}.`;
+        }
       }
 
       return res.status(200).json({
         success: true,
-        answer: message,
+        answer: noProductMessage,
         products: [],
       });
     }
 
-    // ==================================================
-    // LIMIT PRODUCTS SENT TO AI
-    // ==================================================
+    // =========================================================
+    // MAX 2 PRODUCTS
+    // =========================================================
 
-    const productsForResponse =
-      productsToShow.slice(0, 6);
+    const productsToShow =
+      productsForAI.slice(0, 2);
 
-    // ==================================================
-    // PRODUCT DATA FOR AI
-    // ==================================================
+    // =========================================================
+    // PRODUCT NAMES FOR RESPONSE
+    // =========================================================
 
-    const productData =
-      productsForResponse.map((product) => ({
-        id: product._id.toString(),
+    const firstProduct =
+      productsToShow[0];
 
-        type: product.type,
+    const secondProduct =
+      productsToShow[1];
 
-        name: product.name,
+    const firstPrice =
+      getFinalPrice(firstProduct);
 
-        description:
-          product.description || "",
+    const secondPrice =
+      secondProduct
+        ? getFinalPrice(secondProduct)
+        : null;
 
-        price: product.price,
+    // =========================================================
+    // PRODUCT TYPE LABEL
+    // =========================================================
 
-        discountPrice:
-          product.discountPrice ?? null,
+    const getProductTypeLabel = () => {
+      if (preferredType === "Bouquet") {
+        return {
+          hinglish: "bouquet",
+          hindi: "bouquet",
+          english: "bouquet",
+        };
+      }
 
-        occasion:
-          product.occasion || null,
+      if (preferredType === "ComboBouquet") {
+        return {
+          hinglish: "combo bouquet",
+          hindi: "combo bouquet",
+          english: "combo bouquet",
+        };
+      }
 
-        category:
-          product.category || null,
+      if (preferredType === "FlowerInBox") {
+        return {
+          hinglish: "Flower-in-Box",
+          hindi: "Flower-in-Box",
+          english: "Flower-in-Box",
+        };
+      }
 
-        size:
-          product.size || null,
+      if (preferredType === "FlowerInSleeve") {
+        return {
+          hinglish: "Flower-in-Sleeve",
+          hindi: "Flower-in-Sleeve",
+          english: "Flower-in-Sleeve",
+        };
+      }
 
-        color:
-          product.color || null,
+      if (preferredType === "Woolen") {
+        return {
+          hinglish: "woolen bouquet",
+          hindi: "woolen bouquet",
+          english: "woolen bouquet",
+        };
+      }
 
-        flowerType:
-          product.flowerType || null,
+      return {
+        hinglish: "flower gift",
+        hindi: "suitable",
+        english: "flower gift",
+      };
+    };
 
-        flowers:
-          product.flowers || null,
+    const productTypeLabel =
+      getProductTypeLabel();
 
-        flavor:
-          product.flavor || null,
+    // =========================================================
+    // PRODUCT RESPONSE
+    // =========================================================
 
-        quantity:
-          product.quantity || null,
-      }));
+    let aiResponse = "";
 
-    // ==================================================
-    // AI GENERATES ONLY TEXT
-    // ==================================================
+    // =========================================================
+    // HINGLISH
+    // =========================================================
 
-    const completion =
-      await groq.chat.completions.create({
-        model: "openai/gpt-oss-120b",
+    if (
+      language === "HINGLISH_ROMAN"
+    ) {
+      if (secondProduct) {
+        aiResponse =
+          `${relationshipLabel} ke ${occasion || "special occasion"} ke liye ye 2 ${productTypeLabel.hinglish} options aapke ₹${budget} budget ke andar hain. 🌸\n\n` +
+          `1. ${firstProduct.name} – ₹${firstPrice}\n` +
+          `2. ${secondProduct.name} – ₹${secondPrice}`;
+      } else {
+        aiResponse =
+          `${relationshipLabel} ke ${occasion || "special occasion"} ke liye aapke ₹${budget} budget ke andar ye ${productTypeLabel.hinglish} option mila hai. 🌸\n\n` +
+          `${firstProduct.name} – ₹${firstPrice}`;
+      }
+    }
 
-        messages: [
-          {
-            role: "system",
+    // =========================================================
+    // HINDI
+    // =========================================================
 
-            content: `
-You are a friendly AI gift recommendation assistant
-for a flower bouquet e-commerce website.
+    else if (
+      language === "HINDI_DEVANAGARI"
+    ) {
+      if (secondProduct) {
+        aiResponse =
+          `${relationshipLabel} के ${occasion || "खास मौके"} के लिए आपके ₹${budget} बजट के अंदर ये 2 ${productTypeLabel.hindi} options मिले हैं। 🌸\n\n` +
+          `1. ${firstProduct.name} – ₹${firstPrice}\n` +
+          `2. ${secondProduct.name} – ₹${secondPrice}`;
+      } else {
+        aiResponse =
+          `${relationshipLabel} के ${occasion || "खास मौके"} के लिए आपके ₹${budget} बजट के अंदर यह ${productTypeLabel.hindi} option मिला है। 🌸\n\n` +
+          `${firstProduct.name} – ₹${firstPrice}`;
+      }
+    }
 
-The backend has already selected suitable products.
+    // =========================================================
+    // ENGLISH
+    // =========================================================
 
-Your job is ONLY to write a short natural response.
+    else {
+      if (secondProduct) {
+        aiResponse =
+          `For your ${relationshipLabel}'s ${occasion || "special occasion"}, here are 2 suitable ${productTypeLabel.english} options within your ₹${budget} budget. 🌸\n\n` +
+          `1. ${firstProduct.name} – ₹${firstPrice}\n` +
+          `2. ${secondProduct.name} – ₹${secondPrice}`;
+      } else {
+        aiResponse =
+          `For your ${relationshipLabel}'s ${occasion || "special occasion"}, I found a suitable ${productTypeLabel.english} option within your ₹${budget} budget. 🌸\n\n` +
+          `${firstProduct.name} – ₹${firstPrice}`;
+      }
+    }
 
-==================================================
-WEBSITE RULE
-==================================================
-
-Only recommend products from this website.
-
-Main website gift categories:
-
-- Bouquet
-- ComboBouquet
-- Flower
-- FlowerInBox
-- FlowerInSleeve
-- Woolen
-
-Do NOT recommend unrelated gifts.
-
-Do NOT directly recommend:
-
-- Chocolate
-- Card
-- MiniCupcake
-
-==================================================
-PRODUCT RULES
-==================================================
-
-The backend has already selected the suitable products.
-
-Only talk about the products provided below.
-
-Do NOT invent:
-
-- product names
-- prices
-- product IDs
-- availability
-- features
-
-Do NOT generate JSON.
-
-Do NOT generate product IDs.
-
-The frontend will automatically show the product cards.
-
-==================================================
-CONVERSATION RULE
-==================================================
-
-Use the COMPLETE conversation.
-
-If the user has already provided:
-
-- occasion
-- relationship
-- budget
-- color
-- product type
-
-do NOT ask for those details again.
-
-If the user asks for different/more options,
-do not talk about previously shown products.
-
-==================================================
-LANGUAGE
-==================================================
-
-Reply in the SAME language and writing style
-as the user's latest message.
-
-English -> English.
-Hindi Roman -> Hindi Roman.
-Hinglish -> natural Hinglish Roman.
-Mixed Hindi/English -> same natural mix.
-
-Never use Devanagari unless the user uses Devanagari.
-
-==================================================
-RESPONSE STYLE
-==================================================
-
-Keep the response short.
-
-If the user provided a budget,
-mention that the options are within the budget.
-
-If the user provided a color,
-naturally mention that the options match
-their requested color when appropriate.
-
-Do not ask unnecessary questions.
-
-Do not write long explanations.
-
-==================================================
-AVAILABLE PRODUCTS
-==================================================
-
-${JSON.stringify(productData)}
-
-These are the ONLY products you may talk about.
-`,
-          },
-
-          {
-            role: "user",
-            content: question,
-          },
-        ],
-
-        max_tokens: 250,
-      });
-
-    // ==================================================
-    // AI ANSWER
-    // ==================================================
-
-    const aiResponse =
-      completion.choices[0]?.message?.content?.trim() ||
-      "";
-
-    // ==================================================
-    // BACKEND SELECTS FINAL PRODUCTS
-    // ==================================================
+    // =========================================================
+    // FINAL PRODUCT DATA
+    // =========================================================
 
     const recommendedProducts =
-      productsToShow
-        .slice(0, 2)
-        .map((product) => ({
+      productsToShow.map(
+        (product) => ({
+          // Frontend View Details ke liye
+          // exact ID
           id: product._id,
 
           type: product.type,
@@ -1063,12 +1716,15 @@ These are the ONLY products you may talk about.
           description:
             product.description || "",
 
-          price: product.price,
+          price:
+            product.price,
 
           discountPrice:
             product.discountPrice ?? null,
 
-          image: product.image,
+          // ONLY DATABASE IMAGE
+          image:
+            product.image,
 
           occasion:
             product.occasion || null,
@@ -1088,45 +1744,18 @@ These are the ONLY products you may talk about.
           flowers:
             product.flowers || null,
 
-          flavor:
-            product.flavor || null,
-
           quantity:
             product.quantity || null,
-        }));
+        })
+      );
 
-    // ==================================================
-    // FALLBACK ANSWER
-    // ==================================================
-
-    let finalAnswer = aiResponse;
-
-    if (!finalAnswer) {
-      if (askingForDifferent) {
-        finalAnswer =
-          "Here are some different options for you. 😊";
-      } else if (preferredColor && budget !== null) {
-        finalAnswer =
-          `Here are some ${preferredColor} options within ₹${budget}. 😊`;
-      } else if (preferredType) {
-        finalAnswer =
-          "Here are some suitable options for you. 😊";
-      } else if (budget !== null) {
-        finalAnswer =
-          `Here are some suitable options within ₹${budget}. 😊`;
-      } else {
-        finalAnswer =
-          "Here are some suitable options for you. 😊";
-      }
-    }
-
-    // ==================================================
+    // =========================================================
     // FINAL RESPONSE
-    // ==================================================
+    // =========================================================
 
     return res.status(200).json({
       success: true,
-      answer: finalAnswer,
+      answer: aiResponse,
       products: recommendedProducts,
     });
   } catch (error) {
