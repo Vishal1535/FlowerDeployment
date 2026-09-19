@@ -1,5 +1,5 @@
 import { DashBoard } from "../DeliveryBoy/DashBoard/DashBoard";
-import { Profile } from "../DeliveryBoy/DashBoard/Profile/Profile";
+
 import { MyAssignmentOrder } from "../DeliveryBoy/DashBoard/MyAssignmentOrder/MyAssignmentOrder";
 import { SignalOrder } from "../DeliveryBoy/DashBoard/MyAssignmentOrder/SignalOrder";
 import { MyOrder } from "../DeliveryBoy/MyOrder/MyOrder";

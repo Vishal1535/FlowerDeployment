@@ -849,3 +849,53 @@ export const updatePassword = async (req, res) => {
     });
   }
 };
+// UPDATE PROFILE
+export const updateProfile = async (req, res) => {
+  try {
+    const { name, phone } = req.body;
+
+    // Check required fields
+    if (!name || !phone) {
+      return res.status(400).json({
+        success: false,
+        message: "Name and phone are required",
+      });
+    }
+
+    // Find logged-in user
+    const user = await userModel.findById(req.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Update profile
+    user.name = name.trim();
+    user.phone = phone.trim();
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+      },
+    });
+
+  } catch (error) {
+    console.error("Update Profile Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update profile",
+    });
+  }
+};

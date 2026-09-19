@@ -7,7 +7,9 @@ import {
   register,
   updatePassword,
   verifyRegisterOtp,
+  updateProfile,
 } from "../controllers/UserController.js";
+import isAuthorized from "../middlewares/isAuthorized.js";
 const userRoute = express.Router();
 userRoute.post("/register", register);
 userRoute.post("/registerOtpVerify", verifyRegisterOtp);
@@ -16,4 +18,5 @@ userRoute.post("/logout", logout);
 userRoute.post("/forget-password", forgetPassword);
 userRoute.post("/forget-password-otp", forgetPasswordOtp);
 userRoute.post("/update-password", updatePassword);
+userRoute.put("/update-profile", isAuthorized, updateProfile);
 export default userRoute;

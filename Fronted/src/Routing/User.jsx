@@ -9,6 +9,8 @@ import { Contact } from "../Component/Contact/Contact";
 import { BuytheSingleProduct } from "../User/BuySingleProduct/BuytheSingleProduct";
 import { BuySingleProductAddress } from "../User/BuySingleProduct/BuySingleProductAddress";
 import { ButSingleProductSummary } from "../User/BuySingleProduct/ButSingleProductSummary";
+import { Profile } from "../User/Profile/Profile";
+import { Setting } from "../User/Setting/Setting";
 const UserRoute = [
   {
     path: "/cart",
@@ -52,6 +54,15 @@ const UserRoute = [
   {
     path:"/buy-single-product-checkout",
     element:<ButSingleProductSummary/>
+  },
+  {
+    path:"/profile",
+    element:<Profile/>
+
+  },
+  {
+    path:"/settings",
+    element:<Setting/>
   }
 ];
 export default UserRoute

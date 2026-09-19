@@ -61,8 +61,6 @@ export const forgetPasswordThunks = createAsyncThunk(
   "user/forgetPassword",
   async (data, { rejectWithValue }) => {
     try {
-      
-      
       const response = await axiosInstance.post("/forget-password", data);
 
       return {
@@ -101,6 +99,21 @@ export const updatePasswordThunks = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to update password",
+      );
+    }
+  },
+);
+
+export const updateProfileThunks = createAsyncThunk(
+  "user/updateProfile",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put("/update-profile", data);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update profile",
       );
     }
   },

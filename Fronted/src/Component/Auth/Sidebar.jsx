@@ -39,9 +39,9 @@ export const Sidebar = ({
 
   const adminMenuItems = [
     {
-      name: "Dashboard",
-      path: "/admin/dashboard",
-      icon: LayoutDashboard,
+      name: "Profile",
+      path: "/profile",
+      icon: User,
     },
     {
       name: "Floral Collection",
@@ -81,18 +81,19 @@ export const Sidebar = ({
       icon: LayoutDashboard,
     },
     {
+      name: "Profile",
+      path: "/profile",
+      icon: User,
+    },
+    {
       name: "My Orders",
       path: "/delivery-boy/MyOrder",
       icon: ClipboardList,
     },
-    {
-      name: "Profile",
-      path: "/delivery-boy/profile",
-      icon: User,
-    },
+    
     {
       name: "Settings",
-      path: "/delivery-boy/settings",
+      path: "/settings",
       icon: Settings,
     },
   ];

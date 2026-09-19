@@ -1,4 +1,3 @@
-
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
@@ -9,6 +8,7 @@ import {
   registerThunks,
   registerVerifyOtpThunks,
   updatePasswordThunks,
+  updateProfileThunks,
 } from "./authApi.js";
 
 // =====================================================
@@ -133,10 +133,7 @@ const userSlice = createSlice({
 
         state.error = null;
 
-        localStorage.setItem(
-          "userInfo",
-          JSON.stringify(action.payload.user)
-        );
+        localStorage.setItem("userInfo", JSON.stringify(action.payload.user));
       })
 
       .addCase(loginThunks.rejected, (state, action) => {
@@ -256,10 +253,30 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
+    builder
+      .addCase(updateProfileThunks.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      .addCase(updateProfileThunks.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+
+        // Updated user Redux mein save
+        state.userInfo = action.payload.user;
+
+        // Updated user localStorage mein bhi save
+        localStorage.setItem("userInfo", JSON.stringify(action.payload.user));
+      })
+
+      .addCase(updateProfileThunks.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
 export const { closePopup } = userSlice.actions;
-const userReducer =userSlice.reducer;
-export default userReducer ;
-
+const userReducer = userSlice.reducer;
+export default userReducer;
