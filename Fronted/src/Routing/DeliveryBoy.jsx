@@ -12,10 +12,7 @@ const DeliveryBoyRoute = [
     path: "/delivery-boy/orders",
     element: <MyAssignmentOrder />,
   },
-  {
-    path: "/delivery-boy/profile",
-    element: <Profile />,
-  },
+ 
   {
     path:'/delivery-boy/order/:id',
     element:<SignalOrder/>
