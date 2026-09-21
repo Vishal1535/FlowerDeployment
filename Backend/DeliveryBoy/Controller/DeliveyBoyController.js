@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 import DeliveryBoyModel from "../Model/DeliveryBoyModel.js";
 import OrderModel from "../../User/Model/OrderModel.js";
+import sendEmail from "../../configs/nodemailer.js";
 
+// =================================================
 // GET MY DELIVERY BOY PROFILE
-
-// Delivery boy login ke baad apni profile dekh sakta hai.
-// Login token se req.id milega.
+// =================================================
 
 export const GetMyDeliveryBoyProfile = async (req, res) => {
   try {
@@ -63,9 +63,9 @@ export const GetMyDeliveryBoyProfile = async (req, res) => {
   }
 };
 
+// =================================================
 // GET MY ASSIGNED ORDERS
-
-// Delivery boy ko sirf uske assigned orders milenge.
+// =================================================
 
 export const GetMyAssignedOrders = async (req, res) => {
   try {
@@ -136,7 +136,9 @@ export const GetMyAssignedOrders = async (req, res) => {
   }
 };
 
+// =================================================
 // GET SINGLE ASSIGNED ORDER
+// =================================================
 
 export const GetMySingleOrder = async (req, res) => {
   try {
@@ -228,15 +230,23 @@ export const GetMySingleOrder = async (req, res) => {
   }
 };
 
+// =================================================
 // ACCEPT ORDER
+// =================================================
 
 // Admin assignment ke baad delivery boy order accept karega.
 //
 // Order:
-// shipped -> out_for_delivery
+// shipped / processing -> out_for_delivery
 //
 // Delivery boy:
 // available -> busy
+//
+// Customer ko email:
+// Order Out for Delivery
+// Delivery boy name
+// Delivery boy phone
+// =================================================
 
 export const AcceptOrder = async (req, res) => {
   try {
@@ -281,7 +291,7 @@ export const AcceptOrder = async (req, res) => {
 
     const deliveryBoy = await DeliveryBoyModel.findOne({
       user: req.id,
-    });
+    }).populate("user", "name email phone");
 
     if (!deliveryBoy) {
       return res.status(404).json({
@@ -297,7 +307,7 @@ export const AcceptOrder = async (req, res) => {
     const order = await OrderModel.findOne({
       _id: id,
       deliveryBoy: deliveryBoy._id,
-    });
+    }).populate("user", "name email phone");
 
     if (!order) {
       return res.status(404).json({
@@ -334,11 +344,141 @@ export const AcceptOrder = async (req, res) => {
 
     await deliveryBoy.save();
 
+    // =================================================
+    // DELIVERY BOY DETAILS
+    // =================================================
+
+    const deliveryBoyName =
+      deliveryBoy?.user?.name || deliveryBoy?.name || "Our Delivery Partner";
+
+    const deliveryBoyPhone =
+      deliveryBoy?.user?.phone || deliveryBoy?.phone || "Not available";
+
+    // =================================================
+    // CUSTOMER EMAIL
+    // =================================================
+
+    if (order?.user?.email) {
+      try {
+        await sendEmail({
+          to: order.user.email,
+
+          subject: "Your Flower Order Is Out for Delivery 🚚",
+
+          html: `
+            <div style="
+              font-family: Arial, sans-serif;
+              max-width: 600px;
+              margin: auto;
+              padding: 20px;
+              background-color: #ffffff;
+              border: 1px solid #f3d6e0;
+              border-radius: 12px;
+            ">
+
+              <h2 style="
+                color: #e91e63;
+                margin-bottom: 10px;
+              ">
+                Your Order Is Out for Delivery 🚚
+              </h2>
+
+              <p>
+                Hi ${order.user.name || "there"},
+              </p>
+
+              <p>
+                Good news! Your Flower order is now
+                <strong>Out for Delivery</strong>.
+              </p>
+
+              <div style="
+                background-color: #fff3f7;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+              ">
+
+                <p style="margin: 5px 0;">
+                  📦
+                  <strong>
+                    Good news! Your order is on its way and is expected to be delivered today.
+                  </strong>
+                </p>
+
+                <p style="margin: 5px 0;">
+                  Please keep your phone available so our
+                  delivery partner can contact you if required.
+                </p>
+
+              </div>
+
+              <hr style="
+                border: none;
+                border-top: 1px solid #eeeeee;
+                margin: 20px 0;
+              " />
+
+              <h3 style="color: #444444;">
+                Delivery Partner Details
+              </h3>
+
+              <p>
+                <strong>Name:</strong>
+                ${deliveryBoyName}
+              </p>
+
+              <p>
+                <strong>Phone:</strong>
+                ${deliveryBoyPhone}
+              </p>
+
+              <p>
+                <strong>Order Status:</strong>
+
+                <span style="
+                  color: #e91e63;
+                  font-weight: bold;
+                ">
+                  Out for Delivery
+                </span>
+              </p>
+
+              <p style="
+                margin-top: 25px;
+                color: #777777;
+                font-size: 14px;
+              ">
+                Thank you for shopping with Flower 💐
+              </p>
+
+            </div>
+          `,
+        });
+
+        console.log("✅ Out for delivery email sent to:", order.user.email);
+      } catch (emailError) {
+        console.error("❌ Out for Delivery Email Error:", emailError);
+      }
+    } else {
+      console.log("❌ Customer email not found for order:", order._id);
+    }
+
+    // =================================================
+    // RESPONSE
+    // =================================================
+
     return res.status(200).json({
       success: true,
-      message: "Order accepted successfully",
+      message: "Order accepted successfully and customer notified",
+
       order,
-      isAvailable: deliveryBoy.isAvailable,
+
+      deliveryBoy: {
+        name: deliveryBoyName,
+        phone: deliveryBoyPhone,
+        isAvailable: deliveryBoy.isAvailable,
+      },
     });
   } catch (error) {
     console.error("Accept Order Error:", error);
@@ -351,9 +491,9 @@ export const AcceptOrder = async (req, res) => {
   }
 };
 
+// =================================================
 // UPDATE DELIVERY BOY LOCATION
-
-// Delivery boy apni current location update karega.
+// =================================================
 
 export const UpdateMyLocation = async (req, res) => {
   try {
@@ -455,7 +595,9 @@ export const UpdateMyLocation = async (req, res) => {
   }
 };
 
+// =================================================
 // MARK ORDER AS DELIVERED
+// =================================================
 
 // Delivery boy delivery complete karega.
 //
@@ -467,6 +609,12 @@ export const UpdateMyLocation = async (req, res) => {
 //
 // completedDeliveries +1
 // totalDeliveries +1
+//
+// Customer ko email:
+// Order Delivered
+// Delivery boy name
+// Delivery boy phone
+// =================================================
 
 export const MarkOrderDelivered = async (req, res) => {
   try {
@@ -511,7 +659,7 @@ export const MarkOrderDelivered = async (req, res) => {
 
     const deliveryBoy = await DeliveryBoyModel.findOne({
       user: req.id,
-    });
+    }).populate("user", "name email phone");
 
     if (!deliveryBoy) {
       return res.status(404).json({
@@ -527,7 +675,7 @@ export const MarkOrderDelivered = async (req, res) => {
     const order = await OrderModel.findOne({
       _id: id,
       deliveryBoy: deliveryBoy._id,
-    });
+    }).populate("user", "name email phone");
 
     if (!order) {
       return res.status(404).json({
@@ -568,11 +716,135 @@ export const MarkOrderDelivered = async (req, res) => {
 
     await deliveryBoy.save();
 
+    // =================================================
+    // DELIVERY BOY DETAILS
+    // =================================================
+
+    const deliveryBoyName =
+      deliveryBoy?.user?.name || deliveryBoy?.name || "Our Delivery Partner";
+
+    const deliveryBoyPhone =
+      deliveryBoy?.user?.phone || deliveryBoy?.phone || "Not available";
+
+    // =================================================
+    // CUSTOMER EMAIL
+    // =================================================
+
+    if (order?.user?.email) {
+      try {
+        await sendEmail({
+          to: order.user.email,
+
+          subject: "Your Flower Order Has Been Delivered 💐",
+
+          html: `
+            <div style="
+              font-family: Arial, sans-serif;
+              max-width: 600px;
+              margin: auto;
+              padding: 20px;
+              background-color: #ffffff;
+              border: 1px solid #f3d6e0;
+              border-radius: 12px;
+            ">
+
+              <h2 style="
+                color: #e91e63;
+                margin-bottom: 10px;
+              ">
+                Order Delivered Successfully 💐
+              </h2>
+
+              <p>
+                Hi ${order.user.name || "there"},
+              </p>
+
+              <p>
+                Great news! Your Flower order has been
+                <strong>successfully delivered</strong>.
+              </p>
+
+              <div style="
+                background-color: #f1fff3;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+              ">
+
+                <p style="margin: 5px 0;">
+                  📦
+                  <strong>Your order has been delivered successfully.</strong>
+                </p>
+
+                <p style="margin: 5px 0;">
+                  <strong>Order Status:</strong>
+
+                  <span style="
+                    color: #2e7d32;
+                    font-weight: bold;
+                  ">
+                    Delivered
+                  </span>
+                </p>
+
+              </div>
+
+              <h3 style="color: #444444;">
+                Delivery Partner Details
+              </h3>
+
+              <p>
+                <strong>Name:</strong>
+                ${deliveryBoyName}
+              </p>
+
+              <p>
+                <strong>Phone:</strong>
+                ${deliveryBoyPhone}
+              </p>
+
+              <p>
+                We hope you enjoyed your order. ❤️
+              </p>
+
+              <p>
+                Thank you for shopping with
+                <strong>Flower</strong> 💐
+              </p>
+
+              <p style="
+                margin-top: 25px;
+                color: #777777;
+                font-size: 13px;
+              ">
+                Your order has been marked as delivered.
+              </p>
+
+            </div>
+          `,
+        });
+
+        console.log("✅ Delivered email sent to:", order.user.email);
+      } catch (emailError) {
+        console.error("❌ Order Delivered Email Error:", emailError);
+      }
+    } else {
+      console.log("❌ Customer email not found for order:", order._id);
+    }
+
+    // =================================================
+    // RESPONSE
+    // =================================================
+
     return res.status(200).json({
       success: true,
-      message: "Order delivered successfully",
+      message: "Order delivered successfully and customer notified",
+
       order,
+
       deliveryBoy: {
+        name: deliveryBoyName,
+        phone: deliveryBoyPhone,
         isAvailable: deliveryBoy.isAvailable,
         totalDeliveries: deliveryBoy.totalDeliveries,
         completedDeliveries: deliveryBoy.completedDeliveries,
@@ -589,15 +861,9 @@ export const MarkOrderDelivered = async (req, res) => {
   }
 };
 
-// CANCEL DELIVERY
-
-// Delivery boy kisi assigned order ko cancel nahi karega
-// without proper business rule.
-//
-// Isliye abhi ye function intentionally nahi rakha.
-// Admin cancellation alag controller se handle karega.
-
+// =================================================
 // GET DELIVERY STATISTICS
+// =================================================
 
 export const GetMyDeliveryStats = async (req, res) => {
   try {

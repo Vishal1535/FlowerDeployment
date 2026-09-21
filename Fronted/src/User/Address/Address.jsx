@@ -33,7 +33,6 @@ export const Address = () => {
   );
 
   useEffect(() => {
-    // User login nahi hai
     if (!isAuthorized) {
       navigate("/", {
         replace: true,
@@ -57,7 +56,6 @@ export const Address = () => {
     city: "",
     state: "",
     country: "India",
-
     latitude: null,
     longitude: null,
   });
@@ -71,9 +69,110 @@ export const Address = () => {
   const HandleChange = (e) => {
     const { name, value } = e.target;
 
+    let cleanedValue = value;
+
+    // =============================================
+    // FULL NAME
+    // Only letters and spaces
+    // =============================================
+
+    if (name === "fullName") {
+      cleanedValue = value
+        .replace(/[^A-Za-z\s]/g, "")
+        .replace(/\s{2,}/g, " ");
+    }
+
+    // =============================================
+    // PHONE
+    // Only numbers - max 10 digits
+    // =============================================
+
+    if (name === "phone") {
+      cleanedValue = value
+        .replace(/\D/g, "")
+        .slice(0, 10);
+    }
+
+    // =============================================
+    // PINCODE
+    // Only numbers - max 6 digits
+    // =============================================
+
+    if (name === "pincode") {
+      cleanedValue = value
+        .replace(/\D/g, "")
+        .slice(0, 6);
+    }
+
+    // =============================================
+    // HOUSE NUMBER / BUILDING
+    // Letters, numbers, spaces and basic address symbols
+    // =============================================
+
+    if (name === "houseNumber") {
+      cleanedValue = value
+        .replace(/[^A-Za-z0-9\s\-\/\.,#]/g, "")
+        .replace(/\s{2,}/g, " ");
+    }
+
+    // =============================================
+    // AREA
+    // Letters, numbers, spaces and basic address symbols
+    // =============================================
+
+    if (name === "area") {
+      cleanedValue = value
+        .replace(/[^A-Za-z0-9\s\-\/\.,#]/g, "")
+        .replace(/\s{2,}/g, " ");
+    }
+
+    // =============================================
+    // LANDMARK
+    // Letters, numbers, spaces and basic address symbols
+    // =============================================
+
+    if (name === "landmark") {
+      cleanedValue = value
+        .replace(/[^A-Za-z0-9\s\-\/\.,#]/g, "")
+        .replace(/\s{2,}/g, " ");
+    }
+
+    // =============================================
+    // CITY
+    // Only letters and spaces
+    // =============================================
+
+    if (name === "city") {
+      cleanedValue = value
+        .replace(/[^A-Za-z\s]/g, "")
+        .replace(/\s{2,}/g, " ");
+    }
+
+    // =============================================
+    // STATE
+    // Only letters and spaces
+    // =============================================
+
+    if (name === "state") {
+      cleanedValue = value
+        .replace(/[^A-Za-z\s]/g, "")
+        .replace(/\s{2,}/g, " ");
+    }
+
+    // =============================================
+    // COUNTRY
+    // Only letters and spaces
+    // =============================================
+
+    if (name === "country") {
+      cleanedValue = value
+        .replace(/[^A-Za-z\s]/g, "")
+        .replace(/\s{2,}/g, " ");
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: cleanedValue,
     }));
 
     if (errors[name]) {
@@ -107,10 +206,6 @@ export const Address = () => {
           const longitude =
             location.coords.longitude;
 
-          // =============================================
-          // REVERSE GEOCODING
-          // =============================================
-
           const response = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&addressdetails=1`,
             {
@@ -130,10 +225,6 @@ export const Address = () => {
 
           const address =
             data?.address || {};
-
-          // =============================================
-          // GET ADDRESS VALUES
-          // =============================================
 
           const pincode =
             address.postcode || "";
@@ -161,34 +252,36 @@ export const Address = () => {
           const houseNumber =
             address.house_number || "";
 
-          // =============================================
-          // UPDATE FORM
-          // =============================================
-
           setFormData((prev) => ({
             ...prev,
 
-            pincode,
+            pincode: pincode
+              .replace(/\D/g, "")
+              .slice(0, 6),
 
             houseNumber:
               houseNumber || prev.houseNumber,
 
             area,
 
-            city,
+            city: city.replace(
+              /[^A-Za-z\s]/g,
+              ""
+            ),
 
-            state,
+            state: state.replace(
+              /[^A-Za-z\s]/g,
+              ""
+            ),
 
-            country,
+            country: country.replace(
+              /[^A-Za-z\s]/g,
+              ""
+            ),
 
             latitude,
-
             longitude,
           }));
-
-          // =============================================
-          // CLEAR AUTO-FILLED FIELD ERRORS
-          // =============================================
 
           setErrors((prev) => ({
             ...prev,
@@ -213,7 +306,6 @@ export const Address = () => {
             "Location detected, but address could not be found. Please enter the address manually."
           );
 
-          // GPS coordinates still save
           setFormData((prev) => ({
             ...prev,
             latitude:
@@ -268,9 +360,17 @@ export const Address = () => {
   const ValidateForm = () => {
     const newErrors = {};
 
+    // FULL NAME
     if (!formData.fullName.trim()) {
       newErrors.fullName =
         "Full name is required";
+    } else if (
+      !/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(
+        formData.fullName.trim()
+      )
+    ) {
+      newErrors.fullName =
+        "Name can contain only letters and spaces";
     } else if (
       formData.fullName.trim().length < 2
     ) {
@@ -278,6 +378,7 @@ export const Address = () => {
         "Full name must be at least 2 characters";
     }
 
+    // PHONE
     if (!formData.phone.trim()) {
       newErrors.phone =
         "Phone number is required";
@@ -290,6 +391,7 @@ export const Address = () => {
         "Enter a valid 10-digit phone number";
     }
 
+    // PINCODE
     if (!formData.pincode.trim()) {
       newErrors.pincode =
         "Pincode is required";
@@ -302,11 +404,13 @@ export const Address = () => {
         "Pincode must be exactly 6 digits";
     }
 
+    // HOUSE
     if (!formData.houseNumber.trim()) {
       newErrors.houseNumber =
         "Flat / house / building is required";
     }
 
+    // AREA
     if (!formData.area.trim()) {
       newErrors.area =
         "Area / street is required";
@@ -317,6 +421,7 @@ export const Address = () => {
         "Area must be at least 2 characters";
     }
 
+    // LANDMARK
     if (
       formData.landmark.trim() &&
       formData.landmark.trim().length < 2
@@ -325,29 +430,43 @@ export const Address = () => {
         "Landmark must be at least 2 characters";
     }
 
+    // CITY
     if (!formData.city.trim()) {
       newErrors.city =
         "City is required";
     } else if (
-      formData.city.trim().length < 2
+      !/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(
+        formData.city.trim()
+      )
     ) {
       newErrors.city =
-        "City must be at least 2 characters";
+        "City can contain only letters and spaces";
     }
 
+    // STATE
     if (!formData.state.trim()) {
       newErrors.state =
         "State is required";
     } else if (
-      formData.state.trim().length < 2
+      !/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(
+        formData.state.trim()
+      )
     ) {
       newErrors.state =
-        "State must be at least 2 characters";
+        "State can contain only letters and spaces";
     }
 
+    // COUNTRY
     if (!formData.country.trim()) {
       newErrors.country =
         "Country is required";
+    } else if (
+      !/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(
+        formData.country.trim()
+      )
+    ) {
+      newErrors.country =
+        "Country can contain only letters and spaces";
     }
 
     setErrors(newErrors);
@@ -476,10 +595,18 @@ export const Address = () => {
             latestAddress.fullName || "",
 
           phone:
-            latestAddress.phone || "",
+            String(
+              latestAddress.phone || ""
+            )
+              .replace(/\D/g, "")
+              .slice(0, 10),
 
           pincode:
-            latestAddress.pincode || "",
+            String(
+              latestAddress.pincode || ""
+            )
+              .replace(/\D/g, "")
+              .slice(0, 6),
 
           houseNumber:
             latestAddress.houseNumber || "",
@@ -491,14 +618,29 @@ export const Address = () => {
             latestAddress.landmark || "",
 
           city:
-            latestAddress.city || "",
+            String(
+              latestAddress.city || ""
+            ).replace(
+              /[^A-Za-z\s]/g,
+              ""
+            ),
 
           state:
-            latestAddress.state || "",
+            String(
+              latestAddress.state || ""
+            ).replace(
+              /[^A-Za-z\s]/g,
+              ""
+            ),
 
           country:
-            latestAddress.country ||
-            "India",
+            String(
+              latestAddress.country ||
+                "India"
+            ).replace(
+              /[^A-Za-z\s]/g,
+              ""
+            ),
 
           latitude:
             latestAddress.location
@@ -579,9 +721,7 @@ export const Address = () => {
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-6">
 
-      {/* =================================================
-          BACK
-      ================================================= */}
+      {/* BACK */}
 
       <button
         type="button"
@@ -603,9 +743,7 @@ export const Address = () => {
         Back
       </button>
 
-      {/* =================================================
-          CARD
-      ================================================= */}
+      {/* CARD */}
 
       <div
         className="
@@ -618,9 +756,7 @@ export const Address = () => {
         "
       >
 
-        {/* =================================================
-            HEADER
-        ================================================= */}
+        {/* HEADER */}
 
         <div
           className="
@@ -634,7 +770,6 @@ export const Address = () => {
             gap-3
           "
         >
-
           <div
             className="
               w-10
@@ -651,7 +786,6 @@ export const Address = () => {
           </div>
 
           <div>
-
             <h2 className="text-lg font-bold text-gray-800">
               Delivery Address
             </h2>
@@ -659,23 +793,17 @@ export const Address = () => {
             <p className="text-xs text-gray-400 mt-0.5">
               Enter your delivery details
             </p>
-
           </div>
-
         </div>
 
-        {/* =================================================
-            FORM
-        ================================================= */}
+        {/* FORM */}
 
         <form
           onSubmit={HandleSubmit}
           className="p-5 sm:p-6"
         >
 
-          {/* =================================================
-              CURRENT LOCATION
-          ================================================= */}
+          {/* CURRENT LOCATION */}
 
           <div className="mb-6">
 
@@ -706,21 +834,17 @@ export const Address = () => {
                 cursor-pointer
               "
             >
-
               {locationLoading ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
-
                   Detecting your location...
                 </>
               ) : (
                 <>
                   <LocateFixed size={18} />
-
                   Use My Current Location
                 </>
               )}
-
             </button>
 
             <p className="text-[11px] text-gray-400 text-center mt-2">
@@ -747,12 +871,9 @@ export const Address = () => {
                   ✓ Current location detected
                 </div>
               )}
-
           </div>
 
-          {/* =================================================
-              INPUT GRID
-          ================================================= */}
+          {/* INPUT GRID */}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
@@ -788,6 +909,7 @@ export const Address = () => {
                     HandleChange
                   }
                   placeholder="Enter your full name"
+                  autoComplete="name"
                   className={`${InputClass(
                     "fullName"
                   )} pl-10`}
@@ -803,9 +925,7 @@ export const Address = () => {
 
             </div>
 
-            {/* =================================================
-                PHONE NUMBER
-            ================================================= */}
+            {/* PHONE */}
 
             <div>
 
@@ -839,10 +959,10 @@ export const Address = () => {
                   placeholder="Enter 10-digit phone number"
                   maxLength={10}
                   inputMode="numeric"
+                  autoComplete="tel"
                   className={`
                     ${InputClass("phone")}
                     pl-10
-                    pr-3
                     tracking-wide
                   `}
                 />
@@ -877,6 +997,7 @@ export const Address = () => {
                 placeholder="6-digit pincode"
                 maxLength={6}
                 inputMode="numeric"
+                autoComplete="postal-code"
                 className={InputClass(
                   "pincode"
                 )}
@@ -922,6 +1043,7 @@ export const Address = () => {
                     HandleChange
                   }
                   placeholder="Flat, house no. or building"
+                  autoComplete="street-address"
                   className={`${InputClass(
                     "houseNumber"
                   )} pl-10`}
@@ -969,6 +1091,7 @@ export const Address = () => {
                     HandleChange
                   }
                   placeholder="Area, street or colony"
+                  autoComplete="address-line2"
                   className={`${InputClass(
                     "area"
                   )} pl-10`}
@@ -1036,6 +1159,7 @@ export const Address = () => {
                   HandleChange
                 }
                 placeholder="Enter city"
+                autoComplete="address-level2"
                 className={InputClass(
                   "city"
                 )}
@@ -1067,6 +1191,7 @@ export const Address = () => {
                   HandleChange
                 }
                 placeholder="Enter state"
+                autoComplete="address-level1"
                 className={InputClass(
                   "state"
                 )}
@@ -1111,6 +1236,7 @@ export const Address = () => {
                   onChange={
                     HandleChange
                   }
+                  autoComplete="country-name"
                   className={`${InputClass(
                     "country"
                   )} pl-10`}
@@ -1128,9 +1254,7 @@ export const Address = () => {
 
           </div>
 
-          {/* =================================================
-              BUTTONS
-          ================================================= */}
+          {/* BUTTONS */}
 
           <div
             className="
@@ -1180,23 +1304,19 @@ export const Address = () => {
                 cursor-pointer
               "
             >
-
               {loading ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
-
                   Saving...
                 </>
               ) : (
                 <>
                   <Save size={18} />
-
                   <span>
                     Save Address
                   </span>
                 </>
               )}
-
             </button>
 
             {/* GET LATEST ADDRESS */}
@@ -1238,23 +1358,19 @@ export const Address = () => {
                 cursor-pointer
               "
             >
-
               {latestLoading ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
-
                   Loading...
                 </>
               ) : (
                 <>
                   <RefreshCw size={18} />
-
                   <span>
                     Get Latest Address
                   </span>
                 </>
               )}
-
             </button>
 
           </div>

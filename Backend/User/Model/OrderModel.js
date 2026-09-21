@@ -311,6 +311,10 @@ const OrderSchema = new mongoose.Schema(
 // TTL INDEX
 // =====================================================
 
+// =====================================================
+// TTL INDEX
+// =====================================================
+
 OrderSchema.index(
   {
     statusChangedAt: 1,
@@ -321,6 +325,7 @@ OrderSchema.index(
     partialFilterExpression: {
       orderStatus: {
         $in: [
+          "out_for_delivery",
           "delivered",
           "cancelled",
         ],

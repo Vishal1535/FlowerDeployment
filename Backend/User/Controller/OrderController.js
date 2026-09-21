@@ -13,10 +13,24 @@ import WoolenBouquetAddToCartModel from "../Model/AddToCart/WoolenBouquetAddToCa
 
 import sendEmail from "../../configs/nodemailer.js";
 
+// =====================================================
 // EMAIL HELPER
+// =====================================================
 
-const sendOrderEmail = async ({ to, subject, title, message, order }) => {
+const sendOrderEmail = async ({
+  to,
+  subject,
+  title,
+  message,
+  order,
+  deliveryBoyName = "",
+  deliveryBoyPhone = "",
+}) => {
   try {
+    // =================================================
+    // ORDER ITEMS
+    // =================================================
+
     const itemsHtml =
       order?.items
         ?.map(
@@ -55,6 +69,10 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
         )
         .join("") || "";
 
+    // =================================================
+    // ADDRESS
+    // =================================================
+
     const address = order?.address;
 
     const addressHtml =
@@ -67,7 +85,10 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
             padding:15px;
             margin-top:10px;
           ">
-            <strong style="color:#111827;">
+
+            <strong style="
+              color:#111827;
+            ">
               ${address?.name || address?.fullName || "Delivery Address"}
             </strong>
 
@@ -77,16 +98,21 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
               line-height:1.6;
               font-size:13px;
             ">
+
               ${address?.address || address?.street || ""}
+
               <br />
 
               ${address?.city || ""}
               ${address?.city && address?.state ? ", " : ""}
               ${address?.state || ""}
+
               ${address?.pincode ? ` - ${address.pincode}` : ""}
 
               ${address?.phone ? `<br />Phone: ${address.phone}` : ""}
+
             </div>
+
           </div>
         `
         : `
@@ -103,11 +129,112 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
           </div>
         `;
 
+    // =================================================
+    // DELIVERY DATE
+    // =================================================
+
+    const deliveryDateHtml = order?.deliverDate
+      ? `
+        <div style="
+          margin-top:20px;
+          padding:15px;
+          background:#f0fdf4;
+          border:1px solid #bbf7d0;
+          border-radius:12px;
+        ">
+
+          <div style="
+            color:#6b7280;
+            font-size:11px;
+          ">
+            Expected Delivery
+          </div>
+
+          <div style="
+            margin-top:5px;
+            color:#16a34a;
+            font-weight:bold;
+            font-size:14px;
+          ">
+            ${new Date(order.deliverDate).toLocaleDateString("en-IN", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
+          </div>
+
+        </div>
+      `
+      : "";
+
+    // =================================================
+    // DELIVERY BOY
+    // =================================================
+
+    const deliveryBoyHtml =
+      deliveryBoyName || deliveryBoyPhone
+        ? `
+          <div style="
+            margin-top:20px;
+            padding:18px;
+            background:#fff7ed;
+            border:1px solid #fed7aa;
+            border-radius:14px;
+          ">
+
+            <div style="
+              color:#9a3412;
+              font-size:11px;
+              text-transform:uppercase;
+              font-weight:bold;
+            ">
+              Delivery Partner
+            </div>
+
+            ${
+              deliveryBoyName
+                ? `
+                  <div style="
+                    margin-top:8px;
+                    color:#111827;
+                    font-size:15px;
+                    font-weight:bold;
+                  ">
+                    👤 ${deliveryBoyName}
+                  </div>
+                `
+                : ""
+            }
+
+            ${
+              deliveryBoyPhone
+                ? `
+                  <div style="
+                    margin-top:6px;
+                    color:#374151;
+                    font-size:14px;
+                  ">
+                    📞 ${deliveryBoyPhone}
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+        `
+        : "";
+
+    // =================================================
+    // HTML
+    // =================================================
+
     const html = `
       <!DOCTYPE html>
 
       <html>
+
         <head>
+
           <meta charset="UTF-8" />
 
           <meta
@@ -116,6 +243,7 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
           />
 
           <title>${title}</title>
+
         </head>
 
         <body style="
@@ -171,7 +299,6 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
 
             </div>
 
-
             <!-- CONTENT -->
 
             <div style="
@@ -191,10 +318,10 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
                 color:#6b7280;
                 font-size:14px;
                 line-height:1.6;
+                white-space:pre-line;
               ">
                 ${message}
               </p>
-
 
               <!-- ORDER ID -->
 
@@ -226,7 +353,6 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
 
               </div>
 
-
               <!-- ORDER STATUS -->
 
               <div style="
@@ -256,6 +382,9 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
 
               </div>
 
+              <!-- DELIVERY BOY -->
+
+              ${deliveryBoyHtml}
 
               <!-- ITEMS -->
 
@@ -283,6 +412,7 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
                       <thead>
 
                         <tr>
+
                           <th style="
                             padding:10px;
                             text-align:left;
@@ -312,6 +442,7 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
                           ">
                             Total
                           </th>
+
                         </tr>
 
                       </thead>
@@ -325,7 +456,6 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
                   : ""
               }
 
-
               <!-- TOTAL -->
 
               <div style="
@@ -333,7 +463,6 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
                 padding:18px;
                 background:#fdf2f8;
                 border-radius:14px;
-                display:block;
               ">
 
                 <div style="
@@ -354,7 +483,6 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
 
               </div>
 
-
               <!-- DELIVERY ADDRESS -->
 
               ${
@@ -373,48 +501,11 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
                   : ""
               }
 
-
               <!-- DELIVERY DATE -->
 
-              ${
-                order?.deliverDate
-                  ? `
-                    <div style="
-                      margin-top:20px;
-                      padding:15px;
-                      background:#f0fdf4;
-                      border:1px solid #bbf7d0;
-                      border-radius:12px;
-                    ">
+              ${deliveryDateHtml}
 
-                      <div style="
-                        color:#6b7280;
-                        font-size:11px;
-                      ">
-                        Expected Delivery
-                      </div>
-
-                      <div style="
-                        margin-top:5px;
-                        color:#16a34a;
-                        font-weight:bold;
-                        font-size:14px;
-                      ">
-                        ${new Date(order.deliverDate).toLocaleDateString(
-                          "en-IN",
-                          {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                          },
-                        )}
-                      </div>
-
-                    </div>
-                  `
-                  : ""
-              }
-
+              <!-- FOOTER MESSAGE -->
 
               <p style="
                 margin-top:30px;
@@ -431,7 +522,6 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
 
             </div>
 
-
             <!-- FOOTER -->
 
             <div style="
@@ -447,6 +537,7 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
           </div>
 
         </body>
+
       </html>
     `;
 
@@ -455,20 +546,19 @@ const sendOrderEmail = async ({ to, subject, title, message, order }) => {
       subject,
       html,
     });
+
+    console.log(`Order email sent successfully to ${to}`);
   } catch (error) {
-    // Email fail hone par main order operation fail nahi hoga
     console.error("Order email error:", error.message);
   }
 };
 
+// =====================================================
 // CREATE ORDER
+// =====================================================
 
 export const CreateOrder = async (req, res) => {
   try {
-    // =================================================
-    // USER
-    // =================================================
-
     const userId = req.id;
 
     if (!userId) {
@@ -477,10 +567,6 @@ export const CreateOrder = async (req, res) => {
         message: "User not authenticated",
       });
     }
-
-    // =================================================
-    // USER FIND
-    // =================================================
 
     const user = await userModel.findById(userId);
 
@@ -498,10 +584,6 @@ export const CreateOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // REQUEST BODY
-    // =================================================
-
     const {
       items,
       address,
@@ -509,17 +591,11 @@ export const CreateOrder = async (req, res) => {
       paymentMethod,
       paymentType,
       paidAmount = 0,
-
       deliveryType = "standard",
-
       paymentOrderId = "",
       paymentId = "",
       paymentSignature = "",
     } = req.body;
-
-    // =================================================
-    // ITEMS VALIDATION
-    // =================================================
 
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
@@ -528,20 +604,12 @@ export const CreateOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // ADDRESS
-    // =================================================
-
     if (!address) {
       return res.status(400).json({
         success: false,
         message: "Delivery address is required",
       });
     }
-
-    // =================================================
-    // SUBTOTAL
-    // =================================================
 
     const numericSubtotal = Number(subtotal);
 
@@ -552,20 +620,12 @@ export const CreateOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // PAYMENT METHOD
-    // =================================================
-
     if (paymentMethod !== "online") {
       return res.status(400).json({
         success: false,
         message: "Only online payment is supported",
       });
     }
-
-    // =================================================
-    // PAYMENT TYPE
-    // =================================================
 
     if (!["full", "partial"].includes(paymentType)) {
       return res.status(400).json({
@@ -574,10 +634,6 @@ export const CreateOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // DELIVERY TYPE
-    // =================================================
-
     if (!["standard", "tomorrow"].includes(deliveryType)) {
       return res.status(400).json({
         success: false,
@@ -585,18 +641,10 @@ export const CreateOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // DELIVERY
-    // =================================================
-
     const today = new Date();
 
     let deliverDate;
     let deliveryCharge = 0;
-
-    // =================================================
-    // TOMORROW
-    // =================================================
 
     if (deliveryType === "tomorrow") {
       deliverDate = new Date(today);
@@ -604,12 +652,7 @@ export const CreateOrder = async (req, res) => {
       deliverDate.setDate(deliverDate.getDate() + 1);
 
       deliveryCharge = 99;
-    }
-
-    // =================================================
-    // STANDARD
-    // =================================================
-    else {
+    } else {
       const randomDays = Math.floor(Math.random() * 6) + 2;
 
       deliverDate = new Date(today);
@@ -619,21 +662,9 @@ export const CreateOrder = async (req, res) => {
       deliveryCharge = 0;
     }
 
-    // =================================================
-    // SET DELIVERY TIME
-    // =================================================
-
     deliverDate.setHours(12, 0, 0, 0);
 
-    // =================================================
-    // TOTAL
-    // =================================================
-
     const totalAmount = numericSubtotal + deliveryCharge;
-
-    // =================================================
-    // PAID AMOUNT
-    // =================================================
 
     const numericPaidAmount = Number(paidAmount);
 
@@ -648,10 +679,6 @@ export const CreateOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // PAYMENT STATUS
-    // =================================================
-
     let paymentStatus = "pending";
 
     if (numericPaidAmount >= totalAmount) {
@@ -660,19 +687,10 @@ export const CreateOrder = async (req, res) => {
       paymentStatus = "partial";
     }
 
-    // =================================================
-    // REMAINING
-    // =================================================
-
     const remainingAmount = Math.max(totalAmount - numericPaidAmount, 0);
-
-    // =================================================
-    // NORMALIZE ITEMS
-    // =================================================
 
     const normalizedItems = items.map((item) => {
       const price = Number(item.price);
-
       const quantity = Number(item.quantity);
 
       if (!item.product || !item.productType || !item.name) {
@@ -689,24 +707,14 @@ export const CreateOrder = async (req, res) => {
 
       return {
         productType: item.productType,
-
         product: item.product,
-
         name: item.name,
-
         image: item.image || "",
-
         price,
-
         quantity,
-
         totalPrice: price * quantity,
       };
     });
-
-    // =================================================
-    // CREATE ORDER
-    // =================================================
 
     const order = await OrderModel.create({
       user: userId,
@@ -743,10 +751,6 @@ export const CreateOrder = async (req, res) => {
 
       paymentSignature,
     });
-
-    // =================================================
-    // CLEAR CART
-    // =================================================
 
     await Promise.all([
       BouquetAddToCartModel.deleteMany({
@@ -786,10 +790,6 @@ export const CreateOrder = async (req, res) => {
       }),
     ]);
 
-    // =================================================
-    // SEND ORDER CREATED EMAIL
-    // =================================================
-
     await sendOrderEmail({
       to: user.email,
 
@@ -797,14 +797,12 @@ export const CreateOrder = async (req, res) => {
 
       title: "Order Confirmed! 🌸",
 
-      message: `Hi ${user.name || "there"}, your order has been successfully placed and confirmed. We will keep you updated about your order.`,
+      message: `Hi ${
+        user.name || "there"
+      }, your order has been successfully placed and confirmed. We will keep you updated about your order.`,
 
       order,
     });
-
-    // =================================================
-    // RESPONSE
-    // =================================================
 
     return res.status(201).json({
       success: true,
@@ -826,14 +824,12 @@ export const CreateOrder = async (req, res) => {
   }
 };
 
+// =====================================================
 // GET MY ORDERS
+// =====================================================
 
 export const GetMyOrders = async (req, res) => {
   try {
-    // ================================================
-    // USER ID
-    // ================================================
-
     const userId = req.id;
 
     if (!userId) {
@@ -843,36 +839,14 @@ export const GetMyOrders = async (req, res) => {
       });
     }
 
-    // ================================================
-    // GET MY ORDERS
-    // ================================================
-
     const orders = await OrderModel.find({
       user: userId,
     })
-      // ==============================================
-      // ORDER ADDRESS
-      // ==============================================
-
       .populate("address")
-
-      // ==============================================
-      // DELIVERY BOY
-      // ==============================================
-
       .populate("deliveryBoy", "name phone address")
-
-      // ==============================================
-      // SORT
-      // ==============================================
-
       .sort({
         createdAt: -1,
       });
-
-    // ================================================
-    // RESPONSE
-    // ================================================
 
     return res.status(200).json({
       success: true,
@@ -889,17 +863,16 @@ export const GetMyOrders = async (req, res) => {
     });
   }
 };
+
+// =====================================================
 // CANCEL ORDER
+// =====================================================
 
 export const CancelOrders = async (req, res) => {
   try {
     const { orderId } = req.params;
 
     const userId = req.id;
-
-    // =================================================
-    // VALIDATION
-    // =================================================
 
     if (!orderId) {
       return res.status(400).json({
@@ -915,10 +888,6 @@ export const CancelOrders = async (req, res) => {
       });
     }
 
-    // =================================================
-    // FIND ORDER
-    // =================================================
-
     const order = await OrderModel.findById(orderId);
 
     if (!order) {
@@ -928,20 +897,12 @@ export const CancelOrders = async (req, res) => {
       });
     }
 
-    // =================================================
-    // CHECK ORDER OWNER
-    // =================================================
-
     if (order.user.toString() !== userId.toString()) {
       return res.status(403).json({
         success: false,
         message: "You are not allowed to cancel this order",
       });
     }
-
-    // =================================================
-    // CHECK STATUS
-    // =================================================
 
     if (!["pending", "confirmed", "processing"].includes(order.orderStatus)) {
       return res.status(400).json({
@@ -950,21 +911,9 @@ export const CancelOrders = async (req, res) => {
       });
     }
 
-    // =================================================
-    // USER
-    // =================================================
-
     const user = await userModel.findById(userId);
 
-    // =================================================
-    // DELETE ORDER
-    // =================================================
-
     await OrderModel.findByIdAndDelete(orderId);
-
-    // =================================================
-    // EMAIL
-    // =================================================
 
     if (user?.email) {
       await sendOrderEmail({
@@ -974,18 +923,17 @@ export const CancelOrders = async (req, res) => {
 
         title: "Order Cancelled",
 
-        message: `Hi ${user.name || "there"}, your Flower order has been successfully cancelled as requested.`,
+        message: `Hi ${
+          user.name || "there"
+        }, your Flower order has been successfully cancelled as requested.`,
 
         order: {
           ...order.toObject(),
+
           orderStatus: "cancelled",
         },
       });
     }
-
-    // =================================================
-    // RESPONSE
-    // =================================================
 
     return res.status(200).json({
       success: true,
@@ -1007,16 +955,15 @@ export const CancelOrders = async (req, res) => {
   }
 };
 
+// =====================================================
 // CHANGE ORDER STATUS
+// =====================================================
 
 export const ChangeOrderStatus = async (req, res) => {
   try {
     const { orderId } = req.params;
-    const { status } = req.body;
 
-    // =================================================
-    // VALIDATION
-    // =================================================
+    const { status } = req.body;
 
     if (!orderId) {
       return res.status(400).json({
@@ -1031,10 +978,6 @@ export const ChangeOrderStatus = async (req, res) => {
         message: "Status is required",
       });
     }
-
-    // =================================================
-    // ALLOWED STATUS
-    // =================================================
 
     const allowedStatuses = [
       "pending",
@@ -1053,10 +996,6 @@ export const ChangeOrderStatus = async (req, res) => {
       });
     }
 
-    // =================================================
-    // FIND ORDER
-    // =================================================
-
     const order = await OrderModel.findById(orderId);
 
     if (!order) {
@@ -1066,39 +1005,16 @@ export const ChangeOrderStatus = async (req, res) => {
       });
     }
 
-    // =================================================
-    // GET USER
-    // =================================================
-
     const user = await userModel.findById(order.user);
 
-    // =================================================
-    // UPDATE ORDER STATUS
-    // =================================================
-
     order.orderStatus = status;
-
-    // =================================================
-    // UPDATE STATUS CHANGED DATE
-    // =================================================
-    //
-    // MongoDB TTL uses this field.
-    //
-    // delivered/cancelled:
-    // 24 hours after this time → automatic deletion
-    //
-    // Other statuses:
-    // TTL index does not apply because of the
-    // partialFilterExpression in OrderModel.
-    //
-    // =================================================
 
     order.statusChangedAt = new Date();
 
     await order.save();
 
     // =================================================
-    // SEND STATUS EMAIL
+    // EMAIL
     // =================================================
 
     if (user?.email) {
@@ -1111,8 +1027,44 @@ export const ChangeOrderStatus = async (req, res) => {
         " ",
       )}.`;
 
+      let deliveryBoyName = "";
+      let deliveryBoyPhone = "";
+
       // =================================================
-      // CUSTOM EMAIL MESSAGE
+      // DELIVERY BOY DETAILS
+      // =================================================
+
+      if (status === "out_for_delivery" || status === "delivered") {
+        try {
+          const orderForEmail = await OrderModel.findById(orderId).populate({
+            path: "deliveryBoy",
+            populate: {
+              path: "user",
+              select: "name phone",
+            },
+          });
+
+          const deliveryBoy = orderForEmail?.deliveryBoy;
+
+          deliveryBoyName =
+            deliveryBoy?.user?.name ||
+            deliveryBoy?.name ||
+            "";
+
+          deliveryBoyPhone =
+            deliveryBoy?.user?.phone ||
+            deliveryBoy?.phone ||
+            "";
+        } catch (deliveryError) {
+          console.error(
+            "Delivery boy email details error:",
+            deliveryError.message,
+          );
+        }
+      }
+
+      // =================================================
+      // STATUS WISE EMAIL
       // =================================================
 
       switch (status) {
@@ -1144,30 +1096,40 @@ export const ChangeOrderStatus = async (req, res) => {
         case "out_for_delivery":
           emailTitle = "Your Order Is Out for Delivery 🚚";
 
-          emailMessage =
-            "Your Flower order is out for delivery and should reach you soon.";
+          emailMessage = `Hi ${
+            user.name || "there"
+          }, your Flower order is out for delivery today. 🌸
+
+Aaj aapka order aa sakta hai. Please apna phone available rakhein aur delivery ke liye ready rahein.
+
+We hope your flowers reach you safely and make your moment beautiful. 💐`;
 
           break;
 
         case "delivered":
           emailTitle = "Your Order Has Been Delivered 🌸";
 
-          emailMessage =
-            "Your Flower order has been delivered successfully. We hope you love it!";
+          emailMessage = `Hi ${
+            user.name || "there"
+          }, your Flower order has been delivered successfully. We hope you love it! 💐`;
 
           break;
 
         case "cancelled":
           emailTitle = "Your Order Has Been Cancelled";
 
-          emailMessage = "Your Flower order has been cancelled.";
+          emailMessage = `Hi ${
+            user.name || "there"
+          }, your Flower order has been cancelled.`;
 
           break;
 
         case "pending":
           emailTitle = "Your Order Is Pending";
 
-          emailMessage = "Your Flower order is currently pending confirmation.";
+          emailMessage = `Hi ${
+            user.name || "there"
+          }, your Flower order is currently pending confirmation.`;
 
           break;
 
@@ -1189,12 +1151,12 @@ export const ChangeOrderStatus = async (req, res) => {
         message: emailMessage,
 
         order,
+
+        deliveryBoyName,
+
+        deliveryBoyPhone,
       });
     }
-
-    // =================================================
-    // RESPONSE
-    // =================================================
 
     return res.status(200).json({
       success: true,
@@ -1216,7 +1178,9 @@ export const ChangeOrderStatus = async (req, res) => {
   }
 };
 
+// =====================================================
 // GET ALL ORDERS - OWNER / ADMIN
+// =====================================================
 
 export const GetAllOrders = async (req, res) => {
   try {
@@ -1230,8 +1194,11 @@ export const GetAllOrders = async (req, res) => {
 
     return res.status(200).json({
       success: true,
+
       message: "All users orders fetched successfully",
+
       count: orders.length,
+
       orders,
     });
   } catch (error) {
@@ -1239,18 +1206,20 @@ export const GetAllOrders = async (req, res) => {
 
     return res.status(500).json({
       success: false,
+
       message: "Failed to fetch all orders",
+
       error: error.message,
     });
   }
 };
 
+// =====================================================
+// CREATE SINGLE PRODUCT ORDER
+// =====================================================
+
 export const CreateSingleProductOrder = async (req, res) => {
   try {
-    // =================================================
-    // USER
-    // =================================================
-
     const userId = req.id;
 
     if (!userId) {
@@ -1259,10 +1228,6 @@ export const CreateSingleProductOrder = async (req, res) => {
         message: "User not authenticated",
       });
     }
-
-    // =================================================
-    // USER FIND
-    // =================================================
 
     const user = await userModel.findById(userId);
 
@@ -1280,38 +1245,22 @@ export const CreateSingleProductOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // REQUEST BODY
-    // =================================================
-
     const {
       product,
       productType,
       name,
       image,
-
-      // Quantity user View Details page par select karega
       quantity = 1,
-
       price,
-
       address,
-
       paymentMethod,
       paymentType,
-
       paidAmount = 0,
-
       deliveryType = "standard",
-
       paymentOrderId = "",
       paymentId = "",
       paymentSignature = "",
     } = req.body;
-
-    // =================================================
-    // PRODUCT VALIDATION
-    // =================================================
 
     if (!product || !productType || !name) {
       return res.status(400).json({
@@ -1319,10 +1268,6 @@ export const CreateSingleProductOrder = async (req, res) => {
         message: "Product information is required",
       });
     }
-
-    // =================================================
-    // PRICE VALIDATION
-    // =================================================
 
     const numericPrice = Number(price);
 
@@ -1333,10 +1278,6 @@ export const CreateSingleProductOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // QUANTITY VALIDATION
-    // =================================================
-
     const numericQuantity = Number(quantity);
 
     if (!Number.isInteger(numericQuantity) || numericQuantity < 1) {
@@ -1346,20 +1287,12 @@ export const CreateSingleProductOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // ADDRESS
-    // =================================================
-
     if (!address) {
       return res.status(400).json({
         success: false,
         message: "Delivery address is required",
       });
     }
-
-    // =================================================
-    // PAYMENT METHOD
-    // =================================================
 
     if (paymentMethod !== "online") {
       return res.status(400).json({
@@ -1368,20 +1301,12 @@ export const CreateSingleProductOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // PAYMENT TYPE
-    // =================================================
-
     if (!["full", "partial"].includes(paymentType)) {
       return res.status(400).json({
         success: false,
         message: "Valid payment type is required",
       });
     }
-
-    // =================================================
-    // DELIVERY TYPE
-    // =================================================
 
     if (!["standard", "tomorrow"].includes(deliveryType)) {
       return res.status(400).json({
@@ -1390,18 +1315,11 @@ export const CreateSingleProductOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // DELIVERY
-    // =================================================
-
     const today = new Date();
 
     let deliverDate;
-    let deliveryCharge = 0;
 
-    // =================================================
-    // TOMORROW DELIVERY
-    // =================================================
+    let deliveryCharge = 0;
 
     if (deliveryType === "tomorrow") {
       deliverDate = new Date(today);
@@ -1409,12 +1327,7 @@ export const CreateSingleProductOrder = async (req, res) => {
       deliverDate.setDate(deliverDate.getDate() + 1);
 
       deliveryCharge = 99;
-    }
-
-    // =================================================
-    // STANDARD DELIVERY
-    // =================================================
-    else {
+    } else {
       const randomDays = Math.floor(Math.random() * 6) + 2;
 
       deliverDate = new Date(today);
@@ -1424,27 +1337,11 @@ export const CreateSingleProductOrder = async (req, res) => {
       deliveryCharge = 0;
     }
 
-    // =================================================
-    // DELIVERY TIME
-    // =================================================
-
     deliverDate.setHours(12, 0, 0, 0);
-
-    // =================================================
-    // SUBTOTAL
-    // =================================================
 
     const numericSubtotal = numericPrice * numericQuantity;
 
-    // =================================================
-    // TOTAL AMOUNT
-    // =================================================
-
     const totalAmount = numericSubtotal + deliveryCharge;
-
-    // =================================================
-    // PAID AMOUNT
-    // =================================================
 
     const numericPaidAmount = Number(paidAmount);
 
@@ -1459,10 +1356,6 @@ export const CreateSingleProductOrder = async (req, res) => {
       });
     }
 
-    // =================================================
-    // PAYMENT STATUS
-    // =================================================
-
     let paymentStatus = "pending";
 
     if (numericPaidAmount >= totalAmount) {
@@ -1471,15 +1364,7 @@ export const CreateSingleProductOrder = async (req, res) => {
       paymentStatus = "partial";
     }
 
-    // =================================================
-    // REMAINING AMOUNT
-    // =================================================
-
     const remainingAmount = Math.max(totalAmount - numericPaidAmount, 0);
-
-    // =================================================
-    // SINGLE PRODUCT ITEM
-    // =================================================
 
     const orderItem = {
       productType,
@@ -1497,14 +1382,9 @@ export const CreateSingleProductOrder = async (req, res) => {
       totalPrice: numericPrice * numericQuantity,
     };
 
-    // =================================================
-    // CREATE ORDER
-    // =================================================
-
     const order = await OrderModel.create({
       user: userId,
 
-      // Single product ko bhi array ke andar store karenge
       items: [orderItem],
 
       address,
@@ -1538,18 +1418,8 @@ export const CreateSingleProductOrder = async (req, res) => {
       paymentSignature,
     });
 
-    // =================================================
-    // IMPORTANT
-    // =================================================
-    // Buy Now order hai.
-    //
-    // Isliye existing cart ko clear NAHI karenge.
-    //
-    // User ke cart ke products safe rahenge.
-
-    // =================================================
-    // SEND ORDER EMAIL
-    // =================================================
+    // BUY NOW
+    // Cart clear nahi hoga.
 
     await sendOrderEmail({
       to: user.email,
@@ -1564,10 +1434,6 @@ export const CreateSingleProductOrder = async (req, res) => {
 
       order,
     });
-
-    // =================================================
-    // RESPONSE
-    // =================================================
 
     return res.status(201).json({
       success: true,

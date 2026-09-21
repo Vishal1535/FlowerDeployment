@@ -63,15 +63,125 @@ export const BuySingleProductAddress = () => {
   const [errors, setErrors] = useState({});
 
   // =====================================================
+  // INPUT SANITIZATION
+  // =====================================================
+
+  // Only letters and spaces
+  const SanitizeLetters = (value) => {
+    return value
+      .replace(/[^A-Za-z\s]/g, "")
+      .replace(/\s{2,}/g, " ")
+      .replace(/^\s+/, "");
+  };
+
+  // Only numbers
+  const SanitizeDigits = (value, maxLength) => {
+    return value
+      .replace(/\D/g, "")
+      .slice(0, maxLength);
+  };
+
+  // Address characters
+  // Allowed:
+  // letters, numbers, spaces, . , / # ' ( ) -
+  const SanitizeAddress = (value) => {
+    return value
+      .replace(
+        /[^A-Za-z0-9\s.,/#'()-]/g,
+        ""
+      )
+      .replace(/\s{2,}/g, " ")
+      .replace(/^\s+/, "");
+  };
+
+  // =====================================================
+  // PREVENT INVALID CHARACTER WHILE TYPING
+  // =====================================================
+
+  const HandleBeforeInput = (e, field) => {
+    const input = e.data;
+
+    if (!input) return;
+
+    const patterns = {
+      fullName: /[A-Za-z\s]/,
+      city: /[A-Za-z\s]/,
+      state: /[A-Za-z\s]/,
+      country: /[A-Za-z\s]/,
+
+      phone: /\d/,
+      pincode: /\d/,
+
+      houseNumber:
+        /[A-Za-z0-9\s.,/#'()-]/,
+
+      area:
+        /[A-Za-z0-9\s.,/#'()-]/,
+
+      landmark:
+        /[A-Za-z0-9\s.,/#'()-]/,
+    };
+
+    const pattern = patterns[field];
+
+    if (!pattern) return;
+
+    // If even one character is invalid,
+    // prevent the input.
+    const isValid = [...input].every((char) =>
+      pattern.test(char)
+    );
+
+    if (!isValid) {
+      e.preventDefault();
+    }
+  };
+
+  // =====================================================
   // INPUT CHANGE
   // =====================================================
 
   const HandleChange = (e) => {
     const { name, value } = e.target;
 
+    let sanitizedValue = value;
+
+    switch (name) {
+      // Letters + spaces only
+      case "fullName":
+      case "city":
+      case "state":
+      case "country":
+        sanitizedValue =
+          SanitizeLetters(value);
+        break;
+
+      // Numbers only
+      case "phone":
+        sanitizedValue =
+          SanitizeDigits(value, 10);
+        break;
+
+      case "pincode":
+        sanitizedValue =
+          SanitizeDigits(value, 6);
+        break;
+
+      // Address-safe characters
+      case "houseNumber":
+      case "area":
+      case "landmark":
+        sanitizedValue =
+          SanitizeAddress(value);
+        break;
+
+      default:
+        break;
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: sanitizedValue,
     }));
 
     if (errors[name]) {
@@ -125,37 +235,46 @@ export const BuySingleProductAddress = () => {
           const address =
             data?.address || {};
 
-          const pincode =
-            address.postcode || "";
+          const pincode = SanitizeDigits(
+            address.postcode || "",
+            6
+          );
 
-          const area =
+          const area = SanitizeAddress(
             address.suburb ||
-            address.neighbourhood ||
-            address.residential ||
-            address.road ||
-            "";
+              address.neighbourhood ||
+              address.residential ||
+              address.road ||
+              ""
+          );
 
-          const city =
+          const city = SanitizeLetters(
             address.city ||
-            address.town ||
-            address.village ||
-            address.municipality ||
-            "";
+              address.town ||
+              address.village ||
+              address.municipality ||
+              ""
+          );
 
-          const state =
-            address.state || "";
+          const state = SanitizeLetters(
+            address.state || ""
+          );
 
-          const country =
-            address.country || "India";
+          const country = SanitizeLetters(
+            address.country || "India"
+          );
 
           const houseNumber =
-            address.house_number || "";
+            SanitizeAddress(
+              address.house_number || ""
+            );
 
           setFormData((prev) => ({
             ...prev,
             pincode,
             houseNumber:
-              houseNumber || prev.houseNumber,
+              houseNumber ||
+              prev.houseNumber,
             area,
             city,
             state,
@@ -447,33 +566,44 @@ export const BuySingleProductAddress = () => {
         }
 
         setFormData({
-          fullName:
-            latestAddress.fullName || "",
+          fullName: SanitizeLetters(
+            latestAddress.fullName || ""
+          ),
 
-          phone:
+          phone: SanitizeDigits(
             latestAddress.phone || "",
+            10
+          ),
 
-          pincode:
+          pincode: SanitizeDigits(
             latestAddress.pincode || "",
+            6
+          ),
 
-          houseNumber:
-            latestAddress.houseNumber || "",
+          houseNumber: SanitizeAddress(
+            latestAddress.houseNumber || ""
+          ),
 
-          area:
-            latestAddress.area || "",
+          area: SanitizeAddress(
+            latestAddress.area || ""
+          ),
 
-          landmark:
-            latestAddress.landmark || "",
+          landmark: SanitizeAddress(
+            latestAddress.landmark || ""
+          ),
 
-          city:
-            latestAddress.city || "",
+          city: SanitizeLetters(
+            latestAddress.city || ""
+          ),
 
-          state:
-            latestAddress.state || "",
+          state: SanitizeLetters(
+            latestAddress.state || ""
+          ),
 
-          country:
+          country: SanitizeLetters(
             latestAddress.country ||
-            "India",
+              "India"
+          ),
 
           latitude:
             latestAddress.location
@@ -852,6 +982,12 @@ export const BuySingleProductAddress = () => {
                   onChange={
                     HandleChange
                   }
+                  onBeforeInput={(e) =>
+                    HandleBeforeInput(
+                      e,
+                      "fullName"
+                    )
+                  }
                   placeholder="Enter your full name"
                   className={`${InputClass(
                     "fullName"
@@ -899,6 +1035,12 @@ export const BuySingleProductAddress = () => {
                   onChange={
                     HandleChange
                   }
+                  onBeforeInput={(e) =>
+                    HandleBeforeInput(
+                      e,
+                      "phone"
+                    )
+                  }
                   placeholder="Enter 10-digit phone number"
                   maxLength={10}
                   inputMode="numeric"
@@ -936,6 +1078,12 @@ export const BuySingleProductAddress = () => {
                 }
                 onChange={
                   HandleChange
+                }
+                onBeforeInput={(e) =>
+                  HandleBeforeInput(
+                    e,
+                    "pincode"
+                  )
                 }
                 placeholder="6-digit pincode"
                 maxLength={6}
@@ -984,6 +1132,12 @@ export const BuySingleProductAddress = () => {
                   onChange={
                     HandleChange
                   }
+                  onBeforeInput={(e) =>
+                    HandleBeforeInput(
+                      e,
+                      "houseNumber"
+                    )
+                  }
                   placeholder="Flat, house no. or building"
                   className={`${InputClass(
                     "houseNumber"
@@ -1031,6 +1185,12 @@ export const BuySingleProductAddress = () => {
                   onChange={
                     HandleChange
                   }
+                  onBeforeInput={(e) =>
+                    HandleBeforeInput(
+                      e,
+                      "area"
+                    )
+                  }
                   placeholder="Area, street or colony"
                   className={`${InputClass(
                     "area"
@@ -1067,6 +1227,12 @@ export const BuySingleProductAddress = () => {
                 onChange={
                   HandleChange
                 }
+                onBeforeInput={(e) =>
+                  HandleBeforeInput(
+                    e,
+                    "landmark"
+                  )
+                }
                 placeholder="Nearby landmark"
                 className={InputClass(
                   "landmark"
@@ -1098,6 +1264,12 @@ export const BuySingleProductAddress = () => {
                 onChange={
                   HandleChange
                 }
+                onBeforeInput={(e) =>
+                  HandleBeforeInput(
+                    e,
+                    "city"
+                  )
+                }
                 placeholder="Enter city"
                 className={InputClass(
                   "city"
@@ -1128,6 +1300,12 @@ export const BuySingleProductAddress = () => {
                 }
                 onChange={
                   HandleChange
+                }
+                onBeforeInput={(e) =>
+                  HandleBeforeInput(
+                    e,
+                    "state"
+                  )
                 }
                 placeholder="Enter state"
                 className={InputClass(
@@ -1173,6 +1351,12 @@ export const BuySingleProductAddress = () => {
                   }
                   onChange={
                     HandleChange
+                  }
+                  onBeforeInput={(e) =>
+                    HandleBeforeInput(
+                      e,
+                      "country"
+                    )
                   }
                   className={`${InputClass(
                     "country"
