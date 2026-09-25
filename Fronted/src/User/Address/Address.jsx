@@ -24,13 +24,9 @@ export const Address = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading } = useSelector(
-    (state) => state.Address
-  );
+  const { loading } = useSelector((state) => state.Address);
 
-  const { isAuthorized } = useSelector(
-    (state) => state.user
-  );
+  const { isAuthorized } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (!isAuthorized) {
@@ -40,11 +36,9 @@ export const Address = () => {
     }
   }, [isAuthorized, navigate]);
 
-  const [latestLoading, setLatestLoading] =
-    useState(false);
+  const [latestLoading, setLatestLoading] = useState(false);
 
-  const [locationLoading, setLocationLoading] =
-    useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -77,9 +71,7 @@ export const Address = () => {
     // =============================================
 
     if (name === "fullName") {
-      cleanedValue = value
-        .replace(/[^A-Za-z\s]/g, "")
-        .replace(/\s{2,}/g, " ");
+      cleanedValue = value.replace(/[^A-Za-z\s]/g, "").replace(/\s{2,}/g, " ");
     }
 
     // =============================================
@@ -88,9 +80,7 @@ export const Address = () => {
     // =============================================
 
     if (name === "phone") {
-      cleanedValue = value
-        .replace(/\D/g, "")
-        .slice(0, 10);
+      cleanedValue = value.replace(/\D/g, "").slice(0, 10);
     }
 
     // =============================================
@@ -99,9 +89,7 @@ export const Address = () => {
     // =============================================
 
     if (name === "pincode") {
-      cleanedValue = value
-        .replace(/\D/g, "")
-        .slice(0, 6);
+      cleanedValue = value.replace(/\D/g, "").slice(0, 6);
     }
 
     // =============================================
@@ -143,9 +131,7 @@ export const Address = () => {
     // =============================================
 
     if (name === "city") {
-      cleanedValue = value
-        .replace(/[^A-Za-z\s]/g, "")
-        .replace(/\s{2,}/g, " ");
+      cleanedValue = value.replace(/[^A-Za-z\s]/g, "").replace(/\s{2,}/g, " ");
     }
 
     // =============================================
@@ -154,9 +140,7 @@ export const Address = () => {
     // =============================================
 
     if (name === "state") {
-      cleanedValue = value
-        .replace(/[^A-Za-z\s]/g, "")
-        .replace(/\s{2,}/g, " ");
+      cleanedValue = value.replace(/[^A-Za-z\s]/g, "").replace(/\s{2,}/g, " ");
     }
 
     // =============================================
@@ -165,9 +149,7 @@ export const Address = () => {
     // =============================================
 
     if (name === "country") {
-      cleanedValue = value
-        .replace(/[^A-Za-z\s]/g, "")
-        .replace(/\s{2,}/g, " ");
+      cleanedValue = value.replace(/[^A-Za-z\s]/g, "").replace(/\s{2,}/g, " ");
     }
 
     setFormData((prev) => ({
@@ -189,9 +171,7 @@ export const Address = () => {
 
   const HandleCurrentLocation = () => {
     if (!navigator.geolocation) {
-      toast.error(
-        "Geolocation is not supported by your browser"
-      );
+      toast.error("Geolocation is not supported by your browser");
       return;
     }
 
@@ -200,11 +180,9 @@ export const Address = () => {
     navigator.geolocation.getCurrentPosition(
       async (location) => {
         try {
-          const latitude =
-            location.coords.latitude;
+          const latitude = location.coords.latitude;
 
-          const longitude =
-            location.coords.longitude;
+          const longitude = location.coords.longitude;
 
           const response = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&addressdetails=1`,
@@ -212,22 +190,18 @@ export const Address = () => {
               headers: {
                 Accept: "application/json",
               },
-            }
+            },
           );
 
           if (!response.ok) {
-            throw new Error(
-              "Failed to fetch address"
-            );
+            throw new Error("Failed to fetch address");
           }
 
           const data = await response.json();
 
-          const address =
-            data?.address || {};
+          const address = data?.address || {};
 
-          const pincode =
-            address.postcode || "";
+          const pincode = address.postcode || "";
 
           const area =
             address.suburb ||
@@ -243,41 +217,26 @@ export const Address = () => {
             address.municipality ||
             "";
 
-          const state =
-            address.state || "";
+          const state = address.state || "";
 
-          const country =
-            address.country || "India";
+          const country = address.country || "India";
 
-          const houseNumber =
-            address.house_number || "";
+          const houseNumber = address.house_number || "";
 
           setFormData((prev) => ({
             ...prev,
 
-            pincode: pincode
-              .replace(/\D/g, "")
-              .slice(0, 6),
+            pincode: pincode.replace(/\D/g, "").slice(0, 6),
 
-            houseNumber:
-              houseNumber || prev.houseNumber,
+            houseNumber: houseNumber || prev.houseNumber,
 
             area,
 
-            city: city.replace(
-              /[^A-Za-z\s]/g,
-              ""
-            ),
+            city: city.replace(/[^A-Za-z\s]/g, ""),
 
-            state: state.replace(
-              /[^A-Za-z\s]/g,
-              ""
-            ),
+            state: state.replace(/[^A-Za-z\s]/g, ""),
 
-            country: country.replace(
-              /[^A-Za-z\s]/g,
-              ""
-            ),
+            country: country.replace(/[^A-Za-z\s]/g, ""),
 
             latitude,
             longitude,
@@ -293,25 +252,18 @@ export const Address = () => {
             country: "",
           }));
 
-          toast.success(
-            "Current location detected and address filled"
-          );
+          toast.success("Current location detected and address filled");
         } catch (error) {
-          console.error(
-            "Reverse Geocoding Error:",
-            error
-          );
+          console.error("Reverse Geocoding Error:", error);
 
           toast.error(
-            "Location detected, but address could not be found. Please enter the address manually."
+            "Location detected, but address could not be found. Please enter the address manually.",
           );
 
           setFormData((prev) => ({
             ...prev,
-            latitude:
-              location.coords.latitude,
-            longitude:
-              location.coords.longitude,
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
           }));
         } finally {
           setLocationLoading(false);
@@ -319,29 +271,20 @@ export const Address = () => {
       },
 
       (error) => {
-        console.error(
-          "Location Error:",
-          error
-        );
+        console.error("Location Error:", error);
 
         setLocationLoading(false);
 
         if (error.code === 1) {
           toast.error(
-            "Location permission denied. Please allow location access."
+            "Location permission denied. Please allow location access.",
           );
         } else if (error.code === 2) {
-          toast.error(
-            "Unable to detect your location."
-          );
+          toast.error("Unable to detect your location.");
         } else if (error.code === 3) {
-          toast.error(
-            "Location request timed out."
-          );
+          toast.error("Location request timed out.");
         } else {
-          toast.error(
-            "Failed to get current location."
-          );
+          toast.error("Failed to get current location.");
         }
       },
 
@@ -349,7 +292,7 @@ export const Address = () => {
         enableHighAccuracy: true,
         timeout: 15000,
         maximumAge: 0,
-      }
+      },
     );
   };
 
@@ -362,118 +305,68 @@ export const Address = () => {
 
     // FULL NAME
     if (!formData.fullName.trim()) {
-      newErrors.fullName =
-        "Full name is required";
-    } else if (
-      !/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(
-        formData.fullName.trim()
-      )
-    ) {
-      newErrors.fullName =
-        "Name can contain only letters and spaces";
-    } else if (
-      formData.fullName.trim().length < 2
-    ) {
-      newErrors.fullName =
-        "Full name must be at least 2 characters";
+      newErrors.fullName = "Full name is required";
+    } else if (!/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(formData.fullName.trim())) {
+      newErrors.fullName = "Name can contain only letters and spaces";
+    } else if (formData.fullName.trim().length < 2) {
+      newErrors.fullName = "Full name must be at least 2 characters";
     }
 
     // PHONE
     if (!formData.phone.trim()) {
-      newErrors.phone =
-        "Phone number is required";
-    } else if (
-      !/^[6-9]\d{9}$/.test(
-        formData.phone
-      )
-    ) {
-      newErrors.phone =
-        "Enter a valid 10-digit phone number";
+      newErrors.phone = "Phone number is required";
+    } else if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      newErrors.phone = "Enter a valid 10-digit phone number";
     }
 
     // PINCODE
     if (!formData.pincode.trim()) {
-      newErrors.pincode =
-        "Pincode is required";
-    } else if (
-      !/^\d{6}$/.test(
-        formData.pincode
-      )
-    ) {
-      newErrors.pincode =
-        "Pincode must be exactly 6 digits";
+      newErrors.pincode = "Pincode is required";
+    } else if (!/^\d{6}$/.test(formData.pincode)) {
+      newErrors.pincode = "Pincode must be exactly 6 digits";
     }
 
     // HOUSE
     if (!formData.houseNumber.trim()) {
-      newErrors.houseNumber =
-        "Flat / house / building is required";
+      newErrors.houseNumber = "Flat / house / building is required";
     }
 
     // AREA
     if (!formData.area.trim()) {
-      newErrors.area =
-        "Area / street is required";
-    } else if (
-      formData.area.trim().length < 2
-    ) {
-      newErrors.area =
-        "Area must be at least 2 characters";
+      newErrors.area = "Area / street is required";
+    } else if (formData.area.trim().length < 2) {
+      newErrors.area = "Area must be at least 2 characters";
     }
 
     // LANDMARK
-    if (
-      formData.landmark.trim() &&
-      formData.landmark.trim().length < 2
-    ) {
-      newErrors.landmark =
-        "Landmark must be at least 2 characters";
+    if (formData.landmark.trim() && formData.landmark.trim().length < 2) {
+      newErrors.landmark = "Landmark must be at least 2 characters";
     }
 
     // CITY
     if (!formData.city.trim()) {
-      newErrors.city =
-        "City is required";
-    } else if (
-      !/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(
-        formData.city.trim()
-      )
-    ) {
-      newErrors.city =
-        "City can contain only letters and spaces";
+      newErrors.city = "City is required";
+    } else if (!/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(formData.city.trim())) {
+      newErrors.city = "City can contain only letters and spaces";
     }
 
     // STATE
     if (!formData.state.trim()) {
-      newErrors.state =
-        "State is required";
-    } else if (
-      !/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(
-        formData.state.trim()
-      )
-    ) {
-      newErrors.state =
-        "State can contain only letters and spaces";
+      newErrors.state = "State is required";
+    } else if (!/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(formData.state.trim())) {
+      newErrors.state = "State can contain only letters and spaces";
     }
 
     // COUNTRY
     if (!formData.country.trim()) {
-      newErrors.country =
-        "Country is required";
-    } else if (
-      !/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(
-        formData.country.trim()
-      )
-    ) {
-      newErrors.country =
-        "Country can contain only letters and spaces";
+      newErrors.country = "Country is required";
+    } else if (!/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(formData.country.trim())) {
+      newErrors.country = "Country can contain only letters and spaces";
     }
 
     setErrors(newErrors);
 
-    return (
-      Object.keys(newErrors).length === 0
-    );
+    return Object.keys(newErrors).length === 0;
   };
 
   // =====================================================
@@ -484,57 +377,38 @@ export const Address = () => {
     e.preventDefault();
 
     if (!ValidateForm()) {
-      toast.error(
-        "Please correct the highlighted fields"
-      );
+      toast.error("Please correct the highlighted fields");
       return;
     }
 
     const cleanedData = {
-      fullName:
-        formData.fullName.trim(),
+      fullName: formData.fullName.trim(),
 
-      phone:
-        formData.phone.trim(),
+      phone: formData.phone.trim(),
 
-      pincode:
-        formData.pincode.trim(),
+      pincode: formData.pincode.trim(),
 
-      houseNumber:
-        formData.houseNumber.trim(),
+      houseNumber: formData.houseNumber.trim(),
 
-      area:
-        formData.area.trim(),
+      area: formData.area.trim(),
 
-      landmark:
-        formData.landmark.trim(),
+      landmark: formData.landmark.trim(),
 
-      city:
-        formData.city.trim(),
+      city: formData.city.trim(),
 
-      state:
-        formData.state.trim(),
+      state: formData.state.trim(),
 
-      country:
-        formData.country.trim(),
+      country: formData.country.trim(),
 
-      latitude:
-        formData.latitude,
+      latitude: formData.latitude,
 
-      longitude:
-        formData.longitude,
+      longitude: formData.longitude,
     };
 
-    const result = await dispatch(
-      AddAddressThunk(cleanedData)
-    );
+    const result = await dispatch(AddAddressThunk(cleanedData));
 
-    if (
-      AddAddressThunk.fulfilled.match(result)
-    ) {
-      toast.success(
-        "Address added successfully"
-      );
+    if (AddAddressThunk.fulfilled.match(result)) {
+      toast.success("Address added successfully");
 
       setFormData({
         fullName: "",
@@ -554,10 +428,7 @@ export const Address = () => {
 
       navigate("/check-out");
     } else {
-      toast.error(
-        result.payload ||
-          "Failed to add address"
-      );
+      toast.error(result.payload || "Failed to add address");
     }
   };
 
@@ -565,106 +436,61 @@ export const Address = () => {
   // GET LATEST ADDRESS
   // =====================================================
 
-  const HandleGetLatestAddress =
-    async () => {
-      setLatestLoading(true);
+  const HandleGetLatestAddress = async () => {
+    setLatestLoading(true);
 
-      const result = await dispatch(
-        GetLatestAddressThunk()
-      );
+    const result = await dispatch(GetLatestAddressThunk());
 
-      if (
-        GetLatestAddressThunk.fulfilled.match(
-          result
-        )
-      ) {
-        const latestAddress =
-          result.payload?.address;
+    if (GetLatestAddressThunk.fulfilled.match(result)) {
+      const latestAddress = result.payload?.address;
 
-        if (!latestAddress) {
-          toast.error(
-            "No saved address found"
-          );
+      if (!latestAddress) {
+        toast.error("No saved address found");
 
-          setLatestLoading(false);
-          return;
-        }
-
-        setFormData({
-          fullName:
-            latestAddress.fullName || "",
-
-          phone:
-            String(
-              latestAddress.phone || ""
-            )
-              .replace(/\D/g, "")
-              .slice(0, 10),
-
-          pincode:
-            String(
-              latestAddress.pincode || ""
-            )
-              .replace(/\D/g, "")
-              .slice(0, 6),
-
-          houseNumber:
-            latestAddress.houseNumber || "",
-
-          area:
-            latestAddress.area || "",
-
-          landmark:
-            latestAddress.landmark || "",
-
-          city:
-            String(
-              latestAddress.city || ""
-            ).replace(
-              /[^A-Za-z\s]/g,
-              ""
-            ),
-
-          state:
-            String(
-              latestAddress.state || ""
-            ).replace(
-              /[^A-Za-z\s]/g,
-              ""
-            ),
-
-          country:
-            String(
-              latestAddress.country ||
-                "India"
-            ).replace(
-              /[^A-Za-z\s]/g,
-              ""
-            ),
-
-          latitude:
-            latestAddress.location
-              ?.latitude ?? null,
-
-          longitude:
-            latestAddress.location
-              ?.longitude ?? null,
-        });
-
-        setErrors({});
-
-        toast.success(
-          "Latest address loaded"
-        );
-      } else {
-        toast.error(
-          result.payload ||
-            "Failed to fetch latest address"
-        );
+        setLatestLoading(false);
+        return;
       }
 
-      setLatestLoading(false);
-    };
+      setFormData({
+        fullName: latestAddress.fullName || "",
+
+        phone: String(latestAddress.phone || "")
+          .replace(/\D/g, "")
+          .slice(0, 10),
+
+        pincode: String(latestAddress.pincode || "")
+          .replace(/\D/g, "")
+          .slice(0, 6),
+
+        houseNumber: latestAddress.houseNumber || "",
+
+        area: latestAddress.area || "",
+
+        landmark: latestAddress.landmark || "",
+
+        city: String(latestAddress.city || "").replace(/[^A-Za-z\s]/g, ""),
+
+        state: String(latestAddress.state || "").replace(/[^A-Za-z\s]/g, ""),
+
+        country: String(latestAddress.country || "India").replace(
+          /[^A-Za-z\s]/g,
+          "",
+        ),
+
+        latitude: latestAddress.location?.latitude ?? null,
+
+        longitude: latestAddress.location?.longitude ?? null,
+      });
+
+      setErrors({});
+
+      toast.success("Latest address loaded");
+    } else {
+      toast.error(result.payload || "Failed to fetch latest address");
+    }
+
+    setLatestLoading(false);
+  };
 
   // =====================================================
   // NOT LOGGED IN
@@ -699,18 +525,11 @@ export const Address = () => {
   // LABEL
   // =====================================================
 
-  const Label = ({
-    children,
-    required = false,
-  }) => (
+  const Label = ({ children, required = false }) => (
     <label className="block text-sm font-medium text-gray-700 mb-1.5">
       {children}
 
-      {required && (
-        <span className="text-red-500 ml-1">
-          *
-        </span>
-      )}
+      {required && <span className="text-red-500 ml-1">*</span>}
     </label>
   );
 
@@ -720,7 +539,6 @@ export const Address = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-6">
-
       {/* BACK */}
 
       <button
@@ -755,7 +573,6 @@ export const Address = () => {
           overflow-hidden
         "
       >
-
         {/* HEADER */}
 
         <div
@@ -798,20 +615,13 @@ export const Address = () => {
 
         {/* FORM */}
 
-        <form
-          onSubmit={HandleSubmit}
-          className="p-5 sm:p-6"
-        >
-
+        <form onSubmit={HandleSubmit} className="p-5 sm:p-6">
           {/* CURRENT LOCATION */}
 
           <div className="mb-6">
-
             <button
               type="button"
-              onClick={
-                HandleCurrentLocation
-              }
+              onClick={HandleCurrentLocation}
               disabled={locationLoading}
               className="
                 w-full
@@ -848,14 +658,13 @@ export const Address = () => {
             </button>
 
             <p className="text-[11px] text-gray-400 text-center mt-2">
-              Click here to automatically fill your
-              address using your current location.
+              Click here to automatically fill your address using your current
+              location.
             </p>
 
-            {formData.latitude !== null &&
-              formData.longitude !== null && (
-                <div
-                  className="
+            {formData.latitude !== null && formData.longitude !== null && (
+              <div
+                className="
                     mt-3
                     px-3
                     py-2
@@ -867,26 +676,21 @@ export const Address = () => {
                     text-green-700
                     text-center
                   "
-                >
-                  ✓ Current location detected
-                </div>
-              )}
+              >
+                ✓ Current location detected
+              </div>
+            )}
           </div>
 
           {/* INPUT GRID */}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
             {/* FULL NAME */}
 
             <div className="sm:col-span-2">
-
-              <Label required>
-                Full Name
-              </Label>
+              <Label required>Full Name</Label>
 
               <div className="relative">
-
                 <User
                   size={17}
                   className="
@@ -902,39 +706,25 @@ export const Address = () => {
                 <input
                   type="text"
                   name="fullName"
-                  value={
-                    formData.fullName
-                  }
-                  onChange={
-                    HandleChange
-                  }
+                  value={formData.fullName}
+                  onChange={HandleChange}
                   placeholder="Enter your full name"
                   autoComplete="name"
-                  className={`${InputClass(
-                    "fullName"
-                  )} pl-10`}
+                  className={`${InputClass("fullName")} pl-10`}
                 />
-
               </div>
 
               {errors.fullName && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.fullName}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.fullName}</p>
               )}
-
             </div>
 
             {/* PHONE */}
 
             <div>
-
-              <Label required>
-                Phone Number
-              </Label>
+              <Label required>Phone Number</Label>
 
               <div className="relative">
-
                 <Phone
                   size={17}
                   className="
@@ -950,12 +740,8 @@ export const Address = () => {
                 <input
                   type="tel"
                   name="phone"
-                  value={
-                    formData.phone
-                  }
-                  onChange={
-                    HandleChange
-                  }
+                  value={formData.phone}
+                  onChange={HandleChange}
                   placeholder="Enter 10-digit phone number"
                   maxLength={10}
                   inputMode="numeric"
@@ -966,61 +752,41 @@ export const Address = () => {
                     tracking-wide
                   `}
                 />
-
               </div>
 
               {errors.phone && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.phone}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
               )}
-
             </div>
 
             {/* PINCODE */}
 
             <div>
-
-              <Label required>
-                Pincode
-              </Label>
+              <Label required>Pincode</Label>
 
               <input
                 type="text"
                 name="pincode"
-                value={
-                  formData.pincode
-                }
-                onChange={
-                  HandleChange
-                }
+                value={formData.pincode}
+                onChange={HandleChange}
                 placeholder="6-digit pincode"
                 maxLength={6}
                 inputMode="numeric"
                 autoComplete="postal-code"
-                className={InputClass(
-                  "pincode"
-                )}
+                className={InputClass("pincode")}
               />
 
               {errors.pincode && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.pincode}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.pincode}</p>
               )}
-
             </div>
 
             {/* HOUSE */}
 
             <div>
-
-              <Label required>
-                Flat / House No. / Building
-              </Label>
+              <Label required>Flat / House No. / Building</Label>
 
               <div className="relative">
-
                 <Home
                   size={17}
                   className="
@@ -1036,19 +802,23 @@ export const Address = () => {
                 <input
                   type="text"
                   name="houseNumber"
-                  value={
-                    formData.houseNumber
-                  }
-                  onChange={
-                    HandleChange
-                  }
-                  placeholder="Flat, house no. or building"
-                  autoComplete="street-address"
-                  className={`${InputClass(
-                    "houseNumber"
-                  )} pl-10`}
-                />
+                  value={formData.houseNumber}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "").slice(0, 3);
 
+                    HandleChange({
+                      target: {
+                        name: "houseNumber",
+                        value: value,
+                      },
+                    });
+                  }}
+                  placeholder="Flat / House No."
+                  maxLength={3}
+                  inputMode="numeric"
+                  autoComplete="street-address"
+                  className={`${InputClass("houseNumber")} pl-10`}
+                />
               </div>
 
               {errors.houseNumber && (
@@ -1056,19 +826,14 @@ export const Address = () => {
                   {errors.houseNumber}
                 </p>
               )}
-
             </div>
 
             {/* AREA */}
 
             <div>
-
-              <Label required>
-                Area / Street
-              </Label>
+              <Label required>Area / Street</Label>
 
               <div className="relative">
-
                 <Navigation
                   size={17}
                   className="
@@ -1084,33 +849,22 @@ export const Address = () => {
                 <input
                   type="text"
                   name="area"
-                  value={
-                    formData.area
-                  }
-                  onChange={
-                    HandleChange
-                  }
+                  value={formData.area}
+                  onChange={HandleChange}
                   placeholder="Area, street or colony"
                   autoComplete="address-line2"
-                  className={`${InputClass(
-                    "area"
-                  )} pl-10`}
+                  className={`${InputClass("area")} pl-10`}
                 />
-
               </div>
 
               {errors.area && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.area}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.area}</p>
               )}
-
             </div>
 
             {/* LANDMARK */}
 
             <div className="sm:col-span-2">
-
               <Label>
                 Landmark
                 <span className="text-gray-400 font-normal ml-1">
@@ -1121,100 +875,63 @@ export const Address = () => {
               <input
                 type="text"
                 name="landmark"
-                value={
-                  formData.landmark
-                }
-                onChange={
-                  HandleChange
-                }
+                value={formData.landmark}
+                onChange={HandleChange}
                 placeholder="Nearby landmark"
-                className={InputClass(
-                  "landmark"
-                )}
+                className={InputClass("landmark")}
               />
 
               {errors.landmark && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.landmark}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.landmark}</p>
               )}
-
             </div>
 
             {/* CITY */}
 
             <div>
-
-              <Label required>
-                City
-              </Label>
+              <Label required>City</Label>
 
               <input
                 type="text"
                 name="city"
-                value={
-                  formData.city
-                }
-                onChange={
-                  HandleChange
-                }
+                value={formData.city}
+                onChange={HandleChange}
                 placeholder="Enter city"
                 autoComplete="address-level2"
-                className={InputClass(
-                  "city"
-                )}
+                className={InputClass("city")}
               />
 
               {errors.city && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.city}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.city}</p>
               )}
-
             </div>
 
             {/* STATE */}
 
             <div>
-
-              <Label required>
-                State
-              </Label>
+              <Label required>State</Label>
 
               <input
                 type="text"
                 name="state"
-                value={
-                  formData.state
-                }
-                onChange={
-                  HandleChange
-                }
+                value={formData.state}
+                onChange={HandleChange}
                 placeholder="Enter state"
                 autoComplete="address-level1"
-                className={InputClass(
-                  "state"
-                )}
+                className={InputClass("state")}
               />
 
               {errors.state && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.state}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.state}</p>
               )}
-
             </div>
 
             {/* COUNTRY */}
 
             <div className="sm:col-span-2">
-
-              <Label required>
-                Country
-              </Label>
+              <Label required>Country</Label>
 
               <div className="relative">
-
                 <Globe
                   size={17}
                   className="
@@ -1230,28 +947,17 @@ export const Address = () => {
                 <input
                   type="text"
                   name="country"
-                  value={
-                    formData.country
-                  }
-                  onChange={
-                    HandleChange
-                  }
+                  value={formData.country}
+                  onChange={HandleChange}
                   autoComplete="country-name"
-                  className={`${InputClass(
-                    "country"
-                  )} pl-10`}
+                  className={`${InputClass("country")} pl-10`}
                 />
-
               </div>
 
               {errors.country && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.country}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.country}</p>
               )}
-
             </div>
-
           </div>
 
           {/* BUTTONS */}
@@ -1268,16 +974,11 @@ export const Address = () => {
               gap-3
             "
           >
-
             {/* SAVE ADDRESS */}
 
             <button
               type="submit"
-              disabled={
-                loading ||
-                latestLoading ||
-                locationLoading
-              }
+              disabled={loading || latestLoading || locationLoading}
               className="
                 order-1
                 sm:order-2
@@ -1312,9 +1013,7 @@ export const Address = () => {
               ) : (
                 <>
                   <Save size={18} />
-                  <span>
-                    Save Address
-                  </span>
+                  <span>Save Address</span>
                 </>
               )}
             </button>
@@ -1323,14 +1022,8 @@ export const Address = () => {
 
             <button
               type="button"
-              onClick={
-                HandleGetLatestAddress
-              }
-              disabled={
-                loading ||
-                latestLoading ||
-                locationLoading
-              }
+              onClick={HandleGetLatestAddress}
+              disabled={loading || latestLoading || locationLoading}
               className="
                 order-2
                 sm:order-1
@@ -1366,19 +1059,13 @@ export const Address = () => {
               ) : (
                 <>
                   <RefreshCw size={18} />
-                  <span>
-                    Get Latest Address
-                  </span>
+                  <span>Get Latest Address</span>
                 </>
               )}
             </button>
-
           </div>
-
         </form>
-
       </div>
-
     </div>
   );
 };

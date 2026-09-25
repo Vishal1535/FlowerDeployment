@@ -24,13 +24,9 @@ export const BuySingleProductAddress = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading } = useSelector(
-    (state) => state.Address
-  );
+  const { loading } = useSelector((state) => state.Address);
 
-  const { isAuthorized } = useSelector(
-    (state) => state.user
-  );
+  const { isAuthorized } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (!isAuthorized) {
@@ -40,11 +36,9 @@ export const BuySingleProductAddress = () => {
     }
   }, [isAuthorized, navigate]);
 
-  const [latestLoading, setLatestLoading] =
-    useState(false);
+  const [latestLoading, setLatestLoading] = useState(false);
 
-  const [locationLoading, setLocationLoading] =
-    useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -76,9 +70,7 @@ export const BuySingleProductAddress = () => {
 
   // Only numbers
   const SanitizeDigits = (value, maxLength) => {
-    return value
-      .replace(/\D/g, "")
-      .slice(0, maxLength);
+    return value.replace(/\D/g, "").slice(0, maxLength);
   };
 
   // Address characters
@@ -86,10 +78,7 @@ export const BuySingleProductAddress = () => {
   // letters, numbers, spaces, . , / # ' ( ) -
   const SanitizeAddress = (value) => {
     return value
-      .replace(
-        /[^A-Za-z0-9\s.,/#'()-]/g,
-        ""
-      )
+      .replace(/[^A-Za-z0-9\s.,/#'()-]/g, "")
       .replace(/\s{2,}/g, " ")
       .replace(/^\s+/, "");
   };
@@ -112,14 +101,11 @@ export const BuySingleProductAddress = () => {
       phone: /\d/,
       pincode: /\d/,
 
-      houseNumber:
-        /[A-Za-z0-9\s.,/#'()-]/,
+      houseNumber: /[A-Za-z0-9\s.,/#'()-]/,
 
-      area:
-        /[A-Za-z0-9\s.,/#'()-]/,
+      area: /[A-Za-z0-9\s.,/#'()-]/,
 
-      landmark:
-        /[A-Za-z0-9\s.,/#'()-]/,
+      landmark: /[A-Za-z0-9\s.,/#'()-]/,
     };
 
     const pattern = patterns[field];
@@ -128,9 +114,7 @@ export const BuySingleProductAddress = () => {
 
     // If even one character is invalid,
     // prevent the input.
-    const isValid = [...input].every((char) =>
-      pattern.test(char)
-    );
+    const isValid = [...input].every((char) => pattern.test(char));
 
     if (!isValid) {
       e.preventDefault();
@@ -152,27 +136,23 @@ export const BuySingleProductAddress = () => {
       case "city":
       case "state":
       case "country":
-        sanitizedValue =
-          SanitizeLetters(value);
+        sanitizedValue = SanitizeLetters(value);
         break;
 
       // Numbers only
       case "phone":
-        sanitizedValue =
-          SanitizeDigits(value, 10);
+        sanitizedValue = SanitizeDigits(value, 10);
         break;
 
       case "pincode":
-        sanitizedValue =
-          SanitizeDigits(value, 6);
+        sanitizedValue = SanitizeDigits(value, 6);
         break;
 
       // Address-safe characters
       case "houseNumber":
       case "area":
       case "landmark":
-        sanitizedValue =
-          SanitizeAddress(value);
+        sanitizedValue = SanitizeAddress(value);
         break;
 
       default:
@@ -198,9 +178,7 @@ export const BuySingleProductAddress = () => {
 
   const HandleCurrentLocation = () => {
     if (!navigator.geolocation) {
-      toast.error(
-        "Geolocation is not supported by your browser"
-      );
+      toast.error("Geolocation is not supported by your browser");
       return;
     }
 
@@ -209,11 +187,9 @@ export const BuySingleProductAddress = () => {
     navigator.geolocation.getCurrentPosition(
       async (location) => {
         try {
-          const latitude =
-            location.coords.latitude;
+          const latitude = location.coords.latitude;
 
-          const longitude =
-            location.coords.longitude;
+          const longitude = location.coords.longitude;
 
           const response = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&addressdetails=1`,
@@ -221,31 +197,25 @@ export const BuySingleProductAddress = () => {
               headers: {
                 Accept: "application/json",
               },
-            }
+            },
           );
 
           if (!response.ok) {
-            throw new Error(
-              "Failed to fetch address"
-            );
+            throw new Error("Failed to fetch address");
           }
 
           const data = await response.json();
 
-          const address =
-            data?.address || {};
+          const address = data?.address || {};
 
-          const pincode = SanitizeDigits(
-            address.postcode || "",
-            6
-          );
+          const pincode = SanitizeDigits(address.postcode || "", 6);
 
           const area = SanitizeAddress(
             address.suburb ||
               address.neighbourhood ||
               address.residential ||
               address.road ||
-              ""
+              "",
           );
 
           const city = SanitizeLetters(
@@ -253,28 +223,19 @@ export const BuySingleProductAddress = () => {
               address.town ||
               address.village ||
               address.municipality ||
-              ""
+              "",
           );
 
-          const state = SanitizeLetters(
-            address.state || ""
-          );
+          const state = SanitizeLetters(address.state || "");
 
-          const country = SanitizeLetters(
-            address.country || "India"
-          );
+          const country = SanitizeLetters(address.country || "India");
 
-          const houseNumber =
-            SanitizeAddress(
-              address.house_number || ""
-            );
+          const houseNumber = SanitizeAddress(address.house_number || "");
 
           setFormData((prev) => ({
             ...prev,
             pincode,
-            houseNumber:
-              houseNumber ||
-              prev.houseNumber,
+            houseNumber: houseNumber || prev.houseNumber,
             area,
             city,
             state,
@@ -293,25 +254,18 @@ export const BuySingleProductAddress = () => {
             country: "",
           }));
 
-          toast.success(
-            "Current location detected and address filled"
-          );
+          toast.success("Current location detected and address filled");
         } catch (error) {
-          console.error(
-            "Reverse Geocoding Error:",
-            error
-          );
+          console.error("Reverse Geocoding Error:", error);
 
           toast.error(
-            "Location detected, but address could not be found. Please enter the address manually."
+            "Location detected, but address could not be found. Please enter the address manually.",
           );
 
           setFormData((prev) => ({
             ...prev,
-            latitude:
-              location.coords.latitude,
-            longitude:
-              location.coords.longitude,
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
           }));
         } finally {
           setLocationLoading(false);
@@ -319,29 +273,20 @@ export const BuySingleProductAddress = () => {
       },
 
       (error) => {
-        console.error(
-          "Location Error:",
-          error
-        );
+        console.error("Location Error:", error);
 
         setLocationLoading(false);
 
         if (error.code === 1) {
           toast.error(
-            "Location permission denied. Please allow location access."
+            "Location permission denied. Please allow location access.",
           );
         } else if (error.code === 2) {
-          toast.error(
-            "Unable to detect your location."
-          );
+          toast.error("Unable to detect your location.");
         } else if (error.code === 3) {
-          toast.error(
-            "Location request timed out."
-          );
+          toast.error("Location request timed out.");
         } else {
-          toast.error(
-            "Failed to get current location."
-          );
+          toast.error("Failed to get current location.");
         }
       },
 
@@ -349,7 +294,7 @@ export const BuySingleProductAddress = () => {
         enableHighAccuracy: true,
         timeout: 15000,
         maximumAge: 0,
-      }
+      },
     );
   };
 
@@ -361,92 +306,56 @@ export const BuySingleProductAddress = () => {
     const newErrors = {};
 
     if (!formData.fullName.trim()) {
-      newErrors.fullName =
-        "Full name is required";
-    } else if (
-      formData.fullName.trim().length < 2
-    ) {
-      newErrors.fullName =
-        "Full name must be at least 2 characters";
+      newErrors.fullName = "Full name is required";
+    } else if (formData.fullName.trim().length < 2) {
+      newErrors.fullName = "Full name must be at least 2 characters";
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone =
-        "Phone number is required";
-    } else if (
-      !/^[6-9]\d{9}$/.test(
-        formData.phone
-      )
-    ) {
-      newErrors.phone =
-        "Enter a valid 10-digit phone number";
+      newErrors.phone = "Phone number is required";
+    } else if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      newErrors.phone = "Enter a valid 10-digit phone number";
     }
 
     if (!formData.pincode.trim()) {
-      newErrors.pincode =
-        "Pincode is required";
-    } else if (
-      !/^\d{6}$/.test(
-        formData.pincode
-      )
-    ) {
-      newErrors.pincode =
-        "Pincode must be exactly 6 digits";
+      newErrors.pincode = "Pincode is required";
+    } else if (!/^\d{6}$/.test(formData.pincode)) {
+      newErrors.pincode = "Pincode must be exactly 6 digits";
     }
 
     if (!formData.houseNumber.trim()) {
-      newErrors.houseNumber =
-        "Flat / house / building is required";
+      newErrors.houseNumber = "Flat / house / building is required";
     }
 
     if (!formData.area.trim()) {
-      newErrors.area =
-        "Area / street is required";
-    } else if (
-      formData.area.trim().length < 2
-    ) {
-      newErrors.area =
-        "Area must be at least 2 characters";
+      newErrors.area = "Area / street is required";
+    } else if (formData.area.trim().length < 2) {
+      newErrors.area = "Area must be at least 2 characters";
     }
 
-    if (
-      formData.landmark.trim() &&
-      formData.landmark.trim().length < 2
-    ) {
-      newErrors.landmark =
-        "Landmark must be at least 2 characters";
+    if (formData.landmark.trim() && formData.landmark.trim().length < 2) {
+      newErrors.landmark = "Landmark must be at least 2 characters";
     }
 
     if (!formData.city.trim()) {
-      newErrors.city =
-        "City is required";
-    } else if (
-      formData.city.trim().length < 2
-    ) {
-      newErrors.city =
-        "City must be at least 2 characters";
+      newErrors.city = "City is required";
+    } else if (formData.city.trim().length < 2) {
+      newErrors.city = "City must be at least 2 characters";
     }
 
     if (!formData.state.trim()) {
-      newErrors.state =
-        "State is required";
-    } else if (
-      formData.state.trim().length < 2
-    ) {
-      newErrors.state =
-        "State must be at least 2 characters";
+      newErrors.state = "State is required";
+    } else if (formData.state.trim().length < 2) {
+      newErrors.state = "State must be at least 2 characters";
     }
 
     if (!formData.country.trim()) {
-      newErrors.country =
-        "Country is required";
+      newErrors.country = "Country is required";
     }
 
     setErrors(newErrors);
 
-    return (
-      Object.keys(newErrors).length === 0
-    );
+    return Object.keys(newErrors).length === 0;
   };
 
   // =====================================================
@@ -457,57 +366,38 @@ export const BuySingleProductAddress = () => {
     e.preventDefault();
 
     if (!ValidateForm()) {
-      toast.error(
-        "Please correct the highlighted fields"
-      );
+      toast.error("Please correct the highlighted fields");
       return;
     }
 
     const cleanedData = {
-      fullName:
-        formData.fullName.trim(),
+      fullName: formData.fullName.trim(),
 
-      phone:
-        formData.phone.trim(),
+      phone: formData.phone.trim(),
 
-      pincode:
-        formData.pincode.trim(),
+      pincode: formData.pincode.trim(),
 
-      houseNumber:
-        formData.houseNumber.trim(),
+      houseNumber: formData.houseNumber.trim(),
 
-      area:
-        formData.area.trim(),
+      area: formData.area.trim(),
 
-      landmark:
-        formData.landmark.trim(),
+      landmark: formData.landmark.trim(),
 
-      city:
-        formData.city.trim(),
+      city: formData.city.trim(),
 
-      state:
-        formData.state.trim(),
+      state: formData.state.trim(),
 
-      country:
-        formData.country.trim(),
+      country: formData.country.trim(),
 
-      latitude:
-        formData.latitude,
+      latitude: formData.latitude,
 
-      longitude:
-        formData.longitude,
+      longitude: formData.longitude,
     };
 
-    const result = await dispatch(
-      AddAddressThunk(cleanedData)
-    );
+    const result = await dispatch(AddAddressThunk(cleanedData));
 
-    if (
-      AddAddressThunk.fulfilled.match(result)
-    ) {
-      toast.success(
-        "Address added successfully"
-      );
+    if (AddAddressThunk.fulfilled.match(result)) {
+      toast.success("Address added successfully");
 
       setFormData({
         fullName: "",
@@ -525,14 +415,9 @@ export const BuySingleProductAddress = () => {
 
       setErrors({});
 
-      navigate(
-        "/buy-single-product-checkout"
-      );
+      navigate("/buy-single-product-checkout");
     } else {
-      toast.error(
-        result.payload ||
-          "Failed to add address"
-      );
+      toast.error(result.payload || "Failed to add address");
     }
   };
 
@@ -540,94 +425,54 @@ export const BuySingleProductAddress = () => {
   // GET LATEST ADDRESS
   // =====================================================
 
-  const HandleGetLatestAddress =
-    async () => {
-      setLatestLoading(true);
+  const HandleGetLatestAddress = async () => {
+    setLatestLoading(true);
 
-      const result = await dispatch(
-        GetLatestAddressThunk()
-      );
+    const result = await dispatch(GetLatestAddressThunk());
 
-      if (
-        GetLatestAddressThunk.fulfilled.match(
-          result
-        )
-      ) {
-        const latestAddress =
-          result.payload?.address;
+    if (GetLatestAddressThunk.fulfilled.match(result)) {
+      const latestAddress = result.payload?.address;
 
-        if (!latestAddress) {
-          toast.error(
-            "No saved address found"
-          );
+      if (!latestAddress) {
+        toast.error("No saved address found");
 
-          setLatestLoading(false);
-          return;
-        }
-
-        setFormData({
-          fullName: SanitizeLetters(
-            latestAddress.fullName || ""
-          ),
-
-          phone: SanitizeDigits(
-            latestAddress.phone || "",
-            10
-          ),
-
-          pincode: SanitizeDigits(
-            latestAddress.pincode || "",
-            6
-          ),
-
-          houseNumber: SanitizeAddress(
-            latestAddress.houseNumber || ""
-          ),
-
-          area: SanitizeAddress(
-            latestAddress.area || ""
-          ),
-
-          landmark: SanitizeAddress(
-            latestAddress.landmark || ""
-          ),
-
-          city: SanitizeLetters(
-            latestAddress.city || ""
-          ),
-
-          state: SanitizeLetters(
-            latestAddress.state || ""
-          ),
-
-          country: SanitizeLetters(
-            latestAddress.country ||
-              "India"
-          ),
-
-          latitude:
-            latestAddress.location
-              ?.latitude ?? null,
-
-          longitude:
-            latestAddress.location
-              ?.longitude ?? null,
-        });
-
-        setErrors({});
-
-        toast.success(
-          "Latest address loaded"
-        );
-      } else {
-        toast.error(
-          result.payload ||
-            "Failed to fetch latest address"
-        );
+        setLatestLoading(false);
+        return;
       }
 
-      setLatestLoading(false);
-    };
+      setFormData({
+        fullName: SanitizeLetters(latestAddress.fullName || ""),
+
+        phone: SanitizeDigits(latestAddress.phone || "", 10),
+
+        pincode: SanitizeDigits(latestAddress.pincode || "", 6),
+
+        houseNumber: SanitizeAddress(latestAddress.houseNumber || ""),
+
+        area: SanitizeAddress(latestAddress.area || ""),
+
+        landmark: SanitizeAddress(latestAddress.landmark || ""),
+
+        city: SanitizeLetters(latestAddress.city || ""),
+
+        state: SanitizeLetters(latestAddress.state || ""),
+
+        country: SanitizeLetters(latestAddress.country || "India"),
+
+        latitude: latestAddress.location?.latitude ?? null,
+
+        longitude: latestAddress.location?.longitude ?? null,
+      });
+
+      setErrors({});
+
+      toast.success("Latest address loaded");
+    } else {
+      toast.error(result.payload || "Failed to fetch latest address");
+    }
+
+    setLatestLoading(false);
+  };
 
   // =====================================================
   // NOT LOGGED IN
@@ -663,18 +508,11 @@ export const BuySingleProductAddress = () => {
   // LABEL
   // =====================================================
 
-  const Label = ({
-    children,
-    required = false,
-  }) => (
+  const Label = ({ children, required = false }) => (
     <label className="block text-sm font-medium text-gray-700 mb-1.5">
       {children}
 
-      {required && (
-        <span className="text-red-500 ml-1">
-          *
-        </span>
-      )}
+      {required && <span className="text-red-500 ml-1">*</span>}
     </label>
   );
 
@@ -684,7 +522,6 @@ export const BuySingleProductAddress = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-6">
-
       {/* BACK */}
 
       <button
@@ -712,13 +549,10 @@ export const BuySingleProductAddress = () => {
       ================================================= */}
 
       <div className="mb-6">
-
         <div className="flex items-center justify-center gap-2 sm:gap-3">
-
           {/* STEP 1 */}
 
           <div className="flex items-center gap-2">
-
             <div
               className="
                 w-8
@@ -740,7 +574,6 @@ export const BuySingleProductAddress = () => {
             <span className="hidden sm:block text-sm font-semibold text-green-600">
               Product
             </span>
-
           </div>
 
           <div className="w-8 sm:w-14 h-px bg-green-300" />
@@ -748,7 +581,6 @@ export const BuySingleProductAddress = () => {
           {/* STEP 2 */}
 
           <div className="flex items-center gap-2">
-
             <div
               className="
                 w-8
@@ -767,10 +599,7 @@ export const BuySingleProductAddress = () => {
               2
             </div>
 
-            <span className="text-sm font-bold text-pink-600">
-              Address
-            </span>
-
+            <span className="text-sm font-bold text-pink-600">Address</span>
           </div>
 
           <div className="w-8 sm:w-14 h-px bg-gray-200" />
@@ -778,7 +607,6 @@ export const BuySingleProductAddress = () => {
           {/* STEP 3 */}
 
           <div className="flex items-center gap-2">
-
             <div
               className="
                 w-8
@@ -800,11 +628,8 @@ export const BuySingleProductAddress = () => {
             <span className="hidden sm:block text-sm font-medium text-gray-400">
               Checkout
             </span>
-
           </div>
-
         </div>
-
       </div>
 
       {/* =================================================
@@ -821,7 +646,6 @@ export const BuySingleProductAddress = () => {
           overflow-hidden
         "
       >
-
         {/* HEADER */}
 
         <div
@@ -836,7 +660,6 @@ export const BuySingleProductAddress = () => {
             gap-3
           "
         >
-
           <div
             className="
               w-10
@@ -854,7 +677,6 @@ export const BuySingleProductAddress = () => {
           </div>
 
           <div className="min-w-0">
-
             <h2 className="text-lg font-bold text-gray-800">
               Delivery Address
             </h2>
@@ -862,27 +684,18 @@ export const BuySingleProductAddress = () => {
             <p className="text-xs text-gray-400 mt-0.5">
               Enter your delivery details
             </p>
-
           </div>
-
         </div>
 
         {/* FORM */}
 
-        <form
-          onSubmit={HandleSubmit}
-          className="p-5 sm:p-6"
-        >
-
+        <form onSubmit={HandleSubmit} className="p-5 sm:p-6">
           {/* CURRENT LOCATION */}
 
           <div className="mb-6">
-
             <button
               type="button"
-              onClick={
-                HandleCurrentLocation
-              }
+              onClick={HandleCurrentLocation}
               disabled={locationLoading}
               className="
                 w-full
@@ -905,7 +718,6 @@ export const BuySingleProductAddress = () => {
                 cursor-pointer
               "
             >
-
               {locationLoading ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
@@ -917,18 +729,16 @@ export const BuySingleProductAddress = () => {
                   Use My Current Location
                 </>
               )}
-
             </button>
 
             <p className="text-[11px] text-gray-400 text-center mt-2">
-              Click here to automatically fill your
-              address using your current location.
+              Click here to automatically fill your address using your current
+              location.
             </p>
 
-            {formData.latitude !== null &&
-              formData.longitude !== null && (
-                <div
-                  className="
+            {formData.latitude !== null && formData.longitude !== null && (
+              <div
+                className="
                     mt-3
                     px-3
                     py-2
@@ -940,27 +750,21 @@ export const BuySingleProductAddress = () => {
                     text-green-700
                     text-center
                   "
-                >
-                  ✓ Current location detected
-                </div>
-              )}
-
+              >
+                ✓ Current location detected
+              </div>
+            )}
           </div>
 
           {/* INPUT GRID */}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
             {/* FULL NAME */}
 
             <div className="sm:col-span-2">
-
-              <Label required>
-                Full Name
-              </Label>
+              <Label required>Full Name</Label>
 
               <div className="relative">
-
                 <User
                   size={17}
                   className="
@@ -976,44 +780,25 @@ export const BuySingleProductAddress = () => {
                 <input
                   type="text"
                   name="fullName"
-                  value={
-                    formData.fullName
-                  }
-                  onChange={
-                    HandleChange
-                  }
-                  onBeforeInput={(e) =>
-                    HandleBeforeInput(
-                      e,
-                      "fullName"
-                    )
-                  }
+                  value={formData.fullName}
+                  onChange={HandleChange}
+                  onBeforeInput={(e) => HandleBeforeInput(e, "fullName")}
                   placeholder="Enter your full name"
-                  className={`${InputClass(
-                    "fullName"
-                  )} pl-10`}
+                  className={`${InputClass("fullName")} pl-10`}
                 />
-
               </div>
 
               {errors.fullName && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.fullName}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.fullName}</p>
               )}
-
             </div>
 
             {/* PHONE NUMBER */}
 
             <div>
-
-              <Label required>
-                Phone Number
-              </Label>
+              <Label required>Phone Number</Label>
 
               <div className="relative">
-
                 <Phone
                   size={17}
                   className="
@@ -1029,18 +814,9 @@ export const BuySingleProductAddress = () => {
                 <input
                   type="tel"
                   name="phone"
-                  value={
-                    formData.phone
-                  }
-                  onChange={
-                    HandleChange
-                  }
-                  onBeforeInput={(e) =>
-                    HandleBeforeInput(
-                      e,
-                      "phone"
-                    )
-                  }
+                  value={formData.phone}
+                  onChange={HandleChange}
+                  onBeforeInput={(e) => HandleBeforeInput(e, "phone")}
                   placeholder="Enter 10-digit phone number"
                   maxLength={10}
                   inputMode="numeric"
@@ -1051,66 +827,41 @@ export const BuySingleProductAddress = () => {
                     tracking-wide
                   `}
                 />
-
               </div>
 
               {errors.phone && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.phone}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
               )}
-
             </div>
 
             {/* PINCODE */}
 
             <div>
-
-              <Label required>
-                Pincode
-              </Label>
+              <Label required>Pincode</Label>
 
               <input
                 type="text"
                 name="pincode"
-                value={
-                  formData.pincode
-                }
-                onChange={
-                  HandleChange
-                }
-                onBeforeInput={(e) =>
-                  HandleBeforeInput(
-                    e,
-                    "pincode"
-                  )
-                }
+                value={formData.pincode}
+                onChange={HandleChange}
+                onBeforeInput={(e) => HandleBeforeInput(e, "pincode")}
                 placeholder="6-digit pincode"
                 maxLength={6}
                 inputMode="numeric"
-                className={InputClass(
-                  "pincode"
-                )}
+                className={InputClass("pincode")}
               />
 
               {errors.pincode && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.pincode}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.pincode}</p>
               )}
-
             </div>
 
             {/* HOUSE */}
 
             <div>
-
-              <Label required>
-                Flat / House No. / Building
-              </Label>
+              <Label required>Flat / House No. / Building</Label>
 
               <div className="relative">
-
                 <Home
                   size={17}
                   className="
@@ -1126,24 +877,23 @@ export const BuySingleProductAddress = () => {
                 <input
                   type="text"
                   name="houseNumber"
-                  value={
-                    formData.houseNumber
-                  }
-                  onChange={
-                    HandleChange
-                  }
-                  onBeforeInput={(e) =>
-                    HandleBeforeInput(
-                      e,
-                      "houseNumber"
-                    )
-                  }
-                  placeholder="Flat, house no. or building"
-                  className={`${InputClass(
-                    "houseNumber"
-                  )} pl-10`}
-                />
+                  value={formData.houseNumber}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "").slice(0, 3);
 
+                    HandleChange({
+                      target: {
+                        name: "houseNumber",
+                        value: value,
+                      },
+                    });
+                  }}
+                  placeholder="Flat / House No."
+                  maxLength={3}
+                  inputMode="numeric"
+                  autoComplete="street-address"
+                  className={`${InputClass("houseNumber")} pl-10`}
+                />
               </div>
 
               {errors.houseNumber && (
@@ -1151,19 +901,14 @@ export const BuySingleProductAddress = () => {
                   {errors.houseNumber}
                 </p>
               )}
-
             </div>
 
             {/* AREA */}
 
             <div>
-
-              <Label required>
-                Area / Street
-              </Label>
+              <Label required>Area / Street</Label>
 
               <div className="relative">
-
                 <Navigation
                   size={17}
                   className="
@@ -1179,38 +924,22 @@ export const BuySingleProductAddress = () => {
                 <input
                   type="text"
                   name="area"
-                  value={
-                    formData.area
-                  }
-                  onChange={
-                    HandleChange
-                  }
-                  onBeforeInput={(e) =>
-                    HandleBeforeInput(
-                      e,
-                      "area"
-                    )
-                  }
+                  value={formData.area}
+                  onChange={HandleChange}
+                  onBeforeInput={(e) => HandleBeforeInput(e, "area")}
                   placeholder="Area, street or colony"
-                  className={`${InputClass(
-                    "area"
-                  )} pl-10`}
+                  className={`${InputClass("area")} pl-10`}
                 />
-
               </div>
 
               {errors.area && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.area}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.area}</p>
               )}
-
             </div>
 
             {/* LANDMARK */}
 
             <div className="sm:col-span-2">
-
               <Label>
                 Landmark
                 <span className="text-gray-400 font-normal ml-1">
@@ -1221,116 +950,64 @@ export const BuySingleProductAddress = () => {
               <input
                 type="text"
                 name="landmark"
-                value={
-                  formData.landmark
-                }
-                onChange={
-                  HandleChange
-                }
-                onBeforeInput={(e) =>
-                  HandleBeforeInput(
-                    e,
-                    "landmark"
-                  )
-                }
+                value={formData.landmark}
+                onChange={HandleChange}
+                onBeforeInput={(e) => HandleBeforeInput(e, "landmark")}
                 placeholder="Nearby landmark"
-                className={InputClass(
-                  "landmark"
-                )}
+                className={InputClass("landmark")}
               />
 
               {errors.landmark && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.landmark}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.landmark}</p>
               )}
-
             </div>
 
             {/* CITY */}
 
             <div>
-
-              <Label required>
-                City
-              </Label>
+              <Label required>City</Label>
 
               <input
                 type="text"
                 name="city"
-                value={
-                  formData.city
-                }
-                onChange={
-                  HandleChange
-                }
-                onBeforeInput={(e) =>
-                  HandleBeforeInput(
-                    e,
-                    "city"
-                  )
-                }
+                value={formData.city}
+                onChange={HandleChange}
+                onBeforeInput={(e) => HandleBeforeInput(e, "city")}
                 placeholder="Enter city"
-                className={InputClass(
-                  "city"
-                )}
+                className={InputClass("city")}
               />
 
               {errors.city && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.city}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.city}</p>
               )}
-
             </div>
 
             {/* STATE */}
 
             <div>
-
-              <Label required>
-                State
-              </Label>
+              <Label required>State</Label>
 
               <input
                 type="text"
                 name="state"
-                value={
-                  formData.state
-                }
-                onChange={
-                  HandleChange
-                }
-                onBeforeInput={(e) =>
-                  HandleBeforeInput(
-                    e,
-                    "state"
-                  )
-                }
+                value={formData.state}
+                onChange={HandleChange}
+                onBeforeInput={(e) => HandleBeforeInput(e, "state")}
                 placeholder="Enter state"
-                className={InputClass(
-                  "state"
-                )}
+                className={InputClass("state")}
               />
 
               {errors.state && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.state}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.state}</p>
               )}
-
             </div>
 
             {/* COUNTRY */}
 
             <div className="sm:col-span-2">
-
-              <Label required>
-                Country
-              </Label>
+              <Label required>Country</Label>
 
               <div className="relative">
-
                 <Globe
                   size={17}
                   className="
@@ -1346,33 +1023,17 @@ export const BuySingleProductAddress = () => {
                 <input
                   type="text"
                   name="country"
-                  value={
-                    formData.country
-                  }
-                  onChange={
-                    HandleChange
-                  }
-                  onBeforeInput={(e) =>
-                    HandleBeforeInput(
-                      e,
-                      "country"
-                    )
-                  }
-                  className={`${InputClass(
-                    "country"
-                  )} pl-10`}
+                  value={formData.country}
+                  onChange={HandleChange}
+                  onBeforeInput={(e) => HandleBeforeInput(e, "country")}
+                  className={`${InputClass("country")} pl-10`}
                 />
-
               </div>
 
               {errors.country && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.country}
-                </p>
+                <p className="text-xs text-red-500 mt-1">{errors.country}</p>
               )}
-
             </div>
-
           </div>
 
           {/* =================================================
@@ -1391,16 +1052,11 @@ export const BuySingleProductAddress = () => {
               gap-3
             "
           >
-
             {/* SAVE ADDRESS */}
 
             <button
               type="submit"
-              disabled={
-                loading ||
-                latestLoading ||
-                locationLoading
-              }
+              disabled={loading || latestLoading || locationLoading}
               className="
                 order-1
                 sm:order-2
@@ -1440,7 +1096,6 @@ export const BuySingleProductAddress = () => {
                 cursor-pointer
               "
             >
-
               {loading ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
@@ -1452,21 +1107,14 @@ export const BuySingleProductAddress = () => {
                   <span>Save Address</span>
                 </>
               )}
-
             </button>
 
             {/* GET LATEST ADDRESS */}
 
             <button
               type="button"
-              onClick={
-                HandleGetLatestAddress
-              }
-              disabled={
-                loading ||
-                latestLoading ||
-                locationLoading
-              }
+              onClick={HandleGetLatestAddress}
+              disabled={loading || latestLoading || locationLoading}
               className="
                 order-2
                 sm:order-1
@@ -1506,7 +1154,6 @@ export const BuySingleProductAddress = () => {
                 cursor-pointer
               "
             >
-
               {latestLoading ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
@@ -1518,15 +1165,10 @@ export const BuySingleProductAddress = () => {
                   <span>Get Latest Address</span>
                 </>
               )}
-
             </button>
-
           </div>
-
         </form>
-
       </div>
-
     </div>
   );
 };
